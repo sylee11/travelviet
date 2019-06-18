@@ -11,4 +11,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
+<<<<<<< HEAD
 
+=======
+//edit check for git
+//edit 2
+>>>>>>> be6230d27b49cf323bd214194d6edaa990d408c5
