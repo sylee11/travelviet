@@ -11,4 +11,10 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
+<<<<<<< HEAD
 //edit check for git 2
+=======
+//edit check for git
+//edit 2
+//edit 3	
+>>>>>>> feature/sylv/init_project
