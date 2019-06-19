@@ -12,8 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layout.index');
 });
 Route::get('/abc', function () {
     echo "Hello WORkD le";
+});
+Route::get('/account' , function(){
+	return view('login');	
 });
