@@ -15,5 +15,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/abc', function () {
-    echo "Hello WORkD 2";
+    echo "Hello WORkD le";
 });
