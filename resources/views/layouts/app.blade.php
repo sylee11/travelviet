@@ -8,6 +8,10 @@
 </head>
 <body>
 	@include('includes.header')
+	@include('includes.menutop')
+	@include('includes.slide_show')
+	@section('content1')
+
 	<div class="container">
 	<div class="col-md-12">
 		@yield('content')
@@ -25,5 +29,6 @@
 	@show
 	</div>
 	</div>
+	@include('includes.footer')
 </body>
 </html>
