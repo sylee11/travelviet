@@ -14,7 +14,8 @@ class CreateTypePlacesTable extends Migration
     public function up()
     {
         Schema::create('type_places', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('typeplaceid');
+            $table->string('nametypeplace');
             $table->timestamps();
         });
     }

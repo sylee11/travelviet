@@ -14,7 +14,9 @@ class CreatePhotoPlacesTable extends Migration
     public function up()
     {
         Schema::create('photo_places', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('photoid');
+            $table->integer('placeid');
+            $table->string('photo_path');
             $table->timestamps();
         });
     }
