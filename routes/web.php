@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('layout.index');
+    return view('pages.home');
 });
 Route::get('/abc', function () {
     echo "Hello WORkD le";
