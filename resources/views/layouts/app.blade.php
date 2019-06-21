@@ -8,6 +8,7 @@
 </head>
 <body>
 	@include('includes.header')
+	@include('includes.slide_show')
 	<div class="container">
 	<div class="col-md-12">
 		@yield('content')
