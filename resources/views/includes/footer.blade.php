@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"  >
   <style>
     .footer {
+
      background-size: cover;
      left: 0;
      bottom: 0;
@@ -12,7 +13,8 @@
      background-color: #5f5f5f;
      color: white;
      text-align: center;
-     max-height: 400px; 
+     max-height: 500px; 
+
    }
  </style>
 </head>
