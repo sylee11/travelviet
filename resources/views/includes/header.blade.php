@@ -5,12 +5,12 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
 <body>
-	<nav class="navbar navbar-expand-sm " style="background-color: #2E4D43;">
+	<nav class="navbar navbar-expand-sm " style="background-color: #5f5f5f;">
 
 	 	<!-- Links -->
 	  	<ul class="navbar-nav" style="padding-left: 50px;">
 		    <li class="nav-item">
-		     	<a class="nav-link" href="#"><i class="fab fa-facebook-square" style= " background-color : black;"></i></a>
+		     	<a class="nav-link" href="#"><i class="fab fa-facebook-square" style= " "></i></a>
 		    </li>
 		    <li class="nav-item">
 		      <a class="nav-link" href="#"><i class="fab fa-twitter-square" style=""></i></a>
