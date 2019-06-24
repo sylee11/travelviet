@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTypePlacesTable extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTypePlacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('type_places', function (Blueprint $table) {
-            $table->bigIncrements('typeplaceid');
-            $table->string('nametypeplace');
+        Schema::create('categories', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateTypePlacesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('type_places');
+        Schema::dropIfExists('categories');
     }
 }
