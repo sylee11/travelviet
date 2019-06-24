@@ -25,3 +25,12 @@ Route::get('/',function(){
 });
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('login','LoginController@getLogin')->name('login');
+Route::get('/admin',function(){
+	return view('admin.index');
+});
+Route::get('/tables',function(){
+	return view('admin.tables');
+});
+Route::get('/charts',function(){
+	return view('admin.charts');
+});
