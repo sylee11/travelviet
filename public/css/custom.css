@@ -1,0 +1,55 @@
+header {
+  position: relative;
+  width: 100%;
+  height: 900px;
+  min-height: auto;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-image: url('http://eskipaper.com/images/minneapolis-1.jpg');
+  text-align: center;
+  color: white;
+}
+.header-content {
+  background-color: rgba(0,0,0,0.6);
+  position: relative;
+  text-align: center;
+  padding: 100px 15px 100px;
+  width: 100%;
+}
+
+.header-content .header-content-inner
+{
+  margin: 50px 20px;
+}
+
+#main-footer .contactnumber {
+  color: #9b9b9b;
+  margin-top: 10px;
+  font-size: 1.5em;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+#main-footer .copyright
+{
+  font-weight: lighter;
+  font-size: 1em;
+}
+#main-footer .social {
+  margin-bottom: 10px;
+  color: #9b9b9b;
+}
+
+ul .inline-list-style {
+  list-style: none;
+}
+
+.list_style {
+  list-style-type: none;
+}
+#main-footer .column
+{
+  margin-top:20px;
+}

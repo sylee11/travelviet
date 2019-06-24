@@ -1,18 +1,19 @@
 @extends('layouts.app')
-@section('content1')
- 	<h2 style="text-align: center;">HOT ĐỊA ĐIỂM TRONG TUẦN</h2>
-  <div class="row">
-    <div class="col-4 bg-success">.col-4</div>
-    <div class="col-4 bg-warning">.col-4</div>
-    <div class="col-4 bg-success">.col-4</div>
+
+@section('content')
+
+<header>
+  <div class="header-content">
+    <div class="header-content-inner">
+        <h1 id="homeHeading">Travel Việt - Du Lịch Trong Tầm Tay Bạn</h1>
+        <hr>
+        <p><h3>XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</h3></p>
+            <button data-toggle="collapse" data-target="#demo" class="btn btn-primary page-scroll ">Tìm kiếm địa điểm</button>
+         <div id="demo" class="collapse">
+                @include('includes.search_slide')
+        </div>
+    </div>
   </div>
+</header>
 @endsection
 
-@section('content2')
- 	<h2 style="text-align: center;">Di tích lịch sử</h2>
-  <div class="row">
-    <div class="col-4 bg-success">.col-4</div>
-    <div class="col-4 bg-warning">.col-4</div>
-    <div class="col-4 bg-success">.col-4</div>
-  </div>
-@endsection
