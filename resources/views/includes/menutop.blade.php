@@ -5,9 +5,9 @@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light" style="padding-top: 50px; color:blue;">
 			  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 			    <div class="navbar-nav">
-			      <a class="nav-item nav-link " href="#" style="color: blue" >Thắng cảnh <span class="sr-only">(current)</span></a>
-			      <a class="nav-item nav-link " style="color: blue" href="#">Resort</a>
-			      <a class="nav-item nav-link" style="color: blue" href="#">Danh lam</a>
+			      <a class="nav-item nav-link " href="#" style="color: blue" >Trong nước  <span class="sr-only">(current)</span></a>
+			      <a class="nav-item nav-link " style="color: blue" href="#">Ngoài nước </a>
+			      <a class="nav-item nav-link" style="color: blue" href="#">Liên hệ</a>
 			    </div>
 			  </div>
 		</nav>

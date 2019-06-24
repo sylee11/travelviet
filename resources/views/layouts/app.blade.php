@@ -10,11 +10,11 @@
 	@include('includes.header')
 	@include('includes.menutop')
 	@include('includes.slide_show')
-	@section('content1')
-
+	@yield('content1')
+	@yield('content2')
 	<div class="container">
 	<div class="col-md-12">
-		@yield('content')
+	@yield('content')
 	</div>
 	<div class="col-md-3">
 	@section('menu')

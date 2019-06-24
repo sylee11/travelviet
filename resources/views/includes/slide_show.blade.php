@@ -46,9 +46,10 @@ img {vertical-align: middle;}
 <body>
 
 
-<div class="slideshow-container">
-  <div class="mySlides1">
-    <img src="picture/phongnha.jpg" style="width:100%">
+<div class="slideshow-container"  >
+  <div class="mySlides1" style="width: 100%; height: 600px; background-image: url(picture/phongnha.jpg); background-repeat: no-repeat; ">
+              @include('includes.search_slide')
+
   </div>
 
   <div class="mySlides1">
