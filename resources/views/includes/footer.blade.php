@@ -1,99 +1,46 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>footer</title>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"  >
-  <style>
-    .footer {
-
-     background-size: cover;
-     left: 0;
-     bottom: 0;
-     width: 100%;
-     background-color: #5f5f5f;
-     color: white;
-     text-align: center;
-     max-height: 500px; 
-
-   }
- </style>
-</head>
-<body>
-
-  <!--Footer-->
-  <footer class="footer">
-
-    <!--Footer Links-->
-    <div class="container">
-      <div class="row">
-
-        <!--First column-->
-        <div class="col-md-4" >
-          <h5 class="title mb-4 mt-3 font-bold" style="">Footer Content</h5>
-          <div style="display: flex;margin-left: 100px; width: 1000px;">
-            <a class="nav-link" href="#"><i class="fab fa-facebook-square"style= ""></i></a>
-            <a class="nav-link" href="#"><i class="fab fa-twitter-square" style=""></i></a>
-            <a class="nav-link" href="#"><i class="fab fa-youtube-square" style="color: red;"></i></a>
-          </div>
-          
+<footer class="bg-dark" >
+  <section id="main-footer">
+    <div class="container" style="display: flex; color: white;">
+      <div class="col-sm-3" >
+        <div>
+          <h3><span>TRAVEL&nbsp;</span><span class="footer-logo">VIỆT</span></h3>
         </div>
-        <!--/.First column-->
+        <div class="contactnumber">+84-345518122</div>
 
-        <hr class="clearfix w-100 d-md-none">
+        <ul class="social list-inline">
+          <li class="list-inline-item">
+            <a href="https://www.facebook.com/travelbrewery"><i class="fab fa-facebook-square"></i></a>
+          </li>
+          <li class="list-inline-item">
 
-        <!--Second column-->
-        <div class="col-md-2 mx-auto">
-          <h5 class="title mb-4 mt-3 font-bold">CONTACT</h5>
-          <ul>
-            <li><a href="#!">Link 1</a></li>
-            <li><a href="#!">Link 2</a></li>
-            <li><a href="#!">Link 3</a></li>
-            <li><a href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <!--/.Second column-->
-
-        <hr class="clearfix w-100 d-md-none">
-
-        <!--Third column-->
-        <div class="col-md-2 mx-auto">
-          <h5 class="title mb-4 mt-3 font-bold">ABOUT US</h5>
-          <ul>
-            <li><a href="#!">Link 1</a></li>
-            <li><a href="#!">Link 2</a></li>
-            <li><a href="#!">Link 3</a></li>
-            <li><a href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <!--/.Third column-->
-
-        <hr class="clearfix w-100 d-md-none">
-
-        <!--Fourth column-->
-        <div class="col-md-2 mx-auto">
-          <h5 class="title mb-4 mt-3 font-bold ">ADDRESS</h5>
-          <ul>
-            <li><a href="#!">Link 1</a></li>
-            <li><a href="#!">Link 2</a></li>
-            <li><a href="#!">Link 3</a></li>
-            <li><a href="#!">Link 4</a></li>
-          </ul>
-        </div>
-        <!--/.Fourth column-->
-      </div>
-    </div>
-    <!--/.Footer Links-->
-
-    <!--Copyright-->
-    <div class="footer-copyright" style="text-align: center;">
-      <div class="container-fluid">
-        © 2019 Copyright: <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
+            <a href="https://www.instagram.com/travelbrewery/"><i class="fab fa-instagram"></i></a>
+          </li>
+        </ul>
+        <p class="copyright">&copy;2019 TRAVEL VIỆT</p><p class="copyright"> All rights reserved.</p>
 
       </div>
-    </div>
-    <!--/.Copyright-->
+      <div class="col-sm-3 column">
+        <ul class="list_style">
+          <li class="nav-head">US</li>
+          <li><a href="http://travelbrewery.com/index.php#about" target="_blank">About</a></li>
+            <li><a href="http://travelbrewery.com/index.php#services" target="_blank">Services</a></li>
 
+        </ul>
+      </div>
+      <div class="col-sm-3 column">
+        <ul class="list_style">
+          <li class="nav-head">Tours And Blogs</li>
+          <li><a href="http://travelbrewery.com/index.php#iti-portfolio" target="_blank">Our Top Tours</a></li>
+          <li><a href="http://travelbrewery.com/Blog" target="_blank">Blogs</a></li>
+        </ul>
+      </div>
+      <div class="col-sm-3 column">
+        <ul class="list_style">
+          <li class="nav-head">Support</li>
+          <li><a href="http://travelbrewery.com/index.php#contact" target="_blank">Contact</a></li>
+          <li><a href="http://travelbrewery.com/terms-conditions" target="_blank">Terms and Conditions</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
   </footer>
-  <!--/.Footer-->
-</body>
-</html>
