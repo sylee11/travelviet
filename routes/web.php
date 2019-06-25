@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 Route::group(['namespace' => 'Front'], function (){
     Route::get('/', 'FrontController@index')->name('pages.home');
 });
@@ -38,4 +40,10 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::group(['prefix' => 'rating','namespace'=>'rating'], function(){
 		Route::get('/', 'RatingController@index')->name('admin.rating.index');
 	});
+});
+
+
+Route::get('/abc', function() {
+	return view('Test');
+    //
 });

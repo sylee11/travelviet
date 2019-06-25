@@ -1,12 +1,5 @@
-<head>
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-</head>
-<div style="display: flex; justify-content: center; padding-top: 200px;">
+
+<div style="display: flex; justify-content: center; padding-top: 100px;">
 	<div class="dropdown show" style="padding-right: 50px;">
 	  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	    Tỉnh ,Thành phố 
@@ -43,8 +36,9 @@
 	  </div>
 	</div>
 	<div style="display: flex;">
+		<a class="nav-link" href="#"><i class="fas fa-search"></i></a>
 		<a class="nav-link" href="#"><i class="fas fa-map-marker-alt"></i></a>
-				<a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+				
 
 	</div>
 
