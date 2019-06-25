@@ -10,30 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::group(['namespace' => 'Front'], function (){
+    Route::get('/', 'FrontController@index')->name('pages.home');
+});
 
-Route::get('/', function () {
-	return view('welcome');
-});
-Route::get('/abc', function () {
-	echo "Hello WORkD le";
-});
-Route::get('/account' , function(){
-	return view('login');
-});
-Route::get('/',function(){
-	return view('pages.home');
-});
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('login','LoginController@getLogin')->name('login');
-// Route::get('/admin',function(){
-// 	return view('admin.index');
-// });
-Route::get('/tables',function(){
-	return view('admin.tables');
-});
-Route::get('/charts',function(){
-	return view('admin.charts');
-});
+
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 
 
 Route::group(['prefix' => 'admin'], function () {
