@@ -21,12 +21,11 @@ class CreateUsersTable extends Migration
             $table->integer('status');
             $table->string('fullname');
             $table->datetime('birthday');
-            $table->string('address_user');
-            $table->integer('phone_user');
+            $table->string('address');
+            $table->integer('phone');
             $table->string('avatar');
             $table->rememberToken();
             $table->integer('role');
-            $table->integer('socials_id');
             $table->timestamps();
         });
 
