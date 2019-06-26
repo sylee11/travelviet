@@ -119,7 +119,7 @@
                 
                 <!-- Modal body -->
                 <div class="modal-body">
-                    @include('auth.register')
+                    @include('auth.register2')
                 </div>
                 
                 <!-- Modal footer -->
