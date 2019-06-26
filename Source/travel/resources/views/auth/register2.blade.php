@@ -25,17 +25,17 @@
         <p class="divider-text">
             <span class="bg-light">OR</span>
         </p>
-        <label for="inputName" class="sr-only">Ho ten</label>
-        <input type="text" id="inputName" class="form-control" placeholder="Ho va ten" required autofocus>
+        <label for="inputName" class="sr-only">Name</label>
+        <input type="text" id="inputName" class="form-control" placeholder=" Full Name" required autofocus>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required >
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
         
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-        <hr>
-        <span>Da co tai khoan? <a href="">Dang nhap</span>   
+        <hr id="hr1">
+        <p>Have an account? <a href="">Login</a></p>
     </form>
-       
+   
     </div>
 </body>
