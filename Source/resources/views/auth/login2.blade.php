@@ -35,7 +35,11 @@
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <a class="nav-link" href="">Forgot your password?</a>     
+        @if (Route::has('password.request'))
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Your Password?') }}
+                                    </a>
+        @endif
     </form>
     </div>
 </body>

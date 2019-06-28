@@ -14,6 +14,9 @@
 
 Route::group(['namespace' => 'Front'], function (){
     Route::get('/', 'FrontController@index')->name('pages.home');
+    Route::get('/home', function(){
+    	return view('pages.home');
+    })->name('home');
 });
 
 
@@ -47,3 +50,5 @@ Route::get('/abc', function() {
 	return view('Test');
     //
 });
+
+Auth::routes();
