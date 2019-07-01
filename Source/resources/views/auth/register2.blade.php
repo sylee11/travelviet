@@ -1,19 +1,9 @@
-<head>
-    <link rel="stylesheet" type="text/css" href="css/custom/login.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-
-<!--Fontawesome CDN-->
-<link rel="stylesheet" href="css/bootstrap-social.css">
-<!--Custom styles-->
-<link rel="stylesheet" href="css/fontawesome.css">
-</head>
-
 <body class="text-center">
     <div class="body">
     <form class="form-signin">
 
         <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
-        <a class="btn btn-block btn-social btn-google">
+        <a class="btn btn-block btn-social btn-google" href="{{route('login.social')}}">
         <i class="fab fa-google"></i>
 
             Sign in with Google
