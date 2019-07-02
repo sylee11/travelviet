@@ -38,36 +38,5 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-/*    public function showLoginForm(){
-        return view('auth.login2');
-    }
 
-
-    public function postLogin(Request $request) {
-    	
-    	
-        $email =\Request::get('loginEmail');  
-        $password = \Request::get('loginPassword');
-        
-            
-       if( \Auth::attempt(['email' => $email, 'password' =>$password])) {
-         
-            return view('pages/home');
-          
-        } else {
-            $errors = new \Illuminate\Support\MessageBag();
-
-            // add your error messages:
-            $errors->add('errorlogin', 'Email hoặc mật khẩu không đúng');
-        
-            return view('auth/login2')->withErrors($errors);
-          //  return view('auth/login2');
-        }
-    }
-    public function logout(Request $request) {
-        \Auth::logout();
-        return view('pages/home');
-        
-      }
-    */
 }
