@@ -23,6 +23,9 @@ Route::group(['namespace' => 'Front'], function (){
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('register', 'Auth\RegisterController@showFormRegister')->name('register');
 
+Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
+Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCallback');
+
 
 Route::group(['prefix' => 'admin'], function () {
 
@@ -64,3 +67,9 @@ Route::group(['prefix' => 'account'], function() {
 
 Route::get('/abc', 'test@index');
 
+Route::get('/abc', function() {
+	return view('Test');
+    //
+});
+
+Auth::routes();
