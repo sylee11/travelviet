@@ -7,7 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Social;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
     use Notifiable;
 
