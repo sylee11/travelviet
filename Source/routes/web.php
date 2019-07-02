@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Routing\Controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,10 @@ Route::group(['namespace' => 'Front'], function (){
 });
 
 
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::get('register', 'Auth\RegisterController@showFormRegister')->name('register');
-
-
+//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+//Route::get('register', 'Auth\RegisterController@showFormRegister')->name('register');
+//Route::post('login','Auth\LoginController@postLogin');
+//Route::get('logout','Auth\LoginController@logout')->name('logout');
 Route::group(['prefix' => 'admin'], function () {
 
 	Route::get('/', 'AdminController@index')->name('admin.index');
@@ -33,6 +34,14 @@ Route::group(['prefix' => 'admin'], function () {
 	});
 	Route::group(['prefix' => 'category','namespace'=>'category'], function(){
 		Route::get('/', 'CategoryController@index')->name('admin.category.index');
+		Route::post('/delete','CategoryController@delete');
+		Route::post('/edit','CategoryController@edit');
+		 Route::post('/editlayout','CategoryController@editlayout');
+		 Route::get('/addlayout',function(){
+			return view('admin.category.addlayout');
+		 });
+		 Route::post('/add','CategoryController@add');
+		 
 	});
 	Route::group(['prefix' => 'place','namespace'=>'place'], function(){
 		Route::get('/', 'PlaceController@index')->name('admin.place.index');
@@ -42,8 +51,9 @@ Route::group(['prefix' => 'admin'], function () {
 	});
 });
 
-
-Route::get('/abc', function() {
-	return view('Test');
+Auth::routes();
+Route::get('/home', function() {
+	return view('pages.home');
     //
 });
+Route::get('fb-callback','PhpSdkController@callback');
