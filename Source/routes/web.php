@@ -35,7 +35,11 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::get('/', 'UserController@index')->name('admin.user.index');
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
-		Route::get('/', 'PostController@index')->name('admin.post.index');
+		Route::get('/', 'PostController2@index')->name('admin.post.index');
+		Route::get('/delete/{id}', 'PostController2@destroy')->name('admin.post.delete');
+		Route::get('/approved/{id}', 'PostController2@approved')->name('admin.post.approved');
+		Route::get('/unapproved/{id}', 'PostController2@unapproved')->name('admin.post.unapproved');
+		    //
 	});
 	Route::group(['prefix' => 'category','namespace'=>'category'], function(){
 		Route::get('/', 'CategoryController@index')->name('admin.category.index');
