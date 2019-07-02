@@ -35,8 +35,8 @@
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+        @if (Route::has('account.password.sendmail'))
+                                    <a class="btn btn-link" href="{{ route('account.password.sendmail') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
         @endif

@@ -11,7 +11,7 @@
 |
 */
 
-
+Auth::routes();
 Route::group(['namespace' => 'Front'], function (){
     Route::get('/', 'FrontController@index')->name('pages.home');
     Route::get('/home', function(){
@@ -45,10 +45,22 @@ Route::group(['prefix' => 'admin'], function () {
 	});
 });
 
+//Reset password
+Route::group(['prefix' => 'account'], function() {
+	Route::group(['prefix' => 'password'], function() {
+		Route::get('/sendmail' ,'Auth\PasswordResetController@index')->name('account.password.sendmail');
+	    Route::post('/create' ,'Auth\PasswordResetController@create')->name('account.password.create');
+	    Route::post('/reset' ,'Auth\PasswordResetController@reset')->name('account.password.reset');
+		Route::get('/setnewpasss/{token}' ,'Auth\PasswordResetController@showResetForm')->name('account.password.setnewpass');
+		Route::get('/sendmailsuccess' ,function(){
+			return view('notifation.sendmailsuccess');
+		})->name('sendmailsuccess');
+		Route::get('/resetpassdone' ,function(){
+			return view('notifation.resetpassdone');
+		})->name('resetpassdone');
 
-Route::get('/abc', function() {
-	return view('Test');
-    //
+	});
 });
 
-Auth::routes();
+Route::get('/abc', 'test@index');
+

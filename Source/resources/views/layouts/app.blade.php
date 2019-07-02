@@ -22,6 +22,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+
 </head>
 <body>
     <div id="app">
@@ -135,6 +137,7 @@
         @yield('content')
        
     </div>
+    @include('sweetalert::alert')
     @include('includes.footer')
 </body>
 </html>
