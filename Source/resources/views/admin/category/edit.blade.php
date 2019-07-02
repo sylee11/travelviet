@@ -8,7 +8,7 @@
     <label for="idname">Name</label>
     <input class="form-control" placeholder="{{$data['name']}}" id="idname" name="name" type="text" required>
 </div> 
-    <button class="btn btn-success" type="submit" >Save</button>
-    <a href="/admin/category" class="btn btn-danger">Cancel</a>
+    <button onclick="return confirm('save?')" class="btn btn-success" type="submit" >Save</button>
+    <a  href="/admin/category" class="btn btn-danger">Cancel</a>
 </form>
 @endsection

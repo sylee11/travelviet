@@ -49,7 +49,7 @@
 								<!-- <button type="submit" class="btn-success">Detail</button> -->
 								<button value="{{$data->id}}" name="edit" formaction="{{ url('admin/category/editlayout') }}" formmethod="POST" type="submit" class="btn-info">Edit</button>
 								<!-- <button value="{{$data->id}}" name="id"  formaction="{{ url('/admin/category/delete') }}" formmethod="GET" type="submit" class="btn-danger">Delete</button> -->
-								<button value="{{$data->id}}" name="delete" formaction="{{ url('admin/category/delete') }}" formmethod="POST" type="submit" class="btn-danger">Delete</button>
+								<button onclick="return confirm('delete?')" value="{{$data->id}}" name="delete" formaction="{{ url('admin/category/delete') }}" formmethod="POST" type="submit" class="btn-danger">Delete</button>
 
 
 
