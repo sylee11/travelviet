@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Routing\Controller;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,7 +80,7 @@ Route::group(['prefix' => 'account'], function() {
 
 	});
 });
-
+Route::get('/home','HomeController@index')->name('home');
 
 Auth::routes();
 
