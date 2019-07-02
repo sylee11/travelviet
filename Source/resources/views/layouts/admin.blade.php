@@ -80,7 +80,7 @@
           <a class="dropdown-item" href="#">Profile</a>
           <a class="dropdown-item" href="#">Change Password</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" href="{{route('logout')}}" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
