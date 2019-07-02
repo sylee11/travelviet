@@ -11,7 +11,8 @@
 		<i class="fas fa-table"></i>
 		Data Table Category</div>
 	<div class="card-body">
-
+	<div style="margin-bottom: 15px"><a href="/admin/category/addlayout" class="btn btn-success "><i class="fas fa-plus"></i> ADD</a>
+	</div>
 		<div class="table-responsive">
 
 			<form>
@@ -65,8 +66,7 @@
 		</div>
 		
 			
-		<a href="/admin/category/addlayout" class="btn btn-success">ADD</a>
-
+		
 	</div>
 
 	<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
