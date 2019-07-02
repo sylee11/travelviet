@@ -100,7 +100,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            @include('auth.login2')
+            @include('auth.login')
         </div>
 
         <!-- Modal footer -->
@@ -126,7 +126,7 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        @include('auth.register2')
+        @include('auth.register')
     </div>
     @include('sweetalert::alert')
 
