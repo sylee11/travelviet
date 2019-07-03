@@ -15,7 +15,7 @@
   <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
 
   <!-- Page level plugin CSS-->
-  <link href="{{asset('vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet">
+  <link href="{{asset('vendor/datatables/dataTables.bootstrap4.css')}}" rel="stylesheet" type="text/css">
 
   <!-- Custom styles for this template-->
   <link href="{{asset('css/sb-admin.css')}}" rel="stylesheet">
@@ -99,105 +99,105 @@
         <a class="nav-link" href="{{ route('admin.user.index') }}">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>User</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.post.index') }}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Post</span></a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.category.index') }}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Category</span></a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.place.index') }}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Place</span></a>
-      </li>
-       <li class="nav-item">
-        <a class="nav-link" href="{{ route('admin.rating.index') }}">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Rating</span></a>
-      </li>
-    </ul>
-
-    <div id="content-wrapper">
-
-      <div class="container-fluid">
-
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a href="#">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ route('admin.post.index') }}">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Post</span></a>
           </li>
-          <li class="breadcrumb-item active">Overview</li>
-        </ol>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('admin.category.index') }}">
+              <i class="fas fa-fw fa-table"></i>
+              <span>Category</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.place.index') }}">
+                <i class="fas fa-fw fa-table"></i>
+                <span>Place</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.rating.index') }}">
+                  <i class="fas fa-fw fa-table"></i>
+                  <span>Rating</span></a>
+                </li>
+              </ul>
 
-        <!-- Icon Cards-->
+              <div id="content-wrapper">
 
-        <!-- Area Chart Example-->
-         @yield('content')
-      <!-- /.container-fluid -->
+                <div class="container-fluid">
 
-      <!-- Sticky Footer -->
-      <footer class="sticky-footer">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright © Your Website 2019</span>
-          </div>
-        </div>
-      </footer>
+                  <!-- Breadcrumbs-->
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      <a href="#">Dashboard</a>
+                    </li>
+                    <li class="breadcrumb-item active">Overview</li>
+                  </ol>
 
-    </div>
-    <!-- /.content-wrapper -->
+                  <!-- Icon Cards-->
 
-  </div>
-  <!-- /#wrapper -->
+                  <!-- Area Chart Example-->
+                  @yield('content')
+                  <!-- /.container-fluid -->
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+                  <!-- Sticky Footer -->
+                  <footer class="sticky-footer">
+                    <div class="container my-auto">
+                      <div class="copyright text-center my-auto">
+                        <span>Copyright © Your Website 2019</span>
+                      </div>
+                    </div>
+                  </footer>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.html">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+                </div>
+                <!-- /.content-wrapper -->
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
-  <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+              </div>
+              <!-- /#wrapper -->
 
-  <!-- Core plugin JavaScript-->
-  <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+              <!-- Scroll to Top Button-->
+              <a class="scroll-to-top rounded" href="#page-top">
+                <i class="fas fa-angle-up"></i>
+              </a>
 
-  <!-- Page level plugin JavaScript-->
-  <script src="{{ asset('vendor/chart.js/Chart.min.js') }}"></script>
-  <script src="{{ asset('vendor/datatables/jquery.dataTables.js') }}"></script>
-  <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.js') }}"></script>
+              <!-- Logout Modal-->
+              <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                      <a class="btn btn-primary" href="{{route('pages.home')}}">Logout</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-  <!-- Custom scripts for all pages-->
-  <script src="{{ asset('js/sb-admin.min.js') }}"></script>
+              <!-- Bootstrap core JavaScript-->
+              <script src="{{ asset('/vendor/jquery/jquery.min.js') }}"></script>
+              <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-  <!-- Demo scripts for this page-->
-  <script src="{{ asset('js/demo/datatables-demo.js') }}"></script>
-  <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+              <!-- Core plugin JavaScript-->
+              <script src="{{ asset('/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
-</body>
+              <!-- Page level plugin JavaScript-->
+              <script src="{{ asset('/vendor/chart.js/Chart.min.js') }}"></script>
+              <script src="{{ asset('/vendor/datatables/jquery.dataTables.js') }}"></script>
+              <script src="{{ asset('/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
 
-</html>
+              <!-- Custom scripts for all pages-->
+              <script src="{{ asset('/js/sb-admin.min.js') }}"></script>
+
+              <!-- Demo scripts for this page-->
+              <script src="{{ asset('/js/demo/datatables-demo.js') }}"></script>
+              <script src="{{ asset('/js/demo/chart-area-demo.js') }}"></script>
+              <!--  jquery -->
+            </body>
+
+            </html>
