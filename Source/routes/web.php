@@ -24,16 +24,12 @@ Route::group(['namespace' => 'Front'], function (){
 
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-<<<<<<< HEAD
-Route::get('register', 'Auth\dangkiController@getRegister')->name('register');
-Route::post('register','Auth\dangkiController@postRegister')->name('register');
-=======
+
 Route::get('register', 'Auth\RegisterController@showFormRegister')->name('register');
 
 Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
 Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCallback');
 
->>>>>>> develop
 
 Route::group(['prefix' => 'admin'], function () {
 
@@ -87,12 +83,7 @@ Route::get('/home', function() {
 	return view('pages.home');
     //
 });
-<<<<<<< HEAD
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-=======
 Route::get('fb-callback','PhpSdkController@callback');
 //Reset password
 Route::group(['prefix' => 'account'], function() {
@@ -114,4 +105,3 @@ Route::get('/home','HomeController@index')->name('home');
 
 Auth::routes();
 
->>>>>>> develop
