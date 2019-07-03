@@ -1,9 +1,19 @@
 @extends('layouts.admin')
 @section('content')
-    <div class="card mb-3">
+<div class="card mb-3">
 	<div class="card-header">
-		<i class="fas fa-table"></i>
-	Data Table Rating</div>
+		<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> Add</a>
+	</div>
+
+
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				@include('admin.rating.add')
+			</div>
+		</div>
+	</div>
+
 	<div class="card-body">
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -12,7 +22,7 @@
 						<th>ID</th>
 						<th>Rating</th>
 						<th>Comment</th>
-						<th>Reviewers</th>
+						<th>Reviewer</th>
 						<th>ID_post</th>
 						<th>Time create</th>
 						<th>Time modify</th>
@@ -24,7 +34,7 @@
 						<th>ID</th>
 						<th>Rating</th>
 						<th>Comment</th>
-						<th>Reviewers</th>
+						<th>Reviewer</th>
 						<th>ID_post</th>
 						<th>Time create</th>
 						<th>Time modify</th>
@@ -32,62 +42,23 @@
 					</tr>
 				</tfoot>
 				<tbody>
+					@if($rating)
+					@foreach ($rating as $record)
 					<tr>
-						<td>1</td>
-						<td>4</td>
-						<td>Đẹp</td>
-						<td>Bii</td>
-						<td>22</td>
-						<td>2011/04/25</td>
-						<td>2011/04/25</td>
+						<td>{{$record->id}}</td>
+						<td>{{$record->rating}}</td>
+						<td>{{$record->cmt}}</td>
+						<td>{{$record->name}}</td>
+						<td>{{$record->post_id}}</td>
+						<td>{{$record->created_at}}</td>
+						<td>{{$record->updated_at}}</td>
 						<td align="center">
-							<button type="submit" class="btn-success">Detail</button>
-							<button type="submit" class="btn-info">Edit</button>
-							<button type="submit" class="btn-danger">Delete</button>
+							<a href="{{route('admin.rating.edit',$record->id)}}" class="btn btn-primary"> Edit</a>
+							<a href="#" class="btn btn-danger"> Delete</a>
 						</td>
 					</tr>
-					<tr>
-						<td>1</td>
-						<td>4</td>
-						<td>Đẹp</td>
-						<td>Bii</td>
-						<td>22</td>
-						<td>2011/04/25</td>
-						<td>2011/04/25</td>
-						<td align="center">
-							<button type="submit" class="btn-success">Detail</button>
-							<button type="submit" class="btn-info">Edit</button>
-							<button type="submit" class="btn-danger">Delete</button>
-						</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>4</td>
-						<td>Đẹp</td>
-						<td>Bii</td>
-						<td>22</td>
-						<td>2011/04/25</td>
-						<td>2011/04/25</td>
-						<td align="center">
-							<button type="submit" class="btn-success">Detail</button>
-							<button type="submit" class="btn-info">Edit</button>
-							<button type="submit" class="btn-danger">Delete</button>
-						</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td>4</td>
-						<td>Đẹp</td>
-						<td>Bii</td>
-						<td>22</td>
-						<td>2011/04/25</td>
-						<td>2011/04/25</td>
-						<td align="center">
-							<button type="submit" class="btn-success">Detail</button>
-							<button type="submit" class="btn-info">Edit</button>
-							<button type="submit" class="btn-danger">Delete</button>
-						</td>
-					</tr>
+					@endforeach
+					@endif
 				</tbody>
 			</table>
 		</div>
