@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" style="margin-top: 200px; margin-bottom: 200px;">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form method="POST" action="{{ route('account.password.create') }}">
                         @csrf
 
                         <div class="form-group row">

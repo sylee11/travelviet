@@ -1,39 +1,21 @@
-@extends('pages.home')
-<body>
-
-<div class="container">
-  <h2>Modal </h2>
-  <!-- Button to Open the Modal -->
-  <a type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-    Open modal
-  </a>
-
-  <!-- The Modal -->
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
       
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-            Main login
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
+
+</head>
+<body>
+        @include('sweetalert::alert')
+
+    <div class="container">
+        <p>Welcome tomy  website...</p>
     </div>
-  </div>
-  
-</div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.min.css">
+
+    <!-- Include this after the sweet alert js file -->
 
 </body>
 </html>

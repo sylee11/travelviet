@@ -17,11 +17,13 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap&subset=latin-ext,vietnamese" rel="stylesheet">
 
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+
 </head>
 <body>
     <!-- <script type="text/javascript">
@@ -30,7 +32,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);">
             <div class="container" style="color: white; margin: 0px; width: 100%">
-                <a class="navbar-brand" href="{{ url('/') }} st" style="color: white; font-size: 20px;" >
+                <a class="navbar-brand" href="{{ route('home') }} " style="color: white; font-size: 20px;" >
                     Travel Việt
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -50,93 +52,100 @@
                     <ul class="nav navbar-nav ml-auto " style="display: flex; justify-content:flex-end; margin-left: 2000px">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a   class="nav-link" data-toggle="modal" data-target="#myModal"  href="{{ route('login') }}" style="color: white; ">{{ __('Đăng nhập') }}</a>
-                                
-                            </li>
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" data-toggle="modal" data-target="#myModal2" href="{{ route('register') }}" style="color: white; ">{{ __('Đăng kí') }} </a>
-                                </li>
-                            @endif
+                        <li class="nav-item">
+                            <a   class="nav-link" data-toggle="modal" data-target="#myModal"  href="{{ route('login') }}" style="color: white; ">{{ __('Đăng nhập') }}</a>
+
+                        </li>
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="modal" data-target="#myModal2" href="{{ route('register') }}" style="color: white; ">{{ __('Đăng kí') }} </a>
+                        </li>
+                        @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
 
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                        <li class="nav-item dropdown" style="">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="color: white;font-size: 13px;" v-pre>
+                                @if(auth()->user()->avatar)
+                                <img src="{{Auth::user()->avatar}}" alt="Avatar" width="40px" style="border-radius: 50%;margin-right: 10px;">
+                                @endif
+                                {{ Auth::user()->name }}
+                                <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                    @endguest
+                </ul>
 
-        <!-- MOdal login -->
-        <div class="modal" id="myModal">
-            <div class="modal-dialog">
-              <div class="modal-content">
-              
-                <!-- Modal Header -->
-                <div class="modal-header">
-                  <h4 class="modal-title">Sign in</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                
-                <!-- Modal body -->
-                <div class="modal-body">
-                    @include('auth.login2')
-                </div>
-                
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
-                </div>
-                
-              </div>
             </div>
         </div>
+    </nav>
 
+    <!-- MOdal login -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
 
-        <!-- MOdal login -->
-        <div class="modal" id="myModal2">
-            <div class="modal-dialog">
-              <div class="modal-content">
-              
-                <!-- Modal Header -->
-                <div class="modal-header">
-                  <h4 class="modal-title " >Sign up</h4>
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                
-                <!-- Modal body -->
-                <div class="modal-body">
-                    @include('auth.register2')
-                </div>
-                
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                  <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
-                </div>
-                
-              </div>
-            </div>
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Sign in</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            @include('auth.login')
         </div>
 
-        @yield('content')
-       
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+      </div>
+
+  </div>
+</div>
+</div>
+
+
+<!-- MOdal login -->
+<div class="modal" id="myModal2">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title " >Sign up</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        @include('auth.register')
     </div>
-    @include('includes.footer')
+    @include('sweetalert::alert')
+
+
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+  </div>
+
+</div>
+</div>
+</div>
+
+@yield('content')
+
+</div>
+@include('includes.footer')
 </body>
 </html>
