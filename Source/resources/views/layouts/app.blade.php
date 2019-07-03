@@ -24,6 +24,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
+    <!-- <script type="text/javascript">
+        alert();
+    </script> -->
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);">
             <div class="container" style="color: white; margin: 0px; width: 100%">
