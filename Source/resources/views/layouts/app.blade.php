@@ -22,12 +22,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);">
             <div class="container" style="color: white; margin: 0px; width: 100%">
-                <a class="navbar-brand" href="{{ url('/') }} st" style="color: white; font-size: 20px;" >
+                <a class="navbar-brand" href="{{ route('home') }} " style="color: white; font-size: 20px;" >
                     Travel Việt
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -57,6 +59,7 @@
                         </li>
                         @endif
                         @else
+
                         <li class="nav-item dropdown" style="">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="color: white;font-size: 13px;" v-pre>
                                 @if(auth()->user()->avatar)
@@ -79,6 +82,7 @@
                     </li>
                     @endguest
                 </ul>
+
             </div>
         </div>
     </nav>
@@ -96,7 +100,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            @include('auth.login2')
+            @include('auth.login')
         </div>
 
         <!-- Modal footer -->
@@ -122,8 +126,10 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        @include('auth.register2')
+        @include('auth.register')
     </div>
+    @include('sweetalert::alert')
+
 
     <!-- Modal footer -->
     <div class="modal-footer">

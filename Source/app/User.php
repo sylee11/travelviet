@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Social;
 use App\Rating;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
     use Notifiable;
 
