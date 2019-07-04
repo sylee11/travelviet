@@ -11,7 +11,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-    	$this->call(PlaceTableSeeder::class);
+    	$this->call(CategoryTableSeeder::class);
+        $this->call(CityTableSeeder::class);
+        $this->call(PhotoTableSeeder::class);
+        $this->call(PlaceTableSeeder::class);
     }
 }
 
@@ -25,10 +28,19 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
     	DB::table('categories')->insert([
-    		'name' => Str::random(4),
+    		['name' => Str::random(4),
     		'created_at'=>date('Y-m-d H:i:s'),
-    		'updated_at'=>date('Y-m-d H:i:s'),
-    	]);
+    		'updated_at'=>date('Y-m-d H:i:s')],
+            ['name' => Str::random(4),
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s')],
+            ['name' => Str::random(4),
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s')],
+            ['name' => Str::random(4),
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s')],
+        ]);
     }
 }
 class CityTableSeeder extends Seeder
@@ -41,9 +53,38 @@ class CityTableSeeder extends Seeder
     public function run()
     {
     	DB::table('cities')->insert([
-    		'name'=>'Tp Hồ Chí Minh',
-    	]);
+    		['name'=>'Đà Nẵng'],
+            ['name'=>'Hà Nội'],
+            ['name'=>'Huế'],
+        ]
+    );
     }
+}
+class PhotoTableSeeder extends Seeder
+{
+   public function run()
+   {
+    DB::table('photos')->insert([
+     [
+        'photo_path'=>'hinh1.jpg',
+        'flag'=>'1',
+        'created_at'=>date('Y-m-d H:i:s'),
+        'updated_at'=>date('Y-m-d H:i:s'),
+    ],
+    [
+        'photo_path'=>'hinh2.jpg',
+        'flag'=>'1',
+        'created_at'=>date('Y-m-d H:i:s'),
+        'updated_at'=>date('Y-m-d H:i:s'),
+    ], [
+        'photo_path'=>'hinh3.jpg',
+        'flag'=>'2',
+        'created_at'=>date('Y-m-d H:i:s'),
+        'updated_at'=>date('Y-m-d H:i:s'),
+    ]
+]
+);
+}
 }
 class PlaceTableSeeder extends Seeder
 {
@@ -55,16 +96,54 @@ class PlaceTableSeeder extends Seeder
     public function run()
     {
     	DB::table('places')->insert([
-    		'category_id'=>'2',
-    		'name'=>'Hồ Tây',
-    		'photo_id'=>'2',
-    		'address'=>'Hà Nội',
-    		'lat'=>'40',
-    		'longt'=>'30',
-    		'districts_id'=>'4',
-    		'created_at'=>date('Y-m-d H:i:s'),
-    		'updated_at'=>date('Y-m-d H:i:s'),
+    		['category_id'=>'2',
+            'name'=>'Hồ Tây',
+            'photo_id'=>'2',
+            'address'=>'Hà Nội',
+            'lat'=>'40',
+            'longt'=>'30',
+            'districts_id'=>'4',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),],
+            ['category_id'=>'1',
+            'name'=>'Chùa Linh Ứng',
+            'photo_id'=>'1',
+            'address'=>'Đà Nẵng',
+            'lat'=>'40',
+            'longt'=>'30',
+            'districts_id'=>'2',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),],
+            ['category_id'=>'2',
+            'name'=>'Bà Nà',
+            'photo_id'=>'2',
+            'address'=>'Đà Nẵng',
+            'lat'=>'40',
+            'longt'=>'30',
+            'districts_id'=>'4',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),]
     	]
+    );
+    }
+}
+class RatingTableSeeder extends Seeder
+{
+    /**
+     * Seed the application's database.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        DB::table('ratings')->insert([
+            ['cmt'=>'Bình thường',
+            'post_id'=>'1',
+            'user_id'=>'2',
+            'rating'=>'4',
+            'created_at'=>date('Y-m-d H:i:s'),
+            'updated_at'=>date('Y-m-d H:i:s'),],
+        ]
     );
     }
 }

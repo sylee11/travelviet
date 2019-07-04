@@ -15,7 +15,6 @@
         "laravel/tinker": "^1.0",
         "nesbot/carbon": "^2.20",
         "realrashid/sweet-alert": "^2.0"
-
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
