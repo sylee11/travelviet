@@ -23,8 +23,7 @@ Route::group(['namespace' => 'Front'], function (){
 
 
 
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-
+//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('register', 'Auth\RegisterController@showFormRegister')->name('register');
 
 Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
