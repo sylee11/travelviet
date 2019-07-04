@@ -67,6 +67,9 @@ Route::group(['prefix' => 'admin'], function () {
 
 		Route::get('/edit/{id}', 'PlaceController@getedit')->name('admin.place.edit');
 	    Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit1');
+        
+        Route::post('/add', 'PlaceController@store')->name('admin.place.add');
+
 
 	});
 	Route::group(['prefix' => 'rating','namespace'=>'rating'], function(){

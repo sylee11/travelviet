@@ -4,7 +4,9 @@
     <h3>{{Session :: get('success')}}</h3>
 @endif -->
 <div class="card mb-3">
-	
+	<div class="card-header">
+		<i class="fas fa-table"></i>
+	Data Table User </div>
 	<div class="container">
 		
 		<!-- Button to Open the Modal -->
@@ -28,8 +30,8 @@
 						<form action="{{route('admin.user.add')}}" method="post">
 							<input type="hidden" name="_token" value="{{ csrf_token()}}">
 							<div class="form-group">
-								<label for="">Username</label>
-								<input id="name" type="text" class="form-control" name="name" value="" required autocomplete="name"   required autofocus >
+								<label for="">Username </label>
+								<input id="name" type="text" class="form-control" name="name" value=""    required autofocus >
 							</div>
 							<div class="form-group">
 								<label for="inputEmail4">Email</label>
@@ -37,7 +39,7 @@
 							</div>
 							<div class="form-group">
 								<label for="">Passwword</label>
-								<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password"  >
+								<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"   >
 							</div>
 							<div class="form-row">
 								
@@ -101,7 +103,7 @@
 					<td>{{$u->created_at}}</td>
 						<td align="center">
 							<button type="submit" class="btn-success">
-								<a href="{{route('admin.user.block', $u->id)}}" style="color: white" onclick="return confirm ('bạn có muốn block user này')">Block</a>
+								<a href="{{route('admin.user.block', $u->id)}}" style="color: white" onclick="return confirm ('bạn có muốn block user {{$u->name}} này')">Block</a>
 							</button>
 						    
 							<button type="button" class="btn-info" data-toggle="modal" data-target="#myModal">
@@ -111,7 +113,7 @@
 							<!-- The Modal -->
 							
 							<button type="button" class="btn-danger" >
-							<a href="{{route('admin.user.delete', $u->id)}}" style="color: white" onclick="return confirm ('bạn có muốn xóa')">Delete</a>
+							<a href="{{route('admin.user.delete', $u->id)}}" style="color: white" onclick="return confirm ('bạn có muốn xóa user {{$u->name}}')">Delete</a>
 							</button>
                             
 							
