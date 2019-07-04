@@ -7,7 +7,6 @@ use App\Notifications\PasswordResetRequest;
 use App\Notifications\PasswordResetSuccess;
 use App\User;
 use App\PasswordReset;
-use RealRashid\SweetAlert\Facades\Aler;
 
 class PasswordResetController extends Controller
 {
@@ -73,7 +72,7 @@ class PasswordResetController extends Controller
 
         $request->validate([
             'email' => 'required|string|email',
-            'password' => 'required|string|8|confirmed',
+            'password' => 'required|string|confirmed',
             'token' => 'required|string'
         ]);
 

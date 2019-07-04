@@ -88,11 +88,11 @@ class SocialAuthController extends Controller
 			$newUser->save();
 
 			$userId = User::all()->last()->id;//truy van toi record cuoi
-
 			$newSocial = new Social;
 			$newSocial->id= $_SESSION['user_id'];
 			$newSocial->user_id= $userId;
 			$newSocial->save();
+
 
 			auth()->login($newUser, true);
 		}

@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', '/ Rating')
 @section('content')
 <div class="card mb-3">
 	<div class="card-header">
@@ -23,10 +24,10 @@
 						<th>Rating</th>
 						<th>Comment</th>
 						<th>Reviewer</th>
-						<th>ID_post</th>
+						<th>Title</th>
 						<th>Time create</th>
 						<th>Time modify</th>
-						<th>More</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tfoot>
@@ -35,10 +36,10 @@
 						<th>Rating</th>
 						<th>Comment</th>
 						<th>Reviewer</th>
-						<th>ID_post</th>
+						<th>Title</th>
 						<th>Time create</th>
 						<th>Time modify</th>
-						<th>More</th>
+						<th>Action</th>
 					</tr>
 				</tfoot>
 				<tbody>
@@ -47,14 +48,14 @@
 					<tr>
 						<td>{{$record->id}}</td>
 						<td>{{$record->rating}}</td>
-						<td>{{$record->cmt}}</td>
-						<td>{{$record->name}}</td>
-						<td>{{$record->post_id}}</td>
+						<td>{!! $record->cmt !!}</td>
+						<td>{{$record->user->name}}</td>
+						<td>{{$record->post->title}}</td>
 						<td>{{$record->created_at}}</td>
 						<td>{{$record->updated_at}}</td>
 						<td align="center">
 							<a href="{{route('admin.rating.edit',$record->id)}}" class="btn btn-primary"> Edit</a>
-							<a href="#" class="btn btn-danger"> Delete</a>
+							<a href="{{route('admin.rating.delete',$record->id)}}" class="btn btn-danger" onclick="return confirm('delete?')"> Delete</a>
 						</td>
 					</tr>
 					@endforeach
@@ -66,3 +67,5 @@
 	<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
 @endsection
+
+

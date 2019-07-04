@@ -133,7 +133,7 @@
                     <li class="breadcrumb-item">
                       <a href="#">Dashboard</a>
                     </li>
-                    <li class="breadcrumb-item active">Overview</li>
+                    <li class="active">@yield('title')</li>
                   </ol>
 
                   <!-- Icon Cards-->
@@ -200,6 +200,7 @@
               <script src="{{ asset('/js/demo/datatables-demo.js') }}"></script>
               <script src="{{ asset('/js/demo/chart-area-demo.js') }}"></script>
               <!--  jquery -->
+              @stack('scripts')
             </body>
 
             </html>

@@ -15,17 +15,14 @@ class CreatePlacesTable extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('category_id');
-            $table->foreign('category_id')->references('id')->on('categories');
             $table->unsignedBigInteger('districts_id');
-            $table->foreign('districts_id')->references('id')->on('districts');
             $table->unsignedBigInteger('photo_id');
-            $table->foreign('photo_id')->references('id')->on('photos');
-            $table->string('address');
-            $table->float('lat');
-            $table->float('longt');
+            $table->string('address')->nullable();
+            $table->float('lat')->nullable();
+            $table->float('longt')->nullable();
         });
     }
 
