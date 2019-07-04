@@ -6,7 +6,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Social;
+use app\Post;
 use App\Rating;
+
 
 class User extends Authenticatable 
 {
@@ -42,8 +44,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Social::class);
     }
+
+    public function posts(){
+        return $this->hasMany('App\Post');
+
      public function ratings()
     {
         return $this->hasMany(Rating::class);
+
     }
 }
