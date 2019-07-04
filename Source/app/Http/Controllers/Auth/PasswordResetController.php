@@ -7,7 +7,6 @@ use App\Notifications\PasswordResetRequest;
 use App\Notifications\PasswordResetSuccess;
 use App\User;
 use App\PasswordReset;
-use RealRashid\SweetAlert\Facades\Aler;
 
 class PasswordResetController extends Controller
 {

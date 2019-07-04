@@ -17,13 +17,11 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->integer('is_approved');
-            $table->integer('phone');
-            $table->string('title');
-            $table->string('describer');
+            $table->integer('phone')->nullable();
+            $table->string('title')->nullable();
+            $table->string('describer')->nullable();
             $table->unsignedBigInteger('place_id');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('place_id')->references('id')->on('places');
         });
     }
 
