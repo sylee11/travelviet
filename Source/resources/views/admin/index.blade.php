@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('content')
-
 <!-- Icon Cards-->
 <div class="row">
   <div class="col-xl-3 col-sm-6 mb-3">
@@ -47,6 +46,7 @@
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>
+        <div class="mr-5">Posts</div>
       </div>
 -->
 
