@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap&subset=latin-ext,vietnamese" rel="stylesheet">
 
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-    
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <!-- Styles -->
@@ -26,6 +26,9 @@
 
 </head>
 <body>
+    <!-- <script type="text/javascript">
+        alert();
+    </script> -->
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);">
             <div class="container" style="color: white; margin: 0px; width: 100%">
@@ -68,7 +71,7 @@
                                 {{ Auth::user()->name }}
                                 <span class="caret"></span>
                             </a>
-                               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                 document.getElementById('logout-form').submit();">
@@ -126,7 +129,7 @@
 
       <!-- Modal body -->
       <div class="modal-body">
-        @include('auth.register')
+        @include('auth.register2')
     </div>
     @include('sweetalert::alert')
 

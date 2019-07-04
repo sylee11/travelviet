@@ -11,7 +11,8 @@
 		<i class="fas fa-table"></i>
 		Data Table Category</div>
 	<div class="card-body">
-
+	<div style="margin-bottom: 15px"><a href="/admin/category/addlayout" class="btn btn-success "><i class="fas fa-plus"></i> ADD</a>
+	</div>
 		<div class="table-responsive">
 
 			<form>
@@ -48,7 +49,7 @@
 								<!-- <button type="submit" class="btn-success">Detail</button> -->
 								<button value="{{$data->id}}" name="edit" formaction="{{ url('admin/category/editlayout') }}" formmethod="POST" type="submit" class="btn-info">Edit</button>
 								<!-- <button value="{{$data->id}}" name="id"  formaction="{{ url('/admin/category/delete') }}" formmethod="GET" type="submit" class="btn-danger">Delete</button> -->
-								<button value="{{$data->id}}" name="delete" formaction="{{ url('admin/category/delete') }}" formmethod="POST" type="submit" class="btn-danger">Delete</button>
+								<button onclick="return confirm('delete?')" value="{{$data->id}}" name="delete" formaction="{{ url('admin/category/delete') }}" formmethod="POST" type="submit" class="btn-danger">Delete</button>
 
 
 
@@ -65,8 +66,7 @@
 		</div>
 		
 			
-		<a href="/admin/category/addlayout" class="btn btn-success">ADD</a>
-
+		
 	</div>
 
 	<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>

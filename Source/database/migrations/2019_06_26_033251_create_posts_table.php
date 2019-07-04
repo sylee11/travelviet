@@ -22,8 +22,6 @@ class CreatePostsTable extends Migration
             $table->string('describer')->nullable();
             $table->unsignedBigInteger('place_id');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-            // $table->foreign('place_id')->references('id')->on('places');
         });
     }
 

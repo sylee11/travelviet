@@ -15,15 +15,15 @@ use App\Http\Controllers\HomeController;
 
 Auth::routes();
 Route::group(['namespace' => 'Front'], function (){
-    Route::get('/', 'FrontController@index')->name('pages.home');
-    Route::get('/home', function(){
-    	return view('pages.home');
-    })->name('home');
+	Route::get('/', 'FrontController@index')->name('pages.home');
+	Route::get('/home', function(){
+		return view('pages.home');
+	})->name('home');
 });
 
 
 
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('register', 'Auth\RegisterController@showFormRegister')->name('register');
 
 Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
@@ -36,6 +36,15 @@ Route::group(['prefix' => 'admin'], function () {
 
 	Route::group(['prefix' => 'user','namespace'=>'user'], function(){
 		Route::get('/', 'UserController@index')->name('admin.user.index');
+
+	    Route::post('/add', 'UserController@store')->name('admin.user.add');
+	    Route::post('/register', 'UserRegisterController@store')->name('admin.user.register');
+
+	    Route::get('/edit/{id}', 'UserController@getedit')->name('admin.user.edit');
+	    Route::post('/edit/{id}', 'UserController@postedit')->name('admin.user.edit1');
+
+	    Route::get('/delete/{id}', 'UserController@xoa')->name('admin.user.delete');
+	    Route::get('/block/{id}', 'UserController@block')->name('admin.user.block');
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
 		Route::get('/', 'PostController2@index')->name('admin.post.index');
@@ -49,18 +58,27 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::get('/', 'CategoryController@index')->name('admin.category.index');
 		Route::post('/delete','CategoryController@delete');
 		Route::post('/edit','CategoryController@edit');
-		 Route::post('/editlayout','CategoryController@editlayout');
-		 Route::get('/addlayout',function(){
+		Route::post('/editlayout','CategoryController@editlayout');
+		Route::get('/addlayout',function(){
 			return view('admin.category.addlayout');
-		 });
-		 Route::post('/add','CategoryController@add');
-		 
+		});
+		Route::post('/add','CategoryController@add');
+
 	});
 	Route::group(['prefix' => 'place','namespace'=>'place'], function(){
 		Route::get('/', 'PlaceController@index')->name('admin.place.index');
+		Route::get('/delete/{id}', 'PlaceController@xoa')->name('admin.place.delete');
+
+		Route::get('/edit/{id}', 'PlaceController@getedit')->name('admin.place.edit');
+	    Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit1');
+
 	});
 	Route::group(['prefix' => 'rating','namespace'=>'rating'], function(){
 		Route::get('/', 'RatingController@index')->name('admin.rating.index');
+		Route::post('/','RatingController@add')->name('admin.rating.add');
+		Route::get('edit/{id}', 'RatingController@edit')->name('admin.rating.edit');
+		Route::post('update/{id}', 'RatingController@update')->name('admin.rating.update');
+		Route::get('delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
 	});
 });
 
@@ -68,13 +86,14 @@ Route::get('/home', function() {
 	return view('pages.home');
     //
 });
+
 Route::get('fb-callback','PhpSdkController@callback');
 //Reset password
 Route::group(['prefix' => 'account'], function() {
 	Route::group(['prefix' => 'password'], function() {
 		Route::get('/sendmail' ,'Auth\PasswordResetController@index')->name('account.password.sendmail');
-	    Route::post('/create' ,'Auth\PasswordResetController@create')->name('account.password.create');
-	    Route::post('/reset' ,'Auth\PasswordResetController@reset')->name('account.password.reset');
+		Route::post('/create' ,'Auth\PasswordResetController@create')->name('account.password.create');
+		Route::post('/reset' ,'Auth\PasswordResetController@reset')->name('account.password.reset');
 		Route::get('/setnewpasss/{token}' ,'Auth\PasswordResetController@showResetForm')->name('account.password.setnewpass');
 		Route::get('/sendmailsuccess' ,function(){
 			return view('notifation.sendmailsuccess');

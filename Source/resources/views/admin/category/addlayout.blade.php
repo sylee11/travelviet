@@ -7,7 +7,7 @@
     <label for="idname">Name</label>
     <input  class="form-control" placeholder="Enter name" id="idname" name="name" type="text" required >
 </div>
-    <button class="btn btn-primary" type="submit" >Submit</button>
+    <button onclick="return confirm('Save?')" class="btn btn-primary" type="submit" >Save</button>
     <a href="/admin/category" class="btn btn-danger">Cancel</a>
 </form>
 @endsection

@@ -43,7 +43,7 @@ $fb = new Facebook\Facebook([
 
                 <div class="card-body">
 
-                <a href="" class="btn btn-block btn-social btn-google">
+                <a href="{{route('login.social')}}" class="btn btn-block btn-social btn-google">
         <i class="fab fa-google"></i>
 
             Sign in with Google
