@@ -3538,8 +3538,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-<<<<<<< HEAD
-=======
                 "MIT"
             ],
             "authors": [
@@ -3834,7 +3832,6 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
->>>>>>> develop
                 "BSD"
             ],
             "description": "This is the PHP port of Hamcrest Matchers",
