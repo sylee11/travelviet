@@ -42,6 +42,7 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::get('/delete/{id}', 'PostController2@destroy')->name('admin.post.delete');
 		Route::get('/approved/{id}', 'PostController2@approved')->name('admin.post.approved');
 		Route::get('/unapproved/{id}', 'PostController2@unapproved')->name('admin.post.unapproved');
+		Route::post('/add', 'PostController2@store')->name('admin.post.add');
 		    //
 	});
 	Route::group(['prefix' => 'category','namespace'=>'category'], function(){
@@ -88,3 +89,11 @@ Route::get('/home','HomeController@index')->name('home');
 
 Auth::routes();
 
+
+
+//test
+Route::get('/abc', function() {
+	$path = 'picture/admin/post/s1';
+	File::makeDirectory($path);
+    //
+});

@@ -7,6 +7,12 @@ use App\Http\Controllers\Controller;
 use DB;
 use App\Post;
 use App\User;
+use Carbon\Carbon;
+use App\Photo;
+use File;
+use Illuminate\Support\Facades\Validator;
+
+
 class PostController2 extends Controller
 {
     /**
@@ -22,12 +28,22 @@ class PostController2 extends Controller
         //$user = User::post();
         
 
-        $posts = DB::table('posts')
-            ->join('users', 'users.id', '=', 'posts.user_id')
-            ->select('posts.*', 'users.name')
-            ->get();
+        // $posts = DB::table('posts')
+        //     ->join('users', 'users.id', '=', 'posts.user_id')
+        //     ->select('posts.*', 'users.name')
+        //     ->get();
+        //$posts = POST::all() ;
+        //$user = USER::find(10)->get();
+        //dd($userss);
+        // $user = User::find(1);
+        // $posts->user()->get();
 
-        return view('admin.post.index', ['posts'=>$posts]);
+        //$posts = POST::find(33)->get();
+
+        //eloquent 
+        $postss = POST::all();
+        return view('admin.post.index', ['posts'=>$postss ]);
+        //dd($posts);
     }
 
 
@@ -50,6 +66,109 @@ class PostController2 extends Controller
     public function store(Request $request)
     {
         //
+        // $request-> validate([
+        //     'user_id' => 'reiquired|numeric',
+        //     'phone' => 'required|numberic|max:10',
+        //     'title' => 'required',
+        //     'describer' => 'required',
+        //     'place_id' => 'required|number',
+        // ]);
+
+        // $validator = Validator::make($request->all(), [
+        //     'user_id' => 'reiquired|numeric',
+        //     'phone' => 'required|numberic|max:10',
+        //     'title' => 'required',
+        //     'describer' => 'required',
+        //     'place_id' => 'required|number',
+        // ]);
+
+        // if ($validator->fails()) {
+        //     return redirect('/admin/post/add')
+        //                 ->withErrors($validator)
+        //                 ->withInput();
+        // }
+
+        // $posts = DB::table('posts')
+        //     ->insert([
+        //         'user_id' => $request ->input('userid'),
+        //         'phone' => $request ->input('phone'),
+        //         'title' => $request ->input('title'),
+        //         'describer' => $request ->input('descrice'),
+        //         'place_id' => $request ->input('placeid'),
+        //         'created_at' => Carbon::now(),
+        //         'updated_at' => Carbon::now(),
+
+        //     ]);
+
+        // dd($post);
+        // $posts= DB::table('posts')
+        //     ->join('users', 'users.id', '=', 'posts.user_id')
+        //     ->select('posts.*', 'users.name')
+        //     ->get();
+
+        // $posts = POST::all;
+        // return view('admin.post.index', ['posts'=>$posts]);
+        // var_dump($request->input('userid'));
+
+
+        // import posts
+        $posts = new POST;
+        //check user dóe'n exist
+        if(USER::find($request->userid)){
+            $posts -> user_id = $request ->userid;
+        }
+        else{
+            return "userid not exist";
+        }
+
+        $posts -> phone = $request ->number;
+        $posts -> place_id = $request ->placeid;
+        $posts -> title = $request ->title;
+        if($request->checkbox){
+            $posts -> is_approved = $request -> checkbox;
+        }
+        $posts -> is_approved =0;
+        $posts -> save();
+
+        //find last id
+        $temp = POST::latest()->first();
+        //make folder chua photo
+        $path = 'picture/admin/post/'.$temp->id;
+        File::makeDirectory($path);
+
+        //insert 1 photo
+
+        // $file = $request->filesTest;
+        // $file->move('picture', $file->getClientOriginalName());
+        //$photo = new PHOTO;
+        // $photo->photo_path = "picture/".$file->getClientOriginalName();
+        // $photo->flag = 0;
+        // $photo->posts_id=$temp->id;
+        // $photo ->save ();
+
+
+
+        //insert multi photo
+        if($request->has('filename')){
+            foreach($request->file('filename') as $image)
+            {   
+
+                $name=$image->getClientOriginalName();
+                $image->move($path, $name);  
+                $photo = new photo;
+                $photo->photo_path = $path."/".$name;
+                $photo->flag = 0;
+                $photo->posts_id=$temp->id;
+                $photo ->save ();
+            }
+            return back()->with('success', 'Your images has been successfully');
+        }
+        return "You are not choose picture";
+ 
+        //return redirect (route('admin.post.index'));
+
+
+
     }
 
     /**
@@ -97,11 +216,12 @@ class PostController2 extends Controller
         //query bulder
         $posts = DB::table('posts')
             ->where('id' , '=' ,$id)->delete();
-         $posts= DB::table('posts')
-            ->join('users', 'users.id', '=', 'posts.user_id')
-            ->select('posts.*', 'users.name')
-            ->get();
-        return view('admin.post.index', ['posts'=>$posts]);
+        $photo =DB::table('photos')
+            ->where('posts_id', '=' ,$id)->delete();
+        // $posts= POST::all();
+
+        // return view('admin.post.index', ['posts'=>$posts]);
+        return redirect (route('admin.post.index'));
 
     }
 
@@ -111,10 +231,7 @@ class PostController2 extends Controller
         $posts = DB::table('posts')
             ->where('id', '=' , $id)
             ->update(['is_approved' => 1]);
-        $posts= DB::table('posts')
-            ->join('users', 'users.id', '=', 'posts.user_id')
-            ->select('posts.*', 'users.name')
-            ->get();
+        $posts= POST::all();
         return view('admin.post.index', ['posts'=>$posts]);
 
     }   
@@ -125,11 +242,10 @@ class PostController2 extends Controller
         $posts = DB::table('posts')
             ->where('id', '=' , $id)
             ->update(['is_approved' => 0]);
-        $posts= DB::table('posts')
-            ->join('users', 'users.id', '=', 'posts.user_id')
-            ->select('posts.*', 'users.name')
-            ->get();
-        return view('admin.post.index', ['posts'=>$posts]);
+        // $posts= POST::all();
+
+        // return view('admin.post.index', ['posts'=>$posts]);
+        return redirect (route('admin.post.index'));
 
     }   
 }

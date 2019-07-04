@@ -6,7 +6,7 @@
 	Data Table Post</div>
 	<div class="card-body">
 		<div class="table-responsive">
-			<a href="" class="nav-link btn-success" role = "button" style="width: 100px; margin: 10px;" data-toggle="modal" data-target="#myModal3"> Add new</a>
+			<a href="" class="nav-link btn-info"  role = "button" style=" width: 120px; margin: 10px;" data-toggle="modal" data-target="#myModal3"> Add new</a>
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
@@ -38,7 +38,7 @@
 					    <tr>
 					        <th>{{ $post-> id }}</th>
 					        <th>{{ $post->title }}</th>
-					        <th>{{ $post->name }}</th>
+					        <th>{{ $post->user->name }}</th>
 					        <th>@if($post->is_approved ==1)
 					        		<div style="display: flex;">
 					        		Approved  
@@ -72,20 +72,20 @@
     <div class="modal-content">
 
       <!-- Modal Header -->
-      <div class="modal-header">
+      <div class="modal-header" style="">
         <h4 class="modal-title">Modal Heading</h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
-
+      		@include('admin.post.add')
       <!-- Modal body -->
       <div class="modal-body">
         <div></div>
       </div>
 
       <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
+{{--       <div class="modal-footer">
+        <a type="button" class="btn btn-success" href="{{route('admin.post.add')}}">Add</a>
+      </div> --}}
 
     </div>
   </div>
