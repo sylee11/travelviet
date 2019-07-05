@@ -55,7 +55,7 @@
   <select name="dbname" >
   <option value="" selected disabled hidden>Choose here</option>
     <option value="users">User</option>
-    <option value="rating">Rating</option>
+    <option value="ratings">Rating</option>
     <option value=""></option>
     <option value=""></option>
   </select>
