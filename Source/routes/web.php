@@ -28,8 +28,8 @@ Route::group(['namespace' => 'Front'], function (){
 });
 
 
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 
+//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::get('register', 'Auth\RegisterController@showFormRegister')->name('register');
 
 Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
@@ -53,7 +53,12 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::get('/block/{id}', 'UserController@block')->name('admin.user.block');
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
-		Route::get('/', 'PostController@index')->name('admin.post.index');
+		Route::get('/', 'PostController2@index')->name('admin.post.index');
+		Route::get('/delete/{id}', 'PostController2@destroy')->name('admin.post.delete');
+		Route::get('/approved/{id}', 'PostController2@approved')->name('admin.post.approved');
+		Route::get('/unapproved/{id}', 'PostController2@unapproved')->name('admin.post.unapproved');
+		Route::post('/add', 'PostController2@store')->name('admin.post.add');
+		    //
 	});
 	Route::group(['prefix' => 'category','namespace'=>'category'], function(){
 		Route::get('/', 'CategoryController@index')->name('admin.category.index');
@@ -109,3 +114,11 @@ Route::get('/home','HomeController@index')->name('home');
 
 Auth::routes();
 
+
+
+//test
+Route::get('/abc', function() {
+	$path = 'picture/admin/post/s1';
+	File::makeDirectory($path);
+    //
+});

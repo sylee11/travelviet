@@ -11,10 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
     	$this->call(CategoryTableSeeder::class);
         $this->call(CityTableSeeder::class);
         $this->call(PhotoTableSeeder::class);
         $this->call(PlaceTableSeeder::class);
+        $this->call(UserTableSeeder::class);
     }
 }
 
@@ -40,6 +42,7 @@ class CategoryTableSeeder extends Seeder
             ['name' => Str::random(4),
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')],
+
         ]);
     }
 }
@@ -136,14 +139,19 @@ class RatingTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('ratings')->insert([
-            ['cmt'=>'Bình thường',
-            'post_id'=>'1',
-            'user_id'=>'2',
-            'rating'=>'4',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s'),],
-        ]
-    );
+        for ($i=101; $i <= 200; $i++) { 
+            $month =mt_rand(1,12);
+            $rating = mt_rand(1,5);
+            DB::table('ratings')->insert([
+               'id' => $i,
+               'cmt' => str_random(20),
+               'post_id' => $i,
+               'user_id' => $i,
+               'rating' => $rating,
+               'created_at'=>date("2018-$month-d H:i:s"),
+               'updated_at'=>date('Y-m-d H:i:s'),
+   
+           ]);
+       }
     }
 }
