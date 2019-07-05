@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
     	$this->call(CategoryTableSeeder::class);
         $this->call(CityTableSeeder::class);
         $this->call(PhotoTableSeeder::class);
@@ -41,6 +42,7 @@ class CategoryTableSeeder extends Seeder
             ['name' => Str::random(4),
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s')],
+
         ]);
     }
 }
