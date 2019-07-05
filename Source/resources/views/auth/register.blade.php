@@ -21,7 +21,7 @@
                             <div class="form-group row">
                                 <div>
                                     <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
-                                    <a class="btn btn-block btn-social btn-google">
+                                    <a class="btn btn-block btn-social btn-google" href="{{route('login.social')}}" >
                                         <i class="fab fa-google"></i>
 
                                         Sign in with Google

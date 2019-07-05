@@ -18,11 +18,15 @@
 
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="https://unpkg.com/sweetalert2@7.18.0/dist/sweetalert2.all.js"></script>
+    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>  
 
 </head>
 <body>
@@ -65,53 +69,56 @@
 
                         <li class="nav-item dropdown" style="">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="color: white;font-size: 13px;" v-pre>
-                                @if(auth()->user()->avatar)
-                                <img src="{{Auth::user()->avatar}}" alt="Avatar" width="40px" style="border-radius: 50%;margin-right: 10px;">
-                                @endif
+                                <img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar" width="40px" style="border-radius: 50%;margin-right: 10px;">
                                 {{ Auth::user()->name }}
                                 <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">
-                                {{ __('Logout') }}
-                            </a>
+                               <a class="dropdown-item" href="{{route('profile')}}" >Profile</a>
+                               <a class="dropdown-item" href="#">Change Password</a>
+                               <div class="dropdown-divider"></div>
+                               <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">
+                               {{ __('Logout') }}
+                           </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
-                        </div>
-                    </li>
-                    @endguest
-                </ul>
+                           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </div>
+                </li>
+                @endguest
+            </ul>
 
-            </div>
         </div>
-    </nav>
+    </div>
+</nav>
+<!-- MOdal login -->
 
-    <!-- MOdal login -->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-          <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h4 class="modal-title">Sign in</h4>
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
+<!-- MOdal login -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
 
-          <!-- Modal body -->
-          <div class="modal-body">
-            @include('auth.login')
-        </div>
-
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Sign in</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
 
+      <!-- Modal body -->
+      <div class="modal-body">
+        @include('auth.login')
+    </div>
+
+    <!-- Modal footer -->
+    <div class="modal-footer">
+      <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
   </div>
+
+</div>
 </div>
 </div>
 
