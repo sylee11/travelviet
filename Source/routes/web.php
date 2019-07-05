@@ -14,11 +14,17 @@ use App\Http\Controllers\HomeController;
 */
 
 Auth::routes();
+
+
 Route::group(['namespace' => 'Front'], function (){
 	Route::get('/', 'FrontController@index')->name('pages.home');
 	Route::get('/home', function(){
 		return view('pages.home');
 	})->name('home');
+	Route::get('profile', 'ProfileController@show')->name('profile');
+	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
+	Route::post('/update', 'ProfileController@update')->name('profile.update');
+	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 });
 
 
@@ -37,14 +43,14 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::group(['prefix' => 'user','namespace'=>'user'], function(){
 		Route::get('/', 'UserController@index')->name('admin.user.index');
 
-	    Route::post('/add', 'UserController@store')->name('admin.user.add');
-	    Route::post('/register', 'UserRegisterController@store')->name('admin.user.register');
+		Route::post('/add', 'UserController@store')->name('admin.user.add');
+		Route::post('/register', 'UserRegisterController@store')->name('admin.user.register');
 
-	    Route::get('/edit/{id}', 'UserController@getedit')->name('admin.user.edit');
-	    Route::post('/edit/{id}', 'UserController@postedit')->name('admin.user.edit1');
+		Route::get('/edit/{id}', 'UserController@getedit')->name('admin.user.edit');
+		Route::post('/edit/{id}', 'UserController@postedit')->name('admin.user.edit1');
 
-	    Route::get('/delete/{id}', 'UserController@xoa')->name('admin.user.delete');
-	    Route::get('/block/{id}', 'UserController@block')->name('admin.user.block');
+		Route::get('/delete/{id}', 'UserController@xoa')->name('admin.user.delete');
+		Route::get('/block/{id}', 'UserController@block')->name('admin.user.block');
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
 		Route::get('/', 'PostController2@index')->name('admin.post.index');
@@ -75,7 +81,7 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::get('/delete/{id}', 'PlaceController@xoa')->name('admin.place.delete');
 
 		Route::get('/edit/{id}', 'PlaceController@getedit')->name('admin.place.edit');
-	    Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit1');
+		Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit1');
 
 	});
 	Route::group(['prefix' => 'rating','namespace'=>'rating'], function(){

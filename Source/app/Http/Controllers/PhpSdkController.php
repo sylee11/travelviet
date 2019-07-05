@@ -11,11 +11,11 @@ class PhpSdkController extends Controller
 
   public function callback()
   {
-    
+
 
     session_start();
     $fb = new \Facebook\Facebook([
-      'app_id' => '2500657973298544', 
+      'app_id' => '2500657973298544',
       'app_secret' => 'fe55cfc3f3fbed74b5c1e02cda1a8869',
       //'default_graph_version' => 'v3.2',
     ]);
@@ -48,60 +48,60 @@ class PhpSdkController extends Controller
       exit;
     }
 
-    
+
     $response = $fb->get('/me?fields=id,name,email', $accessToken);
-    
+
     $fbuser = $response->getGraphUser();
-    
+
     $id = $fbuser['id'];
-    
+
     $user = new \App\User;
     if (\App\Social::find($id) === NULL) {
-      
+
       $social = new \App\Social;
       $social->id = $id;
-     // $social->save();
+      // $social->save();
 
-      if (isset($fbuser['email'])===false) { 
-       
-      //  $user = new \App\User;
-            $user->name = $fbuser['name'];
-            
-            $user->socials_id = $id;
-            $user->save();
+      if (isset($fbuser['email']) === false) {
+
+        //  $user = new \App\User;
+        $user->name = $fbuser['name'];
+
+        //$user->socials_id = $id;
+        $user->save();
       } else {
 
 
         $email = $fbuser['email'];
-   //     if ($email !== NULL) {
-          $rows = \App\User::where('email', '=', $email)->first();
-       //   if (!count($rows)) {
-        if ($rows===NULL) {
+        //     if ($email !== NULL) {
+        $rows = \App\User::where('email', '=', $email)->first();
+        //   if (!count($rows)) {
+        if ($rows === NULL) {
           //  $user = new \App\User;
-            $user->name = $fbuser['name'];
-            $user->email = $fbuser['email'];
-            $user->socials_id = $id;
-            $user->save();
-          } else {
-           
-            $user = \App\User::where('email', '=', $email)->update(array('socials_id' => $id));
+          $user->name = $fbuser['name'];
+          $user->email = $fbuser['email'];
+          //$user->socials_id = $id;
+          $user->save();
+        } else {
 
-            $user = \App\User::where('socials_id', '=', $id)->first();
-          }
-     //   }
+          $user = \App\User::where('email', '=', $email)->first();//->update(array('socials_id' => $id));
+
+          //$user = \App\User::where('socials_id', '=', $id)->first();
+        }
+        //   }
       }
-      $social->user_id= $user->id;
+      $social->user_id = $user->id;
       $social->save();
-    } 
-    else {
-      $user = \App\User::where('socials_id', '=', $id)->first();
-
+    } else {
+      $social = \App\Social::find($id);
+      $user_id = $social->user_id;
+      $user = \App\User::where('id', '=', $user_id)->first();
     }
-    
-  //  var_dump($user);
+
+    //  var_dump($user);
     \Auth::login($user);
     //session_destroy();
-     
+
     return redirect('/home');
   }
 }
