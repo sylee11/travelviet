@@ -124,6 +124,10 @@ class PostController2 extends Controller
         $posts -> phone = $request ->number;
         $posts -> place_id = $request ->placeid;
         $posts -> title = $request ->title;
+        if($request ->describer){
+        $posts -> describer = $request ->input('describer');
+        }
+        else return "none";
         if($request->checkbox){
             $posts -> is_approved = $request -> checkbox;
         }
@@ -158,7 +162,7 @@ class PostController2 extends Controller
                 $photo = new photo;
                 $photo->photo_path = $path."/".$name;
                 $photo->flag = 0;
-                $photo->posts_id=$temp->id;
+                $photo->post_id=$temp->id;
                 $photo ->save ();
             }
             return back()->with('success', 'Your images has been successfully');
@@ -182,15 +186,55 @@ class PostController2 extends Controller
         //
     }
 
+    public function showformedit($id)
+    {
+        $posts = POST::find($id);
+        return view('admin.post.edit', ['post'=>$posts] );
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
         //
+        $posts = POST::find($id);
+        if(USER::find($request->userid)){
+            $posts ->user_id = $request ->userid;
+        }
+        else{
+            return "userid not exist";
+        }
+        // if(PLACE::find($request->placeid)){
+        //     $posts ->place_id = $request ->placeid;
+        // }
+        // else{
+        //     return "placeid not exist";
+        // }
+        $posts ->place_id = $request->placeid;
+        $posts ->phone = $request->phone;
+        $posts ->is_approved = $request->approved;
+        $posts ->title = $request ->title;
+        $posts ->describer = $request->input('descricer');
+
+        $posts -> save();
+
+
+        $path = 'picture/admin/post/'.$posts->id;
+        foreach($request->file('filename') as $image)
+        {   
+                $name=$image->getClientOriginalName();
+                $image->move($path, $name);  
+                $photo = new photo;
+                $photo->photo_path = $path."/".$name;
+                $photo->flag = 0;
+                $photo->post_id=$posts->id;
+                $photo ->save ();
+        }
+        //dd($posts);
+        return back()->with('success', 'Your images has been successfully');
     }
 
     /**
@@ -217,7 +261,9 @@ class PostController2 extends Controller
         $posts = DB::table('posts')
             ->where('id' , '=' ,$id)->delete();
         $photo =DB::table('photos')
-            ->where('posts_id', '=' ,$id)->delete();
+            ->where('post_id', '=' ,$id)->delete();
+        $path = "/picture/admin/post/".$id; 
+        File::deleteDirectory(public_path($path));
         // $posts= POST::all();
 
         // return view('admin.post.index', ['posts'=>$posts]);
@@ -248,4 +294,29 @@ class PostController2 extends Controller
         return redirect (route('admin.post.index'));
 
     }   
+
+    //show detail posts
+    public function detail($id)
+    {
+        $posts = POST::find($id);
+        // chu y dặt tên biến
+        return view('admin.post.detail', ['post'=>$posts] );
+        //$a = $posts->photos;
+        //dd($posts->photos[0]->id);
+  
+    }
+
+
+    public function deletephoto($id)
+    {
+        $photos = PHOTO::find($id);
+        $photos ->delete();
+        $path =$photos->photo_path; 
+        File::delete($path);
+        //return( "avc");
+        return back();
+        //dd($path);
+    }
+
+
 }

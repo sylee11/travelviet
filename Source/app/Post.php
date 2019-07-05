@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     //
+
+    protected $fillable = ['place_id'];
     public function user(){
     	return $this->belongsTo('App\User');
     }
@@ -16,7 +18,7 @@ class Post extends Model
     public function photos(){
     	return $this->hasMany('App\Photo');
     }
-    public function places()
+    public function place()
     {
         return $this->belongsTo(Place::class);
     }

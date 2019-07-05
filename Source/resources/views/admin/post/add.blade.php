@@ -40,7 +40,7 @@
   	</div>
 	<div class="form-group">
     	<label for="">Descrice:</label>
-  		<textarea class="form-control" rows="5" id="descrice" name="descrice"></textarea> 
+  		<textarea class="form-control" rows="5" id="describer" name="describer"></textarea> 
   	</div>
 	<div class="form-group form-check" style="display: flex;">
      	<input class="form-check-input" type="checkbox" name="checkbox" value="1">Post now:
