@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-group  col-md-6">
                         <label for="rating">Rating:</label>
-                        <input type="text" class="form-control" id="rating"  placeholder="Enter Rating" name="rating" autofocus>
+                        <input type="text" class="form-control" id="rating"  placeholder="Enter Rating" name="rating" autofocus required>
                     </div>
                 </div>
 
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label for="comment">Comment:</label>
-                <textarea class="form-control" rows="5" id="editor1" name="comment" ></textarea>
+                <textarea class="form-control" rows="5" id="editor1" name="comment" required></textarea>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
