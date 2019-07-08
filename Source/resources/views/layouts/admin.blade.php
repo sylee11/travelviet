@@ -20,7 +20,7 @@
   <!-- Custom styles for this template-->
   <link href="{{asset('css/sb-admin.css')}}" rel="stylesheet">
 
-
+<script src="{{ asset('js/jquery-3.4.1.min.js') }}" ></script>
 
 </head>
 
