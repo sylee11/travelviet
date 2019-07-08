@@ -34,7 +34,8 @@ Route::get('register', 'Auth\RegisterController@showFormRegister')->name('regist
 
 Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
 Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCallback');
-
+Route::get('/change_password', 'Auth\ChangePasswordController@show')->name('show_changePass');
+Route::post('/update_password', 'Auth\ChangePasswordController@update')->name('update_changePass');
 
 Route::group(['prefix' => 'admin'], function () {
 
