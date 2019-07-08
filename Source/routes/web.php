@@ -40,7 +40,7 @@ Route::post('/update_password', 'Auth\ChangePasswordController@update')->name('u
 Route::group(['prefix' => 'admin'], function () {
 
 	Route::get('/', 'AdminController@index')->name('admin.index');
-
+	Route::get('chart','AdminController@chart');
 	Route::group(['prefix' => 'user','namespace'=>'user'], function(){
 		Route::get('/', 'UserController@index')->name('admin.user.index');
 
