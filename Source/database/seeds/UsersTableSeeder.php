@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class RatingTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,19 +11,22 @@ class RatingTableSeeder extends Seeder
      */
     public function run()
     {
-        for ($i=1; $i <= 100; $i++) { 
+        DB::table('users')->insert([
+            'id' =>1,
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => bcrypt('000111'),
+        ]);
+       /* for ($i=102; $i <= 202; $i++) { 
             $month =mt_rand(1,12);
             $rating = mt_rand(1,5);
-            DB::table('ratings')->insert([
+            DB::table('users')->insert([
                'id' => $i,
-               'cmt' => str_random(20),
-               'post_id' => $i,
-               'user_id' => $i,
-               'rating' => $rating,
+               
                'created_at'=>date("2019-$month-d H:i:s"),
                'updated_at'=>date('Y-m-d H:i:s'),
    
            ]);
-       }
+       }*/
     }
 }

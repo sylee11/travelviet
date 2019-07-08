@@ -50,12 +50,12 @@
       </div>
 -->
 
-<form action="" method="GET">
+<form action="/admin" method="GET">
   <label>Table</label>
   <select name="dbname" >
   <option value="" selected disabled hidden>Choose here</option>
     <option value="users">User</option>
-    <option value="rating">Rating</option>
+    <option value="ratings">Rating</option>
     <option value=""></option>
     <option value=""></option>
   </select>
@@ -69,6 +69,11 @@
   </select>
   
   <input class="btn-success" type="submit">
+  <br>
+
+  <input type="month" name="begin">
+  <input type="month" name="end">
+  <button class="btn-success" type="submit" formaction="/admin/chart" formmethod="GET">Submit</button>
 </form>
 
 <div style="height: 400px">

@@ -14,11 +14,17 @@ use App\Http\Controllers\HomeController;
 */
 
 Auth::routes();
+
+
 Route::group(['namespace' => 'Front'], function (){
 	Route::get('/', 'FrontController@index')->name('pages.home');
 	Route::get('/home', function(){
 		return view('pages.home');
 	})->name('home');
+	Route::get('profile', 'ProfileController@show')->name('profile');
+	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
+	Route::post('/update', 'ProfileController@update')->name('profile.update');
+	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 });
 
 
@@ -28,26 +34,37 @@ Route::get('register', 'Auth\RegisterController@showFormRegister')->name('regist
 
 Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
 Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCallback');
-
+Route::get('/change_password', 'Auth\ChangePasswordController@show')->name('show_changePass');
+Route::post('/update_password', 'Auth\ChangePasswordController@update')->name('update_changePass');
 
 Route::group(['prefix' => 'admin'], function () {
 
 	Route::get('/', 'AdminController@index')->name('admin.index');
-
+	Route::get('chart','AdminController@chart');
 	Route::group(['prefix' => 'user','namespace'=>'user'], function(){
 		Route::get('/', 'UserController@index')->name('admin.user.index');
 
-	    Route::post('/add', 'UserController@store')->name('admin.user.add');
-	    Route::post('/register', 'UserRegisterController@store')->name('admin.user.register');
+		Route::post('/add', 'UserController@store')->name('admin.user.add');
+		Route::post('/register', 'UserRegisterController@store')->name('admin.user.register');
 
-	    Route::get('/edit/{id}', 'UserController@getedit')->name('admin.user.edit');
-	    Route::post('/edit/{id}', 'UserController@postedit')->name('admin.user.edit1');
+		Route::get('/edit/{id}', 'UserController@getedit')->name('admin.user.edit');
+		Route::post('/edit/{id}', 'UserController@postedit')->name('admin.user.edit1');
 
-	    Route::get('/delete/{id}', 'UserController@xoa')->name('admin.user.delete');
-	    Route::get('/block/{id}', 'UserController@block')->name('admin.user.block');
+		Route::get('/delete/{id}', 'UserController@xoa')->name('admin.user.delete');
+		Route::get('/block/{id}', 'UserController@block')->name('admin.user.block');
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
-		Route::get('/', 'PostController@index')->name('admin.post.index');
+		Route::get('/', 'PostController2@index')->name('admin.post.index');
+		Route::get('/delete/{id}', 'PostController2@destroy')->name('admin.post.delete');
+		Route::get('/approved/{id}', 'PostController2@approved')->name('admin.post.approved');
+		Route::get('/unapproved/{id}', 'PostController2@unapproved')->name('admin.post.unapproved');
+		Route::post('/add', 'PostController2@store')->name('admin.post.add');
+		Route::get('/{id}/detail', 'PostController2@detail')->name('admin.post.detail');
+		Route::get('/{id}/edit', 'PostController2@showformedit')->name('admin.post.showedit');
+		Route::post('/{id}/edit', 'PostController2@edit')->name('admin.post.edit');
+		Route::get('/{id}/edit/deletephoto', 'PostController2@deletephoto')->name('admin.post.deletephoto');
+
+		    //
 	});
 	Route::group(['prefix' => 'category','namespace'=>'category'], function(){
 		Route::get('/', 'CategoryController@index')->name('admin.category.index');
@@ -65,11 +82,13 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::get('/delete/{id}', 'PlaceController@xoa')->name('admin.place.delete');
 
 		Route::get('/edit/{id}', 'PlaceController@getedit')->name('admin.place.edit');
+
 	    Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit');
         
         Route::get('/add', 'PlaceController@getadd')->name('admin.place.add');
         Route::post('/add', 'PlaceController@store')->name('admin.place.add');
         Route::get('/get-city-list', 'PlaceController@getCityList')->name('admin.place.getcity');
+
 
 	});
 	Route::group(['prefix' => 'rating','namespace'=>'rating'], function(){
@@ -107,3 +126,11 @@ Route::get('/home','HomeController@index')->name('home');
 
 Auth::routes();
 
+
+
+//test
+Route::get('/abc', function() {
+	$path = 'picture/admin/post/edit';
+	File::makeDirectory($path);
+    //
+});
