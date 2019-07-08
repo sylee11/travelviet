@@ -82,7 +82,13 @@ Route::group(['prefix' => 'admin'], function () {
 		Route::get('/delete/{id}', 'PlaceController@xoa')->name('admin.place.delete');
 
 		Route::get('/edit/{id}', 'PlaceController@getedit')->name('admin.place.edit');
-		Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit1');
+
+	    Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit');
+        
+        Route::get('/add', 'PlaceController@getadd')->name('admin.place.add');
+        Route::post('/add', 'PlaceController@store')->name('admin.place.add');
+        Route::get('/get-city-list', 'PlaceController@getCityList')->name('admin.place.getcity');
+
 
 	});
 	Route::group(['prefix' => 'rating','namespace'=>'rating'], function(){
