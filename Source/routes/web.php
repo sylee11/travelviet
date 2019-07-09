@@ -75,7 +75,7 @@ Route::group(['prefix' => 'admin'], function () {
 			return view('admin.category.addlayout');
 		});
 		Route::post('/add','CategoryController@add');
-
+		
 	});
 	Route::group(['prefix' => 'place','namespace'=>'place'], function(){
 		Route::get('/', 'PlaceController@index')->name('admin.place.index');
