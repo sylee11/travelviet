@@ -29,7 +29,7 @@ class RatingController extends Controller
 		$record->user_id=$request->user_id;
 		$record->rating=$request->rating;
 		$record->post_id=$request->post_id;
-		$record->cmt=$request->comment;
+		$record->cmt=$request->get('comment');
 		//dd($request->comment);
 		$record->save();
 		return redirect('admin/rating');
