@@ -88,29 +88,6 @@ class PostController2 extends Controller
         //                 ->withInput();
         // }
 
-        // $posts = DB::table('posts')
-        //     ->insert([
-        //         'user_id' => $request ->input('userid'),
-        //         'phone' => $request ->input('phone'),
-        //         'title' => $request ->input('title'),
-        //         'describer' => $request ->input('descrice'),
-        //         'place_id' => $request ->input('placeid'),
-        //         'created_at' => Carbon::now(),
-        //         'updated_at' => Carbon::now(),
-
-        //     ]);
-
-        // dd($post);
-        // $posts= DB::table('posts')
-        //     ->join('users', 'users.id', '=', 'posts.user_id')
-        //     ->select('posts.*', 'users.name')
-        //     ->get();
-
-        // $posts = POST::all;
-        // return view('admin.post.index', ['posts'=>$posts]);
-        // var_dump($request->input('userid'));
-
-
         // import posts
         $posts = new POST;
         //check user dóe'n exist
@@ -127,7 +104,7 @@ class PostController2 extends Controller
         if($request ->describer){
         $posts -> describer = $request ->input('describer');
         }
-        else return "none";
+        else return "none describer";
         if($request->checkbox){
             $posts -> is_approved = $request -> checkbox;
         }
@@ -136,6 +113,7 @@ class PostController2 extends Controller
 
         //find last id
         $temp = POST::latest()->first();
+
         //make folder chua photo
         $path = 'picture/admin/post/'.$temp->id;
         File::makeDirectory($path);
@@ -158,6 +136,18 @@ class PostController2 extends Controller
             {   
 
                 $name=$image->getClientOriginalName();
+
+                //check photo exit
+                $namet=$path."/".$name;                
+                $t = DB::table('photos')
+                ->where("post_id", "=", $temp->id)->get();
+                foreach ($t as $key => $value) {
+                        if($value->photo_path ==  $namet  ){
+                            $p = POST::find($temp->id)->delete();
+                            return "anh trung nhau";
+                        }
+                }  
+
                 $image->move($path, $name);  
                 $photo = new photo;
                 $photo->photo_path = $path."/".$name;
@@ -199,7 +189,7 @@ class PostController2 extends Controller
      */
     public function edit(Request $request,$id)
     {
-        //
+        // xu li edit info
         $posts = POST::find($id);
         if(USER::find($request->userid)){
             $posts ->user_id = $request ->userid;
@@ -222,19 +212,54 @@ class PostController2 extends Controller
         $posts -> save();
 
 
+
+        // xu li them anh moi
         $path = 'picture/admin/post/'.$posts->id;
-        foreach($request->file('filename') as $image)
-        {   
+        if($request->has('filename')){
+            foreach($request->file('filename') as $image)
+            {   
                 $name=$image->getClientOriginalName();
+
+                //check photo exit
+                $namet=$path."/".$name;                
+                $t = DB::table('photos')
+                ->where("post_id", "=", $id)->get();
+                foreach ($t as $key => $value) {
+                          if($value->photo_path ==  $namet  )
+                              return "Photo exits";
+                }  
+
                 $image->move($path, $name);  
                 $photo = new photo;
                 $photo->photo_path = $path."/".$name;
                 $photo->flag = 0;
                 $photo->post_id=$posts->id;
                 $photo ->save ();
+            }
         }
         //dd($posts);
-        return back()->with('success', 'Your images has been successfully');
+
+
+        //delete photo
+        $photoedit = $request->p1; // This will get all the request data.
+        //$data = json_decode($request->getContent());
+        // return $request->xxx; 
+        //exit();
+        $edit = explode('/',$photoedit);
+        foreach ($edit as $da => $value) {
+            if(PHOTO::find($value))
+            {
+                $findphoto = PHOTO::find($value);
+                $path =$findphoto->photo_path; 
+                File::delete($path);
+                $findphoto ->delete();
+                
+            }
+        }
+        return redirect (route('admin.post.detail', $posts->id));
+        //return back()->with('success', 'Your images has been successfully');
+        //dd($name); // This will dump and die
+        //var_dump($data);
     }
 
     /**
@@ -257,6 +282,7 @@ class PostController2 extends Controller
      */
     public function destroy($id)
     {
+
         //query bulder
         $posts = DB::table('posts')
             ->where('id' , '=' ,$id)->delete();
@@ -264,10 +290,11 @@ class PostController2 extends Controller
             ->where('post_id', '=' ,$id)->delete();
         $path = "/picture/admin/post/".$id; 
         File::deleteDirectory(public_path($path));
+        $postss = POST::all();
+        return view('admin.post.index', ['posts'=>$postss ]);
         // $posts= POST::all();
 
-        // return view('admin.post.index', ['posts'=>$posts]);
-        return redirect (route('admin.post.index'));
+
 
     }
 

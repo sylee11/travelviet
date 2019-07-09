@@ -130,7 +130,6 @@ Auth::routes();
 
 //test
 Route::get('/abc', function() {
-	$path = 'picture/admin/post/edit';
-	File::makeDirectory($path);
-    //
+ 	$data = Request::all();
+ 	dd($data); 
 });
