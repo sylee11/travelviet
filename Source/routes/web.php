@@ -34,12 +34,13 @@ Route::get('register', 'Auth\RegisterController@showFormRegister')->name('regist
 
 Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
 Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCallback');
-
+Route::get('/change_password', 'Auth\ChangePasswordController@show')->name('show_changePass');
+Route::post('/update_password', 'Auth\ChangePasswordController@update')->name('update_changePass');
 
 Route::group(['prefix' => 'admin'], function () {
 
 	Route::get('/', 'AdminController@index')->name('admin.index');
-
+	Route::get('chart','AdminController@chart');
 	Route::group(['prefix' => 'user','namespace'=>'user'], function(){
 		Route::get('/', 'UserController@index')->name('admin.user.index');
 
@@ -74,14 +75,20 @@ Route::group(['prefix' => 'admin'], function () {
 			return view('admin.category.addlayout');
 		});
 		Route::post('/add','CategoryController@add');
-
+		
 	});
 	Route::group(['prefix' => 'place','namespace'=>'place'], function(){
 		Route::get('/', 'PlaceController@index')->name('admin.place.index');
 		Route::get('/delete/{id}', 'PlaceController@xoa')->name('admin.place.delete');
 
 		Route::get('/edit/{id}', 'PlaceController@getedit')->name('admin.place.edit');
-		Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit1');
+
+	    Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit');
+        
+        Route::get('/add', 'PlaceController@getadd')->name('admin.place.add');
+        Route::post('/add', 'PlaceController@store')->name('admin.place.add');
+        Route::get('/get-city-list', 'PlaceController@getCityList')->name('admin.place.getcity');
+
 
 	});
 	Route::group(['prefix' => 'rating','namespace'=>'rating'], function(){

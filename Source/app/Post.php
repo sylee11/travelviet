@@ -22,5 +22,8 @@ class Post extends Model
     {
         return $this->belongsTo(Place::class);
     }
+     public function ratings(){
+        return $this->hasMany('App\Rating');
+    }
 }
 

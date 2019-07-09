@@ -6,14 +6,21 @@
  	{{session('thongbao')}}
  </div>
 @endif -->
-
+@if(count($errors)>0)
+<div class="alert alert-danger">
+  @foreach($errors->all() as $err)
+  {{$err}} <br>
+  @endforeach
+</div>
+@endif
 
 @if(Session::has('message'))
 <div class="alert alert-danger">
 	{{Session::get('message')}}
 </div>
 @endif
-<form action="{{route('admin.user.edit1', $user->id)}}" method="post">
+
+<form action="{{route('admin.user.edit1', $user->id)}}" method="post" enctype="multipart/form-data">
 	{{csrf_field()}}
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
   
@@ -26,12 +33,15 @@
     <input id="email" type="email" name="email" value="{{ $user->email }}" class="form-control" disabled="">
   </div>
 
-  <!-- <div class="form-group">
+  <div class="form-group">
     <input type="checkbox" name="changePassword" id=changePasword >
     <label for="">Đổi mật khẩu</label>
-    <input  type="password" name="password" value="" class="form-control password" disabled="" placeholder="Password">
-  </div> -->
-  
+    <input  type="password" name="password" value="" class="form-control password" disabled="" placeholder="Password" required>
+  </div>
+  <div class="form-group">
+    <label for="">Nhập lại mật khẩu</label>
+    <input  type="password" name="passwordAgain" value="" class="form-control password" disabled="" placeholder="Password" required>
+  </div>
 
   <div class="form-group">
     <label for="">Phone</label>
@@ -59,7 +69,7 @@
   </div>
   <div class="form-group">
     <label for="">Avatar</label>
-    <input  type="file" name="avatar" value="{{ $user->avatar }}" required autocomplete="file">
+    <input  type="file" name="avatar" value=""  required autocomplete="file">
   </div>
   <div class="form-group">
     <label for="">Role</label>
@@ -83,10 +93,7 @@
     <a href="/admin/user" style="color: white">Cancel</a>
   </button>
 </form>
-@endsection
-
-<!-- @section('script')
-  <script>
+<script>
     $(document).ready(function(){
          $("#changePasword").change(function(){
             if($(this).is(":checked"))
@@ -99,4 +106,7 @@
          });
     });
   </script>
-@endsection -->
+@endsection
+
+
+  
