@@ -60,26 +60,55 @@ class UserController extends Controller
         $this->validate($request,
             [
                 'name'=>'required|max:255',
-                // 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                'status'=>'required'
-                // 'phone'=>'required|max:11'
+                'status'=>'required',
+                 'avatar' => 'required | mimes:jpeg,jpg,png | max:1000'
             ],
             [
                 'name.max(255)'=>'ten co do dai ko qua 255',
-                // 'email.unique'=>'email da ton tai'
-
-                // 'phone.max(11)'=>'qua so'
             ]
         );
         $user->name = $request->get('name');
-
-        // $user->email = $request->get('email');
         $user->birthday = $request->get('birthday');
         $user->address = $request->get('address');
         $user->phone = $request->get('phone');
         $user->role = $request->get('role');
         $user->status = $request->get('status');
-        $user->avatar = $request->get('avatar');
+        // $user->avatar = $request->get('avatar');
+
+        if ($request->hasFile('avatar')) {
+            $file=$request->file('avatar');
+            $name=$file->getClientOriginalName();
+            $avatar = str_random(4)."_".$name;
+            while (file_exists("picture/".$avatar)) {
+                $avatar = str_random(4)."_".$name;
+            }
+            $file->move("picture",$avatar);
+            $user->avatar = $avatar;   
+
+   }
+         else
+         {
+            $user->avatar = ""; 
+         }
+
+        if(isset($request->changePassword ))
+        {
+            $this->validate($request,
+            [
+                
+                'password' => ['required', 'string', 'min:8'],
+                'passwordAgain'=>'required|same:password'
+
+            ],
+            [   
+                 'password.required'=>'bạn chưa nhập pass',
+                 'password.min(8)'=>'bạn nhập ít nhất 5 kí tự'  ,
+                 'passwordAgain.required'=>'bạn chưa nhập lại mật khẩu'     
+            ]
+        );
+            $user->password=bcrypt($request->password);
+
+        }
 
 
         $user->save();
