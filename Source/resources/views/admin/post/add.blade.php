@@ -59,7 +59,7 @@
             <button class="btn btn-success add" type="button"><i class="glyphicon glyphicon-plus" id="add"></i>Add</button>
           </div>
         </div>
-        <div class=" clone hide" style="overflow: hidden;">
+        <div class=" clone" style="overflow: hidden;">
           <div class="control-group input-group" style="margin-top:10px">
             <input type="file" name="filename[]" class="form-control">
             <div class="input-group-btn"> 
@@ -89,6 +89,9 @@
       $("body").on("click",".btn-danger",function(){ 
           $(this).parents(".control-group").remove();
       });
+
+      var ab=$(".clone");
+      ab.hide();
 
     });
 
