@@ -41,7 +41,7 @@ Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCall
 Route::get('/change_password', 'Auth\ChangePasswordController@show')->name('show_changePass');
 Route::post('/update_password', 'Auth\ChangePasswordController@update')->name('update_changePass');
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 	Route::get('/', 'AdminController@index')->name('admin.index');
 	Route::get('chart','AdminController@chart');
@@ -134,7 +134,6 @@ Auth::routes();
 
 //test
 Route::get('/abc', function() {
-	$path = 'picture/admin/post/edit';
-	File::makeDirectory($path);
-    //
+ 	$data = Request::all();
+ 	dd($data); 
 });

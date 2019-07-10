@@ -1,5 +1,6 @@
 @extends('layouts.admin')
 @section('content')
+
 <div class="container">
   <FORM  method="post" class="" action="{{route('admin.post.edit', $post->id)}}" enctype="multipart/form-data">
   @csrf
@@ -11,12 +12,22 @@
       </div>
     <div class="form-group " style="margin-left: 50px;" >
         <label >User id:</label>
-        <input type="number" value="{{$post->user_id}}"  class="form-control @error('userid') is-invalid @enderror" id="userid " name="userid">
+        <select class="form-control" id="userid" name="userid">
+          @foreach($user as $u)
+            <option>{{ $u->id }}</option>
+
+          @endforeach
+        </select>
       </div>
 
       <div class="form-group"  style="margin-left: 50px";>
         <label >Place Id:</label>
-        <input type="number" value="{{$post->place_id}}"  class="form-control" id="userid " name="placeid">
+        <select class="form-control" id="placeid" name="placeid">
+          @foreach($place as $p)
+            <option>{{ $p->id }}</option>
+
+          @endforeach
+        </select>
       </div>
 
   </div>
@@ -27,8 +38,10 @@
       </div>
       <div class="form-group" style="margin-left: 50px;">
         <label >Is Approved(1 to post now)</label>
-        <input type="number"  value="{{$post->is_approved}}" class="form-control" id="userid " name="approved">
-
+        <select class="form-control" id="approved" name="approved">
+            <option>0</option>
+            <option>1</option>
+        </select>
       </div>
     </div>
 
@@ -52,14 +65,54 @@
     </div>
 
     {{-- show all photo --}}
+    <div class="form-group">
+       <input type="text" value="" style="display: none;"  class="form-control" id="p1" name="p1">
+    </div>
     <h5>All photo</h5>
     <div class="form-group">
       <div  class="d-flex">
 
         @foreach($post->photos as $p)
           {{-- <img src="{{"/".$p->photo_path}}" alt="{{"/".$p->photo_path}}" style="width: 100px; height: 100px; background-repeat: no-repeat;"> --}}
-          <div  class="" style="display: flex; width: 150px; height: 150px; background-image: url({{"/".$p->photo_path}}); background-repeat: no-repeat; background-size: cover; margin-left: 10px;">
-              <a href="{{route('admin.post.deletephoto' , $p)}}"><img  src="/picture/front/close.png" style="width: 20px; height: 20px;" style="margin-left: 100px; " ></a>
+          <div id="xxx" class="{{$p->id}}" style="display: flex; width: 150px; height: 150px; background-image: url({{"/".$p->photo_path}}); background-repeat: no-repeat; background-size: cover; margin-left: 10px;" >
+             {{--  <a href="{{route('admin.post.deletephoto' , $p)}}"><img  src="/picture/front/close.png" style="width: 20px; height: 20px;" style="margin-left: 100px; " onclick="return confirm('Bạn có chắc muốn xóa ảnh này??')"></a> --}}
+              <button class="{{$p->id}}" onclick="" type="button"  style="background-image:url('/picture/front/close.png'); width: 20px; height: 20px; " >
+
+              </button>
+              {{-- script hiden photo --}}
+              <script type="text/javascript">
+                $(".{{$p->id}}").click(function(){
+                var xx =$(".{{$p->id}}");
+                xx.hide();
+                var t = document.getElementById("p1").value;
+                console.log(t);
+                document.getElementById("p1").value = t +  "{{$p->id}}/";
+                $.ajaxSetup({
+                  headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                  }
+                });
+
+
+                
+                $.ajax({
+                    method: 'post', // Type of response and matches what we said in the route
+
+                    url: '{{route('admin.post.edit', $post->id)}}', // This is the url we gave in the route
+                    data: { xxx:{{$p->id}}},
+
+                    //data: { idd : name }, // a JSON object to send back
+                    success: function(data){ // What to do if we succeed
+                        console.log(JSON.stringify({{$p->id}})); 
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+                        console.log(JSON.stringify(jqXHR));
+                        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+                    }
+
+                     });
+                })
+                </script>
           </div>
         @endforeach
 
@@ -75,12 +128,12 @@
  --}}
     <h5>Add more photo</h5>
         <div class="input-group control-group increment" >
-          <input type="file" name="filename[]" class="form-control">
-          <div class="input-group-btn">  
-            <button class="btn btn-success add" type="button"><i class="glyphicon glyphicon-plus" id="add"></i>Add</button>
+{{--           <input type="file" name="filename[]" class="form-control">
+ --}}          <div class="input-group-btn">  
+            <button class="btn btn-success add" type="button"><i class="glyphicon glyphicon-plus" id="add"></i>Click here to Add more</button>
           </div>
         </div>
-        <div class=" clone hide" style="overflow: hidden;">
+        <div class="clone">
           <div class="control-group input-group" style="margin-top:10px">
             <input type="file" name="filename[]" class="form-control">
             <div class="input-group-btn"> 
@@ -106,7 +159,7 @@
 {{-- script add muti image --}}
 </div>
 <script type="text/javascript">
-
+    var A = [];
     $(document).ready(function() {
 
       $(".add").click(function(){ 
@@ -118,7 +171,15 @@
           $(this).parents(".control-group").remove();
       });
 
+      var ab=$(".clone");
+      ab.hide();
+  
+      // $(".btnxx").click(function(){
+      //     var xx =$("#xxx");
+      //     xx.hide();
+      // });
     });
+
 
 </script>
 @endsection

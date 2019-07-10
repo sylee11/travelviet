@@ -10,15 +10,17 @@ use DB;
 class FrontController extends Controller
 {
 	public function index(){
-		$new_post= Post::orderBy('id', 'desc')->take(3)->get();
-		 $rating=Rating::orderBy('rating','desc')->take(3)->get();
-		 $top_user=Post::select('user_id', \DB::raw('count(id) as amount'))->groupBy('user_id')->orderBy('amount','desc')->take(4)->get();
-		 
-		 foreach ($new_post as $value) {
-		 	 $rat =Rating::where('post_id', '=', $value->id)->get();
-		 }
+		//show top users
+		$top_user=Post::select('user_id', \DB::raw('count(id) as amount'))->groupBy('user_id')->orderBy('amount','desc')->take(4)->where('is_approved','=','1')->get();
 
-		 return view('pages.index',['a'=>$rat,'rating'=>$rating,'top_user'=>$top_user]);
+		//show posts have rating highest
+		$rating=Rating::select('post_id', \DB::raw('avg(rating) as avg_rating'))->orderBy('avg_rating','desc')->groupBy('post_id')->take(3)->get();
+		//show post newest
+		$new_post = Post::leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')->select('posts.id','title', \DB::raw('avg(ratings.rating) as avg_rating'))->orderBy('posts.id', 'desc')->groupBy('posts.id')->groupBy('title')->take(3)->get();
+
+		$all_post = Post::leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')->select('posts.id','title', \DB::raw('avg(ratings.rating) as avg_rating'))->orderBy('posts.id', 'desc')->groupBy('posts.id')->groupBy('title')->get();
+		//dd($new_post);
+		return view('pages.index',['new_post'=>$new_post,'rating'=>$rating,'top_user'=>$top_user,'all_post'=>$all_post]);
 	}
 	public function detail($id){
 		//return $id;
