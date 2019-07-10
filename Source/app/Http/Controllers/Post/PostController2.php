@@ -223,16 +223,18 @@ class PostController2 extends Controller
 
 
         $path = 'picture/admin/post/'.$posts->id;
-        foreach($request->file('filename') as $image)
-        {   
-                $name=$image->getClientOriginalName();
-                $image->move($path, $name);  
-                $photo = new photo;
-                $photo->photo_path = $path."/".$name;
-                $photo->flag = 0;
-                $photo->post_id=$posts->id;
-                $photo ->save ();
-        }
+       if($request->has('filename')){
+       foreach($request->file('filename') as $image)
+       {   
+               $name=$image->getClientOriginalName();
+               $image->move($path, $name);  
+               $photo = new photo;
+               $photo->photo_path = $path."/".$name;
+               $photo->flag = 0;
+               $photo->post_id=$posts->id;
+               $photo ->save ();
+       }
+    }
         //dd($posts);
         return back()->with('success', 'Your images has been successfully');
     }

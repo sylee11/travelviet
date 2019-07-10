@@ -1,11 +1,11 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="css/custom/login.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom/login.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
 <!--Fontawesome CDN-->
-<link rel="stylesheet" href="css/bootstrap-social.css">
+<link rel="stylesheet" href="/css/bootstrap-social.css">
 <!--Custom styles-->
-<link rel="stylesheet" href="css/fontawesome.css">
+<link rel="stylesheet" href="/css/fontawesome.min.css">
 </head>
 
 <body class="text-center">

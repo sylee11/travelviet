@@ -25,6 +25,10 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
 	Route::post('/update', 'ProfileController@update')->name('profile.update');
 	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
+	Route::get('/detail',function(){
+		return view('pages.detail');
+	});
+	Route::get('/detail/{id}','FrontController@detail');
 });
 
 

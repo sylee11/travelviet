@@ -32,7 +32,7 @@
   <!-- Rating -->
   <link href="{{ asset('css/bootstrap-rating.css') }}" rel="stylesheet">
   <script type="text/javascript" src="{{ asset('js/bootstrap-rating.js') }}"></script>
-
+  @yield('header') 
 </head>
 <body>
     <!-- <script type="text/javascript">
