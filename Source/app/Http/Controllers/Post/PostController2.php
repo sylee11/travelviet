@@ -10,6 +10,7 @@ use App\User;
 use Carbon\Carbon;
 use App\Photo;
 use File;
+use App\Place;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -42,7 +43,9 @@ class PostController2 extends Controller
 
         //eloquent 
         $postss = POST::all();
-        return view('admin.post.index', ['posts'=>$postss ]);
+        $user = USER::all();
+        $place = PLACE::all();
+        return view('admin.post.index', ['posts'=>$postss , 'user'=>$user ,'place'=>$place]);
         //dd($posts);
     }
 
@@ -66,27 +69,12 @@ class PostController2 extends Controller
     public function store(Request $request)
     {
         //
-        // $request-> validate([
-        //     'user_id' => 'reiquired|numeric',
-        //     'phone' => 'required|numberic|max:10',
-        //     'title' => 'required',
-        //     'describer' => 'required',
-        //     'place_id' => 'required|number',
-        // ]);
-
-        // $validator = Validator::make($request->all(), [
-        //     'user_id' => 'reiquired|numeric',
-        //     'phone' => 'required|numberic|max:10',
-        //     'title' => 'required',
-        //     'describer' => 'required',
-        //     'place_id' => 'required|number',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return redirect('/admin/post/add')
-        //                 ->withErrors($validator)
-        //                 ->withInput();
-        // }
+        $request-> validate([
+            'user_id' => 'reiquired',
+            'number' => 'required|max:10',
+            'title' => 'required',
+            'describer' => 'required',
+        ]);
 
         // import posts
         $posts = new POST;
@@ -179,7 +167,9 @@ class PostController2 extends Controller
     public function showformedit($id)
     {
         $posts = POST::find($id);
-        return view('admin.post.edit', ['post'=>$posts] );
+         $user = USER::all();
+        $place = PLACE::all();
+        return view('admin.post.edit', ['post'=>$posts, 'user'=>$user ,'place'=>$place] );
     }
     /**
      * Show the form for editing the specified resource.
@@ -291,7 +281,7 @@ class PostController2 extends Controller
         $path = "/picture/admin/post/".$id; 
         File::deleteDirectory(public_path($path));
         $postss = POST::all();
-        return view('admin.post.index', ['posts'=>$postss ]);
+        return redirect (route('admin.post.index'));
         // $posts= POST::all();
 
 
@@ -305,7 +295,8 @@ class PostController2 extends Controller
             ->where('id', '=' , $id)
             ->update(['is_approved' => 1]);
         $posts= POST::all();
-        return view('admin.post.index', ['posts'=>$posts]);
+        return redirect (route('admin.post.index'));
+
 
     }   
 
