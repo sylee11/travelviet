@@ -12,10 +12,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-    	$this->call(CategoryTableSeeder::class);
-        $this->call(CityTableSeeder::class);
-        $this->call(PhotoTableSeeder::class);
-        $this->call(PlaceTableSeeder::class);
+    	//$this->call(CategoryTableSeeder::class);
+        //$this->call(CityTableSeeder::class);
+        //$this->call(PhotoTableSeeder::class);
+        //$this->call(PlaceTableSeeder::class);
         $this->call(UserTableSeeder::class);
     }
 }
@@ -149,6 +149,31 @@ class RatingTableSeeder extends Seeder
                'user_id' => $i,
                'rating' => $rating,
                'created_at'=>date("2018-$month-d H:i:s"),
+               'updated_at'=>date('Y-m-d H:i:s'),
+   
+           ]);
+       }
+    }
+}
+
+/**
+ * 
+ */
+class UserTableSeeder extends Seeder
+{
+    
+    public function run()
+    {
+
+        for ($i=1; $i <= 100; $i++) { 
+            $month =mt_rand(1,12);
+            $rating = mt_rand(1,5);
+            DB::table('users')->insert([
+               'id' => $i,
+               'name' => str_random(5),
+               'password' => bcrypt('123123123123'),
+                'email' => str_random(10)."@gmail.com",
+               'created_at'=>date("2019-$month-d H:i:s"),
                'updated_at'=>date('Y-m-d H:i:s'),
    
            ]);

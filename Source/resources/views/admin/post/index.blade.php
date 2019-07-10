@@ -6,7 +6,7 @@
 	Data Table Post</div>
 	<div class="card-body">
 		<div class="table-responsive">
-			<a href="" class="nav-link btn-info"  role = "button" style=" width: 120px; margin: 10px;" data-toggle="modal" data-target="#myModal3"> Add new</a>
+			<a href="" class="nav-link btn-info"  role = "button" style=" width: 120px; margin: 10px;" data-toggle="modal" data-target="#myModal3" data-show="true" > Add new</a>
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
@@ -17,7 +17,7 @@
 						<th>Place</th>
 						<th>Time create</th>
 						<th>Time modify</th>
-						<th>More</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tfoot>
@@ -29,7 +29,7 @@
 						<th>Place</th>
 						<th>Time create</th>
 						<th>Time modify</th>
-						<th>More</th>
+						<th>Action</th>
 					</tr>
 				</tfoot>
 				<tbody style="font-weight: normal;">
@@ -58,8 +58,8 @@
 					        <td align="center" style="display: flex;">
 								<a href="{{route('admin.post.detail', $post->id)}}" class="btn-success nav-link"> Detail</a>
 								
-								<a href="{{route('admin.post.showedit', $post->id)}}" class="btn-info nav-link" role='button'> Edit</a>
-								<a href="{{ route('admin.post.delete', $post->id)}}" class="btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')"> Delete</a>
+								<a href="{{route('admin.post.showedit', $post->id)}}" class="btn-info nav-link" role='button' style="margin-left: 5px;"> Edit</a>
+								<a href="{{ route('admin.post.delete', $post->id)}}" class="btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</a>
 							</td>
 					    </tr>
 
