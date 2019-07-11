@@ -12,12 +12,22 @@
       </div>
     <div class="form-group " style="margin-left: 50px;" >
         <label >User id:</label>
-        <input type="number" value="{{$post->user_id}}"  class="form-control @error('userid') is-invalid @enderror" id="userid " name="userid">
+        <select class="form-control" id="userid" name="userid">
+          @foreach($user as $u)
+            <option>{{ $u->id }}</option>
+
+          @endforeach
+        </select>
       </div>
 
       <div class="form-group"  style="margin-left: 50px";>
         <label >Place Id:</label>
-        <input type="number" value="{{$post->place_id}}"  class="form-control" id="userid " name="placeid">
+        <select class="form-control" id="placeid" name="placeid">
+          @foreach($place as $p)
+            <option>{{ $p->id }}</option>
+
+          @endforeach
+        </select>
       </div>
 
   </div>
@@ -28,8 +38,10 @@
       </div>
       <div class="form-group" style="margin-left: 50px;">
         <label >Is Approved(1 to post now)</label>
-        <input type="number"  value="{{$post->is_approved}}" class="form-control" id="userid " name="approved">
-
+        <select class="form-control" id="approved" name="approved">
+            <option>0</option>
+            <option>1</option>
+        </select>
       </div>
     </div>
 
