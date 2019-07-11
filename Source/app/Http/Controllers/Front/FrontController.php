@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use App\Rating;
 use DB;
-
+use App\User;
+use Auth;
+use Response;
 class FrontController extends Controller
 {
 	public function index()
@@ -75,5 +77,13 @@ class FrontController extends Controller
 			);
 		}
 		return $this->detail($post_id);
+	}
+	public function upgrade(Request $request){
+		$user= Auth::user();
+		$user->role = '2';
+
+		$user->save();
+		return redirect('/');
+
 	}
 }
