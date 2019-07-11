@@ -32,7 +32,7 @@
   <!-- Rating -->
   <link href="{{ asset('css/bootstrap-rating.css') }}" rel="stylesheet">
   <script type="text/javascript" src="{{ asset('js/bootstrap-rating.js') }}"></script>
-
+  @yield('header') 
 </head>
 <body>
     <!-- <script type="text/javascript">
@@ -74,7 +74,7 @@
 
                 <li class="nav-item dropdown" style="">
                   <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="color: white;font-size: 13px;" v-pre>
-                    <img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar" width="40px" style="border-radius: 50%;margin-right: 10px;">
+                    <img @if(!empty(Auth::user()->avatar)) src="/{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar" width="40px" style="border-radius: 50%;margin-right: 10px;">
                     {{ Auth::user()->name }}
                     <span class="caret"></span>
                   </a>

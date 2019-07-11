@@ -23,6 +23,11 @@ Route::group(['namespace' => 'Front'], function (){
 	})->name('home');
 	Route::get('profile', 'ProfileController@show')->name('profile');
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
+//	Route::post('/update', 'ProfileController@update')->name('profile.update');
+//	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
+	
+	Route::get('/detail/{id}','FrontController@detail');
+	Route::post('/detail/rate','FrontController@rate');
 	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');
 	Route::post('/update-avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::post('/upgrade', 'FrontController@upgrade')->name('upgrade');
