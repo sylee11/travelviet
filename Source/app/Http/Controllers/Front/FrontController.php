@@ -7,6 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use App\Rating;
 use DB;
+use App\User;
+use Auth;
+use Response;
 class FrontController extends Controller
 {
 	public function index(){
@@ -23,4 +26,12 @@ class FrontController extends Controller
 		return view('pages.index',['new_post'=>$new_post,'rating'=>$rating,'top_user'=>$top_user,'all_post'=>$all_post]);
 	}
 
+	public function upgrade(Request $request){
+		$user= Auth::user();
+		$user->role = '2';
+
+		$user->save();
+		return redirect('/');
+
+	}
 }

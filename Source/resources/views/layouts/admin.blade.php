@@ -84,10 +84,9 @@
           <i class="fas fa-user-circle fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">Profile</a>
-          <a class="dropdown-item" href="#">Change Password</a>
+          <a class="dropdown-item" href="{{route('pages.home')}}">Home</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="{{route('logout')}}" data-toggle="modal" data-target="#logoutModal">Logout</a>
+          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
       </li>
     </ul>
@@ -181,33 +180,37 @@
                     </div>
                     <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
+                     <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                      @csrf
                       <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                      <a class="btn btn-primary" href="{{route('pages.home')}}">Logout</a>
-                    </div>
+                      <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
+
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+          <!-- Bootstrap core JavaScript-->
+          <script src="{{ asset('/vendor/jquery/jquery.min.js') }}"></script>
+          <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-              <!-- Bootstrap core JavaScript-->
-              <script src="{{ asset('/vendor/jquery/jquery.min.js') }}"></script>
-              <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+          <!-- Core plugin JavaScript-->
+          <script src="{{ asset('/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
-              <!-- Core plugin JavaScript-->
-              <script src="{{ asset('/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+          <!-- Page level plugin JavaScript-->
+          <script src="{{ asset('/vendor/chart.js/Chart.min.js') }}"></script>
+          <script src="{{ asset('/vendor/datatables/jquery.dataTables.js') }}"></script>
+          <script src="{{ asset('/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
 
-              <!-- Page level plugin JavaScript-->
-              <script src="{{ asset('/vendor/chart.js/Chart.min.js') }}"></script>
-              <script src="{{ asset('/vendor/datatables/jquery.dataTables.js') }}"></script>
-              <script src="{{ asset('/vendor/datatables/dataTables.bootstrap4.js') }}"></script>
+          <!-- Custom scripts for all pages-->
+          <script src="{{ asset('/js/sb-admin.min.js') }}"></script>
 
-              <!-- Custom scripts for all pages-->
-              <script src="{{ asset('/js/sb-admin.min.js') }}"></script>
+          <!-- Demo scripts for this page-->
+          <script src="{{ asset('/js/demo/datatables-demo.js') }}"></script>
+          <script src="{{ asset('/js/demo/chart-area-demo.js') }}"></script>
+          <!--  jquery -->
+          @stack('scripts')
+        </body>
 
-              <!-- Demo scripts for this page-->
-              <script src="{{ asset('/js/demo/datatables-demo.js') }}"></script>
-              <script src="{{ asset('/js/demo/chart-area-demo.js') }}"></script>
-              <!--  jquery -->
-              @stack('scripts')
-            </body>
-
-            </html>
+        </html>
