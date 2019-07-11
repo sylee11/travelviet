@@ -17,19 +17,21 @@ Auth::routes();
 
 
 Route::group(['namespace' => 'Front'], function (){
-	Route::get('/', 'FrontController@index')->name('pages.home');
+	Route::get('/', 'FrontController@index')->name('home.page');
 	Route::get('/home', function(){
 		return view('pages.home');
 	})->name('home');
 	Route::get('profile', 'ProfileController@show')->name('profile');
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
-	Route::post('/update', 'ProfileController@update')->name('profile.update');
-	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
+	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');
+	Route::post('/update-avatar', 'ProfileController@update_avatar')->name('avatar.update');
+	Route::post('/upgrade', 'FrontController@upgrade')->name('upgrade');
+
 });
 
 
 
-//Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.admin');
 Route::get('register', 'Auth\RegisterController@showFormRegister')->name('register');
 
 Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
@@ -39,7 +41,7 @@ Route::post('/update_password', 'Auth\ChangePasswordController@update')->name('u
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
-	Route::get('/', 'AdminController@index')->name('admin.index');
+	Route::get('/', 'AdminController@index')->name('admin.index')->middleware('admin');
 	Route::get('chart','AdminController@chart');
 	Route::group(['prefix' => 'user','namespace'=>'user'], function(){
 		Route::get('/', 'UserController@index')->name('admin.user.index');
