@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('header')
 <link rel="stylesheet" type="text/css" href="/css/custom/rating.css">
-<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css">
 
 @endsection
 @section('content')
@@ -9,7 +8,7 @@
 $photo_path = $data->unique('photo_path')->values();
 $cmts = $data->unique('cmt')->values();
 ?>
-<div class="container">
+<div style='text-align:left;margin-top:75px;' class="container">
   <h1 class="my-4">{{$data[0]->title}}
     <small>by {{$data[0]->name}}</small>
   </h1>
@@ -47,53 +46,44 @@ $cmts = $data->unique('cmt')->values();
     </div>
 
   </div>
-  <!--<div class="row">
-    <div class="col">
-      <h3 class="my-3">{{$data[0]->place}}</h3>
-      <p>{{$data[0]->describer}}</p>
-    </div>
-  </div> -->
+
   <div class="row">
     <div class="col">
 
 
-      <div class="rating">
-        @for($i=1;$i< $data[0]->rating;$i++)
-          <span style="color:orange" class="fa fa-star "></span>
+      <div style="margin: 20px 0;" class="rating">
+        @for($i=1;$i<= $rating;$i++) <span style="color:orange;font-size: 50px" class="fa fa-star "></span>
+          @if($rating -$i >= 0.5 && $rating -$i < 1)<span style="color:orange;font-size: 50px" class="fa fa-star-half-alt "></span>
 
-          @endfor
-          <span>{{$data[0]->rating}}</span>
+            @endif
+            @endfor
+            <span>{{$rating}}</span>
 
 
       </div>
     </div>
 
   </div>
+  <div style="margin: 20px 0 100px 0;" class="">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#description">Description</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#location">Location</a>
+      </li>
 
-  <ul class="nav nav-tabs" role="tablist">
-    <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#description">Description</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#location">Location</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#rating">Rating</a>
-    </li>
-  </ul>
+    </ul>
 
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div id="description" class="container tab-pane active"><br>
-      <h3>{{$data[0]->place}}</h3>
-      <p>{{$data[0]->describer}}</p>
-    </div>
-    <div id="location" class="container tab-pane fade"><br>
-      <h3>Location</h3>
-
-    </div>
-    <div id="rating" class="container tab-pane fade"><br>
-      <h3>Rating</h3>
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div id="description" class="container tab-pane active"><br>
+        <h3>{{$data[0]->place}}</h3>
+        <p>{{$data[0]->describer}}</p>
+      </div>
+      <div id="location" class="container tab-pane fade"><br>
+        <h3>Location</h3>
+      </div>
 
     </div>
   </div>
@@ -103,7 +93,22 @@ $cmts = $data->unique('cmt')->values();
     </button>
     <div class="collapse" id="collapseExample">
       <div class="card card-body">
-        <form>
+
+        @if(Auth::check())
+        @if($user_rate)
+        <p>Your rate:
+          @for($i=1;$i<= $user_rate->rating;$i++) <span style="color:orange;font-size: 50px" class="fa fa-star "></span>
+            @if($user_rate->rating -$i >= 0.5 && $user_rate->rating -$i < 1)<span style="color:orange;font-size: 50px" class="fa fa-star-half-alt "></span>
+
+              @endif
+              @endfor
+              <span>{{$user_rate->rating}}</span></p>
+        @endif
+        <form action="/detail/rate" method="POST">
+          @csrf
+          <label for="">Rating:</label>
+          <input type="hidden" name="post_id" value="{{$data[0]->id}}">
+          <input type="hidden" name="user_id" value="{{Auth::id()}}">
 
           <span class="star-rating">
             <input type="radio" name="rating" value="1"><i></i>
@@ -111,14 +116,22 @@ $cmts = $data->unique('cmt')->values();
             <input type="radio" name="rating" value="3"><i></i>
             <input type="radio" name="rating" value="4"><i></i>
             <input type="radio" name="rating" value="5"><i></i>
-            
+
           </span>
+
           <div class="form-group">
-            <label for="comment">Comment:</label>
-            <textarea class="form-control" rows="5" id="comment"></textarea>
+            <label for="">Comment:</label>
+
+
+            <textarea class="form-control" rows="5" id="" name="commentarea" required></textarea>
+
+
           </div>
           <button>Send</button>
         </form>
+        @else
+        <a style="width:150px;" class="btn btn-primary" href="/login">Please Login</a>
+        @endif
       </div>
     </div>
   </div>
@@ -126,8 +139,21 @@ $cmts = $data->unique('cmt')->values();
   <div class="media border p-3">
     <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="/{{$value->avatar}}" alt="">
     <div class="media-body">
-      <h5 style='text-align=left' class="mt-0">{{$value->cmtname}}</h5>
-      {{$value->cmt}}
+
+      <h5 style='padding-top:20px;display:inline-block;' class="mt-0">{{$value->cmtname}}</h5>
+
+
+
+
+
+      @for($i=1;$i<= $value->rate;$i++)
+        <span style="color:orange" class="fa fa-star "></span>
+
+        @endfor
+
+
+
+        <p style='padding-top:10px'>{{$value->cmt}}</p>
     </div>
   </div>
   @endforeach
@@ -136,18 +162,15 @@ $cmts = $data->unique('cmt')->values();
 
 </div>
 
-@push('scripts')
-<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-<script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
-<script> CKEDITOR.replace('editor1'); </script>
-@endpush
-<!--
-<h1>{{$data[0]->title}}</h1>
-<h2>{{$data[0]->describer}}</h2>
-<h3>{{$data[0]->name}}</h3>
-<h3>{{$data[0]->place}}</h3>
-<h3>{{$data[0]->rating}}</h3> 
-@foreach ($cmts as $key=>$value)
-<p>{{$value->cmt}}</p>
-@endforeach-->
+
+<!-- <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script> -->
+
+<script>
+  // window.onload = function() {
+  //   CKEDITOR.replace('commentarea');
+  // };
+</script>
+
+
+
 @endsection

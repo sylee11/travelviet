@@ -29,6 +29,7 @@ Route::group(['namespace' => 'Front'], function (){
 		return view('pages.detail');
 	});
 	Route::get('/detail/{id}','FrontController@detail');
+	Route::post('/detail/rate','FrontController@rate');
 });
 
 
