@@ -33,7 +33,9 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::post('/upgrade', 'FrontController@upgrade')->name('upgrade');
 
 });
-
+Route::get('login2',function(){
+	return view('auth.login');
+});
 
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.admin');
