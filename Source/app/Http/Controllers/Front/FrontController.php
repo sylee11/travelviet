@@ -35,7 +35,7 @@ class FrontController extends Controller
 			->join('places', 'posts.place_id', '=', 'places.id')
 			->join('ratings', 'posts.id', '=', 'ratings.post_id')
 			->join('users as userscmt', 'ratings.user_id', '=', 'userscmt.id')
-			->select('posts.id', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'ratings.cmt', 'ratings.rating as rate', 'userscmt.name as cmtname', 'userscmt.avatar')
+			->select('posts.id', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place','places.lat','places.longt', 'ratings.cmt', 'ratings.rating as rate', 'userscmt.name as cmtname', 'userscmt.avatar')
 			->where('posts.id', '=', $post_id)
 			->get();
 
@@ -63,18 +63,30 @@ class FrontController extends Controller
 
 		
 		if ($user_rate === NULL) {
-			DB::table('ratings')->insert(
+			/*DB::table('ratings')->insert(
 				['cmt' => $cmt, 'rating' => $rating, 'user_id' => $user_id, 'post_id' => $post_id]
-			);
+			);*/
+			$rate = new Rating;
+			$rate->cmt=$cmt;
+			$rate->rating = $rating;
+			$rate->user_id =$user_id;
+			$rate->post_id = $post_id;
+			$rate->save();
 		} else {
 
 			DB::table('ratings')->where([
 				['user_id', '=', $user_id],
 				['post_id', '=', $post_id],
 			])->update(['rating' => null]);
-			DB::table('ratings')->insert(
+		/*	DB::table('ratings')->insert(
 				['cmt' => $cmt, 'rating' => $rating, 'user_id' => $user_id, 'post_id' => $post_id]
-			);
+			);*/
+			$rate = new Rating;
+			$rate->cmt=$cmt;
+			$rate->rating = $rating;
+			$rate->user_id =$user_id;
+			$rate->post_id = $post_id;
+			$rate->save();
 		}
 		return $this->detail($post_id);
 	}

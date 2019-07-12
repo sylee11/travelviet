@@ -1,9 +1,42 @@
 @extends('layouts.app')
 @section('header')
 <link rel="stylesheet" type="text/css" href="/css/custom/rating.css">
+<style>
+  #map {
+    height: 500px;
+  }
+</style>
 
 @endsection
 @section('content')
+
+
+<script>
+  var map;
+  var latvalue = {{json_encode($data[0]->lat)}};
+  var longvalue = {{json_encode($data[0]->longt)}};
+
+  function initMap() {
+
+    var uluru = {
+      lat: latvalue,
+      lng: longvalue
+    };
+
+    var map = new google.maps.Map(
+      document.getElementById('map'), {
+        zoom: 16,
+        center: uluru
+      });
+
+    var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxqyb5cmgcv7j9hY-GcPZYcNQlwyfWaT0&callback=initMap" async defer></script>
+
 <?php
 $photo_path = $data->unique('photo_path')->values();
 $cmts = $data->unique('cmt')->values();
@@ -76,13 +109,14 @@ $cmts = $data->unique('cmt')->values();
     </ul>
 
     <!-- Tab panes -->
-    <div class="tab-content">
+    <div style="height:500px" class="tab-content">
       <div id="description" class="container tab-pane active"><br>
         <h3>{{$data[0]->place}}</h3>
         <p>{{$data[0]->describer}}</p>
       </div>
       <div id="location" class="container tab-pane fade"><br>
         <h3>Location</h3>
+        <div id="map"></div>
       </div>
 
     </div>
@@ -161,15 +195,6 @@ $cmts = $data->unique('cmt')->values();
 
 
 </div>
-
-
-<!-- <script src="https://cdn.ckeditor.com/4.12.1/standard/ckeditor.js"></script> -->
-
-<script>
-  // window.onload = function() {
-  //   CKEDITOR.replace('commentarea');
-  // };
-</script>
 
 
 
