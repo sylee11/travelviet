@@ -93,17 +93,21 @@ class PostController2 extends Controller
         $posts -> describer = $request ->input('describer');
         }
         else return "none describer";
+        // $t = $request -> checkbox;
+        // dd($t);
         if($request->checkbox){
             $posts -> is_approved = $request -> checkbox;
         }
+        else{
         $posts -> is_approved =0;
+        }
         $posts -> save();
 
         //find last id
-        $temp = POST::latest()->first();
-
+       // $posts = POST::latest()->first();
+        //$posts = $posts->id
         //make folder chua photo
-        $path = 'picture/admin/post/'.$temp->id;
+        $path = 'picture/admin/post/'.$posts->id;
         File::makeDirectory($path);
 
         //insert 1 photo
@@ -113,7 +117,7 @@ class PostController2 extends Controller
         //$photo = new PHOTO;
         // $photo->photo_path = "picture/".$file->getClientOriginalName();
         // $photo->flag = 0;
-        // $photo->posts_id=$temp->id;
+        // $photo->posts_id=$posts->id;
         // $photo ->save ();
 
 
@@ -128,10 +132,10 @@ class PostController2 extends Controller
                 //check photo exit
                 $namet=$path."/".$name;                
                 $t = DB::table('photos')
-                ->where("post_id", "=", $temp->id)->get();
+                ->where("post_id", "=", $posts->id)->get();
                 foreach ($t as $key => $value) {
                         if($value->photo_path ==  $namet  ){
-                            $p = POST::find($temp->id)->delete();
+                            $p = POST::find($posts->id)->delete();
                             return "anh trung nhau";
                         }
                 }  
@@ -140,7 +144,7 @@ class PostController2 extends Controller
                 $photo = new photo;
                 $photo->photo_path = $path."/".$name;
                 $photo->flag = 0;
-                $photo->post_id=$temp->id;
+                $photo->post_id=$posts->id;
                 $photo ->save ();
             }
             return back()->with('success', 'Your images has been successfully');
@@ -304,7 +308,7 @@ class PostController2 extends Controller
     {
         //eloquent
         $posts = DB::table('posts')
-            ->where('id', '=' , $id)
+            ->where('id', '=' , $id )
             ->update(['is_approved' => 0]);
         // $posts= POST::all();
 

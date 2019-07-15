@@ -12,7 +12,8 @@
       </div>
     <div class="form-group " style="margin-left: 50px;" >
         <label >User id:</label>
-        <select class="form-control" id="userid" name="userid">
+        <select class="form-control" id="userid" name="userid" >
+          <option > {{$post->user_id}}</option>
           @foreach($user as $u)
             <option>{{ $u->id }}</option>
 
@@ -23,6 +24,7 @@
       <div class="form-group"  style="margin-left: 50px";>
         <label >Place Id:</label>
         <select class="form-control" id="placeid" name="placeid">
+          <option > {{$post->place_id}}</option>
           @foreach($place as $p)
             <option>{{ $p->id }}</option>
 
@@ -39,6 +41,7 @@
       <div class="form-group" style="margin-left: 50px;">
         <label >Is Approved(1 to post now)</label>
         <select class="form-control" id="approved" name="approved">
+            <option > {{$post->is_approved}}</option>
             <option>0</option>
             <option>1</option>
         </select>
@@ -87,32 +90,9 @@
                 var t = document.getElementById("p1").value;
                 console.log(t);
                 document.getElementById("p1").value = t +  "{{$p->id}}/";
-                $.ajaxSetup({
-                  headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  }
-                });
-
-
-                
-                $.ajax({
-                    method: 'post', // Type of response and matches what we said in the route
-
-                    url: '{{route('admin.post.edit', $post->id)}}', // This is the url we gave in the route
-                    data: { xxx:{{$p->id}}},
-
-                    //data: { idd : name }, // a JSON object to send back
-                    success: function(data){ // What to do if we succeed
-                        console.log(JSON.stringify({{$p->id}})); 
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-                        console.log(JSON.stringify(jqXHR));
-                        console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-                    }
-
-                     });
+               
                 })
-                </script>
+              </script>
           </div>
         @endforeach
 
