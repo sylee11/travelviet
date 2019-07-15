@@ -18,6 +18,8 @@
         "nesbot/carbon": "^2.20",
         "realrashid/sweet-alert": "^2.0",
         "unisharp/laravel-ckeditor": "^4.7"
+        "realrashid/sweet-alert": "^2.0"
+        
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

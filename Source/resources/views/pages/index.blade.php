@@ -47,6 +47,8 @@
 			</div>
 		</div>
 		@endforeach
+		@else
+		<div></div>
 		@endif
 	</div>
 </div>
@@ -58,7 +60,7 @@
 		@foreach ($new_post as $record)
 		<div class="col-sm-4" style="margin:50px 0;">
 			<div class="card" style="width: 20rem;height:350px;">
-				<a href="#" title="" style="text-decoration: none;">
+				<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
 					<img class="card-img-top list_images" src="{{ asset('picture/front/image2.jpg') }}" alt="smaple image">
 
 					<div class="card-body">

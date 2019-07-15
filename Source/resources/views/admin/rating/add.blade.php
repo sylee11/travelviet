@@ -1,6 +1,6 @@
 
 <div class="modal-header">
-    <h1 class="modal-title">Thêm user</h1>
+    <h1 class="modal-title">Add rating</h1>
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
     <!-- Modal body -->
 </div>

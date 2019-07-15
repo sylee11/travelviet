@@ -27,7 +27,7 @@
 						<th>Title</th>
 						<th>Time create</th>
 						<th>Time modify</th>
-						<th>Action</th>
+						<th width="120px">Action</th>
 					</tr>
 				</thead>
 				<tfoot>

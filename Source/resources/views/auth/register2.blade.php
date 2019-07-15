@@ -5,6 +5,7 @@
 <!--Fontawesome CDN-->
 <link rel="stylesheet" href="/css/bootstrap-social.css">
 <!--Custom styles-->
+<link rel="stylesheet" href="/css/fontawesome.min.css">
 </head>
 
 <body class="text-center">
