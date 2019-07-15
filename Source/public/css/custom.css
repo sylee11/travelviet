@@ -1,3 +1,4 @@
+
 header {
   position: relative;
   width: 100%;
@@ -7,14 +8,16 @@ header {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  background-image: url('http://www.pullman-danang.com/wp-content/uploads/sites/86/2019/05/DJI_0004.jpg');
-  /* text-align: center; */
+  background-image: url('../picture/front/background.jpg');
+  background-repeat: no-repeat;
+  text-align: center;
   color: white;
 }
 .header-content {
   background-color: rgba(0,0,0.1,0.3);
   position: absolute;
   top:100px;
+
   /* text-align: center; */
   padding: 100px 15px 100px;
   width: 100%;

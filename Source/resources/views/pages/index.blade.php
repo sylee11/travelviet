@@ -1,151 +1,206 @@
+@push('css')
+<link href="{{asset('css/custom/front.css')}}" rel="stylesheet">
+@endpush
 @extends('pages.home')
-<style type="text/css" >
-	.list_images {
-		opacity: 0.7;
-	}
-
-	.list_images:hover {
-		opacity: 1;
-	}
-	p{
-		color: #090707;
-	}
-	.checked {
-		color: orange;
-	}
-</style>
 @section('content-section')
-<div class="container">
-	<div style="text-align: left;margin-top:50px;"><h2>Top Reviewer</h2></div>
+<div>
+	<div class="container-fluid">
+		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những địa điểm được đánh giá cao</h2></div>
 
-	<div class="row">
-		@if($rating)
-		@foreach ($rating as $record)
-		<div class="col-sm-4" style="margin:50px 0;">
-			<div class="card" style="width: 20rem;height:350px;">
-				<a href="#" title="" style="text-decoration: none;">
-					<img class="card-img-top list_images" src="{{ asset('picture/front/image1.jpg') }}" alt="smaple image">
+		<div class="row">
+			@if($top_rating->count() !== 0)
+			@foreach ($top_rating as $record)
+			<div class="col-sm-3" style="margin:50px 0;">
+				<div class="card-img" style="height:280px;">
+					<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
+						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="smaple image" style="height: 200px;">
 
-					<div class="card-body" >
+						<div class="card-body">
 
-						<h5 class="card-title text-primary">{{$record->post->title}}</h5>
-						<div class="rating">
-							@for($i=0;$i< ceil($record->avg_rating);$i++)
-							<span class="fa fa-star checked" ></span>
-							@endfor
-							@for($i=ceil($record->avg_rating);$i< 5;$i++)
-							<span class="fa fa-star" ></span>
-							@endfor
+							<h5 class="card-title">
+
+								<span style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap; font-size: 16px;color: #ff6f28;">
+									{{$record->title}}
+								</span>
+							</h5>
+							<div class="rating">
+								@for($i=0;$i< ceil($record->avg_rating);$i++)
+								<span class="fa fa-star checked"></span>
+								@endfor
+								@for($i=ceil($record->avg_rating);$i< 5;$i++)
+								<span class="fa fa-star unchecked"></span>
+								@endfor
+							</div>
+
+							<p class="card-text">
+							</p>
+
 						</div>
+					</a>
 
-						<p class="card-text">
-						</p>
-
-					</div>
-				</a>
-
+				</div>
 			</div>
+			@endforeach
+			@else
+			<div class="col-sm">
+				<p>Không có dữ liệu</p>
+			</div>
+			@endif
 		</div>
-		@endforeach
+	</div>
+
+
+	<div class="container-fluid" id="new_post">
+		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những bài viết mới nhất</h2></div>
+
+		<div class="row">
+			@if($new_post->count() !== 0)
+			@foreach ($new_post as $record)
+			<div class="col-sm-3" style="margin:50px 0;">
+				<div class="card-img" style="height:280px;">
+					<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
+						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="smaple image" style="height: 200px;">
+
+						<div class="card-body">
+
+							<h5 class="card-title text-primary">
+
+								<span style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;font-size: 16px;color: #ff6f28;">
+									{{$record->title}}
+								</span>
+							</h5>
+							<div class="rating">
+								@for($i=0;$i< ceil($record->avg_rating);$i++)
+								<span class="fa fa-star checked" ></span>
+								@endfor
+								@for($i=ceil($record->avg_rating);$i< 5;$i++)
+								<span class="fa fa-star unchecked" ></span>
+								@endfor
+							</div>
+
+							<p class="card-text">
+							</p>
+
+						</div>
+					</a>
+
+				</div>
+			</div>
+			@endforeach
+		</div>
+		@if($all_post->count() > 4)
+		<div>
+			<button type="button" class="btn btn-danger" id="all">Xem tất cả</button>
+		</div>
+		@endif
 		@else
-		<div></div>
+		<div class="col-sm">
+			<p>Không có dữ liệu</p>
+		</div>
 		@endif
 	</div>
-</div>
 
-<div class="container" id="new_post">
-	<div style="text-align: left;margin:50px 0;"><h2>New posts</h2></div>
-	<div class="row">
-		@if($new_post)
-		@foreach ($new_post as $record)
-		<div class="col-sm-4" style="margin:50px 0;">
-			<div class="card" style="width: 20rem;height:350px;">
+	<div class="container-fluid" id="all_post" style="display: none;">
+		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những bài viết mới nhất</h2></div>
+
+		<div class="row">
+			@if($all_post->count() !== 0)
+			@foreach ($all_post as $record)
+			<div class="col-sm-3" style="margin:50px 0;">
+				<div class="card" style="height:280px;">
+					<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
+						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="smaple image" style="height: 200px;">
+
+						<div class="card-body">
+
+							<h5 class="card-title text-primary">
+
+								<span style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;font-size: 16px;color: #ff6f28;">
+									{{$record->title}}
+								</span>
+							</h5>
+							<div class="rating">
+								@for($i=0;$i< ceil($record->avg_rating);$i++)
+								<span class="fa fa-star checked" ></span>
+								@endfor
+								@for($i=ceil($record->avg_rating);$i< 5;$i++)
+								<span class="fa fa-star unchecked" ></span>
+								@endfor
+							</div>
+
+							<p class="card-text">
+							</p>
+
+						</div>
+					</a>
+
+				</div>
+			</div>
+			@endforeach
+		</div>
+		@if($all_post->count() > 4)
+		<div>
+			<button type="button" class="btn btn-danger" id="new">Thu gọn</button>
+		</div>
+		@endif
+		@else
+		<div class="col-sm">
+			<p>Không có dữ liệu</p>
+		</div>
+		@endif
+	</div>
+
+
+	<div class="container-fluid">
+		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Điểm đến nhiều nhất</h2></div>
+
+		<div class="row">
+			@foreach ($city as $element)
+			<div class="col-sm-4" style="margin:50px 0;">
+				<div class="card-img index" style="height:35 0px;">
+					<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
+						<img src="{{ $element->photo_path }}" alt="Avatar" class="card-img image">
+
+						<div class="content">
+							<h5>{{ $element->name }}</h5>
+						</div>
+						<div class="overlay">
+						</div>
+					</a>
+
+				</div>
+			</div>
+			@endforeach
+
+		</div>
+	</div>
+
+
+	<div class="container">
+		<div style="text-align: center;margin-top:50px;color: #b3b3ba;margin-bottom: 50px;"><h2>Blog có số lượng bài viết nhiều nhất</h2></div>
+		<div class="row" style="justify-content: center;">
+			@if($top_user->count() !== 0)
+			@foreach($top_user as $record)
+			<div style="padding: 0 15px;">
 				<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
-					<img class="card-img-top list_images" src="{{ asset('picture/front/image2.jpg') }}" alt="smaple image">
+					@if (!empty($record->user->avatar))
+					<img src="{{ $record->user->avatar }}" alt="Avatar" class="avatar" title="{{!empty($record->user->name)?$record->user->name:'no name'}}" style="width: 80px;height:80px;border-radius: 50%;">
 
-					<div class="card-body">
-
-						<h5 class="card-title text-primary">{{$record->title}}</h5>
-						<div class="rating">
-							@for($i=0;$i< $record->avg_rating;$i++)
-							<span class="fa fa-star checked" ></span>
-							@endfor
-							@for($i=$record->avg_rating;$i< 5;$i++)
-							<span class="fa fa-star" ></span>
-							@endfor
-						</div>
-						<p class="card-text">
-						</p>
-
-					</div>
+					@else
+					<img src="{{ asset('picture/images.png') }}" alt="Avatar" class="avatar" title="{{!empty($record->user->name)?$record->user->name:'no name'}}" style="width: 80px;height:80px;border-radius: 50%;">
+					@endif
 				</a>
-
 			</div>
-		</div>
-		@endforeach
-		@endif
-	</div>
-	<div>
-		<button type="button" class="btn btn-info" id="all">Xem tất cả</button>
-	</div>
-
-</div>
-<div class="container" style="display: none;"  id="all_post">
-	<div style="text-align: left;margin:50px 0;"><h2>New posts</h2></div>
-	<div class="row">
-		@if($all_post)
-		@foreach ($all_post as $record)
-		<div class="col-sm-4" style="margin:50px 0;">
-			<div class="card" style="width: 20rem;height:350px;">
-				<a href="#" title="" style="text-decoration: none;">
-					<img class="card-img-top list_images" src="{{ asset('picture/front/image2.jpg') }}" alt="smaple image">
-
-					<div class="card-body">
-
-						<h5 class="card-title text-primary">{{$record->title}}</h5>
-						<div class="rating">
-							@for($i=0;$i< $record->avg_rating;$i++)
-							<span class="fa fa-star checked" ></span>
-							@endfor
-							@for($i=$record->avg_rating;$i< 5;$i++)
-							<span class="fa fa-star" ></span>
-							@endfor
-						</div>
-						<p class="card-text">
-						</p>
-
-					</div>
-				</a>
-
+			@endforeach
+			@else
+			<div class="col-sm">
+				<p>Không có dữ liệu</p>
 			</div>
+			@endif
 		</div>
-		@endforeach
-		@endif
-	</div>
-	<div>
-		<button type="button" class="btn btn-info" id="new">Thu gọn</button>
 	</div>
 
-</div>
 
-<div class="container">
-	<div style="text-align: left;margin:50px 0;"><h2>Top Mod</h2></div>
-	<div class="row" style="margin:0 300px;">
-		@if($top_user)
-		@foreach($top_user as $record)
-		<div class="col-sm-3">
-			<a href="#" title="" style="text-decoration: none;">
-				@if (!empty($record->user->avatar))
-				<img src="{{ $record->user->avatar }}" alt="Avatar" class="avatar" title="{{!empty($record->user->name)?$record->user->name:'no name'}}" style="width: 80px;height:80px;border-radius: 50%;">
-
-				@else
-				<img src="{{ asset('picture/images.png') }}" alt="Avatar" class="avatar" title="{{!empty($record->user->name)?$record->user->name:'no name'}}" style="width: 80px;height:80px;border-radius: 50%;">
-				@endif
-			</a>
-		</div>
-		@endforeach
-		@endif
-	</div>
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
