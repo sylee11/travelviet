@@ -12,7 +12,7 @@
 			@foreach ($top_rating as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;">
-					<a href="#" title="" style="text-decoration: none;">
+					<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
 						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="smaple image" style="height: 200px;">
 
 						<div class="card-body">
@@ -58,7 +58,7 @@
 			@foreach ($new_post as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;">
-					<a href="#" title="" style="text-decoration: none;">
+					<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
 						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="smaple image" style="height: 200px;">
 
 						<div class="card-body">
@@ -108,7 +108,7 @@
 			@foreach ($all_post as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card" style="height:280px;">
-					<a href="#" title="" style="text-decoration: none;">
+					<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
 						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="smaple image" style="height: 200px;">
 
 						<div class="card-body">
@@ -158,7 +158,7 @@
 			@foreach ($city as $element)
 			<div class="col-sm-4" style="margin:50px 0;">
 				<div class="card-img index" style="height:35 0px;">
-					<a href="#" title="" style="text-decoration: none;">
+					<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
 						<img src="{{ $element->photo_path }}" alt="Avatar" class="card-img image">
 
 						<div class="content">
@@ -182,7 +182,7 @@
 			@if($top_user->count() !== 0)
 			@foreach($top_user as $record)
 			<div style="padding: 0 15px;">
-				<a href="#" title="" style="text-decoration: none;">
+				<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
 					@if (!empty($record->user->avatar))
 					<img src="{{ $record->user->avatar }}" alt="Avatar" class="avatar" title="{{!empty($record->user->name)?$record->user->name:'no name'}}" style="width: 80px;height:80px;border-radius: 50%;">
 
