@@ -12,8 +12,8 @@
 			@foreach ($top_rating as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;">
-					<a href="#" title="" style="text-decoration: none;">
-						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="smaple image" style="height: 200px;">
+					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
+						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
 
 						<div class="card-body">
 
@@ -58,8 +58,8 @@
 			@foreach ($new_post as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;">
-					<a href="#" title="" style="text-decoration: none;">
-						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="smaple image" style="height: 200px;">
+					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
+						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
 
 						<div class="card-body">
 
@@ -108,8 +108,8 @@
 			@foreach ($all_post as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card" style="height:280px;">
-					<a href="#" title="" style="text-decoration: none;">
-						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="smaple image" style="height: 200px;">
+					<a href="{{route('detail',$record)}}" title="" style="text-decoration: none;">
+						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
 
 						<div class="card-body">
 
@@ -159,7 +159,7 @@
 			<div class="col-sm-4" style="margin:50px 0;">
 				<div class="card-img index" style="height:35 0px;">
 					<a href="#" title="" style="text-decoration: none;">
-						<img src="{{ $element->photo_path }}" alt="Avatar" class="card-img image">
+						<img src="{{ $element->photo_path }}" alt="city" class="card-img image">
 
 						<div class="content">
 							<h5>{{ $element->name }}</h5>

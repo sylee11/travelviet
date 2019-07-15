@@ -33,16 +33,16 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
 
 	});
-});
+
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
 //	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	
-	Route::get('/detail/{id}','FrontController@detail');
+	Route::get('/detail/{id}','FrontController@detail')->name('detail');
 	Route::post('/detail/rate','FrontController@rate');
 	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');
 	Route::post('/update-avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::post('/upgrade', 'FrontController@upgrade')->name('upgrade');
-
+});
 Route::get('login2',function(){
 	return view('auth.login');
 });
