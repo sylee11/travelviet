@@ -13,8 +13,8 @@
     </div>
   </div>
 </header>
-<div class="container" style="margin-top: 50px;">
+<main class="container" style="margin-top: 50px;margin-bottom: 50px;">
   @yield('content-section')
-</div>
+</main>
 @endsection
 

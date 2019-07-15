@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Redirect;
 
 class RegisterController extends Controller
 {
@@ -72,5 +74,42 @@ class RegisterController extends Controller
     }
     public function showFormRegister(){
         return view('auth.register');
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request,
+            [
+                'name'=>'required|max:255',
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8']
+
+            ],
+            [
+                'name.required'=>'bạn chưa nhập tên người dùng',
+                'name.max(255)'=>'ten co do dai ko qua 255',
+                'email.required'=>'bạn chưa nhập email',
+                'email.email'=>'bạn chưa nhập đúng định dạng',
+                'email.unique'=>'email da ton tai',
+                'password.required'=>'bạn chưa nhập mk',
+                'password.min(8)'=>'bạn nhập ít nhất 5 kí tự',
+
+
+            ]
+        );
+        $user = new User;
+        $user->name=$request->name;
+        $user->email=$request->email;
+        $user->password= bcrypt($request->password);
+        $user->role=$request->role;
+        $user->status=1;
+        $user->save();
+        // $save =User::insert($user);
+        // if($save)
+             // return view('admin.user.index');
+        // else 
+        return redirect('/')->with('thongbao','Đăng kí thành công');
+
+
     }
 }

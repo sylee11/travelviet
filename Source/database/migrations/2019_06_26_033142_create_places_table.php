@@ -19,7 +19,6 @@ class CreatePlacesTable extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('districts_id');
-            $table->unsignedBigInteger('photo_id');
             $table->string('address')->nullable();
             $table->float('lat')->nullable();
             $table->float('longt')->nullable();

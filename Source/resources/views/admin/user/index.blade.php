@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', '/ User')
 @section('content')
 <!-- @if (Session ::has('success'))
     <h3>{{Session :: get('success')}}</h3>
@@ -8,11 +9,6 @@
 		<i class="fas fa-table"></i>
 	Data Table User </div>
 	<div class="container">
-		
-		<!-- Button to Open the Modal -->
-		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">
-			<a><i class="fas fa-plus"></i> Add</a>
-		</button>
 
 		<!-- The Modal -->
 		<div class="modal" id="myModal1">
@@ -72,6 +68,9 @@
 	</div>
     
 	<div class="card-body">
+		<div style="margin-bottom: 15px">
+			<button data-toggle="modal" data-target="#myModal1" class="btn btn-success "><i class="fas fa-plus"></i> ADD</button>
+		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
@@ -81,17 +80,17 @@
 						<th>Status</th>
 						<th>Role</th>
 						<th>Create day</th>
-						<th>More</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
-						<th>Name</th>
-						<th>Position</th>
-						<th>Office</th>
-						<th>Age</th>
-						<th>Start date</th>
-						<th>Salary</th>
+						<th>Username</th>
+						<th>Email</th>
+						<th>Status</th>
+						<th>Role</th>
+						<th>Create day</th>
+						<th>Action</th>
 					</tr>
 				</tfoot>
 				<tbody>
