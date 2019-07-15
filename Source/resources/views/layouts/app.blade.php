@@ -12,6 +12,7 @@
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
 
+
   <!-- Fonts -->
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap&subset=latin-ext,vietnamese" rel="stylesheet">
@@ -27,11 +28,16 @@
   <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
   <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-
+{{--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+ --}}
   <!-- Rating -->
   <link href="{{ asset('css/bootstrap-rating.css') }}" rel="stylesheet">
   <script type="text/javascript" src="{{ asset('js/bootstrap-rating.js') }}"></script>
+
+  {{-- multi up image --}}
+  <script src="{{asset('js/dropzone.js')}}"></script>
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   @yield('header') 
 </head>
 <body>
@@ -217,6 +223,7 @@
       </div>
     </div>
   </div>
+
 </div>
 <main class="py-4">
   @yield('content')

@@ -18,11 +18,11 @@
       </script>
     @endif
     @if(Session::has('errors'))
-<script>
-$(document).ready(function(){
-    $('#myModal3').modal({show: true});
-}
-</script>
+    <script>
+        $(document).ready(function(){
+            $('#myModal3').modal({show: true});
+        }
+    </script>
 @endif
 	<FORM method="post" class="" action="{{route('admin.post.add')}}" enctype="multipart/form-data">
 	@csrf
