@@ -33,9 +33,9 @@ class FrontController extends Controller
 			->join('photos', 'posts.id', '=', 'photos.post_id')
 			->join('users', 'posts.user_id', '=', 'users.id')
 			->join('places', 'posts.place_id', '=', 'places.id')
-			->join('ratings', 'posts.id', '=', 'ratings.post_id')
-			->join('users as userscmt', 'ratings.user_id', '=', 'userscmt.id')
-			->select('posts.id', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place','places.lat','places.longt', 'ratings.cmt', 'ratings.rating as rate', 'userscmt.name as cmtname', 'userscmt.avatar')
+			->leftJoin('ratings', 'posts.id', '=', 'ratings.post_id')
+			->leftJoin('users as userscmt', 'ratings.user_id', '=', 'userscmt.id')
+			->select('posts.id', 'posts.title', 'posts.describer','posts.created_at', 'photos.photo_path', 'users.name', 'places.name as place','places.lat','places.longt', 'ratings.cmt', 'ratings.rating as rate','ratings.created_at', 'userscmt.name as cmtname', 'userscmt.avatar')
 			->where('posts.id', '=', $post_id)
 			->get();
 
@@ -48,7 +48,7 @@ class FrontController extends Controller
 			['user_id', '=', $user_id],
 			['post_id', '=', $post_id],
 		])->orderBy('id', 'desc')->first();
-		//var_dump($user_rate);
+		//var_dump($data);
 		//return;
 		return view('pages/detail', ['data' => $data, 'rating' => $rating, 'user_rate' => $user_rate]);
 	}
