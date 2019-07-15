@@ -38,11 +38,7 @@
 			<label for="">District</label>
 			<select class="custom-select" name="districts_id" id="district">
 				<option value="">District</option>
-				<!-- @if($district)
-				@foreach ($district as $record)
-				<option value="{{$record->id}}">{{$record->name}}</option>
-				@endforeach
-				@endif -->
+				
 			</select>
 		</div>
 

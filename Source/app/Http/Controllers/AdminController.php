@@ -18,10 +18,15 @@ class AdminController extends Controller
         if ($year === NULL) $year = 2019;
         if ($dbname === NULL) $dbname = 'users';
         //  $users = DB::select("select COUNT(*) as count from users where year(created_at) = ? GROUP BY Month(created_at)", [$year]);
-        $users = DB::select("select COUNT(*) as count from $dbname where year(created_at) = $year GROUP BY Month(created_at)");
+       // $users = DB::select("select COUNT(*) as count from $dbname where year(created_at) = $year GROUP BY Month(created_at)");
         $user_arr = [];
-        for ($i = 0; $i < count($users); $i++)
-            $user_arr[$i] = $users[$i]->count;
+        for ($i = 1; $i <= 12; $i++){
+            $user = DB::select("select COUNT(*) as count from $dbname where year(created_at) = $year and Month(created_at)=$i");
+            
+            $user_arr[$i-1] = $user[0]->count;
+           
+        }
+        //return var_dump($user_arr);
         $a = mt_rand(0, 255);
         $b = mt_rand(0, 255);
         $c = mt_rand(0, 255);

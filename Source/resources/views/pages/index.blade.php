@@ -97,8 +97,9 @@
 		<div class="col-sm">
 			<p>Không có dữ liệu</p>
 		</div>
-		@endif
-	</div>
+		@endforeach
+		@else
+		</div>
 
 	<div class="container-fluid" id="all_post" style="display: none;">
 		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những bài viết mới nhất</h2></div>

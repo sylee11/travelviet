@@ -23,12 +23,30 @@ Route::group(['namespace' => 'Front'], function (){
 	})->name('home');
 	Route::get('profile', 'ProfileController@show')->name('profile');
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
+
+
+	Route::group(['prefix' => 'account', 'middleware' => 'auth'],function(){
+		Route::get('/{id}/post', 'PostController@showformAddPost')->name('account.addpost');
+		Route::post('/{id}/post', 'PostController@add')->name('account.addpost');
+		Route::get('/{id}/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
+		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
+		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
+
+	});
+});
+//	Route::post('/update', 'ProfileController@update')->name('profile.update');
+//	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
+	
+	Route::get('/detail/{id}','FrontController@detail');
+	Route::post('/detail/rate','FrontController@rate');
 	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');
 	Route::post('/update-avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::post('/upgrade', 'FrontController@upgrade')->name('upgrade');
 
 });
-
+Route::get('login2',function(){
+	return view('auth.login');
+});
 
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.admin');
@@ -65,6 +83,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('/{id}/edit', 'PostController2@showformedit')->name('admin.post.showedit');
 		Route::post('/{id}/edit', 'PostController2@edit')->name('admin.post.edit');
 		Route::get('/{id}/edit/deletephoto', 'PostController2@deletephoto')->name('admin.post.deletephoto');
+
 
 		    //
 	});
@@ -132,6 +151,5 @@ Auth::routes();
 
 //test
 Route::get('/abc', function() {
- 	$data = Request::all();
- 	dd($data); 
+ 	return view('test');
 });
