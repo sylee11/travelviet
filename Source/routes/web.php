@@ -43,7 +43,6 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::post('/update-avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::post('/upgrade', 'FrontController@upgrade')->name('upgrade');
 
-});
 Route::get('login2',function(){
 	return view('auth.login');
 });
