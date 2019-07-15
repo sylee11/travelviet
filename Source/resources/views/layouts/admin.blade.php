@@ -58,33 +58,18 @@
       <li class="nav-item dropdown no-arrow mx-1">
         <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-bell fa-fw"></i>
-          <span class="badge badge-danger">9+</span>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
           <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown no-arrow mx-1">
-        <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i class="fas fa-envelope fa-fw"></i>
-          <span class="badge badge-danger">7</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="messagesDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
         </div>
       </li>
       <li class="nav-item dropdown no-arrow">
         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           <span class="badge badge-danger">9+</span>
           <i class="fas fa-user-circle fa-fw"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="{{route('pages.home')}}">Home</a>
+          <a class="dropdown-item" href="{{route('home.page')}}">Home</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
         </div>
@@ -97,33 +82,33 @@
 
     <!-- Sidebar -->
     <ul class="sidebar navbar-nav">
-      <li class="nav-item active">
+      <li class="nav-item" style="{{Request::is('admin') ? 'background-color: #4F4E4E;' : ''}}">
         <a class="nav-link" href="{{ route('admin.index') }}">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" style="{{Request::is('admin/user*') ? 'background-color: #4F4E4E;' : ''}}">
         <a class="nav-link" href="{{ route('admin.user.index') }}">
           <i class="fas fa-fw fa-chart-area"></i>
           <span>User</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" style="{{Request::is('admin/post*') ? 'background-color: #4F4E4E;' : ''}}">
           <a class="nav-link" href="{{ route('admin.post.index') }}">
             <i class="fas fa-fw fa-table"></i>
             <span>Post</span></a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" style="{{Request::is('admin/category*') ? 'background-color: #4F4E4E;' : ''}}">
             <a class="nav-link" href="{{ route('admin.category.index') }}">
               <i class="fas fa-fw fa-table"></i>
               <span>Category</span></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" style="{{Request::is('admin/place*') ? 'background-color: #4F4E4E;' : ''}}">
               <a class="nav-link" href="{{ route('admin.place.index') }}">
                 <i class="fas fa-fw fa-table"></i>
                 <span>Place</span></a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" style="{{Request::is('admin/rating*') ? 'background-color: #4F4E4E;' : ''}}">
                 <a class="nav-link" href="{{ route('admin.rating.index') }}">
                   <i class="fas fa-fw fa-table"></i>
                   <span>Rating</span></a>
@@ -137,7 +122,7 @@
                   <!-- Breadcrumbs-->
                   <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                      <a href="#">Dashboard</a>
+                      <a href="{{ route('admin.index') }}">Dashboard</a>
                     </li>
                     <li class="active">@yield('title')</li>
                   </ol>
@@ -191,6 +176,7 @@
               </div>
             </div>
           </div>
+
           <!-- Bootstrap core JavaScript-->
           <script src="{{ asset('/vendor/jquery/jquery.min.js') }}"></script>
           <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -211,6 +197,7 @@
           <script src="{{ asset('/js/demo/chart-area-demo.js') }}"></script>
           <!--  jquery -->
           @stack('scripts')
+
         </body>
 
         </html>

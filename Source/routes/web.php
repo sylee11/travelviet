@@ -32,7 +32,8 @@ Route::group(['namespace' => 'Front'], function (){
 
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.admin');
-Route::get('register', 'Auth\RegisterController@showFormRegister')->name('register');
+Route::get('show-register', 'Auth\RegisterController@showFormRegister')->name('show.register');
+Route::post('signup', 'Auth\RegisterController@store')->name('signup');
 
 Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
 Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCallback');
@@ -47,7 +48,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('/', 'UserController@index')->name('admin.user.index');
 
 		Route::post('/add', 'UserController@store')->name('admin.user.add');
-		Route::post('/register', 'UserRegisterController@store')->name('admin.user.register');
 
 		Route::get('/edit/{id}', 'UserController@getedit')->name('admin.user.edit');
 		Route::post('/edit/{id}', 'UserController@postedit')->name('admin.user.edit1');

@@ -5,10 +5,10 @@
  <div class="alert alert-danger">
  	{{session('thongbao')}}
  </div>
-@endif -->
+ @endif -->
 
-@if(count($errors)>0)
-<div class="alert alert-danger">
+ @if(count($errors)>0)
+ <div class="alert alert-danger">
   @foreach($errors->all() as $err)
   {{$err}} <br>
   @endforeach
@@ -27,10 +27,6 @@
     <label for="name">Name</label>
     <input type="text" name="name" value="{{ $place->name }}" class="form-control" required autocomplete="name">
   </div>
-  <div class="form-group">
-    <label for="">Address</label>
-    <input id="text" type="text" name="address" value="{{ $place->address }}" class="form-control" required autocomplete="address">
-  </div>
   <div class="form-group col-md-2">
     <label for="">Category</label>
     <select class="custom-select" name="category_id">
@@ -41,6 +37,10 @@
       @endforeach
       @endif
     </select>
+  </div>
+  <div class="form-group">
+    <label for="">Address</label>
+    <input id="text" type="text" name="address" value="{{ $place->address }}" class="form-control" required autocomplete="address">
   </div>
   <div class="form-row">
     <div class="form-group col-md-3">
@@ -75,29 +75,29 @@
   </button>
 </form>
 <script type="text/javascript">
-    $('#city').change(function(){
+  $('#city').change(function(){
     var cityID = $(this).val();    
     if(cityID){
-        $.ajax({
-           type:"GET",
-           url:"{{route('admin.place.getcity')}}?cities_id="+cityID,
-           success:function(res){               
-            if(res){
-                $("#district").empty();
-                $("#district").append('<option>District</option>');
-                $.each(res,function(key,value){
-                    $("#district").append('<option value="'+key+'">'+value+'</option>');
-                });
-            }else{
-               $("#district").empty();
-            }
-           }
-        });
+      $.ajax({
+       type:"GET",
+       url:"{{route('admin.place.getcity')}}?cities_id="+cityID,
+       success:function(res){               
+        if(res){
+          $("#district").empty();
+          $("#district").append('<option>District</option>');
+          $.each(res,function(key,value){
+            $("#district").append('<option value="'+key+'">'+value+'</option>');
+          });
+        }else{
+         $("#district").empty();
+       }
+     }
+   });
     }else
     {
-        $("#district").empty();    
+      $("#district").empty();    
     }      
-   });
-    
+  });
+  
 </script>
 @endsection

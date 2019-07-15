@@ -10,7 +10,7 @@
 
 <body class="text-center">
     <div class="body">
-    <form class="form-signin" action="{{route('admin.user.register')}}" method="post">
+    <form class="form-signin" action="{{route('signup')}}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token()}}">
         <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
 

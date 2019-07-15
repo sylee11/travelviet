@@ -3,9 +3,9 @@
 @section('content')
 <div class="card mb-3">
 	<div class="card-header">
-		<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addModal"><i class="fas fa-plus"></i> Add</a>
-	</div>
 
+		<i class="fas fa-table"></i>
+	Data Table Rating</div>
 
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -16,6 +16,9 @@
 	</div>
 
 	<div class="card-body">
+		<div style="margin-bottom: 15px">
+			<button data-toggle="modal" data-target="#addModal" class="btn btn-success "><i class="fas fa-plus"></i> ADD</button>
+		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
@@ -27,7 +30,7 @@
 						<th>Title</th>
 						<th>Time create</th>
 						<th>Time modify</th>
-						<th width="120px">Action</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tfoot>
@@ -53,9 +56,9 @@
 						<td>{{$record->post->title}}</td>
 						<td>{{$record->created_at}}</td>
 						<td>{{$record->updated_at}}</td>
-						<td align="center">
-							<a href="{{route('admin.rating.edit',$record->id)}}" class="btn btn-primary"> Edit</a>
-							<a href="{{route('admin.rating.delete',$record->id)}}" class="btn btn-danger" onclick="return confirm('delete?')"> Delete</a>
+						<td align="center" style="display: flex;">
+							<a href="{{route('admin.rating.edit',$record->id)}}" class="btn-info nav-link" role='button'> Edit</a>
+							<a href="{{route('admin.rating.delete',$record->id)}}" class="btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</a>
 						</td>
 					</tr>
 					@endforeach
