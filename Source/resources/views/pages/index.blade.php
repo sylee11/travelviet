@@ -154,8 +154,8 @@
 	<div class="container top_city">
 		<div style="color: #b3b3ba;"><h2>Điểm đến nhiều nhất</h2></div>
 		<!-- Full-width images with number text -->
-		@if (count($city) !== 0)
-		@foreach ($city as $key => $element)
+		@if (count($city_post) !== 0)
+		@foreach ($city_post as $key => $element)
 		<div class="mySlides">
 			<a href="{{route('show.posts',$element->id)}}" title="{{ $element->name }}">
 				<div class="numbertext">{{$key+1}} / {{count($city)}}</div>
@@ -176,8 +176,8 @@
 
 		<!-- Thumbnail images -->
 		<div class="row" style="justify-content: center;">
-			@if (count($city) !== 0)
-			@foreach ($city as $key => $element)
+			@if (count($city_post) !== 0)
+			@foreach ($city_post as $key => $element)
 			<div class="col-2 ">
 				<img class="demo cursor" src="{{ $element->photo_path }}" style="width:100%;height: 100px;" onclick="currentSlide({{$key+1}})" alt="{{ $element->name }}">
 			</div>

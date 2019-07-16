@@ -63,7 +63,7 @@ class FrontController extends Controller
 		// 	echo $value;
 		// }
 
-		return view('pages.index',['new_post'=>$new_post,'top_rating'=>$top_rating,'top_user'=>$top_user,'all_post'=>$all_post,'city'=>$array,'category'=>$category,'district'=>$district,'city'=>$city]);
+		return view('pages.index',['new_post'=>$new_post,'top_rating'=>$top_rating,'top_user'=>$top_user,'all_post'=>$all_post,'city_post'=>$array,'category'=>$category,'district'=>$district,'city'=>$city]);
 	}
 	public function detail($post_id)
 	{
