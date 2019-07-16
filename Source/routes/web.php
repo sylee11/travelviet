@@ -23,6 +23,7 @@ Route::group(['namespace' => 'Front'], function (){
 	})->name('home');
 	Route::get('profile', 'ProfileController@show')->name('profile');
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
+	Route::get('/post/{id}', 'FrontController@showPosts')->name('show.posts');
 
 
 	Route::group(['prefix' => 'account', 'middleware' => 'auth'],function(){
@@ -35,7 +36,7 @@ Route::group(['namespace' => 'Front'], function (){
 });
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
 //	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
-	Route::get('/mypost','ProfileController@mypost');
+	Route::get('/mypost','ProfileController@mypost')->name('mypost');
 	Route::get('/detail/{id}','FrontController@detail')->name('detail');
 
 	Route::post('/detail/rate','FrontController@rate');

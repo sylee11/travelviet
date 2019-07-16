@@ -11,6 +11,7 @@ use Image;
 use Redirect;
 use URL;
 use Response;
+use App\Post;
 
 class ProfileController extends Controller
 {
@@ -49,10 +50,10 @@ class ProfileController extends Controller
 	public function mypost()
 	{
 		$id = Auth::id();
+		$data = Post::join('photos', 'photos.post_id', '=', 'posts.id')
+		->where('posts.user_id', '=', $id)
+		->where('photos.flag', '=', '1')->paginate(5);
 
-		$data = \DB::table('posts')
-			->select('posts.id', 'posts.title','posts.describer')
-			->where('posts.user_id', '=', $id)->get();
 		return view('pages/mypost', ['data' => $data]);
 	}
 	public function mycomment()
@@ -60,9 +61,9 @@ class ProfileController extends Controller
 		$id = Auth::id();
 
 		$data = \DB::table('ratings')
-			->join('posts', 'ratings.post_id', '=', 'posts.id')
-			->select('ratings.id', 'ratings.cmt', 'ratings.rating', 'posts.id', 'posts.title')
-			->where('ratings.user_id', '=', $id)->get();
+		->join('posts', 'ratings.post_id', '=', 'posts.id')
+		->select('ratings.id', 'ratings.cmt', 'ratings.rating', 'posts.id', 'posts.title')
+		->where('ratings.user_id', '=', $id)->get();
 		return view('pages/mycmt', ['data' => $data]);
 
 	}
