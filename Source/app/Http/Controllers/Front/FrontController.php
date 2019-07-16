@@ -4,17 +4,27 @@ namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+use App\Category;
+use App\City;
+use App\District;
+use App\Place;
 use App\Post;
 use App\Rating;
-use DB;
 use App\User;
 use Auth;
 use Response;
-use App\City;
+use DB;
+
+
+    
 class FrontController extends Controller
 {
 	public function index()
 	{
+		$category=Category::all();
+		$city=City::all();
+		$district=District::all();
 		//show top users
 
 		$top_user=Rating::select('user_id', \DB::raw('count(id) as amount'))->groupBy('user_id')->orderBy('amount','desc')->take(4)->get();
@@ -52,7 +62,7 @@ class FrontController extends Controller
 		// 	echo $value;
 		// }
 
-		return view('pages.index',['new_post'=>$new_post,'top_rating'=>$top_rating,'top_user'=>$top_user,'all_post'=>$all_post,'city'=>$array]);
+		return view('pages.index',['new_post'=>$new_post,'top_rating'=>$top_rating,'top_user'=>$top_user,'all_post'=>$all_post,'city'=>$array,'category'=>$category,'district'=>$district,'city'=>$city]);
 	}
 	public function detail($post_id)
 	{
@@ -144,4 +154,6 @@ class FrontController extends Controller
 		->where('ratings.user_id', '=', $user_id)->get();
 	return view('pages/mycmt', ['data' => $data]);
 	}
+
 }
+	
