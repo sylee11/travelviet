@@ -4,18 +4,27 @@ namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+use App\Category;
+use App\City;
+use App\District;
+use App\Place;
 use App\Post;
 use App\Rating;
-use DB;
 use App\User;
 use Auth;
 use Response;
-use App\City;
+
+
+use DB;
 
 class FrontController extends Controller
 {
 	public function index()
 	{
+		$category=Category::all();
+		$city=City::all();
+		$district=District::all();
 		//show top users
 
 		$top_user=Rating::select('user_id', \DB::raw('count(id) as amount'))->groupBy('user_id')->orderBy('amount','desc')->take(4)->get();
@@ -36,6 +45,7 @@ class FrontController extends Controller
 		->groupBy('cities.id')
 		->where('is_approved','=','1')->take(6)->get();
 		//dd($cities);
+		//dd($cities);
 		$array=array();
 		foreach ($cities as $value) {
 			$tt=Post::join('places', 'posts.place_id', '=', 'places.id')
@@ -53,20 +63,20 @@ class FrontController extends Controller
 		// 	echo $value;
 		// }
 
-		return view('pages.index',['new_post'=>$new_post,'top_rating'=>$top_rating,'top_user'=>$top_user,'all_post'=>$all_post,'city'=>$array]);
+		return view('pages.index',['new_post'=>$new_post,'top_rating'=>$top_rating,'top_user'=>$top_user,'all_post'=>$all_post,'city'=>$array,'category'=>$category,'district'=>$district,'city'=>$city]);
 	}
 	public function detail($post_id)
 	{
 
 		$data = DB::table('posts')
-		->join('photos', 'posts.id', '=', 'photos.post_id')
-		->join('users', 'posts.user_id', '=', 'users.id')
-		->join('places', 'posts.place_id', '=', 'places.id')
-		->leftJoin('ratings', 'posts.id', '=', 'ratings.post_id')
-		->leftJoin('users as userscmt', 'ratings.user_id', '=', 'userscmt.id')
-		->select('posts.id', 'posts.title', 'posts.describer','posts.created_at', 'photos.photo_path', 'users.name', 'places.name as place','places.lat','places.longt', 'ratings.cmt', 'ratings.rating as rate','ratings.created_at', 'userscmt.name as cmtname', 'userscmt.avatar')
-		->where('posts.id', '=', $post_id)
-		->get();
+			->join('photos', 'posts.id', '=', 'photos.post_id')
+			->join('users', 'posts.user_id', '=', 'users.id')
+			->join('places', 'posts.place_id', '=', 'places.id')
+			->leftJoin('ratings', 'posts.id', '=', 'ratings.post_id')
+			->leftJoin('users as userscmt', 'ratings.user_id', '=', 'userscmt.id')
+			->select('posts.id', 'posts.title','posts.user_id' ,'posts.describer','posts.created_at', 'photos.photo_path', 'users.name', 'places.name as place','places.lat','places.longt', 'ratings.cmt', 'ratings.rating as rate','ratings.created_at','userscmt.id as cmtid', 'userscmt.name as cmtname', 'userscmt.avatar')
+			->where('posts.id', '=', $post_id)
+			->get();
 
 		$rating = DB::table('ratings')
 		->where('post_id', $post_id)
@@ -143,4 +153,23 @@ class FrontController extends Controller
 		return view('pages.postsCity',['post_city'=>$post_city,'name_city'=>$name_city]);
 
 	}
+	public function userInfo($user_id){
+		$data = DB::table('users')->find($user_id);
+		return view('pages/userInfo',['data'=>$data]);
+	}
+	public function userPost($user_id){
+		$data = \DB::table('posts')
+			->select('posts.id', 'posts.title','posts.describer')
+			->where('posts.user_id', '=', $user_id)->get();
+		return view('pages/mypost', ['data' => $data]);
+	}
+	public function userComment($user_id){
+		$data = \DB::table('ratings')
+		->join('posts', 'ratings.post_id', '=', 'posts.id')
+		->select('ratings.id', 'ratings.cmt', 'ratings.rating', 'posts.id', 'posts.title')
+		->where('ratings.user_id', '=', $user_id)->get();
+	return view('pages/mycmt', ['data' => $data]);
+	}
+
 }
+	

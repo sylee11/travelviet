@@ -101,7 +101,8 @@ class PhpSdkController extends Controller
     //  var_dump($user);
     \Auth::login($user);
     //session_destroy();
-
-    return redirect('/home');
+    
+   
+    return redirect('/');
   }
 }

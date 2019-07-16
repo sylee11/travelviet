@@ -43,11 +43,17 @@ class PlaceController extends Controller
  {
     $this->validate($request,
         [
-            'name'=>'required|max:255'
+            'name'=>'required|max:255',
+            'category_id'=>'required',
+            'city_id'=>'required',
+            'districts_id'=>'required'
         ],
         [
             'name.required'=>'bạn tên địa điểm ',
-            'name.max(255)'=>'ten co do dai ko qua 255'
+            'name.max(255)'=>'ten co do dai ko qua 255',
+            'category_id.required'=>'bạn chưa chọn loại địa điểm  ',
+            'city_id.required'=>'bạn chưa chọn tỉnh, thành phố ',
+            'districts_id.required'=>'bạn chưa chọn quận huyện'
         ]
     );
     $place = new Place;
@@ -60,7 +66,7 @@ class PlaceController extends Controller
     $category=Category::all();
     $city=City::all();
     $district=District::all();
-    return view('admin.place.add',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
+    return \Redirect::route('admin.place.add',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city])->with('message', 'Place has been add!');
 }
 
 public function xoa($id)

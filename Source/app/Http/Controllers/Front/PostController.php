@@ -65,10 +65,10 @@ class PostController extends Controller
     		$post ->place_id = $newPlace->id;
     	}
 
-        $post -> title = $request ->title;
-        $post -> is_approved = 0;
-        $post -> describer = $request->descrice;
-        $post -> save();
+        $post ->title = $request ->title;
+        $post ->is_approved = 0;
+        $post ->describer = $request->descrice;
+        $post ->save();
 
         $path="picture/admin/post/".$post->id;
 	    File::makeDirectory($path);
@@ -78,13 +78,16 @@ class PostController extends Controller
         		$name=$pho->getClientOriginalName();
         		$photo = new Photo;
 	        	$photo->post_id = $post->id;
-
 	        	$pho->move($path, $name);  
 	        	$photo->photo_path = "picture/admin/post/".$post->id."/".$name;
-	        	$photo->save();
 	        	$photo->flag = 0;
+                $photo->save();
 	        }
         }
+
+        $photoflag = Photo::where('post_id', $post->id)->first();
+        $photoflag->flag =1;
+        $photoflag->save();
 
         return back();
     }

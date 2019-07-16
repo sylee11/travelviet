@@ -25,15 +25,42 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
 	Route::get('/post/{id}', 'FrontController@showPosts')->name('show.posts');
 
+	Route::post('/update', 'ProfileController@update')->name('profile.update');
+	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
+	// Route::get('/', 'SearchListController@searchlist')->name('search.slide');
+	Route::get('/get_city_list', 'SearchListController@getCityList')->name('get.city.list');
+	Route::get('/list_place', 'SearchListController@getList')->name('get.list');
+	Route::post('/list_place', 'SearchListController@postList')->name('get.list');
+	Route::get('/search_list', 'SearchListController@getsearch')->name('search.list');
+	Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
+	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
+	
 
+	Route::get('/user/{user_id}','FrontController@userInfo');
+	Route::get('/user/{user_id}/post','FrontController@userPost');
+	Route::get('/user/{user_id}/comment','FrontController@userComment');
 	Route::group(['prefix' => 'account', 'middleware' => 'auth'],function(){
 		Route::get('/{id}/post', 'PostController@showformAddPost')->name('account.addpost');
 		Route::post('/{id}/post', 'PostController@add')->name('account.addpost');
 		Route::get('/{id}/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
 		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
+		Route::group(['prefix' => 'admin'], function(){
+			Route::get('/approved', 'ApprovedController@show')->name('acount.admin.approved');
+			Route::get('/approved/{id}', 'ApprovedController@approved')->name('approved');
+			// Route::get('/approved/all', 'ApprovedController@allpost')->name('xxx');
+			Route::get('/approved/{id}/delete', 'ApprovedController@delete')->name('delete');
+			// Route::get('/approved/search', 'ApprovedController@search')->name('approved.search');
+		});
+		Route::get('aa/admin/approved/all', 'ApprovedController@allpost')->name('approved.all');
+		Route::get('aa/approved/search', 'ApprovedController@search')->name('approved.search');
+		Route::get('aa/approved/search/appect', 'ApprovedController@appcetall')->name('approved.appectall');
+		Route::get('aa/approved/search/unappect', 'ApprovedController@unappcetall')->name('approved.unappectall');
+
 
 });
+
+
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
 //	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::get('/mypost','ProfileController@mypost')->name('mypost');
@@ -43,7 +70,6 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');
 	Route::post('/update-avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::post('/upgrade', 'FrontController@upgrade')->name('upgrade');
-
 	Route::get('/mycomment','ProfileController@mycomment');
 });
 Route::get('login2',function(){
@@ -74,6 +100,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 		Route::get('/delete/{id}', 'UserController@xoa')->name('admin.user.delete');
 		Route::get('/block/{id}', 'UserController@block')->name('admin.user.block');
+		Route::get('/unblock/{id}', 'UserController@unblock')->name('admin.user.unblock');
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
 		Route::get('/', 'PostController2@index')->name('admin.post.index');
@@ -125,7 +152,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 Route::get('/home', function() {
 	return view('pages.home');
-    //
+	
+    
 });
 
 Route::get('fb-callback','PhpSdkController@callback');
@@ -153,5 +181,5 @@ Auth::routes();
 
 //test
 Route::get('/abc', function() {
- 	return view('test');
-});
+ 	return view('pages.showAllPost');
+})->name('test');

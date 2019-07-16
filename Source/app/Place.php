@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-
+use App\Post;
 use Illuminate\Database\Eloquent\Model;
 
 class Place extends Model
@@ -15,6 +15,7 @@ class Place extends Model
     {
     	return $this->belongsTo(District::class); 
     }
+
 
     public function posts ()
     {
