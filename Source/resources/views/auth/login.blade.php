@@ -1,35 +1,30 @@
-<link rel="stylesheet" type="text/css" href="css/custom/login.css">
-<link rel="stylesheet" href="css/bootstrap.min.css">
-
-
-<link rel="stylesheet" href="css/bootstrap-social.css">
-
-
+<link rel="stylesheet" type="text/css" href="/css/custom/login.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/bootstrap-social.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
-
-
 
 <?php
 require base_path('vendor\autoload.php');
 session_start();
+
 $fb = new Facebook\Facebook([
     'app_id' => '2500657973298544', // Replace {app-id} with your app id
     'app_secret' => 'fe55cfc3f3fbed74b5c1e02cda1a8869',
-   // 'default_graph_version' => 'v3.2',
+    // 'default_graph_version' => 'v3.2',
 ]);
 
 $helper = $fb->getRedirectLoginHelper();
 
-  $permissions = ['email']; // Optional permissions
-  #$loginUrl = $helper->getLoginUrl('https://test.test/fb-callback.php', $permissions);
-  $loginUrl = $helper->getLoginUrl('https://travel.test/fb-callback', $permissions);
- // echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
-  //echo '<a href="'.$loginUrl.'">fb</a>';
-  //echo "<a href = {$loginUrl}>fbook</a>";
-  //echo $loginUrl;
-  ?>
-
-  <div class="card-body">
+$permissions = ['email']; // Optional permissions
+#$loginUrl = $helper->getLoginUrl('https://test.test/fb-callback.php', $permissions);
+$loginUrl = $helper->getLoginUrl('https://travel.test/fb-callback', $permissions);
+// echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
+//echo '<a href="'.$loginUrl.'">fb</a>';
+//echo "<a href = {$loginUrl}>fbook</a>";
+//echo $loginUrl;
+?>
+@section('content')
+<div class="card-body" style="text-align:center;">
 
     <a href="{{route('login.social')}}" class="btn btn-social btn-google">
         <i class="fab fa-google"></i>
@@ -76,7 +71,7 @@ $helper = $fb->getRedirectLoginHelper();
         </div>
 
         <div class="form-group row">
-            <div class="col-md-6 offset-md-4">
+            <div class="col-md-6 offset-md-2">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
@@ -88,10 +83,21 @@ $helper = $fb->getRedirectLoginHelper();
         </div>
 
         <div class="form-group row mb-0">
-            <div class="col-md-8 offset-md-4">
+            <div class="col-md-8 offset-md-2">
                 <button type="submit" class="btn btn-primary">
                     {{ __('Login') }}
                 </button>
+
+                <!--    @if (Route::has('password.request'))
+                <a class="btn btn-link" href="{{ route('password.request') }}">
+                    {{ __('Forgot Your Password?') }}
+                </a>
+                @endif  -->
+            </div>
+        </div>
+        <div class="form-group row mb-0">
+            <div class="col-md-8 offset-md-2">
+
 
                 @if (Route::has('password.request'))
                 <a class="btn btn-link" href="{{ route('password.request') }}">
@@ -100,7 +106,16 @@ $helper = $fb->getRedirectLoginHelper();
                 @endif
             </div>
         </div>
+        <div class="form-group row mb-0">
+            <div class="col-md-8 offset-md-2">
+
+
+                
+                <a class="btn btn-link" href="{{ route('register') }}">
+                    {{ __('Have an account?') }}
+                </a>
+                
+            </div>
+        </div>
     </form>
 </div>
-
-

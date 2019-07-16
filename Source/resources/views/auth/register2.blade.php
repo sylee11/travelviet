@@ -1,16 +1,16 @@
 <head>
-    <link rel="stylesheet" type="text/css" href="css/custom/login.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/custom/login.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
 
 <!--Fontawesome CDN-->
-<link rel="stylesheet" href="css/bootstrap-social.css">
+<link rel="stylesheet" href="/css/bootstrap-social.css">
 <!--Custom styles-->
-<link rel="stylesheet" href="css/fontawesome.css">
+<link rel="stylesheet" href="/css/fontawesome.min.css">
 </head>
 
 <body class="text-center">
     <div class="body">
-    <form class="form-signin" action="{{route('admin.user.register')}}" method="post">
+    <form class="form-signin" action="{{route('signup')}}" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token()}}">
         <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
 

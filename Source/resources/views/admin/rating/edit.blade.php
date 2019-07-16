@@ -1,6 +1,7 @@
 @extends('layouts.admin')
+@section('title', '/ Rating')
 @section('content')
-
+<h1>Edit rating</h1>
 <div class="card-body">
 	<div class="row">
 		<div class="col-8">

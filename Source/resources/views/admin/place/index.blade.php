@@ -1,17 +1,17 @@
 @extends('layouts.admin')
+@section('title', '/ Place')
 @section('content')
 <div class="card mb-3">
 	<div class="card-header">
 		<i class="fas fa-table"></i>
 	Data Table Place </div>
-	<div>
-		<button type="button" class="btn btn-primary" >
-			<a href="{{route('admin.place.add')}}" style="color: white"><i class="fas fa-plus"></i> Add</a>
-		</button>
-	</div>
-	
-	
+
 	<div class="card-body">
+		<div style="margin-bottom: 15px">
+			<button type="button" class="btn btn-success" >
+				<a href="{{route('admin.place.add')}}" style="color: white"><i class="fas fa-plus"></i> ADD</a>
+			</button>
+		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>

@@ -4,6 +4,26 @@
  --}}
 </head>
 <div class="container">
+    @if(count($errors) >0)
+      <div class="alert alert-danger">
+        @foreach($errors->all() as $error)
+          <li> {{$error}} </li>
+
+        @endforeach
+      </div>
+      <script>
+        $(document).ready(function(){
+            $('#myModal3').modal('show')
+        }
+      </script>
+    @endif
+    @if(Session::has('errors'))
+    <script>
+        $(document).ready(function(){
+            $('#myModal3').modal({show: true});
+        }
+    </script>
+@endif
 	<FORM method="post" class="" action="{{route('admin.post.add')}}" enctype="multipart/form-data">
 	@csrf
 {{-- @if ($errors->any())
@@ -18,22 +38,33 @@
 	<div style="display: flex;">
 		<div class="form-group">
 	    	<label >User id:</label>
-	    	<input type="number" class="form-control @error('userid') is-invalid @enderror" id="userid " name="userid">
+	    {{-- 	<input type="number" class="form-control @error('userid') is-invalid @enderror" id="userid " name="userid"> --}}
 	    	@error('userid')
                 <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
                 </span>
             @enderror
+        <select class="form-control" id="userid" name="userid">
+          @foreach($user as $u)
+            <option>{{ $u->id }}</option>
+
+          @endforeach
+        </select>
 	  	</div>
 		<div class="form-group" style="margin-left: 40px;">
-	    	<label for="phone">Number phone:</label>
-	    	<input type="" class="form-control" id="number" name="number">
+	    	<label for="">Phone number:</label>
+	    	<input type="tel" class="form-control" id="number" name="number">
 	  	</div>
 	</div>
 	<div class="form-group">
     	<label for="">Place id:</label>
-    	<input type="number" class="form-control" id="palceid" name="placeid">
-  	</div>
+       <select class="form-control" id="placeid" name="placeid">
+          @foreach($place as $p)
+            <option>{{ $p->id }}</option>
+
+          @endforeach
+      </select>
+  </div>
 	<div class="form-group">
     	<label for="">Title:</label>
     	<input type="text" class="form-control" id="title" name="title">
@@ -59,7 +90,7 @@
             <button class="btn btn-success add" type="button"><i class="glyphicon glyphicon-plus" id="add"></i>Add</button>
           </div>
         </div>
-        <div class=" clone hide" style="overflow: hidden;">
+        <div class=" clone" style="overflow: hidden;">
           <div class="control-group input-group" style="margin-top:10px">
             <input type="file" name="filename[]" class="form-control">
             <div class="input-group-btn"> 
@@ -89,6 +120,9 @@
       $("body").on("click",".btn-danger",function(){ 
           $(this).parents(".control-group").remove();
       });
+
+      var ab=$(".clone");
+      ab.hide();
 
     });
 

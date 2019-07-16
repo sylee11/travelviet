@@ -10,6 +10,7 @@ use App\User;
 use Carbon\Carbon;
 use App\Photo;
 use File;
+use App\Place;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -42,7 +43,9 @@ class PostController2 extends Controller
 
         //eloquent 
         $postss = POST::all();
-        return view('admin.post.index', ['posts'=>$postss ]);
+        $user = USER::all();
+        $place = PLACE::all();
+        return view('admin.post.index', ['posts'=>$postss , 'user'=>$user ,'place'=>$place]);
         //dd($posts);
     }
 
@@ -66,50 +69,12 @@ class PostController2 extends Controller
     public function store(Request $request)
     {
         //
-        // $request-> validate([
-        //     'user_id' => 'reiquired|numeric',
-        //     'phone' => 'required|numberic|max:10',
-        //     'title' => 'required',
-        //     'describer' => 'required',
-        //     'place_id' => 'required|number',
-        // ]);
-
-        // $validator = Validator::make($request->all(), [
-        //     'user_id' => 'reiquired|numeric',
-        //     'phone' => 'required|numberic|max:10',
-        //     'title' => 'required',
-        //     'describer' => 'required',
-        //     'place_id' => 'required|number',
-        // ]);
-
-        // if ($validator->fails()) {
-        //     return redirect('/admin/post/add')
-        //                 ->withErrors($validator)
-        //                 ->withInput();
-        // }
-
-        // $posts = DB::table('posts')
-        //     ->insert([
-        //         'user_id' => $request ->input('userid'),
-        //         'phone' => $request ->input('phone'),
-        //         'title' => $request ->input('title'),
-        //         'describer' => $request ->input('descrice'),
-        //         'place_id' => $request ->input('placeid'),
-        //         'created_at' => Carbon::now(),
-        //         'updated_at' => Carbon::now(),
-
-        //     ]);
-
-        // dd($post);
-        // $posts= DB::table('posts')
-        //     ->join('users', 'users.id', '=', 'posts.user_id')
-        //     ->select('posts.*', 'users.name')
-        //     ->get();
-
-        // $posts = POST::all;
-        // return view('admin.post.index', ['posts'=>$posts]);
-        // var_dump($request->input('userid'));
-
+        $request-> validate([
+            'user_id' => 'reiquired',
+            'number' => 'required|max:10',
+            'title' => 'required',
+            'describer' => 'required',
+        ]);
 
         // import posts
         $posts = new POST;
@@ -127,17 +92,22 @@ class PostController2 extends Controller
         if($request ->describer){
         $posts -> describer = $request ->input('describer');
         }
-        else return "none";
+        else return "none describer";
+        // $t = $request -> checkbox;
+        // dd($t);
         if($request->checkbox){
             $posts -> is_approved = $request -> checkbox;
         }
+        else{
         $posts -> is_approved =0;
+        }
         $posts -> save();
 
         //find last id
-        $temp = POST::latest()->first();
+       // $posts = POST::latest()->first();
+        //$posts = $posts->id
         //make folder chua photo
-        $path = 'picture/admin/post/'.$temp->id;
+        $path = 'picture/admin/post/'.$posts->id;
         File::makeDirectory($path);
 
         //insert 1 photo
@@ -147,7 +117,7 @@ class PostController2 extends Controller
         //$photo = new PHOTO;
         // $photo->photo_path = "picture/".$file->getClientOriginalName();
         // $photo->flag = 0;
-        // $photo->posts_id=$temp->id;
+        // $photo->posts_id=$posts->id;
         // $photo ->save ();
 
 
@@ -158,11 +128,23 @@ class PostController2 extends Controller
             {   
 
                 $name=$image->getClientOriginalName();
+
+                //check photo exit
+                $namet=$path."/".$name;                
+                $t = DB::table('photos')
+                ->where("post_id", "=", $posts->id)->get();
+                foreach ($t as $key => $value) {
+                        if($value->photo_path ==  $namet  ){
+                            $p = POST::find($posts->id)->delete();
+                            return "anh trung nhau";
+                        }
+                }  
+
                 $image->move($path, $name);  
                 $photo = new photo;
                 $photo->photo_path = $path."/".$name;
                 $photo->flag = 0;
-                $photo->post_id=$temp->id;
+                $photo->post_id=$posts->id;
                 $photo ->save ();
             }
             return back()->with('success', 'Your images has been successfully');
@@ -189,7 +171,9 @@ class PostController2 extends Controller
     public function showformedit($id)
     {
         $posts = POST::find($id);
-        return view('admin.post.edit', ['post'=>$posts] );
+         $user = USER::all();
+        $place = PLACE::all();
+        return view('admin.post.edit', ['post'=>$posts, 'user'=>$user ,'place'=>$place] );
     }
     /**
      * Show the form for editing the specified resource.
@@ -199,7 +183,7 @@ class PostController2 extends Controller
      */
     public function edit(Request $request,$id)
     {
-        //
+        // xu li edit info
         $posts = POST::find($id);
         if(USER::find($request->userid)){
             $posts ->user_id = $request ->userid;
@@ -222,19 +206,54 @@ class PostController2 extends Controller
         $posts -> save();
 
 
+
+        // xu li them anh moi
         $path = 'picture/admin/post/'.$posts->id;
-        foreach($request->file('filename') as $image)
-        {   
+        if($request->has('filename')){
+            foreach($request->file('filename') as $image)
+            {   
                 $name=$image->getClientOriginalName();
+
+                //check photo exit
+                $namet=$path."/".$name;                
+                $t = DB::table('photos')
+                ->where("post_id", "=", $id)->get();
+                foreach ($t as $key => $value) {
+                          if($value->photo_path ==  $namet  )
+                              return "Photo exits";
+                }  
+
                 $image->move($path, $name);  
                 $photo = new photo;
                 $photo->photo_path = $path."/".$name;
                 $photo->flag = 0;
                 $photo->post_id=$posts->id;
                 $photo ->save ();
+            }
         }
         //dd($posts);
-        return back()->with('success', 'Your images has been successfully');
+
+
+        //delete photo
+        $photoedit = $request->p1; // This will get all the request data.
+        //$data = json_decode($request->getContent());
+        // return $request->xxx; 
+        //exit();
+        $edit = explode('/',$photoedit);
+        foreach ($edit as $da => $value) {
+            if(PHOTO::find($value))
+            {
+                $findphoto = PHOTO::find($value);
+                $path =$findphoto->photo_path; 
+                File::delete($path);
+                $findphoto ->delete();
+                
+            }
+        }
+        return redirect (route('admin.post.detail', $posts->id));
+        //return back()->with('success', 'Your images has been successfully');
+        //dd($name); // This will dump and die
+        //var_dump($data);
     }
 
     /**
@@ -257,6 +276,7 @@ class PostController2 extends Controller
      */
     public function destroy($id)
     {
+
         //query bulder
         $posts = DB::table('posts')
             ->where('id' , '=' ,$id)->delete();
@@ -264,10 +284,11 @@ class PostController2 extends Controller
             ->where('post_id', '=' ,$id)->delete();
         $path = "/picture/admin/post/".$id; 
         File::deleteDirectory(public_path($path));
+        $postss = POST::all();
+        return redirect (route('admin.post.index'));
         // $posts= POST::all();
 
-        // return view('admin.post.index', ['posts'=>$posts]);
-        return redirect (route('admin.post.index'));
+
 
     }
 
@@ -278,7 +299,8 @@ class PostController2 extends Controller
             ->where('id', '=' , $id)
             ->update(['is_approved' => 1]);
         $posts= POST::all();
-        return view('admin.post.index', ['posts'=>$posts]);
+        return redirect (route('admin.post.index'));
+
 
     }   
 
@@ -286,7 +308,7 @@ class PostController2 extends Controller
     {
         //eloquent
         $posts = DB::table('posts')
-            ->where('id', '=' , $id)
+            ->where('id', '=' , $id )
             ->update(['is_approved' => 0]);
         // $posts= POST::all();
 

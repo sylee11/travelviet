@@ -14,8 +14,8 @@ class RatingController extends Controller
 	public function index()
 	{
 		$rating= Rating::all();
-		$user=User::all();
-		$post=Post::all();
+		$user=User::where('status','=','1')->get();
+		$post=Post::where('is_approved','=','1')->get();
 		return view('admin.rating.index',['rating'=>$rating,'user'=>$user,'post'=>$post]);
 	}
 	public function add(Request $request)
@@ -29,7 +29,7 @@ class RatingController extends Controller
 		$record->user_id=$request->user_id;
 		$record->rating=$request->rating;
 		$record->post_id=$request->post_id;
-		$record->cmt=$request->comment;
+		$record->cmt=$request->get('comment');
 		//dd($request->comment);
 		$record->save();
 		return redirect('admin/rating');
