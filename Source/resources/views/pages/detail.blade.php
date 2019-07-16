@@ -43,7 +43,7 @@ $cmts = $data->unique('cmt')->values();
 ?>
 <div style='text-align:left;margin-top:75px;' class="container">
   <h1 class="my-4">{{$data[0]->title}}
-    <small style="text-align:right">by {{$data[0]->name}},{{ date('d-m-Y', strtotime($data[0]->created_at)) }}</small>
+    <small style="text-align:right">by <a href="/user/{{$data[0]->user_id}}"> {{$data[0]->name}}</a>,{{ date('d-m-Y', strtotime($data[0]->created_at)) }}</small>
 
   </h1>
   <div class="row">
@@ -176,7 +176,7 @@ $cmts = $data->unique('cmt')->values();
     <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="/{{$value->avatar}}" alt="">
     <div class="media-body">
 
-      <h5 style='padding-top:20px;display:inline-block;' class="mt-0">{{$value->cmtname}}</h5>
+      <h5 style='padding-top:20px;display:inline-block;' class="mt-0"><a href="/user/{{$value->cmtid}}">{{$value->cmtname}}</a></h5>
       @if($value->created_at !=NULL)
       <small>{{ date('d-m-Y', strtotime($value->created_at)) }}</small>
       @endif

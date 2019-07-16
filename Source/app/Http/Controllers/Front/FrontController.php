@@ -63,7 +63,7 @@ class FrontController extends Controller
 			->join('places', 'posts.place_id', '=', 'places.id')
 			->leftJoin('ratings', 'posts.id', '=', 'ratings.post_id')
 			->leftJoin('users as userscmt', 'ratings.user_id', '=', 'userscmt.id')
-			->select('posts.id', 'posts.title', 'posts.describer','posts.created_at', 'photos.photo_path', 'users.name', 'places.name as place','places.lat','places.longt', 'ratings.cmt', 'ratings.rating as rate','ratings.created_at', 'userscmt.name as cmtname', 'userscmt.avatar')
+			->select('posts.id', 'posts.title','posts.user_id' ,'posts.describer','posts.created_at', 'photos.photo_path', 'users.name', 'places.name as place','places.lat','places.longt', 'ratings.cmt', 'ratings.rating as rate','ratings.created_at','userscmt.id as cmtid', 'userscmt.name as cmtname', 'userscmt.avatar')
 			->where('posts.id', '=', $post_id)
 			->get();
 
@@ -125,5 +125,23 @@ class FrontController extends Controller
 		$user->save();
 		return redirect('/');
 
+	}
+
+	public function userInfo($user_id){
+		$data = DB::table('users')->find($user_id);
+		return view('pages/userInfo',['data'=>$data]);
+	}
+	public function userPost($user_id){
+		$data = \DB::table('posts')
+			->select('posts.id', 'posts.title','posts.describer')
+			->where('posts.user_id', '=', $user_id)->get();
+		return view('pages/mypost', ['data' => $data]);
+	}
+	public function userComment($user_id){
+		$data = \DB::table('ratings')
+		->join('posts', 'ratings.post_id', '=', 'posts.id')
+		->select('ratings.id', 'ratings.cmt', 'ratings.rating', 'posts.id', 'posts.title')
+		->where('ratings.user_id', '=', $user_id)->get();
+	return view('pages/mycmt', ['data' => $data]);
 	}
 }

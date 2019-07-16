@@ -23,8 +23,9 @@ Route::group(['namespace' => 'Front'], function (){
 	})->name('home');
 	Route::get('profile', 'ProfileController@show')->name('profile');
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
-
-
+	Route::get('/user/{user_id}','FrontController@userInfo');
+	Route::get('/user/{user_id}/post','FrontController@userPost');
+	Route::get('/user/{user_id}/comment','FrontController@userComment');
 	Route::group(['prefix' => 'account', 'middleware' => 'auth'],function(){
 		Route::get('/{id}/post', 'PostController@showformAddPost')->name('account.addpost');
 		Route::post('/{id}/post', 'PostController@add')->name('account.addpost');
