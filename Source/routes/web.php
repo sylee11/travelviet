@@ -24,7 +24,20 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::get('profile', 'ProfileController@show')->name('profile');
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
 
+	Route::post('/update', 'ProfileController@update')->name('profile.update');
+	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
+	// Route::get('/', 'SearchListController@searchlist')->name('search.slide');
+	Route::get('/get_city_list', 'SearchListController@getCityList')->name('get.city.list');
+	Route::get('/list_place', 'SearchListController@getList')->name('get.list');
+	Route::post('/list_place', 'SearchListController@postList')->name('get.list');
+	Route::get('/search_list', 'SearchListController@getsearch')->name('search.list');
+	Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
+	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
+	
 
+	Route::get('/user/{user_id}','FrontController@userInfo');
+	Route::get('/user/{user_id}/post','FrontController@userPost');
+	Route::get('/user/{user_id}/comment','FrontController@userComment');
 	Route::group(['prefix' => 'account', 'middleware' => 'auth'],function(){
 		Route::get('/{id}/post', 'PostController@showformAddPost')->name('account.addpost');
 		Route::post('/{id}/post', 'PostController@add')->name('account.addpost');
@@ -43,17 +56,23 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::get('aa/approved/search/appect', 'ApprovedController@appcetall')->name('approved.appectall');
 		Route::get('aa/approved/search/unappect', 'ApprovedController@unappcetall')->name('approved.unappectall');
 
-	});
+
+});
+
+
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
 //	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
-	
-	Route::get('/detail/{id}','FrontController@detail');
+	Route::get('/mypost','ProfileController@mypost');
+	Route::get('/detail/{id}','FrontController@detail')->name('detail');
+
 	Route::post('/detail/rate','FrontController@rate');
 	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');
 	Route::post('/update-avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::post('/upgrade', 'FrontController@upgrade')->name('upgrade');
 });
 
+	Route::get('/mycomment','ProfileController@mycomment');
+});
 Route::get('login2',function(){
 	return view('auth.login');
 });
@@ -82,6 +101,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 		Route::get('/delete/{id}', 'UserController@xoa')->name('admin.user.delete');
 		Route::get('/block/{id}', 'UserController@block')->name('admin.user.block');
+		Route::get('/unblock/{id}', 'UserController@unblock')->name('admin.user.unblock');
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
 		Route::get('/', 'PostController2@index')->name('admin.post.index');
@@ -133,7 +153,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 Route::get('/home', function() {
 	return view('pages.home');
-    //
+	
+    
 });
 
 Route::get('fb-callback','PhpSdkController@callback');

@@ -5,9 +5,9 @@
  <div class="alert alert-danger">
  	{{session('thongbao')}}
  </div>
-@endif -->
-@if(count($errors)>0)
-<div class="alert alert-danger">
+ @endif -->
+ @if(count($errors)>0)
+ <div class="alert alert-danger">
   @foreach($errors->all() as $err)
   {{$err}} <br>
   @endforeach
@@ -23,7 +23,7 @@
 <form action="{{route('admin.user.edit1', $user->id)}}" method="post" enctype="multipart/form-data">
 	{{csrf_field()}}
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-  
+
   <div class="form-group">
     <label for="name">Name</label>
     <input type="text" name="name" value="{{ $user->name }}" class="form-control" required autocomplete="name">
@@ -67,9 +67,17 @@
       @endif>No Block
     </label>
   </div>
-  <div class="form-group">
+  <!-- <div class="form-group">
     <label for="">Avatar</label>
     <input  type="file" name="avatar" value=""  required autocomplete="file">
+  </div> -->
+  <h5>Avatar</h5>
+  <div class="form-group">
+      <img src="{{ URL::to('/picture/' . $user->avatar) }}" alt="{{ $user->avatar }}" style="width: 100px; height: 100px; background-repeat: no-repeat;" />
+  </div>
+   <div class="form-group">
+    <label for="">Chọn ảnh mới</label>
+    <input  type="file" name="avatar" value="{{$user->avatar}}"   autocomplete="file">
   </div>
   <div class="form-group">
     <label for="">Role</label>
@@ -94,19 +102,19 @@
   </button>
 </form>
 <script>
-    $(document).ready(function(){
-         $("#changePasword").change(function(){
-            if($(this).is(":checked"))
-            {
-              $(".password").removeAttr('disabled');
-            }
-            else{
-              $(".password").attr('disabled','');
-            }
-         });
-    });
-  </script>
+  $(document).ready(function(){
+   $("#changePasword").change(function(){
+    if($(this).is(":checked"))
+    {
+      $(".password").removeAttr('disabled');
+    }
+    else{
+      $(".password").attr('disabled','');
+    }
+  });
+ });
+</script>
 @endsection
 
 
-  
+
