@@ -3,11 +3,11 @@
 @endpush
 @extends('pages.home')
 @section('content-section')
-<div>
+<div class="home">
 	<div class="container-fluid">
 		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những địa điểm được đánh giá cao</h2></div>
 
-		<div class="row">
+		<div class="row" style="justify-content: center;">
 			@if($top_rating->count() !== 0)
 			@foreach ($top_rating as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
@@ -50,10 +50,11 @@
 	</div>
 
 
+
 	<div class="container-fluid" id="new_post">
 		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những bài viết mới nhất</h2></div>
 
-		<div class="row">
+		<div class="row" style="justify-content: center;">
 			@if($new_post->count() !== 0)
 			@foreach ($new_post as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
@@ -150,28 +151,38 @@
 		@endif
 	</div>
 
+	<div class="container top_city">
+		<div style="color: #b3b3ba;"><h2>Điểm đến nhiều nhất</h2></div>
+		<!-- Full-width images with number text -->
+		@if (count($city) !== 0)
+		@foreach ($city as $key => $element)
+		<div class="mySlides">
+			<a href="{{route('show.posts',$element->id)}}" title="{{ $element->name }}">
+				<div class="numbertext">{{$key+1}} / {{count($city)}}</div>
+				<img src="{{ $element->photo_path }}" style="width:100%">
+			</a>
+		</div>
+		@endforeach
+		@endif
 
-	<div class="container-fluid">
-		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Điểm đến nhiều nhất</h2></div>
+		<!-- Next and previous buttons -->
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+		<a class="next" onclick="plusSlides(1)">&#10095;</a>
 
-		<div class="row">
-			@foreach ($city as $element)
-			<div class="col-sm-4" style="margin:50px 0;">
-				<div class="card-img index" style="height:35 0px;">
-					<a href="#" title="" style="text-decoration: none;">
-						<img src="{{ $element->photo_path }}" alt="city" class="card-img image">
+		<!-- Image text -->
+		<div class="caption-container">
+			<p id="caption"></p>
+		</div>
 
-						<div class="content">
-							<h5>{{ $element->name }}</h5>
-						</div>
-						<div class="overlay">
-						</div>
-					</a>
-
-				</div>
+		<!-- Thumbnail images -->
+		<div class="row" style="justify-content: center;">
+			@if (count($city) !== 0)
+			@foreach ($city as $key => $element)
+			<div class="col-2 ">
+				<img class="demo cursor" src="{{ $element->photo_path }}" style="width:100%;height: 100px;" onclick="currentSlide({{$key+1}})" alt="{{ $element->name }}">
 			</div>
 			@endforeach
-
+			@endif
 		</div>
 	</div>
 
@@ -212,6 +223,37 @@
 			$('#new_post').show();
 			$('#all_post').hide();
 		});
+
+
+
 	});
-</script>
-@endsection
+	var slideIndex = 1;
+	showSlides(slideIndex);
+
+	function plusSlides(n) {
+		showSlides(slideIndex += n);
+	}
+
+	function currentSlide(n) {
+		showSlides(slideIndex = n);
+	}
+
+	function showSlides(n) {
+		var i;
+		var slides = document.getElementsByClassName("mySlides");
+		var dots = document.getElementsByClassName("demo");
+		var captionText = document.getElementById("caption");
+		if (n > slides.length) {slideIndex = 1}
+			if (n < 1) {slideIndex = slides.length}
+				for (i = 0; i < slides.length; i++) {
+					slides[i].style.display = "none";
+				}
+				for (i = 0; i < dots.length; i++) {
+					dots[i].className = dots[i].className.replace(" active", "");
+				}
+				slides[slideIndex-1].style.display = "block";
+				dots[slideIndex-1].className += " active";
+				captionText.innerHTML = dots[slideIndex-1].alt;
+			}
+		</script>
+		@endsection

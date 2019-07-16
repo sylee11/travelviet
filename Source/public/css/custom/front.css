@@ -1,59 +1,170 @@
 
 
-.list_images {
+/*.list_images {
 	opacity: 0.7;
-}
+	}*/
+	.home{
+		font-family: cursive;
+	}
+	.list_images:hover {
+		opacity: 1;
+	}
+	p{
+		color: #090707;
+	}
+	.checked {
+		color: orange;
+		font-size: 15px;
+	}
+	.unchecked{
+		color:#b8b8b8;
+	}
+	.rating span{
+		font-size: 12px;
+	}
+	.index {
+		position: relative;
+		width: 50%;
+	}
+	.overlay {
+		background-color: rgba(255,255,255,0.3);
+		position: absolute;
+		bottom: 100%;
+		left: 0;
+		right: 0;
+		overflow: hidden;
+		width: 100%;
+		height:0;
+		transition: .5s ease;
+	}
+	.index:hover .overlay {
+		bottom: 0;
+		height: 100%;
+	}
+	.image {
+		display: block;
+		height:350px;
+	}
+	.content{
+		position: absolute;
+		bottom: 30px;
+		width: 100%;
+	}
+	.content h5{
+		text-transform: uppercase;
+		color: #ff6300;
+		font-weight: bold;
+		font-size: 16px;
+	}
 
-.list_images:hover {
-	opacity: 1;
-}
-p{
-	color: #090707;
-}
-.checked {
-	color: orange;
-	font-size: 15px;
-}
-.unchecked{
-	color:#b8b8b8;
-}
-.rating span{
-	font-size: 12px;
-}
-.index {
-	position: relative;
-	width: 50%;
-}
-.overlay {
-	background-color: rgba(255,255,255,0.3);
-	position: absolute;
-	bottom: 100%;
-	left: 0;
-	right: 0;
-	overflow: hidden;
-	width: 100%;
-	height:0;
-	transition: .5s ease;
-}
-.index:hover .overlay {
-	bottom: 0;
-	height: 100%;
-}
-.image {
-	display: block;
-	height:350px;
-}
-.content{
-	position: absolute;
-	bottom: 30px;
-	width: 100%;
-}
-.content h5{
-	text-transform: uppercase;
-	color: #ff6300;
-	font-weight: bold;
-	font-size: 16px;
-}
+	/* begin slide */
+	.mySlides img {
+		vertical-align: middle;
+		color: white;
+		height: 500px;
+	}
 
+	/* Position the image container (needed to position the left and right arrows) */
+	.top_city {
+		position: relative;
+		margin-top: 50px;
+	}
 
+	/* Hide the images by default */
+	.mySlides {
+		display: none;
+		padding-top: 20px;
+	}
 
+	/* Add a pointer when hovering over the thumbnail images */
+	.cursor {
+		cursor: pointer;
+	}
+	.slide-img img{
+		color: #c0c0c0;
+	}
+
+	/* Next & previous buttons */
+	.prev,
+	.next {
+		cursor: pointer;
+		position: absolute;
+		width: auto;
+		padding: 16px;
+		margin-top: -50px;
+		color: white;
+		font-weight: bold;
+		font-size: 20px;
+		border-radius: 0 3px 3px 0;
+		user-select: none;
+		-webkit-user-select: none;
+		top:50%;
+	}
+
+	/* Position the "next button" to the right */
+	.next {
+		right: 15px;
+		border-radius: 3px 0 0 3px;
+	}
+	.prev {
+		left: 15px;
+		border-radius: 3px 0 0 3px;
+	}
+
+	/* On hover, add a black background color with a little bit see-through */
+	.prev:hover,
+	.next:hover {
+		background-color: rgba(0, 0, 0, 0.8);
+	}
+
+	/* Number text (1/3 etc) */
+	.numbertext {
+		color: #f2f2f2;
+		font-size: 12px;
+		padding: 8px 12px;
+		position: absolute;
+		top: 70px;
+	}
+
+	/* Container for image text */
+	.caption-container {
+		text-align: center;
+		background-color: #222;
+		padding: 2px 16px;
+	}
+	#caption {
+		color: white;
+		font-size: 20px;
+	}
+	.row:after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+
+	/* end slide */
+
+	.text{
+		display: table;
+		text-align: left;
+		font-family: cursive;
+	}
+	.text h5{
+		font-weight: bold;
+		font-size: 24px;
+		color: black;
+	}
+	.created{
+		font-size: 13px;
+		color: #795e5e;
+	}
+	.text-descript{
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		line-height: 16px;
+		max-height: 32px;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+	
