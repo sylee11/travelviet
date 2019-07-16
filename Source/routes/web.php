@@ -44,9 +44,22 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::get('/{id}/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
 		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
+		Route::group(['prefix' => 'admin'], function(){
+			Route::get('/approved', 'ApprovedController@show')->name('acount.admin.approved');
+			Route::get('/approved/{id}', 'ApprovedController@approved')->name('approved');
+			// Route::get('/approved/all', 'ApprovedController@allpost')->name('xxx');
+			Route::get('/approved/{id}/delete', 'ApprovedController@delete')->name('delete');
+			// Route::get('/approved/search', 'ApprovedController@search')->name('approved.search');
+		});
+		Route::get('aa/admin/approved/all', 'ApprovedController@allpost')->name('approved.all');
+		Route::get('aa/approved/search', 'ApprovedController@search')->name('approved.search');
+		Route::get('aa/approved/search/appect', 'ApprovedController@appcetall')->name('approved.appectall');
+		Route::get('aa/approved/search/unappect', 'ApprovedController@unappcetall')->name('approved.unappectall');
 
 
 });
+
+
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
 //	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::get('/mypost','ProfileController@mypost');
@@ -56,7 +69,6 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');
 	Route::post('/update-avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::post('/upgrade', 'FrontController@upgrade')->name('upgrade');
-
 	Route::get('/mycomment','ProfileController@mycomment');
 });
 Route::get('login2',function(){
@@ -168,5 +180,5 @@ Auth::routes();
 
 //test
 Route::get('/abc', function() {
- 	return view('test');
-});
+ 	return view('pages.showAllPost');
+})->name('test');

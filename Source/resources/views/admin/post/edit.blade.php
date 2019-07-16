@@ -154,7 +154,10 @@
         $(".increment").after(html);
       });
 
-      
+     $("body").on("click",".btn-danger",function(){ 
+          $(this).parents(".control-group").remove();
+      });
+
     var ab=$(".clone");
     ab.hide();
 

@@ -106,6 +106,8 @@
                 <a class="dropdown-item" href="{{route('show_changePass')}}">Change Password</a>
                 @if (Auth::user()->role == 1)
                 <a class="dropdown-item" href="{{route('admin.index')}}">Administrators</a>
+                <a class="dropdown-item" href="{{route('approved.all')}}">Phê duyệt bài đăng</a>
+
                 @elseif (Auth::user()->role == 2)
                 <a class="dropdown-item" href="{{route('admin.index')}}">Make posts</a>
                 <a class="dropdown-item" href="{{route('admin.index')}}">History</a>
