@@ -155,7 +155,7 @@
 		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Điểm đến nhiều nhất</h2></div>
 
 		<div class="row">
-			@foreach ($city as $element)
+{{-- 			@foreach ($city as $element)
 			<div class="col-sm-4" style="margin:50px 0;">
 				<div class="card-img index" style="height:35 0px;">
 					<a href="#" title="" style="text-decoration: none;">
@@ -170,7 +170,7 @@
 
 				</div>
 			</div>
-			@endforeach
+			@endforeach --}}
 
 		</div>
 	</div>

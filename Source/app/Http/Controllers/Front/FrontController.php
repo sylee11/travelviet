@@ -35,6 +35,7 @@ class FrontController extends Controller
 		->groupBy('cities.id')
 		->where('is_approved','=','1')->take(3)->get();
 		//dd($cities);
+		//dd($cities);
 		$array=array();
 		foreach ($cities as $value) {
 			$tt=Post::join('places', 'posts.place_id', '=', 'places.id')
