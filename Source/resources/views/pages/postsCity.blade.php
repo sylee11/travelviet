@@ -1,8 +1,9 @@
 @push('css')
 <link href="{{asset('css/custom/front.css')}}" rel="stylesheet">
 @endpush
-@extends('pages.home')
-@section('content-section')
+@extends('layouts.app')
+
+@section('content')
 <div class="container" style="margin-top: 100px;">
 	<h1 style="margin-top:150px;margin-bottom: 50px;">Một số địa điểm tại {{$name_city->name}}</h1>
 	@foreach ($post_city as $key=>$value)
