@@ -182,7 +182,7 @@
 			@if($top_user->count() !== 0)
 			@foreach($top_user as $record)
 			<div style="padding: 0 15px;">
-				<a href="/detail/{{$record->id}}" title="" style="text-decoration: none;">
+				<a href="/user/{{$record->user_id}}" title="" style="text-decoration: none;">
 					@if (!empty($record->user->avatar))
 					<img src="{{ $record->user->avatar }}" alt="Avatar" class="avatar" title="{{!empty($record->user->name)?$record->user->name:'no name'}}" style="width: 80px;height:80px;border-radius: 50%;">
 
