@@ -23,6 +23,18 @@ Route::group(['namespace' => 'Front'], function (){
 	})->name('home');
 	Route::get('profile', 'ProfileController@show')->name('profile');
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
+
+	Route::post('/update', 'ProfileController@update')->name('profile.update');
+	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
+	// Route::get('/', 'SearchListController@searchlist')->name('search.slide');
+	Route::get('/get_city_list', 'SearchListController@getCityList')->name('get.city.list');
+	Route::get('/list_place', 'SearchListController@getList')->name('get.list');
+	Route::post('/list_place', 'SearchListController@postList')->name('get.list');
+	Route::get('/search_list', 'SearchListController@getsearch')->name('search.list');
+	Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
+	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
+	
+
 	Route::get('/user/{user_id}','FrontController@userInfo');
 	Route::get('/user/{user_id}/post','FrontController@userPost');
 	Route::get('/user/{user_id}/comment','FrontController@userComment');
@@ -32,6 +44,7 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::get('/{id}/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
 		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
+
 
 });
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
@@ -74,6 +87,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 		Route::get('/delete/{id}', 'UserController@xoa')->name('admin.user.delete');
 		Route::get('/block/{id}', 'UserController@block')->name('admin.user.block');
+		Route::get('/unblock/{id}', 'UserController@unblock')->name('admin.user.unblock');
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
 		Route::get('/', 'PostController2@index')->name('admin.post.index');
@@ -125,7 +139,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 Route::get('/home', function() {
 	return view('pages.home');
-    //
+	
+    
 });
 
 Route::get('fb-callback','PhpSdkController@callback');
