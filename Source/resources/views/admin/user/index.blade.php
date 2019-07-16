@@ -103,9 +103,18 @@
 					<td>{{$u->role}}</td>
 					<td>{{$u->created_at}}</td>
 						<td align="center">
-							<button type="submit" class="btn-success">
-								<a href="{{route('admin.user.block', $u->id)}}" style="color: white" onclick="return confirm ('bạn có muốn block user {{$u->name}} này')">Block</a>
-							</button>
+							
+							@if($u->status ==1)
+					        		<button class="btn-success">
+					        		 
+					        		<a href="{{route('admin.user.block', $u->id)}}" onclick="return confirm('Bạn có muốn block user này?')" role="button"  style="color: white;" > Block</a>
+					        	</button>
+					        	@else 
+					        	<button class="btn-success">
+					        	 
+					        		<a href="{{route('admin.user.unblock', $u->id)}}" onclick="return confirm('Bạn có muốn unblock user này??')" role="button" style="color: white" > UnBlock</a>
+					        	</button>
+					        	@endif
 						    
 							<button type="button" class="btn-info" data-toggle="modal" data-target="#myModal">
 							   <a href="{{route('admin.user.edit', $u->id)}}" style="color: white">Edit</a>

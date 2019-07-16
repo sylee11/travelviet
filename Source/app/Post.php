@@ -10,7 +10,7 @@ class Post extends Model
 {
     //
 
-    protected $fillable = ['place_id'];
+    // protected $fillable = ['place_id'];
     public function user(){
     	return $this->belongsTo('App\User');
     }

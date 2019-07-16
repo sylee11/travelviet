@@ -1,6 +1,18 @@
 @extends('layouts.admin')
 @section('content')
 <h1>Thêm địa điểm</h1>
+@if(count($errors)>0)
+ <div class="alert alert-danger">
+  @foreach($errors->all() as $err)
+  {{$err}} <br>
+  @endforeach
+</div>
+@endif
+@if(Session::has('message'))
+<div class="alert alert-danger">
+	{{Session::get('message')}}
+</div>
+@endif
 <form action="{{route('admin.place.add')}}" method="post">
 	<input type="hidden" name="_token" value="{{ csrf_token()}}">
 	<div class="form-group">
@@ -17,7 +29,7 @@
 			<option value="">Category</option>
 			@if($category)
 			@foreach ($category as $ca)
-			<option value="{{$ca->id}}">{{$ca->name}}</option>
+			<option  value="{{$ca->id}}" >{{$ca->name}}</option>
 			@endforeach
 			@endif
 		</select>
@@ -25,7 +37,7 @@
 	<div class="form-row">
 		<div class="form-group col-md-3">
 			<label for="">City</label>
-			<select class="custom-select" name="" id="city">
+			<select class="custom-select" name="city_id" id="city">
 				<option value="">City</option>
 				@if($city)
 				@foreach ($city as  $record)
@@ -51,7 +63,7 @@
 	<button type="submit" class="btn btn-primary">Add</button>
 </form>
 <script type="text/javascript">
-    $('#city').change(function(){
+    $("#city").change(function(){
     var cityID = $(this).val();    
     if(cityID){
         $.ajax({

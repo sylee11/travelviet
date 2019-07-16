@@ -45,7 +45,7 @@
 						<td>{{$p->created_at}}</td>
 						<td>{{$p->updated_at}}</td>
 						<td>{{$p->category->name}}</td>
-						<td>{{$p ->districts->cities->name}}</td>
+						<td>{{$p ->address}}</td>
 						<td align="center">
 							<button type="submit" class="btn-success">Detail</button>
 							<button type="button" class="btn-info" data-toggle="modal" data-target="#myModal">
