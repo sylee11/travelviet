@@ -7,10 +7,10 @@
 		{{csrf_field()}}
 		<div class="image-upload">
 			<label for="file-input">
-				<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" style="border-radius: 50%;width: 100px;" >
+				<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" id="avatar" style="border-radius: 50%;width: 100px;height: 100px;">
 			</label>
 
-			<input id="file-input" type="file"  name="avatar" style="display: none;" />
+			<input id="file-input" type="file"  name="avatar" style="display: none;" {{-- onchange="readURL(this);" --}} />
 		</div>
 		<button  class="btn-sm btn btn-primary" id="change_avatar">Update avatar</button>
 
@@ -54,5 +54,24 @@
 		<a href="{{ url('profile') }}" title=""  id="edit_button"class="btn btn-info">Cancel</a>
 	</form>
 </div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		function readURL(input) {
+			if (input.files && input.files[0]) {
+				var reader = new FileReader();
 
+				reader.onload = function (e) {
+					$('#avatar')
+					.attr('src', e.target.result);
+				};
+
+				reader.readAsDataURL(input.files[0]);
+			}
+		}
+		$("#file-input").change(function() {
+			readURL(this);
+});
+
+	});
+</script>
 @endsection
