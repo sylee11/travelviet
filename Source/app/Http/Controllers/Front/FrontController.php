@@ -116,7 +116,8 @@ class FrontController extends Controller
 			$rate->post_id = $post_id;
 			$rate->save();
 		}
-		return $this->detail($post_id);
+		//return $this->detail($post_id);
+		return back();
 	}
 	public function upgrade(Request $request){
 		$user= Auth::user();
