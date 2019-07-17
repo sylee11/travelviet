@@ -82,6 +82,8 @@ class SearchListController extends Controller
 		] )
 		->get();
 
+		
+
 		 return view('pages.search_list',['post' => $post],['rating'=>$rating],['place'=>$place],['photo'=>$photo]);
 	}
 	public function googlemap()

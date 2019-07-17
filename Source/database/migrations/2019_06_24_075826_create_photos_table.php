@@ -17,7 +17,7 @@ class CreatePhotosTable extends Migration
             $table->bigIncrements('id');
             $table->string('photo_path');
             $table->integer('flag')->nullable();
-            $table->integer('post_id')->nullable();
+            $table->integer('post_id');
             $table->timestamps();
         });
     }
