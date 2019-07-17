@@ -10,6 +10,7 @@ use App\User;
 use Carbon\Carbon;
 use App\Photo;
 use File;
+use App\Rating;
 use App\Place;
 use Illuminate\Support\Facades\Validator;
 
@@ -284,6 +285,8 @@ class PostController2 extends Controller
             ->where('post_id', '=' ,$id)->delete();
         $path = "/picture/admin/post/".$id; 
         File::deleteDirectory(public_path($path));
+
+        $rating =Rating::where('post_id', $id)->delete();
         $postss = POST::all();
         return redirect (route('admin.post.index'));
         // $posts= POST::all();
