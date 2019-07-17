@@ -36,7 +36,9 @@
 					</tr>
 				</tfoot>
 				<tbody style="font-weight: normal;">
-
+					@if($posts->count()==0)
+							k có dư liêu
+					@else
 					@foreach($posts as $post)
 					<tr style="font-weight: normal;">
 						<th style="font-weight: normal;">{{ $post-> id }}</th>
@@ -45,12 +47,12 @@
 						<th style="font-weight: normal;">@if($post->is_approved ==1)
 							<div style="display: flex;">
 								Approved  
-								<a href="{{route('admin.post.unapproved', $post->id)}}" onclick="return confirm('Xác nhận hủy đăng bài này?')" role="button" class="btn-danger nav-link" style="width: 50px; height: 40px; margin-left: 10px;" > Unb</a>
+								<a href="{{route('admin.post.unapproved', $post->id)}}" onclick="return confirm('Xác nhận hủy đăng bài này?')" role="button" class="btn btn-danger nav-link" style="width: 50px; height: 40px; margin-left: 10px;" > Un</a>
 							</div>
 							@else 
 							<div style="display: flex;">
 								Unapproved  
-								<a href="{{route('admin.post.approved', $post->id)}}" onclick="return confirm('Xác nhận đăng bài này?')" role="button" class="btn-success nav-link" style="width: 50px; height: 40px; margin-left: 10px;" > Enb</a>
+								<a href="{{route('admin.post.approved', $post->id)}}" onclick="return confirm('Xác nhận đăng bài này?')" role="button" class="btn btn-success nav-link" style="width: 50px; height: 40px; margin-left: 10px;" > En</a>
 							</div>
 						@endif </th>
 						<th style="font-weight: normal;">{{ $post->place_id }}</th>
@@ -59,14 +61,15 @@
 						<th style="font-weight: normal;">{{ $post->updated_at }}</th>
 
 						<td align="center" style="display: flex;">
-							<a href="{{route('admin.post.detail', $post->id)}}" class="btn-success nav-link"> Detail</a>
+							<a href="{{route('admin.post.detail', $post->id)}}" class=" btn btn-success nav-link"> Detail</a>
 
-							<a href="{{route('admin.post.showedit', $post->id)}}" class="btn-info nav-link" role='button' style="margin-left: 5px;"> Edit</a>
-							<a href="{{ route('admin.post.delete', $post->id)}}" class="btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</a>
+							<a href="{{route('admin.post.showedit', $post->id)}}" class="btn btn-info nav-link " role='button' style="margin-left: 5px;"> Edit</a>
+							<a href="{{ route('admin.post.delete', $post->id)}}" class="btn btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</a>
 						</td>
 					</tr>
 
 					@endforeach
+					@endif
 
 				</tbody>
 			</table>

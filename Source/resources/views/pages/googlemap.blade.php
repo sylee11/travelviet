@@ -135,7 +135,7 @@
             var marker = new GMaps({
               el: '#map',
               center: pos,
-              zoom:12
+              zoom:16
             });
 
             marker.addMarker({

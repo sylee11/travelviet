@@ -64,6 +64,8 @@ Route::group(['namespace' => 'Front'], function (){
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
 //	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::get('/mypost','ProfileController@mypost')->name('mypost');
+	Route::get('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
+
 	Route::get('/detail/{id}','FrontController@detail')->name('detail');
 
 	Route::post('/detail/rate','FrontController@rate');

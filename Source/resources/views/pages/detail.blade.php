@@ -13,11 +13,12 @@
 
 <script>
   var map;
+  // var infoWindow = new google.maps.InfoWindow();
   var latvalue = {{json_encode($data[0]->lat)}};
   var longvalue = {{json_encode($data[0]->longt)}};
 
   function initMap() {
-
+ 
     var uluru = {
       lat: latvalue,
       lng: longvalue
@@ -33,6 +34,7 @@
       position: uluru,
       map: map
     });
+    
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxqyb5cmgcv7j9hY-GcPZYcNQlwyfWaT0&callback=initMap" async defer></script>

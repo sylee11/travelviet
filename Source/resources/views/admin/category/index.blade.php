@@ -136,6 +136,7 @@
 					var button = $(event.relatedTarget)
 					var idcategory = button.data('idcategory')
 					var namecategory = button.data('namecategory')
+					console.log(namecategory);
 					var modal = $(this)
 		//		document.querySelector('#idcate').value=idcategory;
 		//		document.querySelector('#category-name').value="asd";

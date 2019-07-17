@@ -12,28 +12,26 @@
       <hr align="content" width="20%" color="#227DC7" size="10px" style="padding-bottom: 1.5px;"> 
       <button  data-target="#demo" class="btn btn-primary page-scroll ">
       Tìm kiếm địa điểm </button>
-        <form action="{{route('get.list')}}" method="post">
-          <input type="hidden" name="_token" value="{{ csrf_token()}}">
-          <div style="display: flex; justify-content: center; padding-top: 100px;">
-            <div class="" style="padding-right: 50px;">
+      <div style="display: flex;justify-content: center;">
+      <form action="{{route('get.list')}}" method="post">
+        <input type="hidden" name="_token" value="{{ csrf_token()}}">
+        <div style="display: flex; justify-content: center; padding-top: 100px;">
+          <div class="" style="padding-right: 50px;">
 
-              <select  class="btn btn-secondary dropdown-toggle" name="cities_id" id="city" >
-                <option value="">Tỉnh, thành phố</option>
-                @if($city)
-                @foreach ($city as  $record)
-                <option value="{{$record->id}}">{{$record->name}}</option>
-                @endforeach
-                @endif
-
-              </select>
-            </div>
-
-            <div class="" style="padding-right: 50px;">
-              <select class="btn btn-secondary dropdown-toggle" name="districts_id" id="district">
-                <option value="">Quận huyện</option>
-              <!-- @foreach ($district as  $record)
+            <select  class="btn btn-secondary dropdown-toggle" name="cities_id" id="city" >
+              <option value="">Tỉnh, thành phố</option>
+              @if($city)
+              @foreach ($city as  $record)
               <option value="{{$record->id}}">{{$record->name}}</option>
-              @endforeach -->
+              @endforeach
+              @endif
+            </select>
+          </div>
+
+          <div class="" style="padding-right: 50px;">
+            <select class="btn btn-secondary dropdown-toggle" name="districts_id" id="district">
+              <option value="">Quận huyện</option>
+
             </select>
           </div>
 
@@ -46,15 +44,20 @@
             </select>
           </div>
           <div style="display: flex;">
-            <button type="submit" class="btn btn-primary" id="find" >
+            <button type="submit" class="btn btn-primary" id="find" style="height: 37px; margin-right: 40px; " >
               <a  href=""><i class="fas fa-search" style="color: white"></i></a></button>
-              <button class="btn btn-primary" >
-                <a class="nav-link" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt" style="color: white"></i></a>
-              </button>
+              
               
             </div>
+            
           </div>
         </form>
+        <div style="padding-top: 100px;">
+          <button class="btn btn-primary"  style="height: 37px;   ">
+            <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
+          </button>
+        </div>
+        </div>
         <script type="text/javascript">
           $(document).ready(function(){
             $('#city').change(function(){
