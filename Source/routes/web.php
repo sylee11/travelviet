@@ -64,6 +64,8 @@ Route::group(['namespace' => 'Front'], function (){
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
 //	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::get('/mypost','ProfileController@mypost')->name('mypost');
+	Route::get('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
+
 	Route::get('/detail/{id}','FrontController@detail')->name('detail');
 
 	Route::post('/detail/rate','FrontController@rate');
@@ -143,10 +145,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 	});
 	Route::group(['prefix' => 'rating','namespace'=>'rating'], function(){
 		Route::get('/', 'RatingController@index')->name('admin.rating.index');
-		Route::post('/','RatingController@add')->name('admin.rating.add');
+		Route::post('/add','RatingController@add')->name('admin.rating.add');
 		Route::get('edit/{id}', 'RatingController@edit')->name('admin.rating.edit');
 		Route::post('update/{id}', 'RatingController@update')->name('admin.rating.update');
-		Route::get('delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
+		Route::get('/delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
 	});
 });
 

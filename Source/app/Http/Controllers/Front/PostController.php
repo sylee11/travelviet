@@ -12,6 +12,7 @@ use App\Photo;
 use App\District;
 use App\City;
 use DB;
+use Auth;
 use File;
 use Illuminate\Support\Facades\Validator;
 
@@ -42,7 +43,7 @@ class PostController extends Controller
     	// $check = $request->file();
     	// dd($check);
     	$post = new Post;
-    	$post -> user_id = $id;
+    	$post -> user_id = Auth::id();
     	$post -> phone = $request ->phone;
 
     	//check place exist
@@ -88,8 +89,13 @@ class PostController extends Controller
         $photoflag = Photo::where('post_id', $post->id)->first();
         $photoflag->flag =1;
         $photoflag->save();
+        $data = Post::join('photos', 'photos.post_id', '=', 'posts.id')
+        ->where('posts.user_id', '=', $id)
+        ->where('photos.flag', '=', '1')->paginate(5);
+        //tuy chinh pagenation
+        $data->withPath('../../mypost');
 
-        return back();
+        return view('pages.mypost', ['data'=> $data]);
     }
 
     //xu li ajax tu dong them vung mien
@@ -108,7 +114,7 @@ class PostController extends Controller
 
 	public function showformEditPost($id , $idPost)
 	{
-		$idPost=38;
+
 		$post = Post::find($idPost);
 		$category = Category::all();
 		$place = Place::all();
@@ -167,9 +173,6 @@ class PostController extends Controller
 
         //delete photo
         $photoedit = $request->p1; // This will get all the request data.
-        //$data = json_decode($request->getContent());
-        // return $request->xxx; 
-        //exit();
         $edit = explode('/',$photoedit);
         foreach ($edit as $da => $value) {
             if(PHOTO::find($value))
@@ -181,13 +184,31 @@ class PostController extends Controller
                 
             }
         }
-        return redirect (route('admin.post.detail', $posts->id));
-        //return back()->with('success', 'Your images has been successfully');
+        $data = Post::join('photos', 'photos.post_id', '=', 'posts.id')
+        ->where('posts.user_id', '=', $id)
+        ->where('photos.flag', '=', '1')->paginate(5);
+        //tuy chinh pagenation
+        $data->withPath('../../../mypost');
+        return view('pages.mypost', ['data'=> $data]);
         //dd($name); // This will dump and die
         //var_dump($data);
     }
 
-
+    public function delete($id)
+    {
+        $posts = DB::table('posts')
+            ->where('id' , '=' ,$id)->delete();
+        $photo =DB::table('photos')
+            ->where('post_id', '=' ,$id)->delete();
+        $path = "/picture/admin/post/".$id; 
+        File::deleteDirectory(public_path($path));
+        $data = Post::join('photos', 'photos.post_id', '=', 'posts.id')
+        ->where('posts.user_id', '=', $id)
+        ->where('photos.flag', '=', '1')->paginate(5);
+        //tuy chinh pagenation
+        $data->withPath('../../mypost');
+        return view('pages.mypost', ['data'=> $data]);
+    }
 
 }
 

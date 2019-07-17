@@ -60,7 +60,7 @@ class FrontController extends Controller
 			array_push($array, $tt);
 		}
 		// foreach ($array as $value) {
-		// 	echo $value;
+		// 	echo $value['id'];
 		// }
 
 		return view('pages.index', ['new_post' => $new_post, 'top_rating' => $top_rating, 'top_user' => $top_user, 'all_post' => $all_post, 'city_post' => $array, 'category' => $category, 'district' => $district, 'city' => $city]);
@@ -69,6 +69,7 @@ class FrontController extends Controller
 	{
 
 		$data = DB::table('posts')
+
 			->join('photos', 'posts.id', '=', 'photos.post_id')
 			->join('users', 'posts.user_id', '=', 'users.id')
 			->join('places', 'posts.place_id', '=', 'places.id')
