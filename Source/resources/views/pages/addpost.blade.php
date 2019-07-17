@@ -14,7 +14,7 @@
 	@section('content')
 		<div class="container" style="margin-top: 200px; text-align: left;">
 			<h3 class="text-center"> Add new Post</h3>
-			<FORM   action="{{route('account.addpost', $id =12 )}}" method="post" enctype="multipart/form-data">
+			<FORM   action="{{route('account.addpost', $id = Auth::id() )}}" method="post" enctype="multipart/form-data">
 				@csrf
 				<div class="form-row">
 					<div class="form-group col-md-6">
@@ -124,7 +124,7 @@
 {{-- 				<form action="/" method="post" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data">
 
 				</form> --}}
-
+				<h5 class="form-control-label"> Thêm ảnh cho bài viết</h5>
 				<div class="form-control-file">
 					<input multiple type="file"  id="gallery-photo-add" class="form-control" name="filename[]" required="">
 
@@ -132,9 +132,9 @@
 								</div>	
 				</div>				
 
-				<div style=" margin-top: 300px;">
-					<button type="submit" class="btn btn-primary">Đăng bài</button>
-					<button type="reset" class="btn btn-dark">Reset</button>
+				<div style=" margin-top: 100px; margin-bottom: 50px;">
+					<button type="submit" class="btn btn-primary" style="width: 100px;">Đăng bài</button>
+					<button type="reset" class="btn btn-dark" style="width: 100px;"> Reset</button>
 
 
 				</div>

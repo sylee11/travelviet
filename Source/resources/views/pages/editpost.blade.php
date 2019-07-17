@@ -14,7 +14,7 @@
 	@section('content')
 		<div class="container" style="margin-top: 200px; text-align: left;">
 			<h3 class="text-center"> Add new Post</h3>
-			<FORM   action="{{route('account.editpost', [$id =12 , $idpost =38] )}}" method="post" enctype="multipart/form-data">
+			<FORM   action="{{route('account.editpost', [$id =Auth::id() , $idpost=$post->id] )}}" method="post" enctype="multipart/form-data">
 				@csrf
 				<div class="form-row">
 					<div class="form-group col-md-6">
@@ -89,14 +89,14 @@
 						
 				</div>
 
-
+				<h5 class="form-control-label"> Thêm ảnh khác cho bài viết</h5>
 				<div class="form-control-file">
 					<input multiple type="file"  id="gallery-photo-add" class="form-control" name="filename[]" >
 
 								<div class="gallery" style="display: flex; width: 200px;height: 200px;">
 								</div>	
 				</div>
-				<h5> All photo of Post</h5>		
+				<h5> Chỉnh sửa các ảnh cũ</h5>		
 				<div class="form-group">
 			       <input type="text" value="" style="display: none ;"  class="form-control" id="p1" name="p1">
 			    </div>		
@@ -125,11 +125,11 @@
 			        </div>
 
 				</div>
-				<div style="">
-					<button type="submit" class="btn btn-primary">Lưu lại</button>
-					<button type="reset" class="btn btn-dark">Reset</button>
-
-
+				<div class="d-flex">
+					<div class="justify-content-center" style="margin-left: 45% ; margin-bottom: 50px;">
+						<button type="submit" class="btn btn-primary text-center" >Lưu lại</button>
+						<button type="reset" class="btn btn-dark">Reset</button>
+					</div>
 				</div>
 			</FORM>
 
