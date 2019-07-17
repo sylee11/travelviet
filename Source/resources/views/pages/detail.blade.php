@@ -193,7 +193,7 @@ $cmts = $data->unique('cmt')->values();
 
 
 
-        <p style='padding-top:10px'>{{$value->cmt}}</p>
+        <p style='padding-top:10px'>{!!$value->cmt!!}</p>
     </div>
   </div>
   @endforeach

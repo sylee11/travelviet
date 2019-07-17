@@ -158,11 +158,13 @@
 		@foreach ($city_post as $key => $element)
 		<div class="mySlides">
 			<a href="{{route('show.posts',$element->id)}}" title="{{ $element->name }}">
-				<div class="numbertext">{{$key+1}} / {{count($city)}}</div>
+				<div class="numbertext">{{$key+1}} / {{count($city_post)}}</div>
 				<img src="{{ $element->photo_path }}" style="width:100%">
 			</a>
 		</div>
 		@endforeach
+		@else
+		<div>Không có dữ liệu</div>	
 		@endif
 
 		<!-- Next and previous buttons -->
@@ -182,6 +184,8 @@
 				<img class="demo cursor" src="{{ $element->photo_path }}" style="width:100%;height: 100px;" onclick="currentSlide({{$key+1}})" alt="{{ $element->name }}">
 			</div>
 			@endforeach
+			@else
+			<div>Không có dữ liệu</div>
 			@endif
 		</div>
 	</div>

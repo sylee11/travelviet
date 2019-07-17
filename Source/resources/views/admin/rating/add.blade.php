@@ -24,12 +24,17 @@
                     <div class="form-group  col-md-6">
                         <label for="rating">Rating:</label>
                         <input type="text" class="form-control" id="rating"  placeholder="Enter Rating" name="rating" autofocus required>
+                        @if (session('error1'))
+                        <span class="help-block">
+                            <strong style="color: red;">{{ session('error1') }}</strong>
+                        </span>
+                        @endif
                     </div>
                 </div>
 
                 <div class="form-group">
-                   <label for="post">Post:</label>
-                   <select class="custom-select" name="post_id">
+                 <label for="post">Post:</label>
+                 <select class="custom-select" name="post_id">
                     <option disabled="">Post</option>
                     @if($post)
                     @foreach ($post as $record)
@@ -44,7 +49,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-success">Add</button>
+                <button type="submit" class="btn btn-success" id="add">Add</button>
 
             </div>
         </form>
@@ -57,5 +62,7 @@
 @push('scripts')
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
-<script> CKEDITOR.replace('editor1'); </script>
+<script> 
+    CKEDITOR.replace('editor1');
+</script>
 @endpush

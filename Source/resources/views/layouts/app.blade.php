@@ -62,7 +62,6 @@
               <ul class="navbar-nav mr-auto" >
                 <li > <a href="" class="nav-link " style="color: white; "> About Us </li></a>
                 <li > <a href="" class="nav-link" style="color: white; "> Địa điểm </li></a>
-                <li >  <a href="" class="nav-link" style="color: white; ">ABC </li></a>
                 <li ><a href=""  class="nav-link" style="color: white; "> Liên hệ </li></a>
               </ul>
 
@@ -98,25 +97,23 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
 
-                 <a class="dropdown-item" href="{{route('profile')}}" >Profile 
+                 <a class="dropdown-item" href="{{route('profile')}}" >Trang cá nhân
                   <span class="badge badge-danger" style="">
                     @if (empty(Auth::user()->name)|| empty(Auth::user()->avatar) || empty(Auth::user()->email))
                     1+
                     @endif
                   </span>
                 </a>
-                <a class="dropdown-item" href="{{route('show_changePass')}}">Change Password</a>
+                <a class="dropdown-item" href="{{route('show_changePass')}}">Đổi mật khẩu</a>
                 @if (Auth::user()->role == 1)
-                <a class="dropdown-item" href="{{route('admin.index')}}">Administrators</a>
-                <a class="dropdown-item" href="{{route('mypost')}}">My posts</a>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#upgradeModal">Interactive history</a>
+                <a class="dropdown-item" href="{{route('admin.index')}}">Trang quản lí</a>
+                <a class="dropdown-item" href="{{route('mypost')}}">Bài đăng của tôi</a>
                 <a class="dropdown-item" href="{{route('approved.all')}}">Phê duyệt bài đăng</a>
 
                 @elseif (Auth::user()->role == 2)
-                <a class="dropdown-item" href="{{route('mypost')}}">My posts</a>
+                <a class="dropdown-item" href="{{route('mypost')}}">Bài đăng của tôi</a>
                 @else
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#upgradeModal">Interactive history</a>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#upgradeModal">Upgrate</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#upgradeModal">Cập nhật tài khoản</a>
                 {{-- <a class="dropdown-item" href="{{route('show.upgrade')}}">Upgrate</a> --}}
                 @endif
                 <div class="dropdown-divider"></div>
@@ -158,13 +155,10 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Bạn đang là người xem, bạn có muốn chuyển sang người đăng bài không?</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Xác nhận trở thành người đăng bài?</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
-      </div>
-      <div class="modal-body" id="mes" style="display: none;">
-        Okk
       </div>
       <div class="modal-footer">
        <form id="logout-form" action="{{route('upgrade')}}" method="post">
@@ -231,33 +225,6 @@
   </div>
 </div>
 
-<!-- edit role -->
-<div class="modal fade" id="upgrade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Upgrate role</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="upgrade_submit" method="get" accept-charset="utf-8">
-         <select class="custom-select">
-          <option value="1" disabled>Admin</option>
-          <option value="2">User</option>
-          <option value="3">Mod</option>
-        </select>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Save</button>
-    </div>
-  </div>
-
-</div>
-</div>
 
 @yield('content')
 

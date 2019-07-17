@@ -21,6 +21,11 @@
 					<div class="form-group  col-md-6">
 						<label for="fullname">Rating:</label>
 						<input type="text" class="form-control" id="rating"  value='{{$show->rating}}' placeholder="Enter Rating" name="rating" autofocus required>
+						@if (session('error1'))
+						<span class="help-block">
+							<strong style="color: red;">{{ session('error1') }}</strong>
+						</span>
+						@endif
 					</div>
 				</div>
 
@@ -38,6 +43,11 @@
 				<div class="form-group">
 					<label for="comment">Comment:</label>
 					<textarea class="form-control" rows="5" id="editor2" name="comment">{{$show->cmt}}</textarea>
+					@if (session('error2'))
+					<span class="help-block">
+						<strong style="color: red;">{{ session('error2') }}</strong>
+					</span>
+					@endif
 				</div>
 				<div class="modal-footer">
 					<a href="{{ url()->previous() }}" class="btn btn-secondary">Cancel</a>
@@ -54,5 +64,14 @@
 
 @push('scripts')
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-<script> CKEDITOR.replace('editor2'); </script>
+<script> 
+	CKEDITOR.replace('editor2');
+	CKEDITOR.config.font_defaultLabel = 'Arial'; 
+	CKEDITOR.config.fontSize_defaultLabel = '10px';
+	CKEDITOR.config.entities = true;
+	CKEDITOR.config.basicEntities = true;
+	CKEDITOR.config.entities_greek = false;
+	CKEDITOR.config.entities_latin = false;
+	CKEDITOR.config.forcePasteAsPlainText = true;
+</script>
 @endpush
