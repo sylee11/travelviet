@@ -44,11 +44,14 @@ class SearchListController extends Controller
 	public function postList(Request $request)
 	{
 		$post = DB::table('posts')
-		->join('places','posts.place_id','=','places.id')	
+		->join('places','posts.place_id','=','places.id')
+		->join('ratings', 'posts.id', '=', 'ratings.post_id')->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 		->where([
 			['category_id', '=', $request->category_id ],
 			['districts_id','=', $request->districts_id],
-		])->get();
+		])
+		
+		->get();
 		return view('pages.list_place',['post' => $post]);
 
 	}
@@ -70,14 +73,15 @@ class SearchListController extends Controller
 		$photo=Photo::all();
 		$post= DB::table('posts')
 		->join('places','posts.place_id','=','places.id')
+		->join('ratings', 'posts.id', '=', 'ratings.post_id')->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 		->where([
-			['places.address','LIKE','%'.$search.'%']
+			['places.name','LIKE','%'.$search.'%']
 		])
 		->orWhere ([
 			['places.name', 'LIKE', '%' . $search . '%']
 		] )
 		->get();
-		
+
 		 return view('pages.search_list',['post' => $post],['rating'=>$rating],['place'=>$place],['photo'=>$photo]);
 	}
 	public function googlemap()
