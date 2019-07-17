@@ -145,14 +145,15 @@
 </div>
 <script type="text/javascript">
 
-    var A = [];
-    $(document).ready(function() {
-      
+  var A = [];
+  $(document).ready(function() {
+    
 
-      $(".add").click(function(){ 
-        var html = $(".clone").html();
-        $(".increment").after(html);
-      });
+    $(".add").click(function(){ 
+      var html = $(".clone").html();
+      $(".increment").after(html);
+    });
+
 
      $("body").on("click",".btn-danger",function(){ 
           $(this).parents(".control-group").remove();
@@ -169,5 +170,5 @@
 
   
 
-</script>
-@endsection
+  </script>
+  @endsection
