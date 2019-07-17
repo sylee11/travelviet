@@ -20,7 +20,7 @@
   <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 
 
- <link rel="stylesheet" href=" {{ asset('fonts/fontawesome/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href=" {{ asset('fonts/fontawesome/css/font-awesome.min.css') }}">
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -29,17 +29,19 @@
   <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 
 {{--   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
- --}}
-  <!-- Rating -->
-  <link href="{{ asset('css/bootstrap-rating.css') }}" rel="stylesheet">
-  <script type="text/javascript" src="{{ asset('js/bootstrap-rating.js') }}"></script>
-  @stack('css')
+--}}
+<!-- Rating -->
+<link href="{{ asset('css/bootstrap-rating.css') }}" rel="stylesheet">
+<script type="text/javascript" src="{{ asset('js/bootstrap-rating.js') }}"></script>
+@stack('css')
 
-  {{-- multi up image --}}
-  <script src="{{asset('js/dropzone.js')}}"></script>
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+{{-- multi up image --}}
+<script src="{{asset('js/dropzone.js')}}"></script>
 
-  @yield('header') 
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+@yield('header') 
 </head>
 <body>
     <!-- <script type="text/javascript">
@@ -106,11 +108,14 @@
                 <a class="dropdown-item" href="{{route('show_changePass')}}">Change Password</a>
                 @if (Auth::user()->role == 1)
                 <a class="dropdown-item" href="{{route('admin.index')}}">Administrators</a>
+                <a class="dropdown-item" href="{{route('mypost')}}">My posts</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#upgradeModal">Interactive history</a>
+                <a class="dropdown-item" href="{{route('approved.all')}}">Phê duyệt bài đăng</a>
+
                 @elseif (Auth::user()->role == 2)
-                <a class="dropdown-item" href="{{route('admin.index')}}">Make posts</a>
-                <a class="dropdown-item" href="{{route('admin.index')}}">History</a>
+                <a class="dropdown-item" href="{{route('mypost')}}">My posts</a>
                 @else
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#upgradeModal">History</a>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#upgradeModal">Interactive history</a>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#upgradeModal">Upgrate</a>
                 {{-- <a class="dropdown-item" href="{{route('show.upgrade')}}">Upgrate</a> --}}
                 @endif
