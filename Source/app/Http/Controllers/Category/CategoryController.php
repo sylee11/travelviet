@@ -19,8 +19,9 @@ class CategoryController extends Controller
         
         $id = \Request::get('delete');
         \App\Category::destroy($id);
-        $categories = \App\Category::all();
-        return view('admin.category.index', ['categories' => $categories]);
+       // $categories = \App\Category::all();
+       // return view('admin.category.index', ['categories' => $categories]);
+       return back();
     }
     public function editlayout()
     {
@@ -40,16 +41,17 @@ class CategoryController extends Controller
         $category=\App\Category::find($id);
         $category->name = $name;
         $category->save();
-        $categories = \App\Category::all();
-        return view('admin.category.index', ['categories' => $categories]);
-        
+      //  $categories = \App\Category::all();
+      //  return view('admin.category.index', ['categories' => $categories]);
+       // return back();
+       return redirect('/admin/category');
     }
     public function add(){
         $category = new \App\Category;
         $category->name = \Request::get('name');
         $category->save();
-        $categories = \App\Category::all();
-        return view('admin.category.index', ['categories' => $categories]);
-        
+        //$categories = \App\Category::all();
+        //return view('admin.category.index', ['categories' => $categories]);
+        return back();
     }
 }
