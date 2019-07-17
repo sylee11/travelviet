@@ -9,6 +9,7 @@ use App\User;
 use App\Rating;
 use App\Post;
 use Illuminate\Validation\Rule;
+use Response;
 class RatingController extends Controller
 {
 	public function index()
@@ -29,10 +30,12 @@ class RatingController extends Controller
 		$record->user_id=$request->user_id;
 		$record->rating=$request->rating;
 		$record->post_id=$request->post_id;
-		$record->cmt=$request->get('comment');
-		//dd($request->comment);
+		$record->cmt=strip_tags($request->get('comment'));
+		if($request->get('rating') > '5' || $request->get('rating') < '0'){
+			return back()->with("error1","Rating between 0 and 5 !");
+		}
 		$record->save();
-		return redirect('admin/rating');
+		return redirect('admin/rating')->with("success","Rating added success !");
 	}
 	public function edit($id){
 		$show= Rating::find($id);
@@ -45,13 +48,21 @@ class RatingController extends Controller
 		$rating->user_id = $request->get('user_id');
 		$rating->rating = $request->get('rating');
 		$rating->post_id = $request->get('post_id');
-		$rating->cmt = $request->get('comment');
+		$rating->cmt = strip_tags($request->get('comment'));
+		if($request->get('rating') > '5' || $request->get('rating') < '0'){
+			return back()->with("error1","Rating between 0 and 5 !");
+		}
+		if($request->get('comment') == NULL){
+			return back()->with("error2","Comment not null !");
+		}
 		$rating->save();
-		return redirect('admin/rating');
+		return redirect('admin/rating')->with("success","Rating updated success !");
+
 	}
 	public function delete($id){
 		$rating= Rating::find($id);
+		//dd($rating);
 		$rating->delete();
-		return redirect('admin/rating');
+		return redirect('admin/rating')->with("success","Rating deleted success !");
 	}
 }

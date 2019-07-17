@@ -143,10 +143,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 	});
 	Route::group(['prefix' => 'rating','namespace'=>'rating'], function(){
 		Route::get('/', 'RatingController@index')->name('admin.rating.index');
-		Route::post('/','RatingController@add')->name('admin.rating.add');
+		Route::post('/add','RatingController@add')->name('admin.rating.add');
 		Route::get('edit/{id}', 'RatingController@edit')->name('admin.rating.edit');
 		Route::post('update/{id}', 'RatingController@update')->name('admin.rating.update');
-		Route::get('delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
+		Route::get('/delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
 	});
 });
 

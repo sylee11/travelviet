@@ -60,7 +60,7 @@ class FrontController extends Controller
 			array_push($array,$tt);
 		}
 		// foreach ($array as $value) {
-		// 	echo $value;
+		// 	echo $value['id'];
 		// }
 
 		return view('pages.index',['new_post'=>$new_post,'top_rating'=>$top_rating,'top_user'=>$top_user,'all_post'=>$all_post,'city_post'=>$array,'category'=>$category,'district'=>$district,'city'=>$city]);
@@ -69,14 +69,14 @@ class FrontController extends Controller
 	{
 
 		$data = DB::table('posts')
-			->join('photos', 'posts.id', '=', 'photos.post_id')
-			->join('users', 'posts.user_id', '=', 'users.id')
-			->join('places', 'posts.place_id', '=', 'places.id')
-			->leftJoin('ratings', 'posts.id', '=', 'ratings.post_id')
-			->leftJoin('users as userscmt', 'ratings.user_id', '=', 'userscmt.id')
-			->select('posts.id', 'posts.title','posts.user_id' ,'posts.describer','posts.created_at', 'photos.photo_path', 'users.name', 'places.name as place','places.lat','places.longt', 'ratings.cmt', 'ratings.rating as rate','ratings.created_at','userscmt.id as cmtid', 'userscmt.name as cmtname', 'userscmt.avatar')
-			->where('posts.id', '=', $post_id)
-			->get();
+		->join('photos', 'posts.id', '=', 'photos.post_id')
+		->join('users', 'posts.user_id', '=', 'users.id')
+		->join('places', 'posts.place_id', '=', 'places.id')
+		->leftJoin('ratings', 'posts.id', '=', 'ratings.post_id')
+		->leftJoin('users as userscmt', 'ratings.user_id', '=', 'userscmt.id')
+		->select('posts.id', 'posts.title','posts.user_id' ,'posts.describer','posts.created_at', 'photos.photo_path', 'users.name', 'places.name as place','places.lat','places.longt', 'ratings.cmt', 'ratings.rating as rate','ratings.created_at','userscmt.id as cmtid', 'userscmt.name as cmtname', 'userscmt.avatar')
+		->where('posts.id', '=', $post_id)
+		->get();
 
 		$rating = DB::table('ratings')
 		->where('post_id', $post_id)
@@ -158,9 +158,11 @@ class FrontController extends Controller
 		return view('pages/userInfo',['data'=>$data]);
 	}
 	public function userPost($user_id){
-		$data = \DB::table('posts')
-			->select('posts.id', 'posts.title','posts.describer')
-			->where('posts.user_id', '=', $user_id)->get();
+		$data = Post::join('photos', 'photos.post_id', '=', 'posts.id')
+		->where('posts.user_id', '=', $user_id)
+		->where('photos.flag', '=', '1')
+		->paginate(5);
+
 		return view('pages/mypost', ['data' => $data]);
 	}
 	public function userComment($user_id){
@@ -168,8 +170,7 @@ class FrontController extends Controller
 		->join('posts', 'ratings.post_id', '=', 'posts.id')
 		->select('ratings.id', 'ratings.cmt', 'ratings.rating', 'posts.id', 'posts.title')
 		->where('ratings.user_id', '=', $user_id)->get();
-	return view('pages/mycmt', ['data' => $data]);
+		return view('pages/mycmt', ['data' => $data]);
 	}
 
 }
-	
