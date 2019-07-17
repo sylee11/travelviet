@@ -10,7 +10,7 @@
 	<div class="row" style="margin-bottom: 50px;background-color: #f5f4ef;width: 100%;height:300px;justify-content: center;
 	align-items: center;">
 	<div class="col-sm-6">
-		<img class="card-img-top" src="{{$value->photo_path}}" alt="Card image cap" style="height: 280px;">
+		<img class="card-img-top" src="/{{$value->photo_path}}" alt="Card image cap" style="height: 280px;">
 	</div>
 	<div class="col-sm-6">
 		<div class="text">

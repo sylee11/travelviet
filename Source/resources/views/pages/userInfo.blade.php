@@ -2,9 +2,11 @@
 
 @section('content')
 <!-- ///////////add profile///////////// -->
+
 <div class="container"  id="show_profile" style="margin-top: 150px; margin-bottom: 50px;">
 	<img @if(!empty($data->avatar)) src="/{{$data->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" style="border-radius: 50%;width: 200px;">
 	<hr>
+	
 	<form class="form" role="form" autocomplete="off" style="margin-top: 30px;">
 		<div class="form-group row">
 			<label class="col-lg-3 col-form-label form-control-label">Name</label>
@@ -42,4 +44,5 @@
 	<a href="{{ URL::previous()}}" title=""  id="edit"class="btn btn-danger">Cancel</a>
 	<!-- <a href="{{ url('/')}}" title=""  id="edit"class="btn btn-danger">Cancel</a> -->
 </div>
+
 @endsection
