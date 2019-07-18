@@ -13,7 +13,13 @@
 @extends('layouts.app')
 	@section('content')
 		<div class="container" style="margin-top: 200px; text-align: left;">
+
 			<h3 class="text-center"> Add new Post</h3>
+			  @if (session('success'))
+			    <div class="alert alert-success">
+			        {{ session('success') }}
+			    </div>
+			  @endif
 			<FORM   action="{{route('account.addpost', $id = Auth::id() )}}" method="post" enctype="multipart/form-data">
 				@csrf
 				<div class="form-row">
@@ -50,7 +56,7 @@
 					<div class="form-group col-md-3">
 						<label> Tỉnh, Thành Phố</label>
 						<select  class="custom-select form-control" id="city" onchange="myFunction()" >
-							<option>avc</option>
+							<option>An Giang</option>
 							@foreach($city as $ci)
 								<option> {{$ci->name}}</option>
 							@endforeach
@@ -62,7 +68,7 @@
 						<label>Quận, Huyện</label>
 
 						<select class="custom-select form-control" name="districts_id" id="district">
-						<option>District</option>						
+						<option>Thành Phố Long Xuyên</option>						
 						</select>
 					</div>
 
@@ -165,10 +171,9 @@
 	    ab.hide();
 	   
     });
-   $("img").click(function(){
-   		$("img").hide();
-
-   })
+   $('#gallery-photo-add').on('click', function() {
+        $('.gallery img').hide();
+    });
 
 $(function() {
     // Multiple images preview in browser
@@ -190,7 +195,10 @@ $(function() {
 
     };
 
+
     $('#gallery-photo-add').on('change', function() {
+    	var a = $('div.gallery img');
+    	a.hide();
         imagesPreview(this, 'div.gallery');
     });
 });
@@ -210,7 +218,6 @@ $(function() {
            success:function(res){               
             if(res){
                 $("#district").empty();
-                $("#district").append('<option>District</option>');
                 $.each(res,function(key,value){
                     $("#district").append('<option value="'+key+'">'+value+'</option>');
                 });
@@ -225,37 +232,8 @@ $(function() {
     }      
    };
 	
-   // $('#city').change(function(){
-			// 			    var cityID = $(this).val();   
-			// 			    console.log(cityID) ;
-			// 			    if(cityID){
-			// 			        $.ajax({
-			// 			           type:"GET",
-			// 			           url:"{{route('admin.place.getcity')}}?cities_id="+cityID,
-			// 			           success:function(res){               
-			// 			            if(res){
-			// 			                $("#district").empty();
-			// 			                $("#district").append('<option>District</option>');
-			// 			                $.each(res,function(key,value){
-			// 			                    $("#district").append('<option value="'+key+'">'+value+'</option>');
-			// 			                });
-			// 			            }else{
-			// 			               $("#district").empty();
-			// 			            }
-			// 			           }
-			// 			        });
-			// 			    }else
-			// 			    {
-			// 			        $("#district").empty();    
-			// 			    }      
-			// 			   });
 </script>
 
-{{-- @push('scripts')
-	<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-	<script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
-	<script> CKEDITOR.replace('editor3'); </script>
-@endpush --}}
 @endsection
 
 

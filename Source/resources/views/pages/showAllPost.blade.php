@@ -111,11 +111,11 @@
                     Trạng thái: 
 						@if($p->is_approved == 0)
                     <span class="font-weight-bold">
-                        Đã phê duyệt
+                        Chưa phê duyệt
                     </span>
                     @else
                     <span class="font-weight-bold">
-                        Chưa phê duyệt
+                        Đã phê duyệt
                     </span>
                     @endif
                 </div>

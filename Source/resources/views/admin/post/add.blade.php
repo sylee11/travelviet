@@ -23,7 +23,13 @@
             $('#myModal3').modal({show: true});
         }
     </script>
-@endif
+  @endif
+
+  @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+  @endif
 	<FORM method="post" class="" action="{{route('admin.post.add')}}" enctype="multipart/form-data">
 	@csrf
 {{-- @if ($errors->any())
@@ -46,8 +52,9 @@
             @enderror
         <select class="form-control" id="userid" name="userid">
           @foreach($user as $u)
+            @if($u->role == 1 || $u ->role == 2 )
             <option>{{ $u->id }}</option>
-
+            @endif
           @endforeach
         </select>
 	  	</div>
