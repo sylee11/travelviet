@@ -148,6 +148,9 @@ class PostController2 extends Controller
                 $photo->post_id=$posts->id;
                 $photo ->save ();
             }
+            $photoflag = Photo::where('post_id', $posts->id)->first();
+            $photoflag->flag =1;
+            $photoflag->save();
             return back()->with('success', 'Your images has been successfully');
         }
         return "You are not choose picture";
@@ -251,7 +254,18 @@ class PostController2 extends Controller
                 
             }
         }
-        return redirect (route('admin.post.detail', $posts->id));
+
+        $photocheck = Photo::where('post_id', $posts->id);
+        if($photocheck->count() == 0){
+            return redirect() ->back()->with('erro', " Please chose one image and save again");
+        }
+
+        $photoflag = Photo::where('post_id', $posts->id)->first();
+        $photoflag->flag =1;
+        $photoflag->save();
+
+        
+        return redirect (route('admin.post.detail', $posts->id))->with('success', "Changed done");
         //return back()->with('success', 'Your images has been successfully');
         //dd($name); // This will dump and die
         //var_dump($data);
@@ -288,7 +302,7 @@ class PostController2 extends Controller
 
         $rating =Rating::where('post_id', $id)->delete();
         $postss = POST::all();
-        return redirect (route('admin.post.index'));
+        return redirect (route('admin.post.index'))->with('success', 'delete had!');
         // $posts= POST::all();
 
 
