@@ -45,7 +45,7 @@ class SearchListController extends Controller
 	{
 		$post = DB::table('posts')
 		->join('places','posts.place_id','=','places.id')
-		->join('ratings', 'posts.id', '=', 'ratings.post_id')->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+		->join('ratings', 'posts.id', '=', 'ratings.post_id')->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 		->where([
 			['category_id', '=', $request->category_id ],
 			['districts_id','=', $request->districts_id],
@@ -57,11 +57,12 @@ class SearchListController extends Controller
 	}
 	public function getsearch()
 	{
+		$post=Post::all();
 		$place=Place::all();
 		$category=Category::all();
 		$city=City::all();
 		$district=District::all();
-		return view('pages.search_list',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
+		return view('pages.search_list',['post'=>$post,'place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
 
 	}
 	public function postsearch(Request $request)
@@ -73,7 +74,8 @@ class SearchListController extends Controller
 		$photo=Photo::all();
 		$post= DB::table('posts')
 		->join('places','posts.place_id','=','places.id')
-		->join('ratings', 'posts.id', '=', 'ratings.post_id')->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+		->join('ratings', 'posts.id', '=', 'ratings.post_id')->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
 		->where([
 			['places.name','LIKE','%'.$search.'%']
 		])
