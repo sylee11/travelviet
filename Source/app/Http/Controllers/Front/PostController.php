@@ -45,7 +45,7 @@ class PostController extends Controller
     	$post = new Post;
     	$post -> user_id = Auth::id();
     	$post -> phone = $request ->phone;
-
+    
     	//check place exist
     	$findPlace = Place::where('name', '=', $request->name)->first();
     	if($findPlace){
@@ -57,6 +57,8 @@ class PostController extends Controller
     		$newPlace = new Place;
     		$newPlace->name = $request->name;
     		$newPlace->address = $request->address;
+            $newPlace->lat = $request->lat;
+            $newPlace->longt = $request->lng;
     		//save temp category_id vs district_id
     		//$newPlace->category_id = $request->category->id;
     		$newPlace->category_id = Category::where('name', $request->category)->first()->id;
@@ -72,7 +74,10 @@ class PostController extends Controller
         $post ->save();
 
         $path="picture/admin/post/".$post->id;
-	    File::makeDirectory($path);
+        if (!file_exists($path)) {
+            File::makeDirectory($path);
+        }
+	    
 	    
         if($request->has('filename')){
         	foreach ($request->file('filename') as $pho) {

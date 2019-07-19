@@ -109,6 +109,7 @@
                 <a class="dropdown-item" href="{{route('admin.index')}}">Trang quản lí</a>
                 <a class="dropdown-item" href="{{route('mypost')}}">Bài đăng của tôi</a>
                 <a class="dropdown-item" href="{{route('approved.all')}}">Phê duyệt bài đăng</a>
+                <a class="dropdown-item" href="{{route('account.admin.showall')}}">Quản lí user</a>
 
                 @elseif (Auth::user()->role == 2)
                 <a class="dropdown-item" href="{{route('mypost')}}">Bài đăng của tôi</a>
