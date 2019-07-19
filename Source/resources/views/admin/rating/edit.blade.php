@@ -21,11 +21,9 @@
 					<div class="form-group  col-md-6">
 						<label for="fullname">Rating:</label>
 						<input type="text" class="form-control" id="rating"  value='{{$show->rating}}' placeholder="Enter Rating" name="rating" autofocus required>
-						@if (session('error1'))
-						<span class="help-block">
-							<strong style="color: red;">{{ session('error1') }}</strong>
-						</span>
-						@endif
+						@if ($errors->has('rating'))
+                        <span class="text-danger">{{ $errors->first('rating') }}</span>
+                        @endif
 					</div>
 				</div>
 
@@ -43,10 +41,8 @@
 				<div class="form-group">
 					<label for="comment">Comment:</label>
 					<textarea class="form-control" rows="5" id="editor2" name="comment">{{$show->cmt}}</textarea>
-					@if (session('error2'))
-					<span class="help-block">
-						<strong style="color: red;">{{ session('error2') }}</strong>
-					</span>
+					@if ($errors->has('comment'))
+					<span class="text-danger">{{ $errors->first('comment') }}</span>
 					@endif
 				</div>
 				<div class="modal-footer">
