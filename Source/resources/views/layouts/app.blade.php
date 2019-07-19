@@ -83,7 +83,7 @@
                 <li class="nav-item dropdown" style="">
                  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="color: white;font-size: 13px;" v-pre>
 
-                  <img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar" width="40px" style="border-radius: 50%;margin-right: 10px;">
+                  <img @if(!empty(Auth::user()->avatar)) src="/{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar" width="40px" style="border-radius: 50%;margin-right: 10px;">
                   @if (!empty(Auth::user()->name))
                   {{Auth::user()->name}}
                   @else
@@ -109,6 +109,7 @@
                 <a class="dropdown-item" href="{{route('admin.index')}}">Trang quản lí</a>
                 <a class="dropdown-item" href="{{route('mypost')}}">Bài đăng của tôi</a>
                 <a class="dropdown-item" href="{{route('approved.all')}}">Phê duyệt bài đăng</a>
+                <a class="dropdown-item" href="{{route('account.admin.showall')}}">Quản lí user</a>
 
                 @elseif (Auth::user()->role == 2)
                 <a class="dropdown-item" href="{{route('mypost')}}">Bài đăng của tôi</a>
