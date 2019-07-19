@@ -4,11 +4,15 @@
 @endpush
 @section('content')
 <div class="container" style="margin-top: 100px;">
+	 @if (session('success'))
+	    <div class="alert alert-success">
+	        {{ session('success') }}
+	    </div>
+	 @endif
 	<h1 style="margin-top:150px;margin-bottom: 50px;">Những bài viết của tôi</h1>
-	<a href="#" title="" class="btn btn-info" style="display: table;justify-content: left;margin-bottom: 50px;">Tạo mới</a>
+	<a href="{{route('account.addpost', $id = Auth::id())}}" title="" class="btn btn-info" style="display: table;justify-content: left;margin-bottom: 50px;">Tạo mới</a>
 	@foreach ($data as $key=>$value)
-	<div class="row" style="margin-bottom: 50px;background-color: #f5f4ef;width: 100%;height:300px;justify-content: center;
-	align-items: center;">
+	<div class="row" style="margin-bottom: 50px;background-color: #f5f4ef;width: 100%;height:300px;justify-content: center;align-items: center;">
 	<div class="col-sm-6">
 		<img class="card-img-top" src="/{{$value->photo_path}}" alt="Card image cap" style="height: 280px;">
 	</div>
@@ -29,13 +33,15 @@
 			</p>
 		</div>
 		<div class="row" style="display: table;text-align: left;">
-			<a href="" title="" class="btn btn-info" style="width: 75px;margin-right: 10px;">Edit</a>
-			<a href="" title="" class="btn btn-danger" style="width: 75px;">Delete</a>
+			<a href="{{route('account.editpost', [$id = Auth::id(), $idPost = $value->post_id])}}" title="" class="btn btn-info" style="width: 75px;margin-right: 10px;">Edit</a>
+			<a href="{{route('mypost.delete', $id = $value->post_id)}}" title="" class="btn btn-danger " style="width: 75px;" onclick="return confirm('Bạn có muốn xoa bài đăng này?')">Delete</a>
 		</div>
 	</div>
 </div>
 @endforeach
 
 </div>
-{{$data->links()}}
+
+<div style="display: inline-block;">{{$data->links()}}</div>
+
 @endsection

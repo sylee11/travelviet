@@ -28,5 +28,5 @@
 </div>
 @endforeach
 </div>
-{{$post_city->links()}}
+<div style="display: inline-block;">{{$post_city->links()}}</div>
 @endsection

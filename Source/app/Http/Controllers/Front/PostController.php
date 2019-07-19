@@ -12,6 +12,7 @@ use App\Photo;
 use App\District;
 use App\City;
 use DB;
+use Auth;
 use File;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,7 +31,7 @@ class PostController extends Controller
     public function Add(Request $request, $id){
     	$request-> validate([
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|min:10 ',
             'title' => 'required',
             'descrice' => 'required',
             'address' => 'required',
@@ -42,7 +43,7 @@ class PostController extends Controller
     	// $check = $request->file();
     	// dd($check);
     	$post = new Post;
-    	$post -> user_id = $id;
+    	$post -> user_id = Auth::id();
     	$post -> phone = $request ->phone;
 
     	//check place exist
@@ -71,7 +72,10 @@ class PostController extends Controller
         $post ->save();
 
         $path="picture/admin/post/".$post->id;
-	    File::makeDirectory($path);
+        if (!file_exists($path)) {
+            File::makeDirectory($path);
+        }
+	    
 	    
         if($request->has('filename')){
         	foreach ($request->file('filename') as $pho) {
@@ -88,8 +92,9 @@ class PostController extends Controller
         $photoflag = Photo::where('post_id', $post->id)->first();
         $photoflag->flag =1;
         $photoflag->save();
+        //return redirect() ->back()->with('success', " Thêm bài đăng thành công");
 
-        return back();
+        return redirect()->route('mypost')->with('success', " Thêm bài đăng thành công");
     }
 
     //xu li ajax tu dong them vung mien
@@ -108,7 +113,7 @@ class PostController extends Controller
 
 	public function showformEditPost($id , $idPost)
 	{
-		$idPost=38;
+
 		$post = Post::find($idPost);
 		$category = Category::all();
 		$place = Place::all();
@@ -167,9 +172,6 @@ class PostController extends Controller
 
         //delete photo
         $photoedit = $request->p1; // This will get all the request data.
-        //$data = json_decode($request->getContent());
-        // return $request->xxx; 
-        //exit();
         $edit = explode('/',$photoedit);
         foreach ($edit as $da => $value) {
             if(PHOTO::find($value))
@@ -181,13 +183,30 @@ class PostController extends Controller
                 
             }
         }
-        return redirect (route('admin.post.detail', $posts->id));
-        //return back()->with('success', 'Your images has been successfully');
-        //dd($name); // This will dump and die
-        //var_dump($data);
+
+        $photocheck = Photo::where('post_id', $posts->id);
+        if($photocheck->count() == 0){
+            return "NOT Image chosed";
+        }
+        $photoflag = Photo::where('post_id', $posts->id)->first();
+        $photoflag->flag =1;
+        $photoflag->save();
+
+        return redirect()->route('mypost')->with('success', ' Edit thanh công');
+
     }
 
+    public function delete($id)
+    {
+        $posts = DB::table('posts')
+            ->where('id' , '=' ,$id)->delete();
+        $photo =DB::table('photos')
+            ->where('post_id', '=' ,$id)->delete();
+        $path = "/picture/admin/post/".$id; 
+        File::deleteDirectory(public_path($path));
+        return redirect()->route('mypost')->with('success', ' Xóa thanh công');
 
+    }
 
 }
 

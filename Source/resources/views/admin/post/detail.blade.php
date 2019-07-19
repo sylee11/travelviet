@@ -1,6 +1,11 @@
 @extends('layouts.admin')
 @section('content')
 <div class="container">
+   @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+  @endif
 	<FORM >
 	@csrf
 	<div style="display: flex;">

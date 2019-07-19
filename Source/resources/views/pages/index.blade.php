@@ -13,7 +13,9 @@
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;">
 					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
-						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						<div style="height: 200px;">
+							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						</div>
 
 						<div class="card-body">
 
@@ -60,7 +62,9 @@
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;">
 					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
-						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						<div style="height: 200px;">
+							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						</div>
 
 						<div class="card-body">
 
@@ -158,11 +162,13 @@
 		@foreach ($city_post as $key => $element)
 		<div class="mySlides">
 			<a href="{{route('show.posts',$element->id)}}" title="{{ $element->name }}">
-				<div class="numbertext">{{$key+1}} / {{count($city)}}</div>
+				<div class="numbertext">{{$key+1}} / {{count($city_post)}}</div>
 				<img src="{{ $element->photo_path }}" style="width:100%">
 			</a>
 		</div>
 		@endforeach
+		@else
+		<div>Không có dữ liệu</div>	
 		@endif
 
 		<!-- Next and previous buttons -->
@@ -182,6 +188,8 @@
 				<img class="demo cursor" src="{{ $element->photo_path }}" style="width:100%;height: 100px;" onclick="currentSlide({{$key+1}})" alt="{{ $element->name }}">
 			</div>
 			@endforeach
+			@else
+			<div>Không có dữ liệu</div>
 			@endif
 		</div>
 	</div>

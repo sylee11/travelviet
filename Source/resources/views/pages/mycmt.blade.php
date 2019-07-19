@@ -14,7 +14,7 @@
             <h5 class="mb-1">Title: {{$value->title}}</h5>
             <small>{{ date('d-m-Y', strtotime($value->created_at)) }}</small>
         </div>
-        <p class="mb-1">{{$value->cmt}}</p>
+        <p class="mb-1">{!!$value->cmt!!}</p>
         @for($i=1;$i<= $value->rating;$i++) <span style="color:orange;font-size: 50px" class="fa fa-star "></span>
 
             @endfor

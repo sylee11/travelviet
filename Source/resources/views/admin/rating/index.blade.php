@@ -20,6 +20,22 @@
 			<button data-toggle="modal" data-target="#addModal" class="btn btn-success "><i class="fas fa-plus"></i> ADD</button>
 		</div>
 		<div class="table-responsive">
+			@if (session('success'))
+			<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert" aria_label="Close">
+					<span aria_hidden= "true">&times;</span>
+				</button>
+				{{ session('success') }}
+			</div>
+			@endif
+			@if (session('error'))
+			<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert" aria_label="Close">
+					<span aria_hidden= "true">&times;</span>
+				</button>
+				{{ session('error') }}
+			</div>
+			@endif
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
@@ -69,6 +85,7 @@
 	</div>
 	<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
+
 @endsection
 
 

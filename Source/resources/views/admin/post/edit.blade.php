@@ -2,6 +2,16 @@
 @section('content')
 
 <div class="container">
+  @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+  @endif
+  @if (session('erro'))
+    <div class="alert alert-danger">
+        {{ session('erro') }}
+    </div>
+  @endif
   <FORM  method="post" class="" action="{{route('admin.post.edit', $post->id)}}" enctype="multipart/form-data">
     @csrf
     <div style="display: flex;">

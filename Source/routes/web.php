@@ -46,6 +46,12 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
 		Route::group(['prefix' => 'admin'], function(){
+			Route::post('/manageacout/blockuser', 'UserController@blockuser')->name('account.admin.blockuser');
+			Route::post('/manageacout/findpost', 'UserController@findpost')->name('account.admin.findpost');
+			Route::post('/manageacout/delete', 'UserController@delete')->name('account.admin.deleteuser');
+			Route::get('/manageacout/search', 'UserController@search')->name('account.admin.searchuser');
+			Route::get('/manageacout', 'UserController@show')->name('account.admin.showall');
+
 			Route::get('/approved', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::get('/approved/{id}', 'ApprovedController@approved')->name('approved');
 			// Route::get('/approved/all', 'ApprovedController@allpost')->name('xxx');
@@ -58,12 +64,14 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::get('aa/approved/search/unappect', 'ApprovedController@unappcetall')->name('approved.unappectall');
 
 
-});
+	});
 
 
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
 //	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::get('/mypost','ProfileController@mypost')->name('mypost');
+	Route::get('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
+
 	Route::get('/detail/{id}','FrontController@detail')->name('detail');
 
 	Route::post('/detail/rate','FrontController@rate');
@@ -75,7 +83,8 @@ Route::group(['namespace' => 'Front'], function (){
 Route::get('login2',function(){
 	return view('auth.login');
 });
-
+Route::get('invite', 'InviteController@show')->name('invite');
+Route::post('invite', 'InviteController@process')->name('process');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.admin');
 Route::get('show-register', 'Auth\RegisterController@showFormRegister')->name('show.register');
@@ -133,27 +142,27 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 		Route::get('/edit/{id}', 'PlaceController@getedit')->name('admin.place.edit');
 
-	    Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit');
-        
-        Route::get('/add', 'PlaceController@getadd')->name('admin.place.add');
-        Route::post('/add', 'PlaceController@store')->name('admin.place.add');
-        Route::get('/get-city-list', 'PlaceController@getCityList')->name('admin.place.getcity');
+		Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit');
+
+		Route::get('/add', 'PlaceController@getadd')->name('admin.place.add');
+		Route::post('/add', 'PlaceController@store')->name('admin.place.add');
+		Route::get('/get-city-list', 'PlaceController@getCityList')->name('admin.place.getcity');
 
 
 	});
 	Route::group(['prefix' => 'rating','namespace'=>'rating'], function(){
 		Route::get('/', 'RatingController@index')->name('admin.rating.index');
-		Route::post('/','RatingController@add')->name('admin.rating.add');
+		Route::post('/add','RatingController@add')->name('admin.rating.add');
 		Route::get('edit/{id}', 'RatingController@edit')->name('admin.rating.edit');
 		Route::post('update/{id}', 'RatingController@update')->name('admin.rating.update');
-		Route::get('delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
+		Route::get('/delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
 	});
 });
 
 Route::get('/home', function() {
 	return view('pages.home');
 	
-    
+
 });
 
 Route::get('fb-callback','PhpSdkController@callback');
@@ -181,5 +190,5 @@ Auth::routes();
 
 //test
 Route::get('/abc', function() {
- 	return view('pages.showAllPost');
+ 	return view('layouts.app');
 })->name('test');

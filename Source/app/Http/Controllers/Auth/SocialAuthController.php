@@ -10,15 +10,16 @@ use App\Social;
 use Image;
 class SocialAuthController extends Controller
 {
+
 	public function redirectToProvider()
 	{
-		session_start();
 		$authorizeURL = 'https://accounts.google.com/o/oauth2/v2/auth';
 		$state= bin2hex(random_bytes(16));
+		session_start();
 		$params = array(
+			'response_type' => 'code',
 			'client_id' => env('GOOGLE_ID'),
 			'redirect_uri' => env('GOOGLE_REDIRECT'),
-			'response_type' => 'code',
 			'scope' => 'openid email profile',
 			'state' => $state
 		);
@@ -46,18 +47,20 @@ class SocialAuthController extends Controller
 		$data = json_decode($response, true);//chuyen tu json sang array
 		$token = explode('.', $data['id_token']);
 		$userinfo = json_decode(base64_decode($token[1]), true);
+		//dd($userinfo);
 		$social_id=$userinfo['sub'];
+		$_SESSION['access_token'] = $data['access_token'];
 	}
 	//gui access_token de lay thong tin ung dung
 	if(!empty($social_id)) {
 		//cap quyen truy cap info user khi scope o tren khong co profile
-		// $ch = curl_init('https://openidconnect.googleapis.com/v1/userinfo');
-		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		// curl_setopt($ch, CURLOPT_HTTPHEADER, [
-		// 	'Authorization: Bearer '.$_SESSION['access_token']
-		// ]);
-		// $user= json_decode(curl_exec($ch),true);
-
+		$ch = curl_init('https://openidconnect.googleapis.com/v1/userinfo');
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+		curl_setopt($ch, CURLOPT_HTTPHEADER, [
+			'Authorization: Bearer '.$_SESSION['access_token']
+		]);
+		$user= json_decode(curl_exec($ch),true);
+		//dd($user);
 		// kiem tra mail da ton tai chua
 		$existingUser = User::where('email', $userinfo['email'])->first();
 		if($existingUser){
@@ -67,21 +70,21 @@ class SocialAuthController extends Controller
             // tao 1 user moi vao db
 
 			$newUser = new User;
-			$newUser->name = $userinfo['name'];
-			$newUser->email = $userinfo['email'];
-			$newUser->avatar = $userinfo['picture'];
-		 	//$newUser->save();
+			$newUser->email = $user['email'];
+			$newUser->avatar = $user['picture'];
+		 	$newUser->save();
 
 			$userId = User::all()->last()->id;//truy van toi record cuoi
+			//dd($userId );
 			$newSocial = new Social;
 			$newSocial->id= $social_id;
 			$newSocial->user_id= $userId;
-		 	$newSocial->save();
+			$newSocial->save();
 
 
-		 	auth()->login($newUser, true);
-		 }
-		 return redirect('/');
+			auth()->login($newUser, true);
+		}
+		return redirect('/');
 	}
 }
 
