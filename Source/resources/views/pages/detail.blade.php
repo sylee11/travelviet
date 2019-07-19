@@ -18,7 +18,7 @@
   var longvalue = {{json_encode($data[0]->longt)}};
 
   function initMap() {
- 
+
     var uluru = {
       lat: latvalue,
       lng: longvalue
@@ -62,12 +62,12 @@ $cmts = $data->unique('cmt')->values();
           </div>
 
           @for ($i=1;$i<$photo_path->count();$i++)
-            <div class="carousel-item">
+          <div class="carousel-item">
 
-              <img height="500px" class="d-block w-100" src="/{{$photo_path[$i]->photo_path}}" alt="">
+            <img height="500px" class="d-block w-100" src="/{{$photo_path[$i]->photo_path}}" alt="">
 
-            </div>
-            @endfor
+          </div>
+          @endfor
         </div>
         <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -84,21 +84,23 @@ $cmts = $data->unique('cmt')->values();
   </div>
 
   <div class="row">
-    <div class="col">
+    <div class="col-6">
 
 
       <div style="margin: 20px 0;" class="rating">
         @for($i=1;$i<= $rating;$i++) <span style="color:orange;font-size: 50px" class="fa fa-star "></span>
-          @if($rating -$i >= 0.5 && $rating -$i < 1)<span style="color:orange;font-size: 50px" class="fa fa-star-half-alt "></span>
+        @if($rating -$i >= 0.5 && $rating -$i < 1)<span style="color:orange;font-size: 50px" class="fa fa-star-half-alt "></span>
 
-            @endif
-            @endfor
-            <span>{{$rating}}</span>
+        @endif
+        @endfor
+        <span>{{$rating}}</span>
 
 
       </div>
     </div>
-
+    <div class="col-6" style="text-align: end;margin: 30px 0;">
+      <a href="{{route('invite')}}" title="" class="btn btn-info"{{--   data-toggle="modal" data-target="#inviteModal" --}}>Invite friend</a>
+    </div>
   </div>
   <div style="margin: 20px 0 100px 0;" class="">
     <ul class="nav nav-tabs" role="tablist">
@@ -135,58 +137,58 @@ $cmts = $data->unique('cmt')->values();
         @if($user_rate)
         <p>Your rate:
           @for($i=1;$i<= $user_rate->rating;$i++) <span style="color:orange;font-size: 50px" class="fa fa-star "></span>
-            @if($user_rate->rating -$i >= 0.5 && $user_rate->rating -$i < 1)<span style="color:orange;font-size: 50px" class="fa fa-star-half-alt "></span>
+          @if($user_rate->rating -$i >= 0.5 && $user_rate->rating -$i < 1)<span style="color:orange;font-size: 50px" class="fa fa-star-half-alt "></span>
 
-              @endif
-              @endfor
-              <span>{{$user_rate->rating}}</span></p>
-        @endif
-        <form action="/detail/rate" method="POST">
-          @csrf
-          <label for="">Rating:</label>
-          <input type="hidden" name="post_id" value="{{$data[0]->id}}">
-          <input type="hidden" name="user_id" value="{{Auth::id()}}">
+          @endif
+          @endfor
+          <span>{{$user_rate->rating}}</span></p>
+          @endif
+          <form action="/detail/rate" method="POST">
+            @csrf
+            <label for="">Rating:</label>
+            <input type="hidden" name="post_id" value="{{$data[0]->id}}">
+            <input type="hidden" name="user_id" value="{{Auth::id()}}">
 
-          <span class="star-rating">
-            <input type="radio" name="rating" value="1"><i></i>
-            <input type="radio" name="rating" value="2"><i></i>
-            <input type="radio" name="rating" value="3"><i></i>
-            <input type="radio" name="rating" value="4"><i></i>
-            <input type="radio" name="rating" value="5"><i></i>
+            <span class="star-rating">
+              <input type="radio" name="rating" value="1"><i></i>
+              <input type="radio" name="rating" value="2"><i></i>
+              <input type="radio" name="rating" value="3"><i></i>
+              <input type="radio" name="rating" value="4"><i></i>
+              <input type="radio" name="rating" value="5"><i></i>
 
-          </span>
+            </span>
 
-          <div class="form-group">
-            <label for="">Comment:</label>
-
-
-            <textarea class="form-control" rows="5" id="" name="commentarea" required></textarea>
+            <div class="form-group">
+              <label for="">Comment:</label>
 
 
-          </div>
-          <button>Send</button>
-        </form>
-        @else
-        <a style="width:150px;" class="btn btn-primary" href="/login">Please Login</a>
-        @endif
+              <textarea class="form-control" rows="5" id="" name="commentarea" required></textarea>
+
+
+            </div>
+            <button>Send</button>
+          </form>
+          @else
+          <a style="width:150px;" class="btn btn-primary" href="/login">Please Login</a>
+          @endif
+        </div>
       </div>
     </div>
-  </div>
-  
-  @foreach ($cmts as $key=>$value)
-  <div class="media border p-3">
-    <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="/{{$value->avatar}}" alt="">
-    <div class="media-body">
 
-      <h5 style='padding-top:20px;display:inline-block;' class="mt-0"><a href="/user/{{$value->cmtid}}">{{$value->cmtname}}</a></h5>
-      @if($value->created_at !=NULL)
-      <small>{{ date('d-m-Y', strtotime($value->created_at)) }}</small>
-      @endif
+    @foreach ($cmts as $key=>$value)
+    <div class="media border p-3">
+      <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="/{{$value->avatar}}" alt="">
+      <div class="media-body">
 
+        <h5 style='padding-top:20px;display:inline-block;' class="mt-0"><a href="/user/{{$value->cmtid}}">{{$value->cmtname}}</a></h5>
+        @if($value->created_at !=NULL)
+        <small>{{ date('d-m-Y', strtotime($value->created_at)) }}</small>
+        @endif
 
 
 
-      @for($i=1;$i<= $value->rate;$i++)
+
+        @for($i=1;$i<= $value->rate;$i++)
         <span style="color:orange" class="fa fa-star "></span>
 
         @endfor
@@ -194,14 +196,14 @@ $cmts = $data->unique('cmt')->values();
 
 
         <p style='padding-top:10px'>{!!$value->cmt!!}</p>
+      </div>
     </div>
+    @endforeach
+
+
+
   </div>
-  @endforeach
-  
 
 
-</div>
-
-
-
+ 
 @endsection
