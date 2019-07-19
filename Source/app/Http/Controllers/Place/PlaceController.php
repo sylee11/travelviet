@@ -60,7 +60,9 @@ class PlaceController extends Controller
     $place->name=$request->name;
     $place->address=$request->address;
     $place->category_id=$request->category_id;
-    $place->districts_id=$request->districts_id;       
+    $place->districts_id=$request->districts_id;  
+    $place->lat=$request->lat;
+    $place->longt=$request->lng;     
     $place->save();
     $place=Place::all();
     $category=Category::all();

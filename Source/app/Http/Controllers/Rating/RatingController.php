@@ -10,6 +10,8 @@ use App\Rating;
 use App\Post;
 use Illuminate\Validation\Rule;
 use Response;
+use App\Rules\inputRating;
+
 class RatingController extends Controller
 {
 	public function index()
@@ -22,18 +24,16 @@ class RatingController extends Controller
 	public function add(Request $request)
 	{
 		$this->validate($request, [
-			'rating' => 'required',
+			'rating' => ['required', new inputRating],
 			'comment' => 'required',
 		]);
-
+		//dd("hello");
 		$record = new Rating();
 		$record->user_id=$request->user_id;
 		$record->rating=$request->rating;
 		$record->post_id=$request->post_id;
 		$record->cmt=strip_tags($request->get('comment'));
-		if($request->get('rating') > '5' || $request->get('rating') < '0'){
-			return back()->with("error1","Rating between 0 and 5 !");
-		}
+
 		$record->save();
 		return redirect('admin/rating')->with("success","Rating added success !");
 	}
@@ -44,17 +44,16 @@ class RatingController extends Controller
 		return view('admin.rating.edit',['show'=>$show,'user'=>$user,'post'=>$post]);
 	}
 	public function update(Request $request, $id){
+		$this->validate($request, [
+			'rating' => ['required', new inputRating],
+			'comment' => 'required',
+		]);
 		$rating= Rating::find($id);
 		$rating->user_id = $request->get('user_id');
 		$rating->rating = $request->get('rating');
 		$rating->post_id = $request->get('post_id');
 		$rating->cmt = strip_tags($request->get('comment'));
-		if($request->get('rating') > '5' || $request->get('rating') < '0'){
-			return back()->with("error1","Rating between 0 and 5 !");
-		}
-		if($request->get('comment') == NULL){
-			return back()->with("error2","Comment not null !");
-		}
+
 		$rating->save();
 		return redirect('admin/rating')->with("success","Rating updated success !");
 

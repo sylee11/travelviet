@@ -46,8 +46,7 @@
           </div>
           <div style="display: flex;">
             <button type="submit" class="btn "  id="find" style="height: 37px; margin-right: 40px; background-color: #3997A6" >
-              <a  href=""><i class="fas fa-search" style="color: white"></i></a></button>
-              
+              <a  href=""><i class="fas fa-search" style="color: white"></i></a></button>              
               
             </div>
             

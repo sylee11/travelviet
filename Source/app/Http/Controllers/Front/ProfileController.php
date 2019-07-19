@@ -52,7 +52,9 @@ class ProfileController extends Controller
 		$id = Auth::id();
 		$data = Post::join('photos', 'photos.post_id', '=', 'posts.id')
 		->where('posts.user_id', '=', $id)
-		->where('photos.flag', '=', '1')->paginate(5);
+		->where('photos.flag', '=', '1')
+		->orderBy('posts.id', 'desc')
+		->paginate(5);
 
 		return view('pages/mypost', ['data' => $data]);
 	}
