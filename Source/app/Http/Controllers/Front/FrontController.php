@@ -86,6 +86,7 @@ class FrontController extends Controller
 			['user_id', '=', $user_id],
 			['post_id', '=', $post_id],
 		])->orderBy('id', 'desc')->first();
+		session()->put('link',  url()->current());
 		//var_dump($data);
 		//return;
 		return view('pages/detail', ['data' => $data, 'rating' => $rating, 'user_rate' => $user_rate]);
@@ -166,7 +167,9 @@ class FrontController extends Controller
 			->select('posts.id as post_id', 'posts.title', 'posts.describer', 'posts.created_at', 'posts.is_approved', 'photos.photo_path','users.name')
 			->where('posts.user_id', '=', $user_id)
 			->where('posts.is_approved','=','1')
-			->where('photos.flag', '=', '1')->paginate(5);
+			->where('photos.flag', '=', '1')
+			->orderBy('posts.id', 'desc')
+			->paginate(5);
 		//var_dump($data->count());
 		//return;
 		//	if($data->count() !==0)

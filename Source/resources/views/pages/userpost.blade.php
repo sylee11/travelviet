@@ -32,5 +32,5 @@
     @endforeach
 
 </div>
-{{$data->links()}}
+<div style="display: inline-block;">{{$data->links()}}</div>
 @endsection

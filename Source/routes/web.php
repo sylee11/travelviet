@@ -83,7 +83,7 @@ Route::group(['namespace' => 'Front'], function (){
 Route::get('login2',function(){
 	return view('auth.login');
 });
-Route::get('invite', 'InviteController@show')->name('invite');
+Route::get('invite', 'InviteController@show')->name('invite')->middleware('auth');
 Route::post('invite', 'InviteController@process')->name('process');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.admin');

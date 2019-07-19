@@ -99,8 +99,17 @@ $cmts = $data->unique('cmt')->values();
       </div>
     </div>
     <div class="col-6" style="text-align: end;margin: 30px 0;">
-      <a href="{{route('invite')}}" title="" class="btn btn-info"{{--   data-toggle="modal" data-target="#inviteModal" --}}>Invite friend</a>
+       @if (session('success'))
+      <div class="alert alert-success"">
+        <button type="button" class="close" data-dismiss="alert" aria_label="Close">
+          <span aria_hidden= "true">&times;</span>
+        </button>
+        {{ session('success') }}
+      </div>
+      @endif
+      <a href="{{route('invite')}}" title="" style="right: 0px;" class="btn btn-info"  data-toggle="modal" data-target="#invite">Invite friend</a>
     </div>
+
   </div>
   <div style="margin: 20px 0 100px 0;" class="">
     <ul class="nav nav-tabs" role="tablist">
@@ -204,6 +213,35 @@ $cmts = $data->unique('cmt')->values();
 
   </div>
 
-
- 
+ {{-- invite Modal --}}
+  <div class="modal fade" id="invite" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Mời bạn bè</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-12">
+             <form action="{{ route('process') }}" method="post">
+              {{ csrf_field() }}
+              <div class="row">
+                <div class="col-8">
+                  <label for="email">Người nhận:</label>
+                  <input type="email" name="email" />
+                </div>
+                <div class="col-4">
+                  <button type="submit" class="btn btn-info">Send</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 @endsection
