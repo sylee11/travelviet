@@ -13,7 +13,9 @@
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;">
 					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
-						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						<div style="height: 200px;">
+							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						</div>
 
 						<div class="card-body">
 
@@ -60,7 +62,9 @@
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;">
 					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
-						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						<div style="height: 200px;">
+							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						</div>
 
 						<div class="card-body">
 

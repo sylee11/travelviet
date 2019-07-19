@@ -58,7 +58,7 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::get('aa/approved/search/unappect', 'ApprovedController@unappcetall')->name('approved.unappectall');
 
 
-});
+	});
 
 
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
@@ -77,7 +77,8 @@ Route::group(['namespace' => 'Front'], function (){
 Route::get('login2',function(){
 	return view('auth.login');
 });
-
+Route::get('invite', 'InviteController@show')->name('invite');
+Route::post('invite', 'InviteController@process')->name('process');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.admin');
 Route::get('show-register', 'Auth\RegisterController@showFormRegister')->name('show.register');
@@ -135,11 +136,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
 		Route::get('/edit/{id}', 'PlaceController@getedit')->name('admin.place.edit');
 
-	    Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit');
-        
-        Route::get('/add', 'PlaceController@getadd')->name('admin.place.add');
-        Route::post('/add', 'PlaceController@store')->name('admin.place.add');
-        Route::get('/get-city-list', 'PlaceController@getCityList')->name('admin.place.getcity');
+		Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit');
+
+		Route::get('/add', 'PlaceController@getadd')->name('admin.place.add');
+		Route::post('/add', 'PlaceController@store')->name('admin.place.add');
+		Route::get('/get-city-list', 'PlaceController@getCityList')->name('admin.place.getcity');
 
 
 	});
@@ -155,7 +156,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 Route::get('/home', function() {
 	return view('pages.home');
 	
-    
+
 });
 
 Route::get('fb-callback','PhpSdkController@callback');
@@ -183,5 +184,5 @@ Auth::routes();
 
 //test
 Route::get('/abc', function() {
- 	return view('pages.showAllPost');
+	return view('pages.showAllPost');
 })->name('test');
