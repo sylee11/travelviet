@@ -72,7 +72,10 @@ class PostController extends Controller
         $post ->save();
 
         $path="picture/admin/post/".$post->id;
-	    File::makeDirectory($path);
+        if (!file_exists($path)) {
+            File::makeDirectory($path);
+        }
+	    
 	    
         if($request->has('filename')){
         	foreach ($request->file('filename') as $pho) {
