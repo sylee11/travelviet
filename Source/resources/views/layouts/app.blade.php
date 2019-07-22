@@ -4,6 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap&subset=vietnamese" rel="stylesheet">
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -125,6 +127,7 @@
                 <a class="dropdown-item" href="{{route('admin.index')}}">Trang quản lí</a>
                 <a class="dropdown-item" href="{{route('mypost')}}">Bài đăng của tôi</a>
                 <a class="dropdown-item" href="{{route('approved.all')}}">Phê duyệt bài đăng</a>
+                <a class="dropdown-item" href="{{route('account.admin.showall')}}">Quản lí user</a>
 
                 @elseif (Auth::user()->role == 2)
                 <a class="dropdown-item" href="{{route('mypost')}}">Bài đăng của tôi</a>

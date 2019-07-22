@@ -3,6 +3,7 @@
 @endpush
 @extends('pages.home')
 @section('content-section')
+
 <div class="home">
 	<div class="container-fluid">
 		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những địa điểm được đánh giá cao</h2></div>
@@ -13,7 +14,9 @@
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;">
 					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
-						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						<div style="height: 200px;">
+							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						</div>
 
 						<div class="card-body">
 
@@ -60,7 +63,9 @@
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;">
 					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
-						<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						<div style="height: 200px;">
+							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+						</div>
 
 						<div class="card-body">
 
@@ -215,8 +220,24 @@
 		</div>
 	</div>
 
-
+	
 </div>
+	<div class="container" style="margin-left: 20%;">
+                <div class="col-sm-8 col-sm-offset-2 text-center">
+                  <h2 class="section-heading">Contact Us</h2>
+			        <hr align="content" width="30%" color="#3997A6" size="0.1px" style="padding-bottom: 0.5px;"> 
+                </div>
+            <div class="row">
+                <div class="col-sm-4 col-sm-offset-2 text-center">
+                  <a href="tel:+91-8238566835"><i style="color: #3997A6;" class="fa fa-phone fa-3x sr-contact"></i></a>
+                  <p>+84-199001950</p>
+                </div>
+                <div class="col-sm-4 text-center">
+                  <a href="info@travelbrewery.com"><i style="color: #3997A6;" class="fa fa-envelope fa-3x sr-contact"></i></a>
+                  <p>Namoccho@travelViet.com</p>
+                </div>
+              </div>
+    </div>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#all").click(function(){

@@ -31,7 +31,7 @@ class PostController extends Controller
     public function Add(Request $request, $id){
     	$request-> validate([
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => 'required|min:10 ',
             'title' => 'required',
             'descrice' => 'required',
             'address' => 'required',
@@ -45,7 +45,7 @@ class PostController extends Controller
     	$post = new Post;
     	$post -> user_id = Auth::id();
     	$post -> phone = $request ->phone;
-
+    
     	//check place exist
     	$findPlace = Place::where('name', '=', $request->name)->first();
     	if($findPlace){
@@ -56,8 +56,9 @@ class PostController extends Controller
     	else{
     		$newPlace = new Place;
     		$newPlace->name = $request->name;
-            $newPlace->address = $request->address;
-       // dd($request->category);
+    		$newPlace->address = $request->address;
+            $newPlace->lat = $request->lat;
+            $newPlace->longt = $request->lng;
     		//save temp category_id vs district_id
     		//$newPlace->category_id = $request->category->id;
     		$newPlace->category_id = Category::where('name', $request->category)->first()->id;
@@ -77,7 +78,10 @@ class PostController extends Controller
         \Notification::send($toUsers, new CreatePost($post));
         
         $path="picture/admin/post/".$post->id;
-	    File::makeDirectory($path);
+        if (!file_exists($path)) {
+            File::makeDirectory($path);
+        }
+	    
 	    
         if($request->has('filename')){
         	foreach ($request->file('filename') as $pho) {
@@ -94,13 +98,9 @@ class PostController extends Controller
         $photoflag = Photo::where('post_id', $post->id)->first();
         $photoflag->flag =1;
         $photoflag->save();
-        $data = Post::join('photos', 'photos.post_id', '=', 'posts.id')
-        ->where('posts.user_id', '=', $id)
-        ->where('photos.flag', '=', '1')->paginate(5);
-        //tuy chinh pagenation
-        $data->withPath('../../mypost');
+        //return redirect() ->back()->with('success', " Thêm bài đăng thành công");
 
-        return view('pages.mypost', ['data'=> $data]);
+        return redirect()->route('mypost')->with('success', " Thêm bài đăng thành công");
     }
 
     //xu li ajax tu dong them vung mien
@@ -189,14 +189,17 @@ class PostController extends Controller
                 
             }
         }
-        $data = Post::join('photos', 'photos.post_id', '=', 'posts.id')
-        ->where('posts.user_id', '=', $id)
-        ->where('photos.flag', '=', '1')->paginate(5);
-        //tuy chinh pagenation
-        $data->withPath('../../../mypost');
-        return view('pages.mypost', ['data'=> $data]);
-        //dd($name); // This will dump and die
-        //var_dump($data);
+
+        $photocheck = Photo::where('post_id', $posts->id);
+        if($photocheck->count() == 0){
+            return "NOT Image chosed";
+        }
+        $photoflag = Photo::where('post_id', $posts->id)->first();
+        $photoflag->flag =1;
+        $photoflag->save();
+
+        return redirect()->route('mypost')->with('success', ' Edit thanh công');
+
     }
 
     public function delete($id)
@@ -207,12 +210,8 @@ class PostController extends Controller
             ->where('post_id', '=' ,$id)->delete();
         $path = "/picture/admin/post/".$id; 
         File::deleteDirectory(public_path($path));
-        $data = Post::join('photos', 'photos.post_id', '=', 'posts.id')
-        ->where('posts.user_id', '=', $id)
-        ->where('photos.flag', '=', '1')->paginate(5);
-        //tuy chinh pagenation
-        $data->withPath('../../mypost');
-        return view('pages.mypost', ['data'=> $data]);
+        return redirect()->route('mypost')->with('success', ' Xóa thanh công');
+
     }
 
 }

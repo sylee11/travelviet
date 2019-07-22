@@ -4,6 +4,11 @@
 @endpush
 @section('content')
 <div class="container" style="margin-top: 100px;">
+	 @if (session('success'))
+	    <div class="alert alert-success">
+	        {{ session('success') }}
+	    </div>
+	 @endif
 	<h1 style="margin-top:150px;margin-bottom: 50px;">Những bài viết của tôi</h1>
 	<a href="{{route('account.addpost', $id = Auth::id())}}" title="" class="btn btn-info" style="display: table;justify-content: left;margin-bottom: 50px;">Tạo mới</a>
 	@foreach ($data as $key=>$value)

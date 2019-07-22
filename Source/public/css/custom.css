@@ -2,34 +2,37 @@
 header {
   position: relative;
   width: 100%;
-  height: 800px;
+  height: 680px;
   min-height: auto;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  background-image: url('../picture/front/background.jpg');
+  background-image: url('../picture/front/background2.jpg');
   background-repeat: no-repeat;
   text-align: center;
   color: white;
 }
 .header-content {
-  background-color: rgba(0,0,0.1,0.3);
+  background-color: rgba(0,0,0.5,0.3);
   position: absolute;
-  top:100px;
+  top:50px;
 
   /* text-align: center; */
-  padding: 100px 15px 100px;
+  padding: 10px 15px ;
   width: 100%;
 }
 
 .header-content .header-content-inner
 {
-  margin: 50px 20px;
+  margin: 10px 20px;
 }
 
+#main-footer {
+  width: 100%;
+}
 #main-footer .contactnumber {
-  color: #9b9b9b;
+  color: #3997A6;
   margin-top: 10px;
   font-size: 1.5em;
   font-weight: 300;
@@ -42,7 +45,7 @@ header {
 }
 #main-footer .social {
   margin-bottom: 10px;
-  color: #9b9b9b;
+  color: #3997A6;
 }
 
 ul .inline-list-style {
@@ -55,4 +58,10 @@ ul .inline-list-style {
 #main-footer .column
 {
   margin-top:20px;
+}
+
+#main-footer  div ul li a
+{
+  margin-top:20px;
+  color: #3997A6;
 }

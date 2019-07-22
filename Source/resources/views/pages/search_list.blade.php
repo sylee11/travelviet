@@ -15,7 +15,9 @@
 	<div class="col-sm-6">
 		<div class="text">
 			<h5 class="card-title text-primary">{{$record->title}}</h5>
-		
+			<span class="text-descript">
+				<p>{{$record->describer}}</p>
+			</span>
 			<div class="rating">
 				@for($i=0;$i< ceil($record->avg_rating);$i++)
 				<span class="fa fa-star checked"></span>
@@ -24,7 +26,7 @@
 				<span class="fa fa-star unchecked"></span>
 				@endfor
 			</div>
-			
+			<div> <h5><i class="fas fa-map-marker-alt " style="color: blue;"></i> {{$record->address}}</h5></div>
 			<a href="/detail/{{$record->id}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;margin-bottom: 15px;">Xem chi tiết</a>
 			
 		</div>
