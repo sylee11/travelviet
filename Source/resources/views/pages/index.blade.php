@@ -202,7 +202,7 @@
 			<hr align="content" width="20%" color="#3997A6" size="0.1px" style="padding-bottom: 1px;"> 
 		</div>
 		{{-- <div style="text-align: center;margin-top:50px;color: #b3b3ba;margin-bottom: 50px;"><h2>Blog có số lượng bài viết nhiều nhất</h2></div> --}}
-		<div class="row" style="justify-content: center;">
+		<div class="row " style="justify-content: center;margin-left: 20%; width:60%; border: 2px dotted #D3D3D3; padding: 20px;" >
 			@if(count($top_user) !== 0)
 			@foreach($top_user as $record)
 			<div style="padding: 0 15px;">
@@ -227,9 +227,9 @@
 	
 </div>
 <div class="container">
-	<div style="text-align: center;margin-top:50px;">
+	<div style="text-align: center;margin-top:50px;" id="contact">
 		<h2 class="section-heading" style="color: #b3b3ba;">Contact Us</h2>
-		<hr align="content" width="30%" color="#3997A6" size="0.1px" style="padding-bottom: 0.5px;"> 
+		<hr align="content" width="20%" color="#3997A6" size="0.1px" style="padding-bottom: 1px; margin-bottom: 40px;"> 
 	</div>
 	<div class="row"  style="justify-content: center;">
 		<div class="col-sm-4 text-center">
@@ -252,6 +252,22 @@
 			$('#new_post').show();
 			$('#all_post').hide();
 		});
+		$("#scr1").click(function(){
+			console.log("ax");
+			var elmnt = document.getElementById("contact");
+			elmnt.scrollIntoView();
+		})
+		$("#scr2").click(function(){
+			console.log("ax");
+			var elmnt = document.getElementById("about");
+			elmnt.scrollIntoView();
+		})
+		$('#btnpositon').click(function(){
+			console.log("ãx");
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
+
+		})
 
 
 
