@@ -253,23 +253,29 @@
 			$('#all_post').hide();
 		});
 		$("#scr1").click(function(){
-			console.log("ax");
 			var elmnt = document.getElementById("contact");
 			elmnt.scrollIntoView();
 		})
 		$("#scr2").click(function(){
-			console.log("ax");
 			var elmnt = document.getElementById("about");
 			elmnt.scrollIntoView();
 		})
 		$('#btnpositon').click(function(){
-			console.log("ãx");
 			document.body.scrollTop = 0;
 			document.documentElement.scrollTop = 0;
 
 		})
-
-
+		$(window).scroll(function() {    
+        var scroll = $(window).scrollTop();
+    
+        if (scroll >= 200) {
+        	console.log("zzz");
+        	$("#nav-top").css({'background-color' :'#343a40','color' : 'black'})	;
+        }
+        if (scroll == 0){
+        	$("#nav-top").css({'background-color' :'rgba(0,0,0,0.6)','color' : 'white-space'})
+        }
+    	})
 
 	});
 	var slideIndex = 1;

@@ -50,8 +50,8 @@
         alert();
       </script> -->
       <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6); padding: 0px; ">
-          <div class="container-fluid" style="color: white; margin: 0px; width: 100% ; height: 60px;">
+        <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6); padding: 0px; color: white; " id="nav-top">
+          <div class="container-fluid" style=" margin: 0px; width: 100% ; height: 60px;">
             <a href="{{ route('home.page') }} "><img src="/picture/front/logo5.png" style="width: 100px; height: 40px; margin-left: 50px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
               <span class="navbar-toggler-icon"></span>
@@ -61,7 +61,7 @@
               <!-- Left Side Of Navbar -->
               <ul class="navbar-nav mr-auto" >
                 <li ><a   class="nav-link  border-0" style="color: white; "  id="scr2"> About Us </a></li> 
-                <li ><a   class="nav-link  border-0" style="color: white; "  id=""> Địa điểm </a></li> 
+                <li ><a   class="nav-link  border-0" style="color: white; "  id="scr3"> Địa điểm </a></li> 
                 <li ><a   class="nav-link  border-0" style="color: white; "  id="scr1"> Liên hệ </a></li> 
 
               </ul>
