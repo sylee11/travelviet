@@ -3,6 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap&subset=vietnamese" rel="stylesheet">
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -43,16 +45,14 @@
 
 @yield('header') 
 </head>
-<body>
+<body style="overflow-x: hidden;">
     <!-- <script type="text/javascript">
         alert();
       </script> -->
       <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);">
-          <div class="container" style="color: white; margin: 0px; width: 100%">
-            <a class="navbar-brand" href="{{ route('home.page') }} " style="color: white; font-size: 20px;" >
-              Travel Việt
-            </a>
+        <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6); padding: 0px; ">
+          <div class="container" style="color: white; margin: 0px; width: 100% ; height: 60px;">
+            <a href="{{ route('home.page') }} "><img src="/picture/front/logo5.png" style="width: 100px; height: 40px; margin-left: 50px;"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -60,7 +60,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <!-- Left Side Of Navbar -->
               <ul class="navbar-nav mr-auto" >
-                <li > <a href="" class="nav-link " style="color: white; "> About Us </li></a>
+                <li > <a href="" class="nav-link " style="color: white; margin-left: 20px;"> About Us </li></a>
                 <li > <a href="" class="nav-link" style="color: white; "> Địa điểm </li></a>
                 <li ><a href=""  class="nav-link" style="color: white; "> Liên hệ </li></a>
               </ul>
@@ -82,8 +82,7 @@
 
                 <li class="nav-item dropdown" style="">
                  <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="color: white;font-size: 13px;" v-pre>
-
-                  <img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar" width="40px" style="border-radius: 50%;margin-right: 10px;height: 40px;">
+                  <img @if(!empty(Auth::user()->avatar)) src="/{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar"  style="border-radius: 50%;margin-right: 10px; width: 40px; height: 40px;">
                   @if (!empty(Auth::user()->name))
                   {{Auth::user()->name}}
                   @else
