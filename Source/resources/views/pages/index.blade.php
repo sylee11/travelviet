@@ -222,7 +222,7 @@
 
 	
 </div>
-	<div class="container" style="margin-left: 20%;">
+	<div class="container" style="margin-left: 20%;" id="contact">
                 <div class="col-sm-8 col-sm-offset-2 text-center">
                   <h2 class="section-heading">Contact Us</h2>
 			        <hr align="content" width="30%" color="#3997A6" size="0.1px" style="padding-bottom: 0.5px;"> 
@@ -248,6 +248,16 @@
 			$('#new_post').show();
 			$('#all_post').hide();
 		});
+		$("#scr1").click(function(){
+			console.log("ax");
+			var elmnt = document.getElementById("contact");
+			elmnt.scrollIntoView();
+		})
+		$("#scr2").click(function(){
+			console.log("ax");
+			var elmnt = document.getElementById("about");
+			elmnt.scrollIntoView();
+		})
 
 
 
