@@ -13,13 +13,14 @@ use Response;
 use App\City;
 use App\Photo;
 use File;
+use App\Notifications\AcceptPost;
 class ApprovedController extends Controller
 {
-	public function show()
+	public function show($id)
 	{
 		//show top users
-		$id = Auth::id();
-		$post = Post::where('is_approved', 0)->get();
+		//$id = Auth::id();
+		//$post = Post::where('is_approved', 0)->get();
 		// foreach ($post as $s) {
 		// 	# code...
 		// 			$sa = $s->photos;
@@ -39,10 +40,15 @@ class ApprovedController extends Controller
 			->join('photos', 'posts.id', '=', 'photos.post_id')
 			->join('users', 'posts.user_id', '=', 'users.id')
 			->join('places', 'posts.place_id', '=', 'places.id')
-			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place' , 'users.*' )
+			->select('posts.id' ,'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place' , 'users.id as user_id' )
+			->where('posts.id','=',$id)
 			->where('posts.is_approved', '=', 0)
+			->where('photos.flag','=','1')
 			->get();
-		return view('pages.approvedPost',['data' =>$data, 'post'=>$post]);
+			//var_dump($data);
+		//	return;
+
+		return view('pages.approvedPost',['data' =>$data]);
 
 //		dd($data);
 
@@ -59,6 +65,9 @@ class ApprovedController extends Controller
 			$data->save();
 			}
 		}
+
+		$toUser = User::find($data->user_id);
+		\Notification::send($toUser, new AcceptPost($data));
 		return back();
 	}
 

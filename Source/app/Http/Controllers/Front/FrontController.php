@@ -101,12 +101,12 @@ class FrontController extends Controller
 		$post_id = $request->get('post_id');
 		$user_rate = DB::table('ratings')->where('user_id', $user_id)->first();
 
-
+		$rate = new Rating;
 		if ($user_rate === NULL) {
 			/*DB::table('ratings')->insert(
 				['cmt' => $cmt, 'rating' => $rating, 'user_id' => $user_id, 'post_id' => $post_id]
 			);*/
-			$rate = new Rating;
+			//$rate = new Rating;
 			$rate->cmt = $cmt;
 			$rate->rating = $rating;
 			$rate->user_id = $user_id;
@@ -121,7 +121,7 @@ class FrontController extends Controller
 			/*	DB::table('ratings')->insert(
 				['cmt' => $cmt, 'rating' => $rating, 'user_id' => $user_id, 'post_id' => $post_id]
 			);*/
-			$rate = new Rating;
+			//$rate = new Rating;
 			$rate->cmt = $cmt;
 			$rate->rating = $rating;
 			$rate->user_id = $user_id;
@@ -129,6 +129,7 @@ class FrontController extends Controller
 			$rate->save();
 		}
 		//return $this->detail($post_id);
+		
 		return back();
 	}
 	public function upgrade(Request $request)
@@ -164,23 +165,23 @@ class FrontController extends Controller
 	{
 		$data = \DB::table('posts')
 			->join('photos', 'posts.id', '=', 'photos.post_id')
-			->join('users','posts.user_id','=','users.id')
-			->select('posts.id as post_id', 'posts.title', 'posts.describer', 'posts.created_at', 'posts.is_approved', 'photos.photo_path','users.name')
+			->join('users', 'posts.user_id', '=', 'users.id')
+			->select('posts.id as post_id', 'posts.title', 'posts.describer', 'posts.created_at', 'posts.is_approved', 'photos.photo_path', 'users.name')
 			->where('posts.user_id', '=', $user_id)
-			->where('posts.is_approved','=','1')
+			->where('posts.is_approved', '=', '1')
 			->where('photos.flag', '=', '1')->paginate(5);
 		//var_dump($data->count());
 		//return;
 		//	if($data->count() !==0)
 		return view('pages/userpost', ['data' => $data]);
-	//	else return back()->withErrors('msg','ko co post');
+		//	else return back()->withErrors('msg','ko co post');
 	}
 	public function userComment($user_id)
 	{
 		$data = \DB::table('ratings')
 			->join('posts', 'ratings.post_id', '=', 'posts.id')
-			->join('users','ratings.user_id','=','users.id')
-			->select('ratings.id', 'ratings.cmt','ratings.created_at' ,'ratings.rating', 'posts.id as post_id', 'posts.title','users.name')
+			->join('users', 'ratings.user_id', '=', 'users.id')
+			->select('ratings.id', 'ratings.cmt', 'ratings.created_at', 'ratings.rating', 'posts.id as post_id', 'posts.title', 'users.name')
 			->where('ratings.user_id', '=', $user_id)->get();
 		return view('pages/mycmt', ['data' => $data]);
 	}

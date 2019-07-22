@@ -46,7 +46,7 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
 		Route::group(['prefix' => 'admin'], function(){
-			Route::get('/approved', 'ApprovedController@show')->name('acount.admin.approved');
+			Route::get('/approved/show/{id}', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::get('/approved/{id}', 'ApprovedController@approved')->name('approved');
 			// Route::get('/approved/all', 'ApprovedController@allpost')->name('xxx');
 			Route::get('/approved/{id}/delete', 'ApprovedController@delete')->name('delete');

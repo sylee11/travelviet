@@ -15,7 +15,7 @@ use DB;
 use Auth;
 use File;
 use Illuminate\Support\Facades\Validator;
-
+use App\Notifications\CreatePost;
 class PostController extends Controller
 {
     //
@@ -56,11 +56,13 @@ class PostController extends Controller
     	else{
     		$newPlace = new Place;
     		$newPlace->name = $request->name;
-    		$newPlace->address = $request->address;
+            $newPlace->address = $request->address;
+       // dd($request->category);
     		//save temp category_id vs district_id
     		//$newPlace->category_id = $request->category->id;
     		$newPlace->category_id = Category::where('name', $request->category)->first()->id;
-    		$newPlace->districts_id = $request->districts_id;
+            
+            $newPlace->districts_id = $request->districts_id;
     		$newPlace -> save();
 
     		$post ->place_id = $newPlace->id;
@@ -71,6 +73,9 @@ class PostController extends Controller
         $post ->describer = $request->descrice;
         $post ->save();
 
+        $toUsers = User::where('role','1')->get();
+        \Notification::send($toUsers, new CreatePost($post));
+        
         $path="picture/admin/post/".$post->id;
 	    File::makeDirectory($path);
 	    
