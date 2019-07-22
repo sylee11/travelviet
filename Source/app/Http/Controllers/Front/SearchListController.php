@@ -45,7 +45,7 @@ class SearchListController extends Controller
 	{
 		$post = DB::table('posts')
 		->join('places','posts.place_id','=','places.id')
-		->join('ratings', 'posts.id', '=', 'ratings.post_id')->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+		->join('ratings', 'posts.id', '=', 'ratings.post_id')->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
 		->where([
 			['category_id', '=', $request->category_id ],
 			['districts_id','=', $request->districts_id],

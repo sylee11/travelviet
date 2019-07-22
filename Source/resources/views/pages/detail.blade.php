@@ -100,18 +100,21 @@ $cmts = $data->unique('cmt')->values();
     </div>
     <div class="col-6" style="text-align: end;margin: 30px 0;">
      @if (session('success'))
-     <div class="alert alert-success"">
+     <div class="alert alert-success">
       <button type="button" class="close" data-dismiss="alert" aria_label="Close">
         <span aria_hidden= "true">&times;</span>
       </button>
       {{ session('success') }}
     </div>
     @endif
-    <div class="fb-share-button" data-href="{{url()->current()}}" data-layout="button" data-size="large">
+    <div class="row" style="justify-content: flex-end;margin-right: 5px;">
+       <div class="fb-share-button" data-href="{{url()->current()}}" data-layout="button" data-size="large">
       <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}" class="fb-xfbml-parse-ignore">Chia sẻ</a>
     </div>
-    <a href="{{route('invite')}}" title="" style="right: 0px;" class="btn btn-info"  data-toggle="modal" data-target="#invite">Invite friend</a>
-  </div>
+    </div>
+    <div class="row" style="justify-content: flex-end;margin-right: -7px; margin-top: 10px;">
+      <a href="{{route('invite')}}" title="" style="right: 0px;" class="btn btn-info"  data-toggle="modal" data-target="#invite">Invite friend</a>
+    </div>
 
 </div>
 <div style="margin: 20px 0 100px 0;" class="">
@@ -139,7 +142,7 @@ $cmts = $data->unique('cmt')->values();
   </div>
 </div>
 <div>
-  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample">
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" style="margin-bottom: 20px;">
     Comment
   </button>
   <div class="collapse" id="collapseExample">
@@ -187,15 +190,17 @@ $cmts = $data->unique('cmt')->values();
     </div>
   </div>
 
-<div style="margin-bottom: 50px;">
+  <div style="margin-bottom: 50px;">
+
     @foreach ($cmts as $key=>$value)
-  <div class="media border p-3">
-    @if($value->avatar)
-    <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="{{$value->avatar}}" alt="">
-    @else
-    <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="/picture/images.png" alt="">
-    @endif
-    <div class="media-body">
+    <div class="media border p-3">
+     @if($value->cmt == NULL && $value->rate == NUll)
+     @elseif($value->avatar)
+     <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="{{$value->avatar}}" alt="">
+     @else
+     <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="/picture/images.png" alt="">
+     @endif
+     <div class="media-body">
 
       <h5 style='padding-top:20px;display:inline-block;' class="mt-0"><a href="/user/{{$value->cmtid}}">{{$value->cmtname}}</a></h5>
       @if($value->created_at !=NULL)

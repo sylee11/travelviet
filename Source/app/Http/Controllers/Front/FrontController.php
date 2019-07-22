@@ -41,12 +41,41 @@ class FrontController extends Controller
 		}
 		//dd($top_user);
 		//show posts have rating highest
-		$top_rating = Post::join('ratings', 'posts.id', '=', 'ratings.post_id')->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id', 'posts.title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))->orderBy('avg_rating', 'desc')->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->where('is_approved', '=', '1')->where('photos.flag', '=', '1')->take(4)->get();
+		$top_rating = Post::join('ratings', 'posts.id', '=', 'ratings.post_id')
+		->join('photos', 'posts.id', '=', 'photos.post_id')
+		->select('posts.id', 'posts.title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
+		->orderBy('avg_rating', 'desc')
+		->groupBy('posts.id')
+		->groupBy('posts.title')
+		->groupBy('photos.photo_path')
+		->where('is_approved', '=', '1')
+		->where('photos.flag', '=', '1')
+		->take(4)
+		->get();
 		//dd($top_user);
 		//show post newest
-		$new_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))->orderBy('posts.id', 'desc')->groupBy('posts.id')->groupBy('title')->groupBy('photos.photo_path')->where('is_approved', '=', '1')->where('photos.flag', '=', '1')->take(4)->get();
+		$new_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')
+		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+		->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
+		->orderBy('posts.id', 'desc')
+		->groupBy('posts.id')
+		->groupBy('title')
+		->groupBy('photos.photo_path')
+		->where('is_approved', '=', '1')
+		->where('photos.flag', '=', '1')
+		->take(4)
+		->get();
 
-		$all_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))->orderBy('posts.id', 'desc')->groupBy('posts.id')->groupBy('title')->groupBy('photos.photo_path')->where('is_approved', '=', '1')->where('photos.flag', '=', '1')->get();
+		$all_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')
+		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+		->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
+		->orderBy('posts.id', 'desc')
+		->groupBy('posts.id')
+		->groupBy('title')
+		->groupBy('photos.photo_path')
+		->where('is_approved', '=', '1')
+		->where('photos.flag', '=', '1')
+		->get();
 
 		$cities = Post::join('places', 'posts.place_id', '=', 'places.id')
 		->join('districts', 'places.districts_id', '=', 'districts.id')
@@ -100,6 +129,7 @@ class FrontController extends Controller
 		session()->put('link',  url()->current());
 		//var_dump($data);
 		//return;
+		//dd($data);
 		return view('pages/detail', ['data' => $data, 'rating' => $rating, 'user_rate' => $user_rate]);
 	}
 	public function rate(Request $request)
