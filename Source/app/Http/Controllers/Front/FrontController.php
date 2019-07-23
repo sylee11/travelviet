@@ -141,12 +141,12 @@ class FrontController extends Controller
 		$post_id = $request->get('post_id');
 		$user_rate = DB::table('ratings')->where('user_id', $user_id)->first();
 
-
+		$rate = new Rating;
 		if ($user_rate === NULL) {
 			/*DB::table('ratings')->insert(
 				['cmt' => $cmt, 'rating' => $rating, 'user_id' => $user_id, 'post_id' => $post_id]
 			);*/
-			$rate = new Rating;
+			//$rate = new Rating;
 			$rate->cmt = $cmt;
 			$rate->rating = $rating;
 			$rate->user_id = $user_id;
@@ -161,7 +161,7 @@ class FrontController extends Controller
 			/*	DB::table('ratings')->insert(
 				['cmt' => $cmt, 'rating' => $rating, 'user_id' => $user_id, 'post_id' => $post_id]
 			);*/
-			$rate = new Rating;
+			//$rate = new Rating;
 			$rate->cmt = $cmt;
 			$rate->rating = $rating;
 			$rate->user_id = $user_id;
@@ -169,6 +169,7 @@ class FrontController extends Controller
 			$rate->save();
 		}
 		//return $this->detail($post_id);
+		
 		return back();
 	}
 	public function upgrade(Request $request)
@@ -215,7 +216,7 @@ class FrontController extends Controller
 		//return;
 		//	if($data->count() !==0)
 		return view('pages/userpost', ['data' => $data]);
-	//	else return back()->withErrors('msg','ko co post');
+		//	else return back()->withErrors('msg','ko co post');
 	}
 	public function userComment($user_id)
 	{

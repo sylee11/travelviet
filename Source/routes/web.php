@@ -46,6 +46,7 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
 		Route::group(['prefix' => 'admin'], function(){
+			Route::get('/approved/show/{id}', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::post('/manageacout/blockuser', 'UserController@blockuser')->name('account.admin.blockuser');
 			Route::post('/manageacout/findpost', 'UserController@findpost')->name('account.admin.findpost');
 			Route::post('/manageacout/delete', 'UserController@delete')->name('account.admin.deleteuser');
