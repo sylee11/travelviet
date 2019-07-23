@@ -94,7 +94,7 @@
               </a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 @foreach(Auth::user()->Notifications as $notification)
-                <a id="notify" class="dropdown-item" href="/account/admin/approved/show/{{$notification->data['post_id']}}" onclick=""> {{$notification->type}} id={{$notification->data['post_id']}}</a>
+                <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item" > {{$notification->type}} id={{$notification->data['post_id']}}</a>
                 @endforeach
               </div>
             </li>
