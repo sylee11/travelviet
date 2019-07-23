@@ -108,13 +108,13 @@ $cmts = $data->unique('cmt')->values();
     </div>
     @endif
     <div class="row" style="justify-content: flex-end;margin-right: 5px;">
-       <div class="fb-share-button" data-href="{{url()->current()}}" data-layout="button" data-size="large">
+     <div class="fb-share-button" data-href="{{url()->current()}}" data-layout="button" data-size="large">
       <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}" class="fb-xfbml-parse-ignore">Chia sẻ</a>
     </div>
-    </div>
-    <div class="row" style="justify-content: flex-end;margin-right: -7px; margin-top: 10px;">
-      <a href="{{route('invite')}}" title="" style="right: 0px;" class="btn btn-info"  data-toggle="modal" data-target="#invite">Invite friend</a>
-    </div>
+  </div>
+  <div class="row" style="justify-content: flex-end;margin-right: -7px; margin-top: 10px;">
+    <a href="{{route('invite')}}" title="" style="right: 0px;" class="btn btn-info"  data-toggle="modal" data-target="#invite">Invite friend</a>
+  </div>
 
 </div>
 <div style="margin: 20px 0 100px 0;" class="">
@@ -224,7 +224,7 @@ $cmts = $data->unique('cmt')->values();
 
 
 </div>
-
+</div>
 {{-- invite Modal --}}
 <div class="modal fade" id="invite" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
