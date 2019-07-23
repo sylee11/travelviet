@@ -28,6 +28,9 @@ header {
   margin: 10px 20px;
 }
 
+#scr1:hover{
+  color: black;
+}
 #main-footer {
   width: 100%;
 }
