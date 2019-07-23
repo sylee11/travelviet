@@ -196,18 +196,22 @@
 	</div>
 
 
-	<div class="container">
-		<div style="text-align: center;margin-top:50px;color: #b3b3ba;margin-bottom: 50px;"><h2>Blog có số lượng bài viết nhiều nhất</h2></div>
-		<div class="row" style="justify-content: center;">
-			@if($top_user->count() !== 0)
+	<div class="container" style="margin-bottom: 50px;">
+		<div style="text-align: center;margin-top:50px;">
+			<h2 class="section-heading" style="color: #b3b3ba;">Top Mod</h2>
+			<hr align="content" width="20%" color="#3997A6" size="0.1px" style="padding-bottom: 1px;"> 
+		</div>
+		{{-- <div style="text-align: center;margin-top:50px;color: #b3b3ba;margin-bottom: 50px;"><h2>Blog có số lượng bài viết nhiều nhất</h2></div> --}}
+		<div class="row " style="justify-content: center;margin-left: 20%; width:60%; border: 2px dotted #D3D3D3; padding: 20px;" >
+			@if(count($top_user) !== 0)
 			@foreach($top_user as $record)
 			<div style="padding: 0 15px;">
-				<a href="/user/{{$record->user_id}}" title="" style="text-decoration: none;">
-					@if (!empty($record->user->avatar))
-					<img src="{{ $record->user->avatar }}" alt="Avatar" class="avatar" title="{{!empty($record->user->name)?$record->user->name:'no name'}}" style="width: 80px;height:80px;border-radius: 50%;">
+				<a href="/user/{{$record->id}}" title="" style="text-decoration: none;">
+					@if (!empty($record->avatar))
+					<img src="{{ $record->avatar }}" alt="Avatar" class="avatar" title="{{!empty($record->name)?$record->name:'no name'}}" style="width: 60px;height:60px;border-radius: 50%;">
 
 					@else
-					<img src="{{ asset('picture/images.png') }}" alt="Avatar" class="avatar" title="{{!empty($record->user->name)?$record->user->name:'no name'}}" style="width: 80px;height:80px;border-radius: 50%;">
+					<img src="{{ asset('picture/images.png') }}" alt="Avatar" class="avatar" title="{{!empty($record->name)?$record->name:'no name'}}" style="width: 60px;height:60px;border-radius: 50%;">
 					@endif
 				</a>
 			</div>
@@ -222,22 +226,22 @@
 
 	
 </div>
-	<div class="container" style="margin-left: 20%;">
-                <div class="col-sm-8 col-sm-offset-2 text-center">
-                  <h2 class="section-heading">Contact Us</h2>
-			        <hr align="content" width="30%" color="#3997A6" size="0.1px" style="padding-bottom: 0.5px;"> 
-                </div>
-            <div class="row">
-                <div class="col-sm-4 col-sm-offset-2 text-center">
-                  <a href="tel:+91-8238566835"><i style="color: #3997A6;" class="fa fa-phone fa-3x sr-contact"></i></a>
-                  <p>+84-199001950</p>
-                </div>
-                <div class="col-sm-4 text-center">
-                  <a href="info@travelbrewery.com"><i style="color: #3997A6;" class="fa fa-envelope fa-3x sr-contact"></i></a>
-                  <p>Namoccho@travelViet.com</p>
-                </div>
-              </div>
-    </div>
+<div class="container">
+	<div style="text-align: center;margin-top:50px;" id="contact">
+		<h2 class="section-heading" style="color: #b3b3ba;">Contact Us</h2>
+		<hr align="content" width="20%" color="#3997A6" size="0.1px" style="padding-bottom: 1px; margin-bottom: 40px;"> 
+	</div>
+	<div class="row"  style="justify-content: center;">
+		<div class="col-sm-4 text-center">
+			<a href="tel:+91-8238566835"><i style="color: #3997A6;" class="fa fa-phone fa-3x sr-contact"></i></a>
+			<p>+84-199001950</p>
+		</div>
+		<div class="col-sm-4 text-center">
+			<a href="info@travelbrewery.com"><i style="color: #3997A6;" class="fa fa-envelope fa-3x sr-contact"></i></a>
+			<p>Namoccho@travelViet.com</p>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#all").click(function(){
@@ -248,8 +252,30 @@
 			$('#new_post').show();
 			$('#all_post').hide();
 		});
+		$("#scr1").click(function(){
+			var elmnt = document.getElementById("contact");
+			elmnt.scrollIntoView();
+		})
+		$("#scr2").click(function(){
+			var elmnt = document.getElementById("about");
+			elmnt.scrollIntoView();
+		})
+		$('#btnpositon').click(function(){
+			document.body.scrollTop = 0;
+			document.documentElement.scrollTop = 0;
 
-
+		})
+		$(window).scroll(function() {    
+        var scroll = $(window).scrollTop();
+    
+        if (scroll >= 200) {
+        	console.log("zzz");
+        	$("#nav-top").css({'background-color' :'#343a40','color' : 'black'})	;
+        }
+        if (scroll == 0){
+        	$("#nav-top").css({'background-color' :'rgba(0,0,0,0.6)','color' : 'white-space'})
+        }
+    	})
 
 	});
 	var slideIndex = 1;

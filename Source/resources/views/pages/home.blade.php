@@ -101,8 +101,8 @@
 
   </div>
 </header>
-<div class="" style="width: 100%; background-color: #3BB5C9; margin: 0px; color: white;">
-  <div class="row" style="">
+<div class="" style="width: 100%; background-color: #3BB5C9; margin: 0px; color: white;" id="about">
+  <div class="row" style="" >
       <div class="col-lg-12 col-lg-offset-2">
         <h2 class="section-heading text-center" style="margin-top: 50px;">PHƯƠNG CHÂM CỦA CHÚNG TÔI
           <i class="fa fa-heart text-primary heart-icon" style="color: red"></i>
