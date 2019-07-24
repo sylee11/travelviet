@@ -54,16 +54,16 @@ class FrontController extends Controller
 		//dd($top_user);
 		//show post newest
 		$new_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')
-			->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-			->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
-			->orderBy('posts.id', 'desc')
-			->groupBy('posts.id')
-			->groupBy('title')
-			->groupBy('photos.photo_path')
-			->where('is_approved', '=', '1')
-			->where('photos.flag', '=', '1')
-			->take(4)
-			->get();
+		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+		->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
+		->orderBy('posts.id', 'desc')
+		->groupBy('posts.id')
+		->groupBy('title')
+		->groupBy('photos.photo_path')
+		->where('is_approved', '=', '1')
+		->where('photos.flag', '=', '1')
+		->take(3)
+		->get();
 
 		$all_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')
 			->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')

@@ -102,7 +102,7 @@
             <li class="nav-item dropdown" style="">
               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;font-size: 13px;" v-pre>
 
-                <img @if(!empty(Auth::user()->avatar)) src="/{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar"  style="border-radius: 50%;margin-right: 10px; width: 30px; height: 30px;">
+                <img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar"  style="border-radius: 50%;margin-right: 10px; width: 30px; height: 30px;">
                 @if (!empty(Auth::user()->name))
                 {{Auth::user()->name}}
                 @else
