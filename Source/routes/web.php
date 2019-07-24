@@ -46,6 +46,7 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
 		Route::group(['prefix' => 'admin'], function(){
+			Route::get('/approved/show/{id}', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::post('/manageacout/blockuser', 'UserController@blockuser')->name('account.admin.blockuser');
 			Route::post('/manageacout/findpost', 'UserController@findpost')->name('account.admin.findpost');
 			Route::post('/manageacout/delete', 'UserController@delete')->name('account.admin.deleteuser');
@@ -83,15 +84,16 @@ Route::group(['namespace' => 'Front'], function (){
 Route::get('login2',function(){
 	return view('auth.login');
 });
-Route::get('invite', 'InviteController@show')->name('invite');
+Route::get('invite', 'InviteController@show')->name('invite')->middleware('auth');
 Route::post('invite', 'InviteController@process')->name('process');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.admin');
 Route::get('show-register', 'Auth\RegisterController@showFormRegister')->name('show.register');
 Route::post('signup', 'Auth\RegisterController@store')->name('signup');
 
-Route::get('auth/google', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
-Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCallback');
+Route::get('auth/google/callback', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
+//Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCallback');
+
 Route::get('/change_password', 'Auth\ChangePasswordController@show')->name('show_changePass');
 Route::post('/update_password', 'Auth\ChangePasswordController@update')->name('update_changePass');
 

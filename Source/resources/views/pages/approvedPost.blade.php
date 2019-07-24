@@ -15,36 +15,35 @@
         </a>
     </h4>
     @else
-		@foreach($data as $p)
-    <div class="row " id="{{$p->id}}" style="margin-bottom: 50px;">
+    @foreach($data as $p)
+    <div class="row " id="" style="margin-bottom: 50px;">
         <div class="card col-md-4">
-            <img ".$p-="" class="card-img-top" src="{{">
-                photo_path}}" alt="card_img" >
-                <div class="card-body" style="width: 300px;">
-                    <div class="card-title font-weight-bold text-center ">
-                        {{$p->title}}
-                    </div>
-                    <div class="card-title">
-                        <span class="font-weight-bold">
-                            Author:
-                        </span>
-                        {{$p->name}}
-                    </div>
-                    <div class="card-title">
-                        <span class="font-weight-bold">
-                            Descrice:
-                        </span>
-                        {{$p->describer}}
-                    </div>
-                    <a class="btn btn-primary" href="#">
-                        See more ...
-                    </a>
+            <img class="card-img-top" src="/{{$p->photo_path}}" alt="card_img">
+            <div class="card-body" style="width: 300px;">
+                <div class="card-title font-weight-bold text-center ">
+                    {{$p->title}}
                 </div>
-            </img>
+                <div class="card-title">
+                    <span class="font-weight-bold">
+                        Author:
+                    </span>
+                    <a href="/user/{{$p->user_id}}"> {{$p->name}} </a>
+                </div>
+                <div class="card-title">
+                    <span class="font-weight-bold">
+                        Descrice:
+                    </span>
+                    {{$p->describer}}
+                </div>
+                <a class="btn btn-primary" href="/detail/{{$p->id}}">
+                    See more ...
+                </a>
+            </div>
+
         </div>
         <div class="col-md-4 ">
             <div class="align-middle text-center">
-                <a class="btn btn-success " href="{{route('approved', $p->id)}}" id="{{$p->id}}">
+                <a class="btn btn-success" onclick="" href="{{route('approved', $p->id)}}" id="">
                     Phê duyệt
                 </a>
             </div>
@@ -74,7 +73,7 @@
 {{--
 <script type="text/javascript">
     $('#{{$p->id}}').click(function() {
-    	location.reload();
-	});
+location.reload();
+});
 </script>
 --}}

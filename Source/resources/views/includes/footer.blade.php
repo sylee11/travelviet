@@ -1,9 +1,15 @@
 <footer class="bg-dark" >
+<!-- <<<<<<< HEAD
   <section id="main-footer" style="margin: 70px;" >
     <div class="container" style="display: flex; color: white;">
+======= -->
+  <section id="main-footer" style="margin-top: 40px; font-family: 'Raleway', sans-serif; 
+ " >
+    <div class="container" style="display: flex; color: white; margin-top: 50px;">
+
       <div class="col-sm-3" >
-        <div>
-          <h3><span>TRAVEL&nbsp;</span><span class="footer-logo">VIỆT</span></h3>
+        <div style="margin-top: 40px;">
+          <h3><span>TRAVEL&nbsp;</span><span class="footer-logo " style="color: #3997A6;">VIET</span></h3>
         </div>
         <div class="contactnumber">+84-345518122</div>
 
@@ -16,29 +22,29 @@
             <a href="https://www.instagram.com/travelbrewery/"><i class="fab fa-instagram"></i></a>
           </li>
         </ul>
-        <p class="copyright">&copy;2019 TRAVEL VIỆT</p><p class="copyright"> All rights reserved.</p>
+        <p class="copyright" style="color: white">&copy 2019 TRAVEL VIET</p><p class="copyright" style="color: white"> All rights reserved.</p>
 
-      </div>
-      <div class="col-sm-3 column">
+      </div >
+      <div class="col-sm-3 column" style="margin-top: 50px;">
         <ul class="list_style">
-          <li class="nav-head">US</li>
-          <li><a href="http://travelbrewery.com/index.php#about" target="_blank">About</a></li>
-            <li><a href="http://travelbrewery.com/index.php#services" target="_blank">Services</a></li>
+          <li class="nav-head" style="margin-bottom: 30px;">US</li>
+          <li><a href="" target="_blank" style="color: #3997A6;">About</a></li>
+            <li><a href="" target="_blank" style="color: #3997A6;">Services</a></li>
 
         </ul>
       </div>
-      <div class="col-sm-3 column">
+      <div class="col-sm-3 column" style="margin-top: 50px;">
         <ul class="list_style">
-          <li class="nav-head">Tours And Blogs</li>
-          <li><a href="http://travelbrewery.com/index.php#iti-portfolio" target="_blank">Our Top Tours</a></li>
-          <li><a href="http://travelbrewery.com/Blog" target="_blank">Blogs</a></li>
+          <li class="nav-head" style="margin-bottom: 30px;">TOUR AND BLOG</li>
+          <li><a href="" target="_blank" style="color: #3997A6;">Our Top Tours</a></li>
+          <li><a href="" target="_blank" style="color: #3997A6;">Blogs</a></li>
         </ul>
       </div>
-      <div class="col-sm-3 column">
+      <div class="col-sm-3 column" style="margin-top: 50px;">
         <ul class="list_style">
-          <li class="nav-head">Support</li>
-          <li><a href="http://travelbrewery.com/index.php#contact" target="_blank">Contact</a></li>
-          <li><a href="http://travelbrewery.com/terms-conditions" target="_blank">Terms and Conditions</a></li>
+          <li class="nav-head" style="margin-bottom: 30px;">SUPPORT</li>
+          <li><a href="" target="_blank" style="color: #3997A6;">Contact</a></li>
+          <li><a href="" target="_blank" style="color: #3997A6;">Terms and Conditions</a></li>
         </ul>
       </div>
     </div>

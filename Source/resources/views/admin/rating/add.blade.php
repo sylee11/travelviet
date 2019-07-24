@@ -7,7 +7,7 @@
 <div class="modal-body">
     <div class="row">
         <div class="col-12">
-            <form method="POST" action="{{route('admin.rating.add')}}">
+            <form method="POST" action="{{route('admin.rating.add')}}" id="form_add">
                 {{csrf_field()}}
                 <div class="form-row">
                     <div class="form-group col-md-6">
@@ -24,17 +24,15 @@
                     <div class="form-group  col-md-6">
                         <label for="rating">Rating:</label>
                         <input type="text" class="form-control" id="rating"  placeholder="Enter Rating" name="rating" autofocus required>
-                        @if (session('error1'))
-                        <span class="help-block">
-                            <strong style="color: red;">{{ session('error1') }}</strong>
-                        </span>
+                        @if ($errors->has('rating'))
+                        <span class="text-danger">{{ $errors->first('rating') }}</span>
                         @endif
                     </div>
                 </div>
 
                 <div class="form-group">
-                 <label for="post">Post:</label>
-                 <select class="custom-select" name="post_id">
+                   <label for="post">Post:</label>
+                   <select class="custom-select" name="post_id">
                     <option disabled="">Post</option>
                     @if($post)
                     @foreach ($post as $record)
@@ -46,6 +44,9 @@
             <div class="form-group">
                 <label for="comment">Comment:</label>
                 <textarea class="form-control" rows="5" id="editor1" name="comment" required></textarea>
+                @if ($errors->has('comment'))
+                <span class="text-danger">{{ $errors->first('comment') }}</span>
+                @endif
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -62,7 +63,6 @@
 @push('scripts')
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
-<script> 
-    CKEDITOR.replace('editor1');
-</script>
+<script type="text/javascript">CKEDITOR.replace('editor1');</script>
+
 @endpush

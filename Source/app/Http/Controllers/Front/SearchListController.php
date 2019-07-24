@@ -42,12 +42,12 @@ class SearchListController extends Controller
 		if($request->cities_id =='' && $request->districts_id =='' && $request->category_id =='')
 		{
 			$post = DB::table('posts')
-					->join('places','posts.place_id','=','places.id')
-					->join('districts','places.districts_id','=','districts.id')
-					->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-					->join('photos', 'posts.id', '=', 'photos.post_id')
-					->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
-					->Paginate(10);
+			->join('places','posts.place_id','=','places.id')
+			->join('districts','places.districts_id','=','districts.id')
+			->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+			->join('photos', 'posts.id', '=', 'photos.post_id')
+			->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
+			->Paginate(10);
 					// ->get();
 			return view('pages.list_place',['post' => $post]);
 		}
@@ -143,25 +143,26 @@ class SearchListController extends Controller
 		}
 
 
+
 	}
 	public function getsearch(Request $request)
 	{
 
 		$search = $request ->search;
 
-			$post= DB::table('posts')
-			->join('places','posts.place_id','=','places.id')
-			->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-			->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+		$post= DB::table('posts')
+		->join('places','posts.place_id','=','places.id')
+		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+		->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
-			->where([
-				['places.name','LIKE','%'.$search.'%']
-			])
-			->orWhere ([
-				['places.address', 'LIKE', '%' . $search . '%']
-			] )
+		->where([
+			['places.name','LIKE','%'.$search.'%']
+		])
+		->orWhere ([
+			['places.address', 'LIKE', '%' . $search . '%']
+		] )
 			// ->get();
-			->Paginate(10);
+		->Paginate(10);
 
 		return view('pages.search_list',['post' => $post]);
 
@@ -169,6 +170,7 @@ class SearchListController extends Controller
 	}
 	public function postsearch(Request $request)
 	{ 
+
 
 
 
