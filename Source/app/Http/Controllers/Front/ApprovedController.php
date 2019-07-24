@@ -38,18 +38,27 @@ class ApprovedController extends Controller
 		//dd($post);
 		//$photo = Photo::all();
 		$notifytable = DB::table('notifications')
-			->select('data')
+			->select('data','type')
 			->where('notifications.id', '=', $id)->first();
-			//var_dump($data->data);return;
+		//var_dump($notifytable->type);return;
+		$id_post = substr($notifytable->data, 11, strlen($notifytable->data) - 12);
+		if ($notifytable->type == 'App\Notifications\AcceptPost') 
+		{
+			
+			DB::table('notifications')
+			->where('notifications.id', '=', $id)
+			->delete();
+			return redirect("/detail/$id_post");
+		 }
 		DB::table('notifications')
 			->where('notifications.id', '=', $id)
 			->update(['read_at' => now()]);
-		
+
 		//$notification->markAsRead();
 		//$id_post =$notification->data['post_id'];
+
 		
-		$id_post =substr($notifytable->data,11,strlen($notifytable->data)-12);
-	//	print($id_post);return;
+		//	print($id_post);return;
 		$data = DB::table('posts')
 			->join('photos', 'posts.id', '=', 'photos.post_id')
 			->join('users', 'posts.user_id', '=', 'users.id')
@@ -83,7 +92,7 @@ class ApprovedController extends Controller
 		DB::table('notifications')
 			->where([
 				['notifications.data', '=', "{\"post_id\":$id}"],
-				['notifications.type','=','App\Notifications\CreatePost'],
+				['notifications.type', '=', 'App\Notifications\CreatePost'],
 			])
 			->delete();
 
@@ -91,14 +100,13 @@ class ApprovedController extends Controller
 		\Notification::send($toUser, new AcceptPost($data));
 		//return back();
 		$data = DB::table('posts')
-				->join('photos', 'posts.id', '=', 'photos.post_id')
-				->join('users', 'posts.user_id', '=', 'users.id')
-				->join('places', 'posts.place_id', '=', 'places.id')
-				->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
-				->where('photos.flag', '=', 1)
-				->Paginate(20);
-				return view('pages.showAllPost', ['data' => $data, 'selec' => 'Tất cả bài viết', 'chose' => 'Actor', 'search' => '']);
-	
+			->join('photos', 'posts.id', '=', 'photos.post_id')
+			->join('users', 'posts.user_id', '=', 'users.id')
+			->join('places', 'posts.place_id', '=', 'places.id')
+			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+			->where('photos.flag', '=', 1)
+			->Paginate(20);
+		return view('pages.showAllPost', ['data' => $data, 'selec' => 'Tất cả bài viết', 'chose' => 'Actor', 'search' => '']);
 	}
 
 	public function delete($id)
