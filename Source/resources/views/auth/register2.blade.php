@@ -37,7 +37,7 @@
             <span class="bg-light">OR</span>
         </p>
         <label for="inputName" class="sr-only">Name</label>
-        <input type="text" id="inputName" class="form-control" name="name" placeholder=" Full Name" required autofocus>
+        <input type="text" id="inputName" class="form-control" name="name" placeholder="  Name" required autofocus>
         <label for="inputEmail" class="sr-only" >Email address</label>
         <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required >
         <label for="inputPassword" class="sr-only">Password</label>

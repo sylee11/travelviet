@@ -75,6 +75,7 @@
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				<thead>
 					<tr>
+						<th>ID</th>
 						<th>Username</th>
 						<th>Email</th>
 						<th>Status</th>
@@ -85,6 +86,7 @@
 				</thead>
 				<tfoot>
 					<tr>
+						<th>ID</th>
 						<th>Username</th>
 						<th>Email</th>
 						<th>Status</th>
@@ -96,6 +98,7 @@
 				<tbody>
 				@foreach ($user as $key=> $u)
 				<tr>
+					<td>{{$u->id}}</td>
 					<td>{{$u->name}}</td>
 					<td>{{$u->email}}</td>
 					<td>{{$u->status}}</td>

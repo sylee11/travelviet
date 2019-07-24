@@ -22,7 +22,7 @@
 
 							<h5 class="card-title">
 
-								<span style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap; font-size: 16px;color: #ff6f28;">
+								<span style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap; font-size: 16px;color: black;">
 									{{$record->title}}
 								</span>
 							</h5>
@@ -71,8 +71,12 @@
 
 							<h5 class="card-title text-primary">
 
+{{-- <<<<<<< HEAD
 								<span style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;font-size: 16px;color: #ff6f28;">
-									{{$record->title}}
+======= --}}
+								<span style="display:block;text-overflow: ellipsis;overflow: hidden; white-space: nowrap;font-size: 16px;color: black;">
+{{-- >>>>>>> develop
+ --}}									{{$record->title}}
 								</span>
 							</h5>
 							<div class="rating">
@@ -96,7 +100,7 @@
 		</div>
 		@if($all_post->count() > 4)
 		<div>
-			<button type="button" class="btn btn-danger" id="all">Xem tất cả</button>
+			<button type="button" class="btn btn-danger" id="all">Xem thêm</button>
 		</div>
 		@endif
 		@else
@@ -121,7 +125,7 @@
 
 							<h5 class="card-title text-primary">
 
-								<span style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;font-size: 16px;color: #ff6f28;">
+								<span style="display:block;text-overflow: ellipsis;overflow: hidden; white-space: nowrap;font-size: 16px;color: black;">
 									{{$record->title}}
 								</span>
 							</h5>

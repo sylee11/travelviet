@@ -63,17 +63,20 @@
 	</div>
 	<div class="form-row">
 		<div class="form-group col-md-3">
-			<label for="">Lat</label>
-			<input type="text" class="form-control input-sm" name="lat" id="lat" required="">
+			<!-- <label for="">Lat</label> -->
+			<input type="hidden" class="form-control input-sm" name="lat" id="lat" required="">
 		</div>
 		<div class="form-group col-md-3">
-			<label for="">Lng</label>
-			<input type="text" class="form-control input-sm" name="lng" id="lng" required="">
+			<!-- <label for="">Lng</label> -->
+			<input type="hidden" class="form-control input-sm" name="lng" id="lng" required="">
 		</div>
 	</div>
 
 
 	<button type="submit" class="btn btn-primary">Add</button>
+	<button type="submit" class="btn btn-danger">
+    <a href="/admin/place" style="color: white">Cancel</a>
+  </button>
 </form>
 <script type="text/javascript">
 
@@ -140,6 +143,8 @@ async defer></script>
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				};
+				    $('#lat').val(position.coords.latitude);
+					$('#lng').val(position.coords.longitude);
 				var map = new google.maps.Map(document.getElementById('map'), {
 					center: pos,
 					zoom: 10,
