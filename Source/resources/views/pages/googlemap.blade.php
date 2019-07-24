@@ -27,7 +27,7 @@
 </head>
 <body>
 
-  <div id="map" style="height: 500px;top:70px;border:1px solid red;  "></div>
+  <div id="map" style="height: 500px;top:60px;border:1px solid red;  "></div>
   <script type="text/javascript">
    var map, infoWindow;
    function initMap(){

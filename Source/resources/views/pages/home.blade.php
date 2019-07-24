@@ -108,7 +108,7 @@
           <form class="form-inline" action="{{route('search.list')}}" method="get">
             <input type="hidden" name="_token" value="{{ csrf_token()}}">
 
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" required="">
             <button class="btn " type="submit" style="background: #FB8B34; color: white; width: 120px;"> <span class="font-weight-bold" >Search </span></button>
 
           </form>
