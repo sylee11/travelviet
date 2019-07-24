@@ -68,3 +68,18 @@ ul .inline-list-style {
   margin-top:20px;
   color: #3997A6;
 }
+
+#card-img {
+width:100%;
+height:200px;
+float:left;
+overflow:hidden;
+position:relative;
+text-align:center;
+cursor:default;
+}
+#card-img:hover img{
+  
+transform:scale(1.2);
+}
+

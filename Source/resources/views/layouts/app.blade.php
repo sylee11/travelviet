@@ -66,9 +66,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Left Side Of Navbar -->
           <ul class="navbar-nav mr-auto">
-            <li ><a   class="nav-link  border-0" style="color: white; "  id="scr2"> About Us </a></li> 
-            <li ><a   class="nav-link  border-0" style="color: white; "  id="scr3"> Địa điểm </a></li> 
-            <li ><a   class="nav-link  border-0" style="color: white; "  id="scr1"> Liên hệ </a></li> 
+            <li ><a   class="nav-link  border-0" style="color: white; cursor:pointer; ;"  id="scr2"> About Us </a></li> 
+            <li ><a   class="nav-link  border-0" style="color: white; cursor:pointer;"  id="scr3"> Địa điểm </a></li> 
+            <li ><a   class="nav-link  border-0" style="color: white; cursor:pointer;"  id="scr1"> Liên hệ </a></li> 
 
           </ul>
 
