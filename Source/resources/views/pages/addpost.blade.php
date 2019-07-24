@@ -96,16 +96,16 @@
 		<div class="form-group ">
 			<label for="">Map</label>
 			<input id="pac-input" class="controls" type="text" placeholder="Search Box">
-			<div id="map"> </div>
+			<div id="map"></div>
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-3">
-				<label for="">Lat</label>
-				<input type="text" class="form-control input-sm" name="lat" id="lat" required="">
+				<!-- <label for="">Lat</label> -->
+				<input type="hidden"  class="form-control input-sm" name="lat" id="lat" required="">
 			</div>
 			<div class="form-group col-md-3">
-				<label for="">Lng</label>
-				<input type="text" class="form-control input-sm" name="lng" id="lng" required="">
+				<!-- <label for="">Lng</label> -->
+				<input type="hidden" class="form-control input-sm" name="lng" id="lng" required="">
 			</div>
 		</div>
 		<div class="form-group">
@@ -272,8 +272,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-rW15K4v7WHlCWmnCYMLzyR0pU1cPpeI&libraries=places&callback=initAutocomplete"
 async defer></script>
-
-
 <script type="text/javascript">
 	var infowindow = new google.maps.InfoWindow;
 	function initAutocomplete() {
@@ -283,6 +281,9 @@ async defer></script>
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				};
+				$('#lat').val(position.coords.latitude);
+				$('#lng').val(position.coords.longitude);
+	
 				var map = new google.maps.Map(document.getElementById('map'), {
 					center: pos,
 					zoom: 10,
@@ -325,6 +326,3 @@ async defer></script>
 	}
 </script>
 @endsection
-
-
-
