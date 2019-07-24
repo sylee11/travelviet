@@ -3,8 +3,12 @@
 <link href="{{asset('css/custom/front.css')}}" rel="stylesheet">
 @endpush
 @section('content')
+
 <div class="container" style="margin-top: 50px;">
 	<h1 style="margin-top:100px;margin-bottom: 50px;">Danh sách kết quả tìm kiếm </h1>
+	<div >
+		<p>Tìm thấy {{count($post)}} bài viết  </p>
+	</div>
 	
 	@foreach ($post as $record)
 	<div class="row" style="margin-bottom: 50px;background-color: #f5f4ef;width: 100%;height:300px;justify-content: center;
@@ -34,7 +38,7 @@
 	</div>
 </div>
 @endforeach
-
+<div style="display: inline-block;">{{$post->links()}}</div>
 </div>
 
 @endsection

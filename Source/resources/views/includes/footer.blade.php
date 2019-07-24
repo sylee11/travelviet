@@ -1,5 +1,5 @@
 <footer class="bg-dark" >
-  <section id="main-footer" >
+  <section id="main-footer" style="margin: 70px;" >
     <div class="container" style="display: flex; color: white;">
       <div class="col-sm-3" >
         <div>

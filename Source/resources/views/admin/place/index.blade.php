@@ -47,7 +47,7 @@
 						<td>{{$p->category->name}}</td>
 						<td>{{$p ->address}}</td>
 						<td align="center">
-							<button type="submit" class="btn-success">Detail</button>
+							<!-- <button type="submit" class="btn-success">Detail</button> -->
 							<button type="button" class="btn-info" data-toggle="modal" data-target="#myModal">
 								<a href="{{route('admin.place.edit', $p->id)}}" style="color: white">Edit</a>
 							</button>

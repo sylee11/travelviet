@@ -37,8 +37,6 @@ class UserController extends Controller
     	$search = $request->search;
     	$user = User::where('name', 'like' , "%".$request->search."%")->Paginate(10);
     	return view('pages.userManager', ['user' => $user, 'search' => $search]);
-
-
     }
     public function findpost(Request $request){
     	$id = $request->id;
