@@ -117,7 +117,7 @@ $cmts = $data->unique('cmt')->values();
   </div>
 
 </div>
-<div style="margin: 20px 0 100px 0;" class="">
+<div style="margin: 20px 0 100px 0;width: 100%;"">
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" data-toggle="tab" href="#description">Description</a>
@@ -129,7 +129,7 @@ $cmts = $data->unique('cmt')->values();
   </ul>
 
   <!-- Tab panes -->
-  <div style="height:500px" class="tab-content">
+  <div style="height:500px;" class="tab-content">
     <div id="description" class="container tab-pane active"><br>
       <h3>{{$data[0]->place}}</h3>
       <p>{{$data[0]->describer}}</p>
@@ -141,7 +141,8 @@ $cmts = $data->unique('cmt')->values();
 
   </div>
 </div>
-<div>
+
+<div class="container">
   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" style="margin-bottom: 20px;">
     Comment
   </button>
@@ -190,7 +191,7 @@ $cmts = $data->unique('cmt')->values();
     </div>
   </div>
 
-  <div style="margin-bottom: 50px;">
+  <div class="container" style="margin-bottom: 50px;">
 
     @foreach ($cmts as $key=>$value)
     <div class="media border p-3">

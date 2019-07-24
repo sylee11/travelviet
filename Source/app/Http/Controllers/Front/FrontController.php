@@ -63,7 +63,7 @@ class FrontController extends Controller
 		->groupBy('photos.photo_path')
 		->where('is_approved', '=', '1')
 		->where('photos.flag', '=', '1')
-		->take(4)
+		->take(3)
 		->get();
 
 		$all_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')
