@@ -40,7 +40,7 @@ class ProfileController extends Controller
 		if ($request->has('avatar')) {
 			$user = Auth::user();
 			$avatar = $request->avatar;
-			$avatarName = "/picture/" . $request->avatar->getClientOriginalName();
+			$avatarName = "/picture/avatar/" . $request->avatar->getClientOriginalName();
 			Image::make($avatar)->save(public_path($avatarName));
 			$user->avatar = $avatarName;
 			$user->save();

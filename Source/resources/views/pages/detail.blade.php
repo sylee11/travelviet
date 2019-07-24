@@ -1,6 +1,7 @@
 @extends('layouts.app')
 @section('header')
 <link rel="stylesheet" type="text/css" href="/css/custom/rating.css">
+<link rel="stylesheet" type="text/css" href="/css/custom/front.css">
 <style>
   #map {
     height: 500px;
@@ -117,7 +118,7 @@ $cmts = $data->unique('cmt')->values();
   </div>
 
 </div>
-<div style="margin: 20px 0 100px 0;width: 100%;"">
+<div style="margin: 20px 0 100px 0;width: 100%;">
   <ul class="nav nav-tabs" role="tablist">
     <li class="nav-item">
       <a class="nav-link active" data-toggle="tab" href="#description">Description</a>
@@ -141,7 +142,7 @@ $cmts = $data->unique('cmt')->values();
 
   </div>
 </div>
-
+</div>
 <div class="container">
   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" style="margin-bottom: 20px;">
     Comment
@@ -223,8 +224,49 @@ $cmts = $data->unique('cmt')->values();
 </div>
 
 
+<div class="container-fluid">
+  <div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những bài viết liên quan</h2></div>
 
+  <div class="row" style="justify-content: center;">
+    @if($post_relate->count() !== 0)
+    @foreach ($post_relate as $record)
+    <div class="col-sm-3" style="margin:50px 0;">
+      <div class="card-img" style="height:280px;">
+        <a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
+          <div style="height: 200px;">
+            <img class="card-img-top list_images" src="/{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+          </div>
+
+          <div class="card-body">
+
+            <h5 class="card-title text-primary">
+
+              <span style="display:block;text-overflow: ellipsis;overflow: hidden; white-space: nowrap;font-size: 16px;color:black;">
+                {{$record->title}}
+              </span>
+            </h5>
+            <div class="rating">
+              @for($i=0;$i< ceil($record->rate);$i++)
+              <span class="fa fa-star checked" ></span>
+              @endfor
+              @for($i=ceil($record->rate);$i< 5;$i++)
+              <span class="fa fa-star unchecked" ></span>
+              @endfor
+            </div>
+
+            <p class="card-text">
+            </p>
+
+          </div>
+        </a>
+
+      </div>
+    </div>
+    @endforeach
+    @endif
+  </div>
 </div>
+
 </div>
 {{-- invite Modal --}}
 <div class="modal fade" id="invite" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
