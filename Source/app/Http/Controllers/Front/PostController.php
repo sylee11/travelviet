@@ -77,8 +77,7 @@ class PostController extends Controller
         $post ->describer = $request->descrice;
         // $post ->save();
 
-        $toUsers = User::where('role','1')->get();
-        \Notification::send($toUsers, new CreatePost($post));
+
         
  
 	    
@@ -100,7 +99,8 @@ class PostController extends Controller
 
         //save post
         $post ->save();
-
+        $toUsers = User::where('role','1')->get();
+        \Notification::send($toUsers, new CreatePost($post));
         //create folder
         $path="picture/admin/post/".$post->id;
         if (!file_exists($path)) {
