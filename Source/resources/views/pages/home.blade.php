@@ -9,7 +9,6 @@
 ">
 
       <h1 id="homeHeading" style="font-size: 45px; margin-left: 20%; margin-right: 20%;">Travel Việt - Du Lịch Trong Tầm Tay Bạn</h1>
-      <hr>
       <hr align="content" width="20%" color="#3997A6" size="5px" style="padding-bottom: 1.5px;"> 
       <button  data-target="#demo" class="btn btn-primary  " style="width: 150px; height: 50px; border-radius: 20px; background-color: #3997A6">
       Tìm kiếm địa điểm </button>
@@ -87,7 +86,7 @@
                   success:function(res){               
                     if(res){
                       $("#district").empty();
-                      $("#district").append('<option>Quận huyện</option>');
+                      $("#district").append('<option value=''>Quận huyện</option>');
                       $.each(res,function(key,value){
                         $("#district").append('<option value="'+key+'">'+value+'</option>');
                       });
