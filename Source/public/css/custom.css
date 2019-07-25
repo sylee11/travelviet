@@ -70,16 +70,61 @@ ul .inline-list-style {
 }
 
 #card-img {
-width:100%;
-height:200px;
-float:left;
-overflow:hidden;
-position:relative;
-text-align:center;
-cursor:default;
+  width:100%;
+  height:280px;
+  float:left;
+  overflow:hidden;
+  position:relative;
+  text-align:center;
+  cursor:default;
+}
+#card-img img{
+  display:block;
+  height: 200px;
+  position:relative;
+  -webkit-transition:all .4s linear;
+  transition:all .4s linear;
 }
 #card-img:hover img{
   
-transform:scale(1.2);
+transform:scale(1.1);
 }
 
+#card-img:hover {
+
+  filter:alpha(opacity=50);
+-ms-transform:translatey(0);
+-webkit-transform:translatey(0);
+transform:translatey(0);
+}
+
+#scr2 {
+  color: white ;
+  cursor:pointer;
+}
+#scr1 {
+  color: white ;
+  cursor:pointer;
+}
+#scr3 {
+  color: white ;
+  cursor:pointer;
+}
+#scr2:hover {
+  font-size: 16px;
+  color: yellow ;
+  cursor:pointer;
+}
+#scr1:hover {
+  font-size: 16px;
+  color: yellow ;
+  cursor:pointer;
+}
+#scr3:hover {
+  font-size: 16px;
+  color: yellow ;
+  cursor:pointer;
+}
+.navbar-light .navbar-nav .nav-link{
+  color: white;
+}

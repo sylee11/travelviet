@@ -5,14 +5,14 @@
 @section('content-section')
 
 <div class="home">
-	<div class="container-fluid">
-		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những địa điểm được đánh giá cao</h2></div>
+	<div class="container-fluid"id="topplace">
+		<div style="text-align: center;margin-top:50px;color: #b3b3ba;" ><h2>Những địa điểm được đánh giá cao</h2></div>
 
 		<div class="row" style="justify-content: center;">
 			@if($top_rating->count() !== 0)
 			@foreach ($top_rating as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
-				<div class="card-img" style="height:280px;">
+				<div class="card-img" style="height:280px;" id="card-img">
 					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
 						<div style="height: 200px;">
 							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
@@ -60,11 +60,11 @@
 		<div class="row" style="justify-content: center;">
 			@if($new_post->count() !== 0)
 			@foreach ($new_post as $record)
-			<div class="col-sm-3" style="margin:50px 0;">
-				<div class="card-img" id="card-img" style="height:280px;">
+			<div class="col-sm-4" style="margin:50px 0;">
+				<div class="card-img" id="card-img" >
 					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;"id="pic">
 						<div style="height: 200px;">
-							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px; " >
+							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}} " >
 						</div>
 
 						<div class="card-body">
@@ -266,14 +266,23 @@
 		$("#scr1").click(function(){
 			var elmnt = document.getElementById("contact");
 			elmnt.scrollIntoView();
+			window.scrollBy(0, 50);
+
 		})
 		$("#scr2").click(function(){
 			var elmnt = document.getElementById("about");
 			elmnt.scrollIntoView();
+			window.scrollBy(0, -40);
 		})
 		$('#btnpositon').click(function(){
 			document.body.scrollTop = 0;
 			document.documentElement.scrollTop = 0;
+
+		})
+		$('#scr3').click(function(){
+			var elmnt = document.getElementById("topplace");
+			elmnt.scrollIntoView();
+			window.scrollBy(0, -100);
 
 		})
 		$(window).scroll(function() {    
