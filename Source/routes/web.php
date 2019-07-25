@@ -92,7 +92,6 @@ Route::get('show-register', 'Auth\RegisterController@showFormRegister')->name('s
 Route::post('signup', 'Auth\RegisterController@store')->name('signup');
 
 Route::get('auth/google/callback', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
-//Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCallback');
 
 Route::get('/change_password', 'Auth\ChangePasswordController@show')->name('show_changePass');
 Route::post('/update_password', 'Auth\ChangePasswordController@update')->name('update_changePass');
