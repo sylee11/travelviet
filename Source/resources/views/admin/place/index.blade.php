@@ -5,7 +5,11 @@
 	<div class="card-header">
 		<i class="fas fa-table"></i>
 	Data Table Place </div>
-
+    @if(Session::has('success'))
+	<div class="alert alert-danger">
+		{{Session::get('success')}}
+	</div>
+	@endif
 	<div class="card-body">
 		<div style="margin-bottom: 15px">
 			<button type="button" class="btn btn-success" >
@@ -21,7 +25,7 @@
 						<th>Time create</th>
 						<th>Time modify</th>
 						<th>Category</th>
-						<th>Districst</th>
+						<th>Address</th>
 						<th>More</th>
 					</tr>
 				</thead>
@@ -32,7 +36,7 @@
 						<th>Time create</th>
 						<th>Time modify</th>
 						<th>Category</th>
-						<th>Districst</th>
+						<th>Address</th>
 						<th>More</th>
 					</tr>
 				</tfoot>
@@ -48,6 +52,9 @@
 						<td>{{$p ->address}}</td>
 						<td align="center">
 							<!-- <button type="submit" class="btn-success">Detail</button> -->
+							<button type="button" class="btn-success" data-toggle="modal" data-target="#myModal">
+								<a href="{{route('admin.place.detail', $p->id)}}" style="color: white">Detail</a>
+							</button>
 							<button type="button" class="btn-info" data-toggle="modal" data-target="#myModal">
 								<a href="{{route('admin.place.edit', $p->id)}}" style="color: white">Edit</a>
 							</button>
