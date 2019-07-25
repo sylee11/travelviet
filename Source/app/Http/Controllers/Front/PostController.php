@@ -14,6 +14,7 @@ use App\City;
 use DB;
 use Auth;
 use File;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\CreatePost;
 class PostController extends Controller
@@ -45,9 +46,11 @@ class PostController extends Controller
     	$post = new Post;
     	$post -> user_id = Auth::id();
     	$post -> phone = $request ->phone;
-    
     	//check place exist
-    	$findPlace = Place::where('name', '=', $request->name)->first();
+    	$findPlace = Place::where([
+            ['name', '=', $request->name],
+            ['districts_id', '=', $request->districts_id]
+            ])->first();
     	if($findPlace){
     		 //dd($findPlace);
     	    $post ->place_id = $findPlace->id;
@@ -72,33 +75,54 @@ class PostController extends Controller
         $post ->title = $request ->title;
         $post ->is_approved = 0;
         $post ->describer = $request->descrice;
-        $post ->save();
+        // $post ->save();
 
+
+        
+ 
+	    
+        //check image
+        if($request->has('filename')){
+        	foreach ($request->file('filename') as $pho) {
+        		$name=$pho->getClientOriginalName();
+                $thumbnailImage = Image::make($pho);
+                if($thumbnailImage->width() < 1000 || $thumbnailImage->height()<600)
+                {
+                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá nhỏ so với yêu cầu)');
+                }
+                if($thumbnailImage->width() > 2500 && $thumbnailImage->height()>1300)
+                {
+                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá lớn so với yêu cầu)');
+                }
+	        }
+        }
+
+        //save post
+        $post ->save();
         $toUsers = User::where('role','1')->get();
         \Notification::send($toUsers, new CreatePost($post));
-        
+        //create folder
         $path="picture/admin/post/".$post->id;
         if (!file_exists($path)) {
             File::makeDirectory($path);
         }
-	    
-	    
+        //save image
         if($request->has('filename')){
-        	foreach ($request->file('filename') as $pho) {
-        		$name=$pho->getClientOriginalName();
-        		$photo = new Photo;
-	        	$photo->post_id = $post->id;
-	        	$pho->move($path, $name);  
-	        	$photo->photo_path = "picture/admin/post/".$post->id."/".$name;
-	        	$photo->flag = 0;
+            foreach ($request->file('filename') as $pho) {
+                $name=$pho->getClientOriginalName();
+                $photo = new Photo;
+                $photo->post_id = $post->id;
+                $pho->move($path, $name);  
+                $photo->photo_path = "picture/admin/post/".$post->id."/".$name;
+                $photo->flag = 0;
                 $photo->save();
-	        }
+            }
         }
+
 
         $photoflag = Photo::where('post_id', $post->id)->first();
         $photoflag->flag =1;
         $photoflag->save();
-        //return redirect() ->back()->with('success', " Thêm bài đăng thành công");
 
         return redirect()->route('mypost')->with('success', " Thêm bài đăng thành công");
     }
@@ -138,7 +162,6 @@ class PostController extends Controller
         $posts ->is_approved = $request->approved;
         $posts ->title = $request ->title;
         $posts ->describer = $request->input('descrice');
-        $posts -> save();
 
         //edit place
         $place = Place::where('name', $request->name)->first();
@@ -149,7 +172,7 @@ class PostController extends Controller
         	$place->districts_id = $request->districts_id; 
      		
       	}
-        $place->save();
+
 
         $path = 'picture/admin/post/'.$posts->id;
         if($request->has('filename')){
@@ -165,7 +188,15 @@ class PostController extends Controller
                           if($value->photo_path ==  $namet  )
                               return "Photo exits";
                 }  
-
+                $thumbnailImage = Image::make($image);
+                if($thumbnailImage->width() < 1000 || $thumbnailImage->height()<600)
+                {
+                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá nhỏ so với yêu cầu)');
+                }
+                if($thumbnailImage->width() > 2500 && $thumbnailImage->height()>1300)
+                {
+                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá lớn so với yêu cầu)');
+                }
                 $image->move($path, $name);  
                 $photo = new photo;
                 $photo->photo_path = $path."/".$name;
@@ -175,7 +206,8 @@ class PostController extends Controller
             }
         }
 
-
+        $posts -> save();
+        $place->save();
         //delete photo
         $photoedit = $request->p1; // This will get all the request data.
         $edit = explode('/',$photoedit);

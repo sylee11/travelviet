@@ -1,5 +1,24 @@
 @extends('layouts.app')
+<?php
+require_once base_path('vendor\autoload.php');
 
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+}
+
+$fb = new Facebook\Facebook([
+    'app_id' => '2500657973298544', 
+    'app_secret' => 'fe55cfc3f3fbed74b5c1e02cda1a8869',
+    // 'default_graph_version' => 'v3.2',
+]);
+
+$helper = $fb->getRedirectLoginHelper();
+
+$permissions = ['email'];
+$loginUrl = $helper->getLoginUrl('https://travel.test/fb-callback', $permissions);
+
+?>
 @section('content')
 <div class="container" style="margin-top: 100px;">
   <div class="row justify-content-center">
@@ -8,14 +27,7 @@
         <div class="card-header"><h3>Sign In</h3></div>
 
         <div class="card-body">
-          @if (session('error'))
-          <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert" aria_label="Close">
-              <span aria_hidden= "true">&times;</span>
-            </button>
-            {{ session('error') }}
-          </div>
-          @endif
+          
           <form class="form-horizontal" method="POST" action="{{ route('login') }}">
             @csrf
             <div class="form-group row" style="justify-content: center;">
@@ -31,7 +43,7 @@
             <div class="form-group row" style="justify-content: center;">
               <div class="col-md-6">
 
-                <a href="" class="btn btn-social btn-facebook">
+                <a href="{{$loginUrl}}" class="btn btn-social btn-facebook">
                   <i class="fab fa-facebook-f"></i>
                   Sign in with Facebook
                 </a>
