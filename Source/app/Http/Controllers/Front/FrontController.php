@@ -62,7 +62,7 @@ class FrontController extends Controller
 		->groupBy('photos.photo_path')
 		->where('is_approved', '=', '1')
 		->where('photos.flag', '=', '1')
-		->take(3)
+		->take(6)
 		->get();
 
 		$all_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')
@@ -141,9 +141,9 @@ class FrontController extends Controller
 
 			])
 			->distinct()
-			//	->avg('ratings.rating');
+			->take(4)
+			//->avg('ratings.rating')
 			->get();
-
 		foreach ($data2 as $key => $value) {
 			$value->rate = DB::table('ratings')
 				->where('post_id', $value->id)
@@ -152,7 +152,7 @@ class FrontController extends Controller
 
 		//dd($data2);
 
-		return view('pages/detail', ['data' => $data, 'rating' => $rating, 'user_rate' => $user_rate]);
+		return view('pages/detail', ['data' => $data, 'rating' => $rating, 'user_rate' => $user_rate,'post_relate'=>$data2]);
 	}
 	public function rate(Request $request)
 	{
