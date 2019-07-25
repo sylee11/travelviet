@@ -9,11 +9,11 @@
 ">
 
       <h1 id="homeHeading" style="font-size: 45px; margin-left: 20%; margin-right: 20%;">Travel Việt - Du Lịch Trong Tầm Tay Bạn</h1>
+      <hr>
       <hr align="content" width="20%" color="#3997A6" size="5px" style="padding-bottom: 1.5px;"> 
       <button  data-target="#demo" class="btn btn-primary  " style="width: 150px; height: 50px; border-radius: 20px; background-color: #3997A6">
       Tìm kiếm địa điểm </button>
       <div style="display: flex;justify-content: center;">
-
       <form action="{{route('get.list')}}" method="get">
         <input type="hidden" name="_token" value="{{ csrf_token()}}">
         <div style="display: flex; justify-content: center; padding-top: 40px;">
@@ -31,11 +31,10 @@
 
           <div class="" style="padding-right: 50px;">
             <select class="btn btn-secondary dropdown-toggle" name="districts_id" id="district" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px;">
-              <option value="">Quận huyện</option>
+              <option >Quận,huyện</option>
 
-
-              </select>
-            </div>
+            </select>
+          </div>
 
           <div class="" style="padding-right: 50px;">
             <select class="btn btn-secondary dropdown-toggle dropdown-menu-lg-right" name="category_id" id="category" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px;">
@@ -45,34 +44,19 @@
               @endforeach
             </select>
           </div>
-          <!-- <div style="display: flex;">
+          <div style="display: flex;">
             <button type="submit" class="btn "  id="find" style="height: 37px; margin-right: 40px; background-color: #3997A6" >
               <a  href=""><i class="fas fa-search" style="color: white"></i></a></button>              
               
-
-            </div> -->
-            <div style="display: flex;">
-              <button type="submit" class="btn btn-primary" id="find" style="height: 37px; margin-right: 40px; " >
-                <i class="fas fa-search" style="color: white"></i></button>
-
-
-              </div>
-
             </div>
-          </form>
-          <!-- <div style="padding-top: 100px;">
-            <button class="btn btn-primary"  style="height: 37px;   ">
-              <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
-            </button>
-          </div> -->
-
-        
+            
+          </div>
+        </form>
         <div style="padding-top: 40px;">
           <button class="btn "  style="height: 37px; background-color: #3997A6   ">
             <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
           </button>
         </div>
-
         </div>
         <script type="text/javascript">
           $(document).ready(function(){
@@ -87,7 +71,7 @@
                   success:function(res){               
                     if(res){
                       $("#district").empty();
-                      $("#district").append('<option value=''>Quận huyện</option>');
+                      $("#district").append('<option >Quận,huyện</option>');
                       $.each(res,function(key,value){
                         $("#district").append('<option value="'+key+'">'+value+'</option>');
                       });
@@ -107,10 +91,8 @@
         <div style="justify-content: center; display: flex; margin: 50px;">
           <form class="form-inline" action="{{route('search.list')}}" method="get">
             <input type="hidden" name="_token" value="{{ csrf_token()}}">
-
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" required="">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search">
             <button class="btn " type="submit" style="background: #FB8B34; color: white; width: 120px;"> <span class="font-weight-bold" >Search </span></button>
-
           </form>
 
         </div>
