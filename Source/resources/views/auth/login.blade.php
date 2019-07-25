@@ -4,24 +4,24 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
 <?php
-require base_path('vendor\autoload.php');
-session_start();
+require_once base_path('vendor\autoload.php');
 
+if(!isset($_SESSION)) 
+{ 
+    session_start(); 
+}
 $fb = new Facebook\Facebook([
-    'app_id' => '2500657973298544', // Replace {app-id} with your app id
+    'app_id' => '2500657973298544',
     'app_secret' => 'fe55cfc3f3fbed74b5c1e02cda1a8869',
     // 'default_graph_version' => 'v3.2',
 ]);
 
 $helper = $fb->getRedirectLoginHelper();
 
-$permissions = ['email']; // Optional permissions
-#$loginUrl = $helper->getLoginUrl('https://test.test/fb-callback.php', $permissions);
+$permissions = ['email']; 
+
 $loginUrl = $helper->getLoginUrl('https://travel.test/fb-callback', $permissions);
-// echo '<a href="' . htmlspecialchars($loginUrl) . '">Log in with Facebook!</a>';
-//echo '<a href="'.$loginUrl.'">fb</a>';
-//echo "<a href = {$loginUrl}>fbook</a>";
-//echo $loginUrl;
+
 ?>
 @section('content')
 <div class="card-body" style="text-align:center;">

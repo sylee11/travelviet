@@ -43,7 +43,7 @@
 
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
-<script>
+  <script>
 
   </script>
   @yield('header')
@@ -89,20 +89,27 @@
             @else
             <li><a href=""></a></li>
             <li class="nav-item dropdown" style="">
-              <a id="" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;font-size: 13px;" v-pre>
+              <a id="" class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;font-size: 13px;" v-pre>
                 <i class="fa fa-bell fa-2x" style="margin-top: 0%;"></i>
                 <span class="badge badge-light">{{Auth::user()->unreadNotifications->count()}}</span>
               </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">  
+              @foreach(Auth::user()->unreadNotifications as $notification)
+                <!-- <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item"> {{$notification->type}} id={{$notification->data['post_id']}}</a> -->
+                <a href="{{$notification->data['link']}}" id="notify" class="dropdown-item"> {{$notification->data['message']}}</a>
+                @endforeach
                 @foreach(Auth::user()->Notifications as $notification)
-                <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item" > {{$notification->type}} id={{$notification->data['post_id']}}</a>
+                @if($notification->read_at !=NULL)
+                <!-- <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item" style="background-color:lightgrey"> {{$notification->type}} id={{$notification->data['post_id']}}</a> -->
+                <a href="{{$notification->data['link']}}" id="notify" class="dropdown-item" style="background-color:lightgrey"> {{$notification->data['message']}}</a>
+                @endif
                 @endforeach
               </div>
             </li>
             <li class="nav-item dropdown" style="">
               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;font-size: 13px;" v-pre>
 
-                <img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar"  style="border-radius: 50%;margin-right: 10px; width: 30px; height: 30px;">
+                <img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="Avatar" style="border-radius: 50%;margin-right: 10px; width: 30px; height: 30px;">
                 @if (!empty(Auth::user()->name))
                 {{Auth::user()->name}}
                 @else
@@ -181,7 +188,7 @@
             </button>
           </div>
           <div class="modal-footer">
-            <form id="logout-form" action="{{route('upgrade')}}" method="post">
+            <form id="upgrade-form" action="{{route('upgrade')}}" method="post">
               @csrf
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-primary" id="accept">Accept</button>
@@ -245,15 +252,15 @@
       </div>
     </div>
   </div>
-</div>
-<div>
-  <button class="btn btn-dark" style="width: 50px; height: 50px; position: fixed;bottom: 20px;
+  </div>
+  <div>
+    <button class="btn btn-dark" style="width: 50px; height: 50px; position: fixed;bottom: 20px;
   right: 30px;" id="btnpositon"> ^</button>
-</div>
+  </div>
 
-    @yield('content')
+  @yield('content')
 
-    @include('includes.footer')
+  @include('includes.footer')
   </div>
 </body>
 

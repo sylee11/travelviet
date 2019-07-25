@@ -21,6 +21,7 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::get('/home', function(){
 		return view('pages.home');
 	})->name('home');
+	Route::get('/all-posts', 'FrontController@allPosts')->name('all.posts');
 	Route::get('profile', 'ProfileController@show')->name('profile');
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
 	Route::get('/post/{id}', 'FrontController@showPosts')->name('show.posts');
@@ -92,7 +93,6 @@ Route::get('show-register', 'Auth\RegisterController@showFormRegister')->name('s
 Route::post('signup', 'Auth\RegisterController@store')->name('signup');
 
 Route::get('auth/google/callback', 'Auth\SocialAuthController@redirectToProvider')->name('login.social');
-//Route::get('auth/google/callback', 'Auth\SocialAuthController@handleProviderCallback');
 
 Route::get('/change_password', 'Auth\ChangePasswordController@show')->name('show_changePass');
 Route::post('/update_password', 'Auth\ChangePasswordController@update')->name('update_changePass');

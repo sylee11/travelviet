@@ -38,18 +38,18 @@ class ApprovedController extends Controller
 		//dd($post);
 		//$photo = Photo::all();
 		$notifytable = DB::table('notifications')
-			->select('data','type')
+			->select('data', 'type')
 			->where('notifications.id', '=', $id)->first();
-		//var_dump($notifytable->type);return;
-		$id_post = substr($notifytable->data, 11, strlen($notifytable->data) - 12);
-		if ($notifytable->type == 'App\Notifications\AcceptPost') 
-		{
-			
+
+		$id_post = substr($notifytable->data, 11, strpos($notifytable->data, ',') - 11);
+		//var_dump($id_post);return;
+		/*if ($notifytable->type == 'App\Notifications\AcceptPost') {
+
 			DB::table('notifications')
-			->where('notifications.id', '=', $id)
-			->delete();
+				->where('notifications.id', '=', $id)
+				->delete();
 			return redirect("/detail/$id_post");
-		 }
+		}*/
 		DB::table('notifications')
 			->where('notifications.id', '=', $id)
 			->update(['read_at' => now()]);
@@ -57,7 +57,7 @@ class ApprovedController extends Controller
 		//$notification->markAsRead();
 		//$id_post =$notification->data['post_id'];
 
-		
+
 		//	print($id_post);return;
 		$data = DB::table('posts')
 			->join('photos', 'posts.id', '=', 'photos.post_id')
@@ -91,7 +91,7 @@ class ApprovedController extends Controller
 
 		DB::table('notifications')
 			->where([
-				['notifications.data', '=', "{\"post_id\":$id}"],
+				['notifications.data', 'like', "{\"post_id\":$id%"],
 				['notifications.type', '=', 'App\Notifications\CreatePost'],
 			])
 			->delete();

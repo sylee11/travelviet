@@ -5,9 +5,7 @@
 <script src="{{asset('js/popper.min.js')}}"></script>
 
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
-<script>
-	
-</script>
+
 <div class="card mb-3">
 
 	<div class="card-header">
