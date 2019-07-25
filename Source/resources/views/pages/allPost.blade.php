@@ -5,9 +5,22 @@
 @section('content')
 
 <div class="container-fluid">
-	<div style="text-align: center;margin-top:100px;color: black;"><h2>Tất cả các bài viết</h2></div>
+	<div style="text-align: center;margin-top:100px;color: black;margin-bottom: 50px;"><h2>Tất cả các bài viết</h2></div>
+	<form class="form-inline" style="margin-bottom: 50px;justify-content: center;" method="get" action="{{route('search.posts')}}">
+		<input type="text" class="form-control" name="search" 
+		value="" placeholder="Nhập từ khóa" style="width: 300px;">
+		<button type="submit" class="btn-success btn" style="margin-left: 20px;"> Search</button>
+	</form>
+	@if(isset($search))
+	<div class="font-weight-bold">
+		Đã tìm thấy <span style="color: green;">{{$all_posts->count()}}</span> kết quả  cho từ khóa <span style="color: green"> "{{$search}}"</span>
+	</div>
+	@endif
 
 	<div class="row" style="justify-content: center;">
+
+
+
 		@if($all_posts->count() !== 0)
 		@foreach ($all_posts as $record)
 		<div class="col-sm-4" style="margin:50px 0;">
