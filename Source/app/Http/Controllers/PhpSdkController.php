@@ -14,6 +14,7 @@ class PhpSdkController extends Controller
 
 
     session_start();
+ 
     $fb = new \Facebook\Facebook([
       'app_id' => '2500657973298544',
       'app_secret' => 'fe55cfc3f3fbed74b5c1e02cda1a8869',
