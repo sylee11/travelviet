@@ -44,7 +44,7 @@
 $photo_path = $data->unique('photo_path')->values();
 $cmts = $data->unique('cmt')->values();
 ?>
-<div style='text-align:left;margin-top:75px;' class="container">
+<div class="container" style='text-align:left;margin-top:75px;'>
   <h1 class="my-4">{{$data[0]->title}}
     <small style="text-align:right;font-size: 18px;">by <a style="color: black;text-decoration: none;" href="/user/{{$data[0]->user_id}}"> {{$data[0]->name}}</a>,{{ date('d-m-Y', strtotime($data[0]->created_at)) }}</small>
 
