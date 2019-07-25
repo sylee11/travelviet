@@ -32,7 +32,7 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::get('/list_place', 'SearchListController@getList')->name('get.list');
 	// Route::post('/list_place', 'SearchListController@postList')->name('get.list');
 	Route::get('/search_list', 'SearchListController@getsearch')->name('search.list');
-	Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
+	// Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
 	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
 	
 

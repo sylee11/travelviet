@@ -61,6 +61,7 @@
             }
             
           });
+          
 
             $.each( place, function( index, value ){
               marker.addMarker({
