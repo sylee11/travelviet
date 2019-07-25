@@ -9,6 +9,7 @@ use DB;
 use App\Post;
 use App\Rating;
 use App\Photo;
+use File;
 class UserController extends Controller
 {
     public function show(){
@@ -24,12 +25,25 @@ class UserController extends Controller
     	if($user->first()->role == 1){
     		return redirect()->back()->with('errro' , 'Ban khong the xoa admin');
     	}
-    	$user->delete();
     	$post = Post::where('user_id', $request->id);
-    	$post->delete();
-    	$rating =  Rating::where('user_id', $request->id);
-    	$rating->delete();
-    	// $photo= photo::where('')
+        $postid = Post::where('user_id', $request->id)->get();
+        foreach ($postid as $p) {
+            # code...
+            $photo = Photo::where('post_id', $p->id);
+            $rating2 = Rating::where('post_id', $p->id);
+            $path = "/picture/admin/post/".$p->id; 
+            $rating2->delete();
+            $photo->delete();
+            File::deleteDirectory(public_path($path));
+        }
+         
+        $user->delete();
+        $post->delete();
+
+        //delete rating user (post khac)
+        $rating =  Rating::where('user_id', $request->id);
+        $rating->delete();
+
     	return redirect()->back()->with('success', 'delete success');
     }
 

@@ -77,6 +77,7 @@
         <script type="text/javascript">
           $(document).ready(function(){
             $('#city').change(function(){
+              console.log("ãv");
               var cityID = $(this).val();    
 
               if(cityID){
