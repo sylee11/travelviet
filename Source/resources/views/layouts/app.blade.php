@@ -93,13 +93,15 @@
                 <i class="fa fa-bell fa-2x" style="margin-top: 0%;"></i>
                 <span class="badge badge-light">{{Auth::user()->unreadNotifications->count()}}</span>
               </a>
-              <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
-                @foreach(Auth::user()->unreadNotifications as $notification)
-                <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item"> {{$notification->type}} id={{$notification->data['post_id']}}</a>
+              <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">  
+              @foreach(Auth::user()->unreadNotifications as $notification)
+                <!-- <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item"> {{$notification->type}} id={{$notification->data['post_id']}}</a> -->
+                <a href="{{$notification->data['link']}}" id="notify" class="dropdown-item"> {{$notification->data['message']}}</a>
                 @endforeach
                 @foreach(Auth::user()->Notifications as $notification)
                 @if($notification->read_at !=NULL)
-                <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item" style="background-color:lightgrey"> {{$notification->type}} id={{$notification->data['post_id']}}</a>
+                <!-- <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item" style="background-color:lightgrey"> {{$notification->type}} id={{$notification->data['post_id']}}</a> -->
+                <a href="{{$notification->data['link']}}" id="notify" class="dropdown-item" style="background-color:lightgrey"> {{$notification->data['message']}}</a>
                 @endif
                 @endforeach
               </div>
