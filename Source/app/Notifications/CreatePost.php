@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Post;
+
 class CreatePost extends Notification
 {
     use Queueable;
@@ -41,9 +42,9 @@ class CreatePost extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -55,7 +56,9 @@ class CreatePost extends Notification
     public function toArray($notifiable)
     {
         return [
-            'post_id'=> $this->post->id,
+            'post_id' => $this->post->id,
+            'message' => "Bai viet cho phe duyet id= " . $this->post->id,
+            'link' => "/account/admin/approved/show/$this->id",
         ];
         //return $this->post->toArray();
     }

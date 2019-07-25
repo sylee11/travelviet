@@ -108,13 +108,15 @@ $cmts = $data->unique('cmt')->values();
       {{ session('success') }}
     </div>
     @endif
-    <div class="row" style="justify-content: flex-end;margin-right: 5px;">
-     <div class="fb-share-button" data-href="{{url()->current()}}" data-layout="button" data-size="large">
-      <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}" class="fb-xfbml-parse-ignore">Chia sẻ</a>
+    <div>
+      <div class="row" style="justify-content: flex-end;margin-right: 5px;">
+       <div class="fb-share-button" data-href="{{url()->current()}}" data-layout="button" data-size="large">
+        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}" class="fb-xfbml-parse-ignore">Chia sẻ</a>
+      </div>
     </div>
-  </div>
-  <div class="row" style="justify-content: flex-end;margin-right: -7px; margin-top: 10px;">
-    <a href="{{route('invite')}}" title="" style="right: 0px;" class="btn btn-info"  data-toggle="modal" data-target="#invite">Invite friend</a>
+    <div class="row" style="justify-content: flex-end;margin-right: -7px; margin-top: 10px;">
+      <a href="{{route('invite')}}" title="" style="right: 0px;" class="btn btn-danger"  data-toggle="modal" data-target="#invite">Share email</a>
+    </div>
   </div>
 
 </div>
@@ -225,7 +227,7 @@ $cmts = $data->unique('cmt')->values();
 
 
 <div class="container-fluid">
-  <div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những bài viết liên quan</h2></div>
+  <div style="text-align: center;margin-top:50px;"><h2>Những bài viết liên quan</h2></div>
 
   <div class="row" style="justify-content: center;">
     @if($post_relate->count() !== 0)
@@ -263,6 +265,8 @@ $cmts = $data->unique('cmt')->values();
       </div>
     </div>
     @endforeach
+    @else 
+    <p>Không có bài viết liên quan</p>
     @endif
   </div>
 </div>
