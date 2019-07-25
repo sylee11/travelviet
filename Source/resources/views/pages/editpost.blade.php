@@ -13,7 +13,17 @@
 @extends('layouts.app')
 	@section('content')
 		<div class="container" style="margin-top: 200px; text-align: left;">
-			<h3 class="text-center"> Add new Post</h3>
+			<h3 class="text-center"> Edit Post</h3>
+				@if (session('success'))
+				<div class="alert alert-success">
+					{{ session('success') }}
+				</div>
+				@endif
+				@if (session('erro'))
+				<div class="alert alert-danger">
+					{{ session('erro') }}
+				</div>
+				@endif
 			<FORM   action="{{route('account.editpost', [$id =Auth::id() , $idpost=$post->id] )}}" method="post" enctype="multipart/form-data">
 				@csrf
 				<div class="form-row">

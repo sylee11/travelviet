@@ -92,14 +92,14 @@
  --}}
  		<h5>Upload image</h5>
         <div class="input-group control-group increment" >
-          <input type="file" name="filename[]" class="form-control">
+          <input type="file" name="filename[]" class="form-control" accept="image/x-png,image/jpeg">
           <div class="input-group-btn">  
             <button class="btn btn-success add" type="button"><i class="glyphicon glyphicon-plus" id="add"></i>Add</button>
           </div>
         </div>
         <div class=" clone" style="overflow: hidden;">
           <div class="control-group input-group" style="margin-top:10px">
-            <input type="file" name="filename[]" class="form-control">
+            <input type="file" name="filename[]" class="form-control" accept="image/x-png,image/jpeg">
             <div class="input-group-btn"> 
               <button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove" id="removed"></i> Remove</button>
             </div>
