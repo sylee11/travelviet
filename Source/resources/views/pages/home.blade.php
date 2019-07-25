@@ -86,7 +86,7 @@
                   success:function(res){               
                     if(res){
                       $("#district").empty();
-                      $("#district").append('<option>Quận huyện</option>');
+                      $("#district").append('<option value=''>Quận huyện</option>');
                       $.each(res,function(key,value){
                         $("#district").append('<option value="'+key+'">'+value+'</option>');
                       });
