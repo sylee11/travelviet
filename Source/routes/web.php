@@ -22,6 +22,7 @@ Route::group(['namespace' => 'Front'], function (){
 		return view('pages.home');
 	})->name('home');
 	Route::get('/all-posts', 'FrontController@allPosts')->name('all.posts');
+	Route::get('search-post', 'FrontController@searchPost')->name('search.posts');
 	Route::get('profile', 'ProfileController@show')->name('profile');
 	Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
 	Route::get('/post/{id}', 'FrontController@showPosts')->name('show.posts');
