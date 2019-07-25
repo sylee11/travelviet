@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Hash;
 use App\User;
+use DB;
+use App\Photo;
+use app\Post;
 
 class UserController extends Controller
 {
@@ -120,10 +123,43 @@ public function postedit (Request $request,$id)
 public function xoa($id)
 {
     $user = User::find($id);
+    // if($user->first()->role == 1){
+    //     return \Redirect::route('admin.user.index')->back()->with('errro' , 'Ban khong the xoa admin');
+    // }
+   
+        $photo =DB::table('photos')
+        ->join('posts','photos.post_id','=','posts.id')
+        ->join('users','posts.user_id','=','users.id')
+        
+        ->where([
+            // ['photos.post_id', '=','posts.id'],
+            ['user_id','=',$id]
+        ])
+        ->delete();
+        // $rating1 =DB::table('ratings')
+        //  ->join('posts','ratings.post_id','=','posts.id')
+        //  ->join('users','posts.user_id','=','users.id')
+        
+        //  ->where([
+        //    ['posts.user_id','=','users.id']
+           
+        //    ])
+        //  ->delete();
 
-    $user->delete();
-    $user=User::all();
-    return view('admin.user.index',['user'=>$user]);
+         $rating =DB::table('ratings')  
+         ->where([
+            ['user_id','=',$id],
+           ])
+         ->delete();
+
+        $post = DB::table('posts')
+        ->where('user_id','=',$id)
+        ->delete();
+       
+        $user->delete();
+
+        $user=User::all();
+        return view('admin.user.index',['user'=>$user]);
 
         // return redirect('admin.user.index')->with('thongbao','ban da xoa thanh cong');
 }
