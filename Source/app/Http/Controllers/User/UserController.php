@@ -8,20 +8,20 @@ use Hash;
 use App\User;
 use DB;
 use App\Photo;
-use app\Post;
+use App\Post;
+use App\Rating;
+use File;
 
 class UserController extends Controller
 {
     public function index()
     {
-    	// $user['users']=User::all();
-     //    return view('admin.user.index',$user);
 
-     $user=User::all();
-     return view('admin.user.index',['user'=>$user]);
- }
- public function store(Request $request)
- {
+       $user=User::all();
+       return view('admin.user.index',['user'=>$user]);
+   }
+   public function store(Request $request)
+   {
     $this->validate($request,
         [
             'name'=>'required|max:255',
@@ -49,12 +49,14 @@ class UserController extends Controller
     $user->status=1;
     $user->save();
     $user=User::all();
-    return view('admin.user.index',['user'=>$user]);
+    return redirect()->back()->with('success1','bạn đã thêm thành công một user');
+
+    // return view('admin.user.index',['user'=>$user]);
 }
 public function getedit ($id)
 {
-   $user=User::find($id);
-   return view('admin.user.edit',['user'=>$user]);
+ $user=User::find($id);
+ return view('admin.user.edit',['user'=>$user]);
 }
 public function postedit (Request $request,$id)
 {
@@ -104,11 +106,11 @@ public function postedit (Request $request,$id)
 
             ],
             [   
-               'password.required'=>'bạn chưa nhập pass',
-               'password.min(8)'=>'bạn nhập ít nhất 5 kí tự'  ,
-               'passwordAgain.required'=>'bạn chưa nhập lại mật khẩu'     
-           ]
-       );
+             'password.required'=>'bạn chưa nhập pass',
+             'password.min(8)'=>'bạn nhập ít nhất 8 kí tự'  ,
+             'passwordAgain.required'=>'bạn chưa nhập lại mật khẩu'     
+         ]
+     );
         $user->password=bcrypt($request->password);
 
     }
@@ -123,43 +125,52 @@ public function postedit (Request $request,$id)
 public function xoa($id)
 {
     $user = User::find($id);
-    // if($user->first()->role == 1){
-    //     return \Redirect::route('admin.user.index')->back()->with('errro' , 'Ban khong the xoa admin');
-    // }
-   
-        $photo =DB::table('photos')
-        ->join('posts','photos.post_id','=','posts.id')
-        ->join('users','posts.user_id','=','users.id')
-        
+    $check = $user->role;
+   // dd($check);
+    if($check == 1){
+
+        return redirect()->back()->with('error' , 'Ban khong the xoa admin');
+    }
+    else{
+
+        // $photo =DB::table('photos')
+        // ->join('posts','photos.post_id','=','posts.id')
+        // ->join('users','posts.user_id','=','users.id')
+
+        // ->where([
+        //     // ['photos.post_id', '=','posts.id'],
+        //     ['user_id','=',$id]
+        // ])
+        // ->delete();
+
+        // File::deleteDirectory(public_path($path));
+
+        $post1 = Post::where('user_id', $id);
+        $postid = Post::where('user_id', $id)->get();
+        foreach ($postid as $p) {  
+            $photo = Photo::where('post_id', $p->id);      
+            $rating2 = Rating::where('post_id', $p->id);  
+            $path = "/picture/admin/post/".$p->id;         
+            $rating2->delete();     
+            $photo->delete();
+            File::deleteDirectory(public_path($path));    
+        }
+        $rating =DB::table('ratings')  
         ->where([
-            // ['photos.post_id', '=','posts.id'],
-            ['user_id','=',$id]
+            ['user_id','=',$id],
         ])
         ->delete();
-        // $rating1 =DB::table('ratings')
-        //  ->join('posts','ratings.post_id','=','posts.id') 
-        //  ->join('users','posts.user_id','=','users.id')
-        //  ->where([
-        //    ['posts.id','=','ratings.post_id']   
-        //    ])
-        //  ->delete();
-
-         $rating =DB::table('ratings')  
-         ->where([
-            ['user_id','=',$id],
-           ])
-         ->delete();
 
         $post = DB::table('posts')
         ->where('user_id','=',$id)
         ->delete();
-       
+
         $user->delete();
 
         $user=User::all();
-        return view('admin.user.index',['user'=>$user]);
+        return redirect()->back()->with('success','ban da xoa thanh cong');
+    }
 
-        // return redirect('admin.user.index')->with('thongbao','ban da xoa thanh cong');
 }
 public function block($id,Request $request)
 {

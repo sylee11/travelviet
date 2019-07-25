@@ -29,15 +29,8 @@ Route::group(['namespace' => 'Front'], function (){
 
 	Route::post('/update', 'ProfileController@update')->name('profile.update');
 	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
-	// Route::get('/', 'SearchListController@searchlist')->name('search.slide');
-	// Route::get('/get_city_list', 'SearchListController@getCityList')->name('get.city.list');
-	// Route::get('/list_place', 'SearchListController@getList')->name('get.list');
-	// // Route::post('/list_place', 'SearchListController@postList')->name('get.list');
-	// Route::get('/search_list', 'SearchListController@getsearch')->name('search.list');
-	// // Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
-	// Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
-
-	 //Route::get('/', 'SearchListController@searchlist')->name('search.slide');
+	
+	 Route::get('/searchlist', 'SearchListController@searchlist')->name('search.slide');
 	Route::get('/get_city_list', 'SearchListController@getCityList')->name('get.city.list');
 	Route::get('/list_place', 'SearchListController@getList')->name('get.list');
 	// Route::post('/list_place', 'SearchListController@postList')->name('get.list');
@@ -153,8 +146,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('/delete/{id}', 'PlaceController@xoa')->name('admin.place.delete');
 
 		Route::get('/edit/{id}', 'PlaceController@getedit')->name('admin.place.edit');
-
 		Route::post('/edit/{id}', 'PlaceController@postedit')->name('admin.place.edit');
+
+        Route::get('/detail/{id}', 'PlaceController@getdetail')->name('admin.place.detail');
 
 		Route::get('/add', 'PlaceController@getadd')->name('admin.place.add');
 		Route::post('/add', 'PlaceController@store')->name('admin.place.add');

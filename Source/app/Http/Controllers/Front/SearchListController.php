@@ -17,13 +17,13 @@ use DB;
 
 class SearchListController extends Controller
 {
-     public function searchlist ()
+	public function searchlist ()
 	{
 		$category=Category::all();
 		$city=City::all();
 		$district=District::all();
 		return view('pages.home',['category'=>$category,'district'=>$district,'city'=>$city]);
-     }
+	}
 	public function getCityList(Request $request)
 	{
 		$districts = DB::table("districts")
@@ -35,10 +35,6 @@ class SearchListController extends Controller
 	public function getList(Request $request)
 	{   
 		
-		// $cities_id=$request->cities_id;
-		// $districts_id=$request->districts_id;
-		// $category_id=$request->category_id;
-		// dd($request->districts_id);
 		
 		if($request->cities_id =='' && $request->districts_id =='Quận,huyện' && $request->category_id =='')
 		{
@@ -48,7 +44,10 @@ class SearchListController extends Controller
 			->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 			->join('photos', 'posts.id', '=', 'photos.post_id')
 			->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
-			->where('photos.flag', '=', '1')
+			->where([
+				['photos.flag', '=', '1'],
+				['is_approved','=','1']
+			])
 			->Paginate(10);
 					// ->get();
 			return view('pages.list_place',['post' => $post]);
@@ -69,9 +68,10 @@ class SearchListController extends Controller
 					->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
-					->where('photos.flag', '=', '1')
-					->where([
 
+					->where([
+						['photos.flag', '=', '1'],
+						['is_approved','=','1'],
 						['category_id','=', $request->category_id],
 						['districts_id','=', $request->districts_id]
 					])
@@ -89,8 +89,10 @@ class SearchListController extends Controller
 					->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
-					->where('photos.flag', '=', '1')
+					
 					->where([
+						['photos.flag', '=', '1'],
+						['is_approved','=','1'],
 						['cities_id','=', $request->cities_id],
 						['districts_id','=', $request->districts_id]
 					])
@@ -109,15 +111,16 @@ class SearchListController extends Controller
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
-				->where('photos.flag', '=', '1')
-				->where([
 
+				->where([
+					['photos.flag', '=', '1'],
+					['is_approved','=','1'],
 					['cities_id','=', $request->cities_id]
 				])
 
 				// ->get();
 				->Paginate(10);
-                 
+
 				return view('pages.list_place',['post' => $post]);
 			}
 			elseif($request->cities_id !='' && $request->districts_id =='Quận,huyện' && $request->category_id !='')
@@ -130,16 +133,17 @@ class SearchListController extends Controller
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
-				->where('photos.flag', '=', '1')
+				
 				->where([
-
+					['photos.flag', '=', '1'],
+					['is_approved','=','1'],
 					['cities_id','=', $request->cities_id],
 					['category_id','=', $request->category_id],
 				])
 
 				// ->get();
 				->Paginate(10);
-                 
+
 				return view('pages.list_place',['post' => $post]);
 			}
 
@@ -158,7 +162,8 @@ class SearchListController extends Controller
 			->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
 
 			->where([
-
+				['photos.flag', '=', '1'],
+				['is_approved','=','1'],
 				['category_id','=', $request->category_id]
 			])
 			->where('photos.flag', '=', '1')
