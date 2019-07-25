@@ -117,7 +117,8 @@ public function postedit (Request $request,$id)
     $place->address = $request->get('address');
     $place->category_id = $request->get('category_id');
     $place->districts_id = $request->get('districts_id');
-    
+    $place->lat=$request->get('lat');
+    $place->longt=$request->get('lng');
     $place->save();
 
     return \Redirect::route('admin.place.edit', [$place->id])->with('message', 'Place has been updated!');

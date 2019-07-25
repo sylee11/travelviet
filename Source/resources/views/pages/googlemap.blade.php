@@ -1,6 +1,8 @@
 
 
+@extends('layouts.app')
 
+@section('content')
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +18,7 @@
 <style type="text/css">
   #map {
     border:1px solid red;
-    height: 600px;
+    height: 500px;
    
   }
 </style>
@@ -25,7 +27,7 @@
 </head>
 <body>
 
-  <div id="map"></div>
+  <div id="map" style="height: 500px;top:60px;border:1px solid red;  "></div>
   <script type="text/javascript">
    var map, infoWindow;
    function initMap(){
@@ -88,3 +90,4 @@
   </body>
   </html>
 
+@endsection
