@@ -239,7 +239,11 @@
 					<p  style="color: white; font-size: 30px;">Bạn muốn bài viết của mình xuất hiện ở đây?</p>	
 					<p style="color: white; font-size: 18px;"> Chia sẻ hình ảnh, những chuyến đi để chia sẻ những trải nghiệm của mình đến mọi người! </p>
 				</div>
-				<a  class="btn btn-success " style="height: 50px; margin-top: 30px;margin-left: 100px;" data-toggle="modal" data-target="#myModal" href="{{ route('login') }}"> Tham gia ngay!</a>
+				@if(Auth::check())
+				<a  class="btn btn-success " style="height: 50px; margin-top: 30px;margin-left: 100px;"  href="{{ route('mypost') }}"> Tham gia ngay !</a>
+				@else
+				<a  class="btn btn-success " style="height: 50px; margin-top: 30px;margin-left: 100px;" data-toggle="modal" data-target="#myModal" href="{{ route('login') }}"> Tham gia ngay !</a>
+				@endif
 			</div>
 		</div>
 	</div>

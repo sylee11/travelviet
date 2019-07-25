@@ -40,6 +40,11 @@
 		{{ session('success') }}
 	</div>
 	@endif
+	@if (session('erro'))
+	<div class="alert alert-danger">
+		{{ session('erro') }}
+	</div>
+	@endif
 	<FORM   action="{{route('account.addpost', $id = Auth::id() )}}" method="post" enctype="multipart/form-data">
 		@csrf
 		<div class="form-row">
@@ -75,8 +80,8 @@
 			</div>
 			<div class="form-group col-md-3">
 				<label> Tỉnh, Thành Phố</label>
-				<select  class="custom-select form-control" id="city" onchange="myFunction()" >
-					<option>An Giang</option>
+				<select  class="custom-select form-control" id="city" onchange="myFunction()" required="">
+					<option value="">Tỉnh ,thành phố</option>
 					@foreach($city as $ci)
 					<option> {{$ci->name}}</option>
 					@endforeach
@@ -87,8 +92,8 @@
 			<div class="form-group col-md-3">
 				<label>Quận, Huyện</label>
 
-				<select class="custom-select form-control" name="districts_id" id="district">
-					<option>Thành Phố Long Xuyên</option>						
+				<select class="custom-select form-control" name="districts_id" id="district" required="">
+					<option value="">Quận, huyện</option>						
 				</select>
 			</div>
 
@@ -167,8 +172,12 @@
 		</form> --}}
 		<h5 class="form-control-label"> Thêm ảnh cho bài viết</h5>
 		<div class="form-control-file">
-			<input multiple type="file"  id="gallery-photo-add" class="form-control" name="filename[]" required="">
-
+			<input multiple type="file"  id="gallery-photo-add" class="form-control" name="filename[]" required="" accept="image/x-png,image/jpeg">
+			@error('filename')
+			<span class="invalid-feedback" role="alert">
+				<strong>{{ $message }}</strong>
+			</span>
+			@enderror
 			<div class="gallery" style="display: flex; width: 200px;height: 200px;">
 			</div>	
 		</div>				
