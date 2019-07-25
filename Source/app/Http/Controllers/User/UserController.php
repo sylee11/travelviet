@@ -137,12 +137,10 @@ public function xoa($id)
         ])
         ->delete();
         // $rating1 =DB::table('ratings')
-        //  ->join('posts','ratings.post_id','=','posts.id')
+        //  ->join('posts','ratings.post_id','=','posts.id') 
         //  ->join('users','posts.user_id','=','users.id')
-        
         //  ->where([
-        //    ['posts.user_id','=','users.id']
-           
+        //    ['posts.id','=','ratings.post_id']   
         //    ])
         //  ->delete();
 

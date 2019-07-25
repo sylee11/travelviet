@@ -17,7 +17,13 @@ use DB;
 
 class SearchListController extends Controller
 {
-
+     public function searchlist ()
+	{
+		$category=Category::all();
+		$city=City::all();
+		$district=District::all();
+		return view('pages.home',['category'=>$category,'district'=>$district,'city'=>$city]);
+     }
 	public function getCityList(Request $request)
 	{
 		$districts = DB::table("districts")
@@ -29,12 +35,12 @@ class SearchListController extends Controller
 	public function getList(Request $request)
 	{   
 		
-		$cities_id=$request->cities_id;
-		$districts_id=$request->districts_id;
-		$category_id=$request->category_id;
+		// $cities_id=$request->cities_id;
+		// $districts_id=$request->districts_id;
+		// $category_id=$request->category_id;
 		// dd($request->districts_id);
 		
-		if($request->cities_id =='' && $request->districts_id =='' && $request->category_id =='')
+		if($request->cities_id =='' && $request->districts_id =='Quận,huyện' && $request->category_id =='')
 		{
 			$post = DB::table('posts')
 			->join('places','posts.place_id','=','places.id')
@@ -51,7 +57,7 @@ class SearchListController extends Controller
 		elseif($request->cities_id !='')
 		{
 
-			if($request->districts_id !='')
+			if($request->districts_id !='Quận,huyện')
 			{
 				if($request->category_id !='')
 				{
@@ -93,7 +99,7 @@ class SearchListController extends Controller
 					return view('pages.list_place',['post' => $post]);
 				}
 			}
-			elseif($request->cities_id !='' && $request->districts_id =='' && $request->category_id =='')
+			elseif($request->cities_id !='' && $request->districts_id =='Quận,huyện' && $request->category_id =='')
 			{
 				$post = DB::table('posts')
 				->join('places','posts.place_id','=','places.id')
@@ -114,7 +120,7 @@ class SearchListController extends Controller
                  
 				return view('pages.list_place',['post' => $post]);
 			}
-			elseif($request->cities_id !='' && $request->districts_id =='' && $request->category_id !='')
+			elseif($request->cities_id !='' && $request->districts_id =='Quận,huyện' && $request->category_id !='')
 			{
 				$post = DB::table('posts')
 				->join('places','posts.place_id','=','places.id')
