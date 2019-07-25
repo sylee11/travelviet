@@ -181,7 +181,7 @@
             </button>
           </div>
           <div class="modal-footer">
-            <form id="logout-form" action="{{route('upgrade')}}" method="post">
+            <form id="upgrade-form" action="{{route('upgrade')}}" method="post">
               @csrf
               <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
               <button type="submit" class="btn btn-primary" id="accept">Accept</button>
