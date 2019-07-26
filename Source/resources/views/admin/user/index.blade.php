@@ -8,6 +8,21 @@
 	<div class="card-header">
 		<i class="fas fa-table"></i>
 	Data Table User </div>
+	@if(Session::has('success1'))
+	<div class="alert alert-danger">
+		{{Session::get('success1')}}
+	</div>
+	@endif
+	@if(Session::has('success'))
+	<div class="alert alert-danger">
+		{{Session::get('success')}}
+	</div>
+	@endif
+	@if(Session::has('error'))
+	<div class="alert alert-danger">
+		{{Session::get('error')}}
+	</div>
+	@endif
 	<div class="container">
 
 		<!-- The Modal -->

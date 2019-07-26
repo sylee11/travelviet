@@ -75,18 +75,9 @@ public function xoa($id)
 {
     $place = Place::find($id);
     $place->delete();
-    $place=Place::all();
-    $category=Category::all();
-    $city=City::all();
-    $district=District::all();
-    return view('admin.place.index',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
-    // $place = DB::table('places')
-    // ->leftJoin('categories','places.category_id', '=', 'categories.id')
-
-    // ->leftJoin('districts','places.districts_id', '=', 'districts.id')
-    // ->leftJoin('cities','districts.cities_id', '=', 'cities.id')
-    // ->select('places.*', 'categories.name as name_category','cities.name as name_cities')->get();
-    // return view('admin.place.index',['place'=>$place]);
+    
+     return redirect()->back()->with('success','ban da xoa thanh cong');
+    
 }
 
 public function getedit ($id)
@@ -123,5 +114,14 @@ public function postedit (Request $request,$id)
 
     return \Redirect::route('admin.place.edit', [$place->id])->with('message', 'Place has been updated!');
     
+}
+public function getdetail ($id)
+{
+   $place=Place::find($id);
+   
+    $category=Category::all();
+    $city=City::all();
+    $district=District::all();
+    return view('admin.place.detail',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
 }
 }

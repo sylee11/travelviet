@@ -73,7 +73,7 @@
   </div> -->
   <h5>Avatar</h5>
   <div class="form-group">
-      <img src="{{ URL::to('/picture/' . $user->avatar) }}" alt="{{ $user->avatar }}" style="width: 100px; height: 100px; background-repeat: no-repeat;" />
+      <img src="{{  $user->avatar }}" alt="{{ $user->avatar }}" style="width: 100px; height: 100px; background-repeat: no-repeat;" />
   </div>
    <div class="form-group">
     <label for="">Chọn ảnh mới</label>
