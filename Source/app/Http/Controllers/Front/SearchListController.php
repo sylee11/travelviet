@@ -11,8 +11,6 @@ use App\Place;
 use App\Post;
 use App\Rating;
 use App\Photo;
-
-
 use DB;
 
 class SearchListController extends Controller
@@ -33,7 +31,7 @@ class SearchListController extends Controller
 	}
 	
 	public function getList(Request $request)
-	 {  
+	{  
 	 // $category=Category::all();
 	// 	$city=City::all();
 	// 	$district=District::all();
@@ -150,9 +148,7 @@ class SearchListController extends Controller
 				->Paginate(10);
 
 				return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
-			}
-
-			
+			}		
 		}
 
 		elseif($request->category_id !='')
@@ -177,9 +173,6 @@ class SearchListController extends Controller
 
 			return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 		}
-
-
-
 	}
 	public function getsearch(Request $request)
 	{
@@ -188,7 +181,7 @@ class SearchListController extends Controller
 
 		$post= DB::table('posts')
 		->join('places','posts.place_id','=','places.id')
-		 ->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 		->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 		->where([
