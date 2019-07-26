@@ -118,6 +118,23 @@ class FrontController extends Controller
 
 		return view('pages.allPost',['all_posts'=>$all_posts]);
 	}
+	public function searchPost(Request $request){
+		$search = $request->search;
+		$post= Post::join('photos', 'posts.id', '=', 'photos.post_id')
+		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+		->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
+		->orderBy('posts.id', 'desc')
+		->groupBy('posts.id')
+		->groupBy('title')
+		->groupBy('photos.photo_path')
+		->where('is_approved', '=', '1')
+		->where('photos.flag', '=', '1')
+		->where('title', 'like' , "%".$request->search."%")
+		->paginate(15);
+    	return view('pages.allPost', ['all_posts' => $post, 'search' => $search]);
+
+	}
+
 	public function detail($post_id)
 	{
 
