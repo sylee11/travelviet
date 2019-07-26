@@ -89,7 +89,7 @@ Route::get('login2',function(){
 	return view('auth.login');
 });
 Route::get('invite', 'InviteController@show')->name('invite')->middleware('auth');
-Route::post('invite', 'InviteController@process')->name('process');
+Route::post('invite', 'InviteController@process')->name('process')->middleware('auth');
 
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login.admin');
 Route::get('show-register', 'Auth\RegisterController@showFormRegister')->name('show.register');
