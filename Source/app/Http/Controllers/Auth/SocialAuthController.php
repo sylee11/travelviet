@@ -25,7 +25,7 @@ class SocialAuthController extends Controller
             'https://www.googleapis.com/auth/userinfo.email'
         ]);
 
-    //Set param google API
+         //Set param google API
         $client->setClientId( $google_client_id);
         $client->setClientSecret($google_client_secret);
         $client->setAccessType('offline');
@@ -55,24 +55,31 @@ class SocialAuthController extends Controller
 
 
         //Lấy các thông tin của User
-            $me = $plus->people->get('me');
-        $id    = @$me['id'];                    //ID
-        $email = @$me['emails'][0]['value'];    //Địa chỉ email
-        $name  = @$me['displayName'];           //Tên
-        $image = @$me['image']['url'];          //Url của ảnh avatar
+            $info = $plus->people->get('me');
+        $id    = @$info['id'];                    //ID
+        $email = @$info['emails'][0]['value'];    //Địa chỉ email
+        $name  = @$info['displayName'];           //Tên
+        $image = @$info['image']['url'];          //Url của ảnh avatar
 
         $existingUser = User::where('email', $email)->first();
+        $social= Social::select('id')->where('id',$id)->first();
+        //dd($social);
         if($existingUser){
             // kiem tra social_id da ton tai chua
-            auth()->login($existingUser, true);
-        } else {
+            if(!$social){
+             $newSocial = new Social;
+             $newSocial->id= $id ;
+             $newSocial->user_id= $existingUser->id;
+             $newSocial->save();
+         }
+         auth()->login($existingUser, true);
+     } else {
             // tao 1 user moi vao db
-
-            $newUser = new User;
-            $newUser->name= $name;
-            $newUser->email = $email;
-            $newUser->avatar = $image;
-            $newUser->save();
+        $newUser = new User;
+        $newUser->name= $name;
+        $newUser->email = $email;
+        $newUser->avatar = $image;
+        $newUser->save();
 
             $userId = User::all()->last()->id;//truy van toi record cuoi
             //dd($userId );
