@@ -11,6 +11,7 @@ use App\Photo;
 use App\Post;
 use App\Rating;
 use File;
+use Image;
 
 class UserController extends Controller
 {
@@ -81,14 +82,12 @@ public function postedit (Request $request,$id)
         // $user->avatar = $request->get('avatar');
 
     if ($request->hasFile('avatar')) {
-        $file=$request->file('avatar');
-        $name=$file->getClientOriginalName();
-        $avatar = str_random(4)."_".$name;
-        while (file_exists("picture/".$avatar)) {
-            $avatar = str_random(4)."_".$name;
-        }
-        $file->move("picture",$avatar);
-        $user->avatar = $avatar;   
+        
+           $avatar = $request->avatar;
+            $avatarName = "/picture/avatar/" . $request->avatar->getClientOriginalName();
+            Image::make($avatar)->save(public_path($avatarName));
+            $user->avatar = $avatarName;
+            $user->save();
 
     }
     else
