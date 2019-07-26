@@ -13,6 +13,57 @@ header {
   text-align: center;
   color: white;
 }
+
+#app{
+  overflow: 
+}
+#btnsearch{
+    width: 120px;
+}
+#searchhead{
+/*  justify-content: center;
+  display: flex;*/
+  margin: 50px;
+  display: flex;
+  justify-content: center;
+}
+#inputsearch {
+
+}
+@media only screen and (max-width: 600px) {
+  header {
+    height : 800px;
+  }
+  #searchhead {
+  }
+  #btnsearch {
+    width: 60px;
+  }
+  #inputsearch {
+    width: 140px;
+    margin-right: 20px;
+  }
+  #invite {
+    display: none;
+  }
+}
+@media only screen and (max-width: 400px) {
+  header {
+    height : 900px;
+  }
+  #searchhead {
+  }
+  #btnsearch {
+    width: 60px;
+  }
+  #inputsearch {
+    width: 120px;
+    margin-right: 10px;
+  }
+  #invite {
+    display: none;
+  }
+}
 .header-content {
   background-color: rgba(0,0,0.5,0.3);
   position: absolute;

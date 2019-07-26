@@ -92,7 +92,7 @@
                             <span class="font-weight-bold">
                                 Time: 
                             </span>
-                            {{ date('d-m-Y', strtotime($p->created_at)) }}
+                            {{ date('d-m-Y', strtotime($p->time)) }}
                         </div>
                         <div class="card-title" style="height: 100px;">
                             <span class="font-weight-bold">

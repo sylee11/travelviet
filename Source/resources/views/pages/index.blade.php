@@ -234,7 +234,7 @@
 				</div>
 				@endif
 			</div>
-			<div class="row" style="margin-top: 100px;">
+			<div class="row" style="margin-top: 100px;" id="invite">
 				<div class="col-lg-8">
 					<p  style="color: white; font-size: 30px;">Bạn muốn bài viết của mình xuất hiện ở đây?</p>	
 					<p style="color: white; font-size: 18px;"> Chia sẻ hình ảnh, những chuyến đi để chia sẻ những trải nghiệm của mình đến mọi người! </p>

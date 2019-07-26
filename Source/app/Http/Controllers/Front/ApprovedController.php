@@ -103,7 +103,8 @@ class ApprovedController extends Controller
 			->join('photos', 'posts.id', '=', 'photos.post_id')
 			->join('users', 'posts.user_id', '=', 'users.id')
 			->join('places', 'posts.place_id', '=', 'places.id')
-			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid', 'posts.created_at as time')
+			->orderby('postid','desc')
 			->where('photos.flag', '=', 1)
 			->Paginate(20);
 		return view('pages.showAllPost', ['data' => $data, 'selec' => 'Tất cả bài viết', 'chose' => 'Actor', 'search' => '']);
@@ -129,16 +130,19 @@ class ApprovedController extends Controller
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->join('users', 'posts.user_id', '=', 'users.id')
 				->join('places', 'posts.place_id', '=', 'places.id')
-				->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+				->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid', 'posts.created_at as time')
+				->orderby('postid','desc')
 				->where('photos.flag', '=', 1)
 				->Paginate(20);
+
 			return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 		} elseif ($request->chose == "Bài viết chưa duyệt") {
 			$data = DB::table('posts')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->join('users', 'posts.user_id', '=', 'users.id')
 				->join('places', 'posts.place_id', '=', 'places.id')
-				->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+				->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+				->orderby('postid','desc')
 				->where('posts.is_approved', '=', 0)
 				->where('photos.flag', '=', 1)
 				->Paginate(20);
@@ -148,7 +152,8 @@ class ApprovedController extends Controller
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->join('users', 'posts.user_id', '=', 'users.id')
 				->join('places', 'posts.place_id', '=', 'places.id')
-				->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+				->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+				->orderby('postid','desc')
 				->where('posts.is_approved', '=', 1)
 				->where('photos.flag', '=', 1)
 				->Paginate(20);
@@ -159,9 +164,11 @@ class ApprovedController extends Controller
 			->join('photos', 'posts.id', '=', 'photos.post_id')
 			->join('users', 'posts.user_id', '=', 'users.id')
 			->join('places', 'posts.place_id', '=', 'places.id')
-			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+			->orderby('postid','desc')
 			->where('photos.flag', '=', 1)
 			->Paginate(20);
+
 		return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 	}
 	public function search(Request $request)
@@ -177,7 +184,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where('photos.flag', '=', 1)
 					->Paginate(20);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
@@ -187,7 +195,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where('posts.is_approved', '=', 1)
 					->where('photos.flag', '=', 1)
 					->Paginate(20);
@@ -198,7 +207,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where('posts.is_approved', '=', 0)
 					->where('photos.flag', '=', 1)
 					->Paginate(20);
@@ -211,7 +221,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where('photos.flag', '=', 1)
 					->Paginate(20);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
@@ -221,7 +232,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where('posts.is_approved', '=', 1)
 					->where('photos.flag', '=', 1)
 					->Paginate(20);
@@ -232,7 +244,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where('posts.is_approved', '=', 0)
 					->where('photos.flag', '=', 1)
 					->Paginate(20);
@@ -244,7 +257,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where([
 						['users.name', 'like', "%" . $search . "%"],
 						['posts.is_approved', '=', 0]
@@ -259,7 +273,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where([
 						['users.name', 'like', "%" . $search . "%"],
 						['posts.is_approved', '=', 1]
@@ -274,7 +289,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where([
 						['posts.title', 'like', "%" . $search . "%"],
 						['posts.is_approved', '=', 0]
@@ -289,7 +305,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where([
 						['posts.title', 'like', "%" . $search . "%"],
 						['posts.is_approved', '=', 1],
@@ -304,7 +321,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where([
 						['posts.title', 'like', "%" . $search . "%"],
 					])
@@ -317,7 +335,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where([
 						['users.name', 'like', "%" . $search . "%"],
 					])
@@ -329,7 +348,8 @@ class ApprovedController extends Controller
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
 					->join('places', 'posts.place_id', '=', 'places.id')
-					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid')
+					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
+					->orderby('postid','desc')
 					->where('posts.title', 'like', "%" . $search . "%")
 					->where('photos.flag', '=', 1)
 					->Paginate(20);
