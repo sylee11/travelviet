@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <header style="position: relative;">
   <script src="{{ asset('js/jquery-3.4.1.min.js') }}" ></script>
 
@@ -17,8 +18,7 @@
       <form action="{{route('get.list')}}" method="get">
         <input type="hidden" name="_token" value="{{ csrf_token()}}">
         <div style="display: flex; justify-content: center; padding-top: 40px;">
-          <div class="" style="padding-right: 50px;">
-
+          <div class="dropdown" style="padding-right: 50px;">
             <select  class="btn  dropdown-toggle" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px;" name="cities_id" id="city" >
               <option value="">Tỉnh, thành phố</option>
               @if($city)
