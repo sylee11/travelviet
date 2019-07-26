@@ -33,8 +33,13 @@ class SearchListController extends Controller
 	}
 	
 	public function getList(Request $request)
-	{   
-		
+	 {  
+	 // $category=Category::all();
+	// 	$city=City::all();
+	// 	$district=District::all();
+		$city=$request->cities_id;
+		$district=$request->districts_id;
+		$category=$request->category_id;
 		
 		if($request->cities_id =='' && $request->districts_id =='Quận,huyện' && $request->category_id =='')
 		{
@@ -50,7 +55,7 @@ class SearchListController extends Controller
 			])
 			->Paginate(10);
 					// ->get();
-			return view('pages.list_place',['post' => $post]);
+			return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 		}
 
 		elseif($request->cities_id !='')
@@ -78,7 +83,7 @@ class SearchListController extends Controller
 					->Paginate(10);
 					// ->get();
 
-					return view('pages.list_place',['post' => $post]);
+					return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 				}
 				else{
 					$post = DB::table('posts')
@@ -98,7 +103,7 @@ class SearchListController extends Controller
 					])
 					// ->get();
 					->Paginate(10);
-					return view('pages.list_place',['post' => $post]);
+					return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 				}
 			}
 			elseif($request->cities_id !='' && $request->districts_id =='Quận,huyện' && $request->category_id =='')
@@ -121,7 +126,7 @@ class SearchListController extends Controller
 				// ->get();
 				->Paginate(10);
 
-				return view('pages.list_place',['post' => $post]);
+				return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 			}
 			elseif($request->cities_id !='' && $request->districts_id =='Quận,huyện' && $request->category_id !='')
 			{
@@ -144,7 +149,7 @@ class SearchListController extends Controller
 				// ->get();
 				->Paginate(10);
 
-				return view('pages.list_place',['post' => $post]);
+				return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 			}
 
 			
@@ -170,7 +175,7 @@ class SearchListController extends Controller
 			// ->get();
 			->Paginate(10);
 
-			return view('pages.list_place',['post' => $post]);
+			return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 		}
 
 
@@ -196,7 +201,7 @@ class SearchListController extends Controller
 		->where('photos.flag', '=', '1')
 		->Paginate(10);
 
-		return view('pages.search_list',['post' => $post]);
+		return view('pages.search_list',['post' => $post],['search'=>$search]);
 
 
 	}
