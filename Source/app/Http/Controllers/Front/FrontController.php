@@ -130,19 +130,19 @@ class FrontController extends Controller
 	}
 	public function searchPost(Request $request){
 		$search = $request->search;
-		$post= Post::join('photos', 'posts.id', '=', 'photos.post_id')
+		$post= DB::table('posts')
+		->join('places','posts.place_id','=','places.id')
 		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-		->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
-		->orderBy('posts.id', 'desc')
-		->groupBy('posts.id')
-		->groupBy('title')
-		->groupBy('photos.photo_path')
+		->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
 		->where([
-			['is_approved', '=', '1'],
+			['places.name','LIKE','%'.$search.'%'],
 			['photos.flag', '=', '1'],
-			['title', 'like' , "%".$request->search."%"]
+			['is_approved','=','1']
 		])
+
 		->paginate(15);
+
 		return view('pages.allPost', ['all_posts' => $post, 'search' => $search]);
 
 	}
