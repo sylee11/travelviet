@@ -5,8 +5,8 @@
     <!--Fontawesome CDN-->
     <link rel="stylesheet" href="/css/bootstrap-social.css">
     <!--Custom styles-->
-{{--     <link rel="stylesheet" href="/css/fontawesome.css">
- --}}</head>
+    {{--     <link rel="stylesheet" href="/css/fontawesome.css">
+--}}</head>
 <body class="text-center">
     <div class="container">
         <div class="row justify-content-center">
@@ -37,6 +37,9 @@
                                 
                                 <!-- <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label> -->
 
+
+                            </div>
+                            <div class="form-group row">
                                 <div class="col-auto">
                                     <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name"  placeholder=" Name" required autofocus>
 
@@ -47,11 +50,10 @@
                                     @enderror
                                 </div>
                             </div>
-
                             <div class="form-group row">
-                             <!--  <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email ') }}</label> -->
-
-                             <div class="col-auto">
+                               <!--  <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email ') }}</label> -->
+                                
+                               <div class="col-auto">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"  placeholder=" Email">
 
                                 @error('email')
@@ -77,9 +79,9 @@
                         </div>
 
                         <div class="form-group row">
-                         <!--  <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label> -->
+                           <!--  <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label> -->
 
-                         <div class="col-auto">
+                           <div class="col-auto">
                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"  placeholder="Password confirm">
                         </div>
                     </div>
