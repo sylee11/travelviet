@@ -260,6 +260,7 @@ class FrontController extends Controller
 			['is_approved', '=', '1'],
 			['photos.flag', '=', '1']
 		])
+		->orderBy('posts.id', 'desc')
 		->paginate(5);
 		$name_city = City::where('id', '=', $id)->first();
 		//dd($post_city);
