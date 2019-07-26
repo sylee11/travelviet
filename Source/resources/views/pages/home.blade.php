@@ -12,14 +12,15 @@
       <h1 id="homeHeading" style="font-size: 45px; margin-left: 20%; margin-right: 20%;">Travel Việt - Du Lịch Trong Tầm Tay Bạn</h1>
       <hr>
       <hr align="content" width="20%" color="#3997A6" size="5px" style="padding-bottom: 1.5px;"> 
-      <button  data-target="#demo" class="btn btn-primary  " style="width: 150px; height: 50px; border-radius: 20px; background-color: #3997A6">
-      Tìm kiếm địa điểm </button>
+     {{--  <button  data-target="#demo" class="btn btn-primary  " style="width: 150px; height: 50px; border-radius: 20px; background-color: #3997A6">
+      Tìm kiếm địa điểm </button> --}}
       <div style="display: flex;justify-content: center;">
       <form action="{{route('get.list')}}" method="get">
         <input type="hidden" name="_token" value="{{ csrf_token()}}">
-        <div style="display: flex; justify-content: center; padding-top: 40px;">
-          <div class="dropdown" style="padding-right: 50px;">
-            <select  class="btn  dropdown-toggle" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px;" name="cities_id" id="city" >
+        <div style=" padding-top: 40px;" class="row">
+          <div class="col-lg-3" style="padding-right: 50px;">
+
+            <select  class="btn  dropdown-toggle" style="background-color: #467F3E; color: white; border-radius: 10px; height: 40px; width: 180px; margin-bottom: 10px;" name="cities_id" id="city" >
               <option value="">Tỉnh, thành phố</option>
               @if($city)
               @foreach ($city as  $record)
@@ -29,34 +30,38 @@
             </select>
           </div>
 
-          <div class="" style="padding-right: 50px;">
-            <select class="btn btn-secondary dropdown-toggle" name="districts_id" id="district" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px;">
-              <option >Quận,huyện</option>
+          <div class="col-lg-3" style="padding-right: 50px;">
+            <select class="btn btn-secondary dropdown-toggle" name="districts_id" id="district" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px; width: 180px; margin-bottom: 10px;">
+              <option>Quận,huyện</option>
 
             </select>
           </div>
 
-          <div class="" style="padding-right: 50px;">
-            <select class="btn btn-secondary dropdown-toggle dropdown-menu-lg-right" name="category_id" id="category" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px;">
+          <div class="col-lg-3" style="padding-right: 50px;">
+            <select class="btn btn-secondary dropdown-toggle dropdown-menu-lg-right" name="category_id" id="category" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px; width: 180px; margin-bottom: 10px;">
               <option value="">Category</option>
               @foreach ($category as $ca)
               <option value="{{$ca->id}}">{{$ca->name}}</option>
               @endforeach
             </select>
           </div>
-          <div style="display: flex;">
-            <button type="submit" class="btn "  id="find" style="height: 37px; margin-right: 40px; background-color: #3997A6" >
-              <a  href=""><i class="fas fa-search" style="color: white"></i></a></button>              
-              
+            <div style="padding-right: 40px;" class="col-lg-3">
+              <button type="submit" class="btn btn-primary" id="find" style="height: 37px; background-color: #3997A6" >
+                <i class="fas fa-search" style="color: white "></i></button>
+
+              <button class="btn " type="button"  style="height: 37px; margin-left: 30px; background-color: #3997A6   "> <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
+              </button>
             </div>
-            
-          </div>
-        </form>
-        <div style="padding-top: 40px;">
-          <button class="btn "  style="height: 37px; background-color: #3997A6   ">
-            <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
-          </button>
-        </div>
+
+            </div>
+          </form>
+          <!-- <div style="padding-top: 100px;">
+            <button class="btn btn-primary"  style="height: 37px;   ">
+              <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
+            </button>
+          </div> -->
+
+
         </div>
         <script type="text/javascript">
           $(document).ready(function(){
@@ -71,7 +76,7 @@
                   success:function(res){               
                     if(res){
                       $("#district").empty();
-                      $("#district").append('<option >Quận,huyện</option>');
+                      $("#district").append('<option>Quận,huyện</option>');
                       $.each(res,function(key,value){
                         $("#district").append('<option value="'+key+'">'+value+'</option>');
                       });
@@ -88,11 +93,12 @@
           });
         </script>
 
-        <div style="justify-content: center; display: flex; margin: 50px;">
+        <div class="align-middle" id="searchhead">
           <form class="form-inline" action="{{route('search.list')}}" method="get">
             <input type="hidden" name="_token" value="{{ csrf_token()}}">
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" required="">
-            <button class="btn " type="submit" style="background: #FB8B34; color: white; width: 120px;"> <span class="font-weight-bold" >Search </span></button>
+
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" required="" id="inputsearch">
+            <button class="btn " type="submit" style="background: #FB8B34; color: white; " id="btnsearch"> <span class="font-weight-bold" >Search </span></button>
           </form>
 
         </div>
