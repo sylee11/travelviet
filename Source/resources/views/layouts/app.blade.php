@@ -49,13 +49,13 @@
   @yield('header')
 </head>
 
-<body>
+<body style="width: 100%; overflow-x: hidden; box-sizing: content-box;">
   <!-- <script type="text/javascript">
         alert();
       </script> -->
   <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);height: 60px;" id="nav-top">
-      <div class="container-fluid" style="color: white; margin: 0px; width: 100%">
+    <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);height: 60px; width: 100%;"  id="nav-top">
+      <div class="container-fluid" style="color: white; margin: 0px; padding: 0; width: 100%">
         <a href="{{ route('home.page') }} "><img src="/picture/front/logo5.png" style="width: 100px; height: 40px; margin-left: 50px;"></a>
 
 
