@@ -15,16 +15,8 @@
 <script>
   var map;
   // var infoWindow = new google.maps.InfoWindow();
-  var latvalue = {
-    {
-      json_encode($data[0] - > lat)
-    }
-  };
-  var longvalue = {
-    {
-      json_encode($data[0] - > longt)
-    }
-  };
+  var latvalue = {{json_encode($data[0] -> lat)}};
+  var longvalue = {{json_encode($data[0] -> longt)}};
 
   function initMap() {
 
