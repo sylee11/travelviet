@@ -188,17 +188,16 @@ class SearchListController extends Controller
 
 		$post= DB::table('posts')
 		->join('places','posts.place_id','=','places.id')
-		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+		 ->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 		->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 		->where([
-			['places.name','LIKE','%'.$search.'%']
+			['places.name','LIKE','%'.$search.'%'],
+			['photos.flag', '=', '1'],
+			['is_approved','=','1']
+			
 		])
-		->orWhere ([
-			['places.address', 'LIKE', '%' . $search . '%']
-		] )
-			// ->get();
-		->where('photos.flag', '=', '1')
+
 		->Paginate(10);
 
 		return view('pages.search_list',['post' => $post],['search'=>$search]);
