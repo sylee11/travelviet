@@ -32,8 +32,7 @@
 
           <div class="col-lg-3" style="padding-right: 50px;">
             <select class="btn btn-secondary dropdown-toggle" name="districts_id" id="district" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px; width: 180px; margin-bottom: 10px;">
-              <option value="">Quận huyện</option>
-
+              <option>Quận,huyện</option>
 
             </select>
           </div>
@@ -46,16 +45,11 @@
               @endforeach
             </select>
           </div>
-          <div style="display: flex;">
-            <button type="submit" class="btn "  id="find" style="height: 37px; margin-right: 40px; background-color: #3997A6" >
-              <a  href=""><i class="fas fa-search" style="color: white"></i></a></button>              
-            </div> -->
             <div style="padding-right: 40px;" class="col-lg-3">
-              <button type="submit" class="btn btn-primary" id="find" style="height: 37px; " >
-                <i class="fas fa-search" style="color: white"></i></button>
+              <button type="submit" class="btn btn-primary" id="find" style="height: 37px; background-color: #3997A6" >
+                <i class="fas fa-search" style="color: white "></i></button>
 
-              <button class="btn "  style="height: 37px; margin-left: 30px; background-color: #3997A6   ">
-                <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
+              <button class="btn " type="button"  style="height: 37px; margin-left: 30px; background-color: #3997A6   "> <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
               </button>
             </div>
 
@@ -66,6 +60,7 @@
               <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
             </button>
           </div> -->
+
 
         </div>
         <script type="text/javascript">
@@ -81,8 +76,7 @@
                   success:function(res){               
                     if(res){
                       $("#district").empty();
-                      $("#district").append('<option>Quận huyện</option>');
-
+                      $("#district").append('<option>Quận,huyện</option>');
                       $.each(res,function(key,value){
                         $("#district").append('<option value="'+key+'">'+value+'</option>');
                       });
@@ -102,9 +96,9 @@
         <div class="align-middle" id="searchhead">
           <form class="form-inline" action="{{route('search.list')}}" method="get">
             <input type="hidden" name="_token" value="{{ csrf_token()}}">
+
             <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" required="" id="inputsearch">
             <button class="btn " type="submit" style="background: #FB8B34; color: white; " id="btnsearch"> <span class="font-weight-bold" >Search </span></button>
-
           </form>
 
         </div>

@@ -40,7 +40,7 @@ class SearchListController extends Controller
 		$city=$request->cities_id;
 		$district=$request->districts_id;
 		$category=$request->category_id;
-		
+
 		if($request->cities_id =='' && $request->districts_id =='Quận,huyện' && $request->category_id =='')
 		{
 			$post = DB::table('posts')
