@@ -6,7 +6,7 @@
 		<i class="fas fa-table"></i>
 	Data Table Place </div>
     @if(Session::has('success'))
-	<div class="alert alert-danger">
+	<div class="alert alert-success">
 		{{Session::get('success')}}
 	</div>
 	@endif
