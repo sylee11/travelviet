@@ -23,11 +23,11 @@ class SearchListController extends Controller
 		return view('pages.home',['category'=>$category,'district'=>$district,'city'=>$city]);
 	}
 	public function getCityList(Request $request)
-	{
+	{     
 		$districts = DB::table("districts")
 		->where("cities_id",$request->cities_id)
 		->pluck("name","id");
-		return response()->json($districts);
+		 return response()->json($districts);
 	}
 	
 	public function getList(Request $request)
