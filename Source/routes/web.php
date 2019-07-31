@@ -77,7 +77,7 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::get('/mypost','ProfileController@mypost')->name('mypost');
 	Route::get('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
 
-	Route::get('/detail/{id}','FrontController@detail')->name('detail');
+	Route::get('/detail/{slug}','FrontController@detail')->name('detail');
 
 	Route::post('/detail/rate','FrontController@rate');
 	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');

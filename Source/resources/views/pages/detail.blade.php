@@ -165,8 +165,8 @@ $cmts = $data->unique('rating_id')->values();
         <form action="/detail/rate" method="POST">
           @csrf
           <label for="">Rating:</label>
-          <input type="hidden" name="post_id" value="{{$data[0]->id}}">
-          <input type="hidden" name="user_id" value="{{Auth::id()}}">
+          <!-- <input type="hidden" name="post_id" value="{{$data[0]->id}}"> -->
+          <?php session(['post_id' => $data[0]->id]); ?>
 
           <span class="star-rating">
             <input type="radio" name="rating" value="1"><i></i>
