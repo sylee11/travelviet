@@ -23,7 +23,7 @@
 			<span class="text-descript">
 				<p >{{$value->describer}}</p>
 			</span>
-			<a href="{{route('detail',$value->post_id)}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;margin-bottom: 15px;">Xem chi tiết</a>
+			<a href="{{route('detail',$value->slug)}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;margin-bottom: 15px;">Xem chi tiết</a>
 			<p class="created">Trạng thái:
 				@if($value->is_approved == 1)
 				Đã phê duyệt
