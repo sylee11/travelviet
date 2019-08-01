@@ -135,7 +135,7 @@ $cmts = $data->unique('rating_id')->values();
       <div style="height:500px;" class="tab-content">
         <div id="description" class="container tab-pane active"><br>
           <h3>{{$data[0]->place}}</h3>
-          <p>{{$data[0]->describer}}</p>
+             {!!($data[0]->describer)!!}
         </div>
         <div id="location" class="container tab-pane fade"><br>
           <h3>Location</h3>

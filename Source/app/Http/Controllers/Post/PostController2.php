@@ -12,6 +12,7 @@ use App\Photo;
 use File;
 use App\Rating;
 use App\Place;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -102,6 +103,7 @@ class PostController2 extends Controller
         else{
         $posts -> is_approved =0;
         }
+        $posts ->slug = Str::slug($request->title, '-');
         $posts -> save();
 
         //find last id

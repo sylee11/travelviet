@@ -40,8 +40,8 @@
 
   {{-- multi up image --}}
   <script src="{{asset('js/dropzone.js')}}"></script>
-
-
+  <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
+  <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <script>
 
