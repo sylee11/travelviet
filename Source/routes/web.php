@@ -38,7 +38,8 @@ Route::group(['namespace' => 'Front'], function (){
 	// Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
 	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
 
-	
+    
+	Route::get('/autocomplete/search', 'SearchListController@autocompleteSearch')->name('autocomplete.search');
 
 	Route::get('/user/{user_id}','FrontController@userInfo');
 	Route::get('/user/{user_id}/post','FrontController@userPost');

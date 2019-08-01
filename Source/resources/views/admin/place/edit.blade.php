@@ -140,21 +140,35 @@ async defer></script>
 
 
 <script type="text/javascript">
+  var latvalue = {!! json_encode($place->lat) !!}; 
+  var lngvalue = {!! json_encode($place->longt) !!};
+  var namevalue = {!! json_encode($place->name) !!};
+  var addressvalue = {!! json_encode($place->address) !!};
   var infowindow = new google.maps.InfoWindow;
-  
   
   function initAutocomplete() {
    
     var pos = {
-      lat: 16.02,
-      lng: 108.13
+      lat: latvalue,
+      lng: lngvalue
     };
         var map = new google.maps.Map(document.getElementById('map'), {
           center: pos,
           zoom: 10,
           mapTypeId: 'roadmap'
         });
-        var marker = new google.maps.Marker({position: pos, map: map,draggable: true });
+        var marker = new google.maps.Marker({
+          position: pos,
+          draggable: true,  
+          map: map
+        });
+        var infowindow = new google.maps.InfoWindow({
+           content:'<b>Tên địa điểm:</b> '+namevalue+ '<br><b>Địa chỉ:</b>'+addressvalue+ '<br>Vị trí địa điểm: ' +'Lat :' + latvalue+
+          ' Long: ' + lngvalue
+        });
+        infowindow.open(map,marker);
+        
+        
 
         var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
@@ -183,6 +197,15 @@ async defer></script>
 
           $('#lat').val(lat);
           $('#lng').val(lng);
+          if ( latvalue!=lat ||lngvalue!=lng) {
+            infowindow.close();
+            infowindow = new google.maps.InfoWindow({
+              content: 'Vị trí bạn muốn chọn' +'<br>Latitude: ' + lat+
+              '<br>Longitude: ' + lng
+            });
+            // marker.addListener('click', function() {
+              infowindow.open(marker.get('map'), marker);
+            }
         });
        }
    
