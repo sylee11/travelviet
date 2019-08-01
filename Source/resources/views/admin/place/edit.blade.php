@@ -15,7 +15,7 @@
 </div>
 @endif
 @if(Session::has('message'))
-<div class="alert alert-danger">
+<div class="alert alert-success">
 	{{Session::get('message')}}
 </div>
 @endif

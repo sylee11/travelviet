@@ -9,12 +9,12 @@
 		<i class="fas fa-table"></i>
 	Data Table User </div>
 	@if(Session::has('success1'))
-	<div class="alert alert-danger">
+	<div class="alert alert-success">
 		{{Session::get('success1')}}
 	</div>
 	@endif
 	@if(Session::has('success'))
-	<div class="alert alert-danger">
+	<div class="alert alert-success">
 		{{Session::get('success')}}
 	</div>
 	@endif

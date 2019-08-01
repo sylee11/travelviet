@@ -15,7 +15,7 @@
 @endif
 
 @if(Session::has('message'))
-<div class="alert alert-danger">
+<div class="alert alert-success">
 	{{Session::get('message')}}
 </div>
 @endif
@@ -79,6 +79,7 @@
     <label for="">Chọn ảnh mới</label>
     <input  type="file" name="avatar" value="{{$user->avatar}}"   autocomplete="file">
   </div>
+  @if($user->role !=1 )
   <div class="form-group">
     <label for="">Role</label>
     <label class="radio-inline">
@@ -94,6 +95,7 @@
       @endif>Người xem
     </label>
   </div>
+  @endif
   <button type="submit" class="btn btn-primary">
     <i class="fa fa-btn fa-sign-in"></i>Update
   </button>

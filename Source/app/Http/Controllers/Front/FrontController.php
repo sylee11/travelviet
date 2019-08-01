@@ -42,7 +42,7 @@ class FrontController extends Controller
 		//show posts have rating highest
 		$top_rating = Post::join('ratings', 'posts.id', '=', 'ratings.post_id')
 		->join('photos', 'posts.id', '=', 'photos.post_id')
-		->select('posts.id', 'posts.title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
+		->select('posts.id', 'posts.title','posts.slug', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
 		->orderBy('avg_rating', 'desc')
 		->groupBy('posts.id')
 		->groupBy('posts.title')
@@ -57,7 +57,7 @@ class FrontController extends Controller
 		//show post newest
 		$new_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')
 		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-		->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
+		->select('posts.id', 'title','posts.slug', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
 		->orderBy('posts.id', 'desc')
 		->groupBy('posts.id')
 		->groupBy('title')
@@ -71,7 +71,7 @@ class FrontController extends Controller
 
 		$all_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')
 		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-		->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
+		->select('posts.id', 'title','posts.slug', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
 		->orderBy('posts.id', 'desc')
 		->groupBy('posts.id')
 		->groupBy('title')
@@ -147,9 +147,12 @@ class FrontController extends Controller
 
 	}
 
-	public function detail($post_id)
+	public function detail($slug)
 	{
-
+		$post_id = DB::table('posts')
+				->select('posts.id')
+				->where('posts.slug','=',$slug)->first()->id;
+		//dd($post_id);
 		$data = DB::table('posts')
 
 		->join('photos', 'posts.id', '=', 'photos.post_id')
@@ -157,7 +160,7 @@ class FrontController extends Controller
 		->join('places', 'posts.place_id', '=', 'places.id')
 		->leftJoin('ratings', 'posts.id', '=', 'ratings.post_id')
 		->leftJoin('users as userscmt', 'ratings.user_id', '=', 'userscmt.id')
-		->select('posts.id', 'posts.place_id', 'posts.title', 'posts.user_id', 'posts.describer', 'posts.created_at as create_at', 'photos.photo_path', 'users.name', 'places.name as place', 'places.lat', 'places.longt','ratings.id as rating_id' ,'ratings.cmt', 'ratings.rating as rate', 'ratings.created_at', 'userscmt.id as cmtid', 'userscmt.name as cmtname', 'userscmt.avatar')
+		->select('posts.id', 'posts.place_id', 'posts.title', 'posts.user_id', 'posts.describer','posts.slug' ,'posts.created_at as create_at', 'photos.photo_path', 'users.name', 'places.name as place', 'places.lat', 'places.longt','ratings.id as rating_id' ,'ratings.cmt', 'ratings.rating as rate', 'ratings.created_at', 'userscmt.id as cmtid', 'userscmt.name as cmtname', 'userscmt.avatar')
 		->where('posts.id', '=', $post_id)
 		->get();
 
@@ -178,7 +181,7 @@ class FrontController extends Controller
 		->join('photos', 'posts.id', '=', 'photos.post_id')
 		->join('places', 'posts.place_id', '=', 'places.id')
 		->leftJoin('ratings', 'posts.id', '=', 'ratings.post_id')
-		->select('posts.id', 'posts.title', 'photos.photo_path')
+		->select('posts.id', 'posts.title','posts.slug', 'photos.photo_path')
 		->where([
 			['posts.place_id', '=', $data[0]->place_id],
 			['photos.flag', '=', 1],
@@ -204,8 +207,9 @@ class FrontController extends Controller
 
 		$rating = $request->get('rating');
 		$cmt = $request->get('commentarea');
-		$user_id = $request->get('user_id');
-		$post_id = $request->get('post_id');
+		$user_id = Auth::id();
+		//$post_id = $request->get('post_id');
+		$post_id = $request->session()->pull('post_id');
 		$user_rate = DB::table('ratings')->where('user_id', $user_id)->first();
 
 		$rate = new Rating;
@@ -276,7 +280,7 @@ class FrontController extends Controller
 		$data = \DB::table('posts')
 		->join('photos', 'posts.id', '=', 'photos.post_id')
 		->join('users', 'posts.user_id', '=', 'users.id')
-		->select('posts.id as post_id', 'posts.title', 'posts.describer', 'posts.created_at', 'posts.is_approved', 'photos.photo_path', 'users.name')
+		->select('posts.id as post_id', 'posts.title','posts.slug' ,'posts.describer', 'posts.created_at', 'posts.is_approved', 'photos.photo_path', 'users.name')
 		->where([
 			['posts.user_id', '=', $user_id],
 			['posts.is_approved', '=', '1'],
@@ -295,7 +299,7 @@ class FrontController extends Controller
 		$data = \DB::table('ratings')
 		->join('posts', 'ratings.post_id', '=', 'posts.id')
 		->join('users', 'ratings.user_id', '=', 'users.id')
-		->select('ratings.id', 'ratings.cmt', 'ratings.created_at', 'ratings.rating', 'posts.id as post_id', 'posts.title', 'users.name')
+		->select('ratings.id', 'ratings.cmt', 'ratings.created_at', 'ratings.rating', 'posts.id as post_id','posts.slug', 'posts.title', 'users.name')
 		->where('ratings.user_id', '=', $user_id)->get();
 		return view('pages/mycmt', ['data' => $data]);
 	}
