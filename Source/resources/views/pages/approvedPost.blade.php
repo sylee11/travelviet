@@ -17,9 +17,9 @@
     @else
     @foreach($data as $p)
     <div class="row " id="" style="margin-bottom: 50px;">
-        <div class="card col-md-4">
+        <div class="card col-md-12">
             <img class="card-img-top" src="/{{$p->photo_path}}" alt="card_img">
-            <div class="card-body" style="width: 300px;">
+            <div class="card-body">
                 <div class="card-title font-weight-bold text-center ">
                     {{$p->title}}
                 </div>
@@ -35,38 +35,22 @@
                     </span>
                     {{$p->describer}}
                 </div>
-                <a class="btn btn-primary" href="/detail/{{$p->id}}">
+                <a class="btn btn-primary" href="/detail/{{$p->slug}}">
                     See more ...
+                </a>
+                <a class="btn btn-success" onclick="" href="{{route('approved', $p->id)}}" id="">
+                    Phê duyệt
+                </a>
+                <a class="btn btn-danger text-center" href="{{route('delete', $p->id)}}">
+                    Xoá bài viết
                 </a>
             </div>
 
         </div>
-        <div class="col-md-4 ">
-            <div class="align-middle text-center">
-                <a class="btn btn-success" onclick="" href="{{route('approved', $p->id)}}" id="">
-                    Phê duyệt
-                </a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <a class="btn btn-danger text-center" href="{{route('delete', $p->id)}}">
-                Xoá bài viết
-            </a>
-        </div>
+
     </div>
     @endforeach
-    <div class="row m-auto">
-        <div class="col-6">
-            <a class="btn btn-success text-center" href="">
-                Phê duyệt tất cả
-            </a>
-        </div>
-        <div class="col-6">
-            <a class="btn btn-danger text-center" href="">
-                Xóa tất cả
-            </a>
-        </div>
-    </div>
+
     @endif
 </div>
 @endsection

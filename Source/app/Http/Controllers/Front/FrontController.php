@@ -181,7 +181,7 @@ class FrontController extends Controller
 		->join('photos', 'posts.id', '=', 'photos.post_id')
 		->join('places', 'posts.place_id', '=', 'places.id')
 		->leftJoin('ratings', 'posts.id', '=', 'ratings.post_id')
-		->select('posts.id', 'posts.title', 'photos.photo_path')
+		->select('posts.id', 'posts.title','posts.slug', 'photos.photo_path')
 		->where([
 			['posts.place_id', '=', $data[0]->place_id],
 			['photos.flag', '=', 1],

@@ -99,7 +99,7 @@
                                 Descrice:
                             </span>
                             {{str_limit($p->describer, 65)}}
-                            <a class="" href="{{route('detail', $p->postid)}}">
+                            <a class="" href="{{route('detail', $p->slug)}}">
                                 See more
                             </a>
                         </div>

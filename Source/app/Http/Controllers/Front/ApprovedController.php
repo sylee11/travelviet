@@ -63,7 +63,7 @@ class ApprovedController extends Controller
 			->join('photos', 'posts.id', '=', 'photos.post_id')
 			->join('users', 'posts.user_id', '=', 'users.id')
 			->join('places', 'posts.place_id', '=', 'places.id')
-			->select('posts.id', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.id as user_id')
+			->select('posts.id', 'posts.title', 'posts.describer','posts.slug', 'photos.photo_path', 'users.name', 'places.name as place', 'users.id as user_id')
 			->where('posts.id', '=', $id_post)
 			->where('posts.is_approved', '=', 0)
 			->where('photos.flag', '=', '1')
