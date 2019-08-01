@@ -27,6 +27,7 @@
         border-color: #4d90fe;
       }
 	</style>
+	<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 	
 </head>
 
@@ -57,8 +58,8 @@
 				</select>
 			</div>	
 			<div class="form-group col-md-6">
-				<label  for="name" class="col-form-label"> Tên địa điểm </label>
-				<input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" required="" >
+				<label  for="name" class="col-form-label" > Tên địa điểm </label>
+				<input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" required="" value="{{ old('name') }}" placeholder="Tên địa điểm">
 				@error('name')
 				<span class="invalid-feedback" role="alert">
 					<strong>{{ $message }}</strong>
@@ -70,7 +71,7 @@
 		<div class="form-row " >
 			<div class="form-group col-md-6">
 				<label  for="address" class="col-form-label col-md-4 "> Địa chỉ </label>
-				<input type="text"  class="form-control col-md-8 @error('address') is-invalid @enderror" placeholder="Phường(Xã)-Quận(Huyện)-Tỉnh(ThànhPhố)" name="address" id="address" required="">
+				<input type="text"  class="form-control col-md-8 @error('address') is-invalid @enderror" placeholder="Full address" name="address" id="address" required="" value="{{ old('address') }}">
 				@error('address')
 				<span class="invalid-feedback" role="alert">
 					<strong>{{ $message }}</strong>
@@ -115,7 +116,7 @@
 		</div>
 		<div class="form-group">
 			<label class="col-form-label "> Số điện thoại </label>
-			<input type="tel" class="form-control col-md-8 @error('phone') is-invalid @enderror "  placeholder="034567890" name="phone" id="phone">
+			<input type="tel" class="form-control col-md-8 @error('phone') is-invalid @enderror "  placeholder="034567890" name="phone" id="phone" value="{{ old('phone') }}">
 			@error('phone')
 			<span class="invalid-feedback" role="alert">
 				<strong>{{ $message }}</strong>
@@ -124,7 +125,7 @@
 		</div>
 		<div class="form-group">
 			<label class="col-sm-2 col-form-label @error('title') is-invalid @enderror"> Title bài đăng </label>
-			<input type="text" class="form-control col-md-8" placeholder="" name="title" id="title" required="">
+			<input type="text" class="form-control col-md-8" placeholder="Tiêu đề bài viết" name="title" id="title" required="" value="{{ old('title') }}" >
 			@error('title')
 			<span class="invalid-feedback" role="alert">
 				<strong>{{ $message }}</strong>
@@ -133,8 +134,8 @@
 		</div>
 		<div class="form-group">
 			<label for="textarea"> Mô tả chi tiết </label>
-			<textarea name="descrice" class="form-control @error('descrice') is-invalid @enderror" rows="20" id="descrice" required=""> </textarea>
-			{{-- <textarea class="form-control" rows="5" id="editor3" name="comment" required></textarea> --}}
+			{{-- <textarea name="descrice" class="form-control @error('descrice') is-invalid @enderror" rows="20" id="descrice" required=""> </textarea> --}}
+			<textarea class="form-control" rows="10" id="editor1" name="descrice" required></textarea  value="{{ old('descrice') }}">
 			@error('descrice')
 			<span class="invalid-feedback" role="alert">
 				<strong>{{ $message }}</strong>
@@ -214,6 +215,7 @@
 		var ab=$(".clone");
 		ab.hide();
 
+
 	});
 	$('#gallery-photo-add').on('click', function() {
 		$('.gallery img').hide();
@@ -277,7 +279,6 @@
 	};
 	
 </script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-rW15K4v7WHlCWmnCYMLzyR0pU1cPpeI&libraries=places&callback=initAutocomplete"
 async defer></script>
@@ -333,5 +334,15 @@ async defer></script>
 			});
 		}
 	}
+</script>
+        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+        <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
+<script type="text/javascript">
+window.onload = function(){
+
+
+    	CKEDITOR.replace('editor1');
+
+};
 </script>
 @endsection
