@@ -59,7 +59,15 @@
             }
         });
     </script>
-
-
+    <form method="GET">
+    <textarea class="form-control" rows="5" id="editor1" name="comment" required style="width: 200px;"></textarea>
+    <BUTTON>abc</BUTTON>
+    </form>
+    <?php
+            echo $_GET['comment'];
+    ?>
+        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+        <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
+        <script type="text/javascript">CKEDITOR.replace('editor1');</script>
 </body>
 </html>

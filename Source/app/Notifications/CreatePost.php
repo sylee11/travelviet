@@ -57,7 +57,7 @@ class CreatePost extends Notification
     {
         return [
             'post_id' => $this->post->id,
-            'message' => "Bai viet cho phe duyet id= " . $this->post->id,
+            'message' => "Bai viet cho phe duyet " . $this->post->title,
             'link' => "/account/admin/approved/show/$this->id",
         ];
         //return $this->post->toArray();
