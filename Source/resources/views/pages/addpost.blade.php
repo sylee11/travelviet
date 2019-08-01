@@ -81,7 +81,7 @@
 			</div>
 			<div class="form-group col-md-3">
 				<label> Tỉnh, Thành Phố</label>
-				<select  class="custom-select form-control" id="city" onchange="myFunction()" required="">
+				<select  class="custom-select form-control" id="city" onchange="myFunction()" required="" value="{{ old('city') }}" name="city">
 					<option value="">Tỉnh ,thành phố</option>
 					@foreach($city as $ci)
 					<option> {{$ci->name}}</option>
@@ -93,7 +93,7 @@
 			<div class="form-group col-md-3">
 				<label>Quận, Huyện</label>
 
-				<select class="custom-select form-control" name="districts_id" id="district" required="">
+				<select class="custom-select form-control" name="districts_id" id="district" required="" >
 					<option value="">Quận, huyện</option>						
 				</select>
 			</div>
@@ -135,7 +135,7 @@
 		<div class="form-group">
 			<label for="textarea"> Mô tả chi tiết </label>
 			{{-- <textarea name="descrice" class="form-control @error('descrice') is-invalid @enderror" rows="20" id="descrice" required=""> </textarea> --}}
-			<textarea class="form-control" rows="10" id="editor1" name="descrice" required></textarea  value="{{ old('descrice') }}">
+			<textarea class="form-control" rows="10" id="editor1" name="descrice" required>{{ old('descrice') }}</textarea>
 			@error('descrice')
 			<span class="invalid-feedback" role="alert">
 				<strong>{{ $message }}</strong>
