@@ -14,7 +14,7 @@ use App\Rating;
 use App\User;
 use Auth;
 use Response;
-
+use App\Events\ViewPostHandler;
 
 use DB;
 
@@ -149,6 +149,8 @@ class FrontController extends Controller
 
 	public function detail($slug)
 	{
+		$post = Post::where('slug',$slug)->first();
+		event(new ViewPostHandler($post));
 		$post_id = DB::table('posts')
 				->select('posts.id')
 				->where('posts.slug','=',$slug)->first()->id;
