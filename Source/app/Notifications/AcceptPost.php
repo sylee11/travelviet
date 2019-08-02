@@ -57,8 +57,8 @@ class AcceptPost extends Notification
     {
         return [
             'post_id' => $this->post->id,
-            'message' => "Bai viet da phe duyet id= " . $this->post->id,
-            'link' => '/detail/' . $this->post->id,
+            'message' => "Bai viet da phe duyet " . $this->post->title,
+            'link' => '/detail/' . $this->post->slug,
         ];
     }
 }
