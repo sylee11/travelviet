@@ -24,7 +24,7 @@
 					{{ session('erro') }}
 				</div>
 				@endif
-			<FORM   action="{{route('account.editpost', [$id =Auth::id() , $idpost=$post->id] )}}" method="post" enctype="multipart/form-data" id="formedit">
+			<FORM   action="{{route('account.editpost', [$idpost=$post->id] )}}" method="post" enctype="multipart/form-data" id="formedit">
 				@csrf
 				<div class="form-row">
 					<div class="form-group col-md-6">

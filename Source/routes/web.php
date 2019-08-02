@@ -46,8 +46,8 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::group(['prefix' => 'account', 'middleware' => 'auth'],function(){
 		Route::get('/{id}/post', 'PostController@showformAddPost')->name('account.addpost');
 		Route::post('/{id}/post', 'PostController@add')->name('account.addpost');
-		Route::get('/{id}/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
-		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
+		Route::get('/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
+		Route::post('/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
 		Route::group(['prefix' => 'admin'], function(){
 			Route::get('/approved/show/{id}', 'ApprovedController@show')->name('acount.admin.approved');
@@ -118,7 +118,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
 		Route::get('/', 'PostController2@index')->name('admin.post.index');
-		Route::get('/delete/{id}', 'PostController2@destroy')->name('admin.post.delete');
+		Route::post('/delete/{id}', 'PostController2@destroy')->name('admin.post.delete');
 		Route::get('/approved/{id}', 'PostController2@approved')->name('admin.post.approved');
 		Route::get('/unapproved/{id}', 'PostController2@unapproved')->name('admin.post.unapproved');
 		Route::post('/add', 'PostController2@store')->name('admin.post.add');

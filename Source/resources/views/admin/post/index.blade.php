@@ -69,7 +69,10 @@
 							<a href="{{route('admin.post.detail', $post->id)}}" class=" btn btn-success nav-link"> Detail</a>
 
 							<a href="{{route('admin.post.showedit', $post->id)}}" class="btn btn-info nav-link " role='button' style="margin-left: 5px;"> Edit</a>
-							<a href="{{ route('admin.post.delete', $post->id)}}" class="btn btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</a>
+							<form method="post" action="{{ route('admin.post.delete', $post->id)}}">
+								@csrf
+								<button class="btn btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</button>
+							</form>
 						</td>
 					</tr>
 
@@ -89,6 +92,14 @@
 					<h4 class="modal-title " style="width: 100%; text-align: center;">Add new post</h4>
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
 				</div>
+				@if ($errors->count() > 0)
+	              <script type="text/javascript">
+	                $( window ).on("load", function() {
+	                  $("#myModal3").modal("toggle");
+	                });
+	              </script>
+	                
+	            @endif
 				@include('admin.post.add')
 				<!-- Modal body -->
 				<div class="modal-body">
@@ -129,4 +140,6 @@
 </div>
 <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
 @endsection

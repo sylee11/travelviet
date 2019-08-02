@@ -53,48 +53,43 @@
         <select class="form-control" id="userid" name="userid">
           @foreach($user as $u)
             @if($u->role == 1 || $u ->role == 2 )
-            <option>{{ $u->id }}</option>
+            <option value="{{ $u->id}}"  @if (old('userid') == $u->id) {{ 'selected' }} @endif>{{$u->name}}</option>
             @endif
           @endforeach
         </select>
 	  	</div>
 		<div class="form-group" style="margin-left: 40px;">
 	    	<label for="">Phone number:</label>
-	    	<input type="tel" class="form-control" id="number" name="number">
+	    	<input type="tel" class="form-control" id="number" name="number" required="" value="{{ old('number')}}">
 	  	</div>
 	</div>
 	<div class="form-group">
     	<label for="">Place id:</label>
        <select class="form-control" id="placeid" name="placeid">
           @foreach($place as $p)
-            <option>{{ $p->id }}</option>
+            <option value="{{ $p->id }}" @if (old('placeid') == $p->id) {{ 'selected' }} @endif>{{$p->name}}</option>
 
           @endforeach
       </select>
   </div>
 	<div class="form-group">
     	<label for="">Title:</label>
-    	<input type="text" class="form-control" id="title" name="title">
+    	<input type="text" class="form-control" id="title" name="title" required="" value="{{old('title')}}">
   	</div>
 	<div class="form-group">
     	<label for="">Descrice:</label>
-  		<textarea class="form-control" rows="5" id="describer" name="describer"></textarea> 
+      <textarea class="form-control" rows="3" id="describer" name="describer" required>{{old('describer')}}</textarea>
   	</div>
 	<div class="form-group form-check" style="display: flex;">
      	<input class="form-check-input" type="checkbox" name="checkbox" value="1">Post now:
-    </label>
   	</div>
-  	<div class="custom-file">
-{{--     	<input type="file" class="custom-file-input" id="customFile" name="image" required="true">
-    	<label class="custom-file-label" for="customFile" >Choose file</label> --}}
-    	 {{ csrf_field() }}
-{{--         <input type="file" name="filesTest" required="true" multiple data-show-upload="true">
- --}}
+  	<div class="custom-file" style="height: auto;">
+
  		<h5>Upload image</h5>
         <div class="input-group control-group increment" >
-          <input type="file" name="filename[]" class="form-control" accept="image/x-png,image/jpeg">
+          <input type="file" name="filename[]" class="form-control" accept="image/x-png,image/jpeg" required="" accept="image|jpeg|x-png">
           <div class="input-group-btn">  
-            <button class="btn btn-success add" type="button"><i class="glyphicon glyphicon-plus" id="add"></i>Add</button>
+            <button class="btn btn-primary add" type="button"><i class="glyphicon glyphicon-plus" id="add"></i>Add</button>
           </div>
         </div>
         <div class=" clone" style="overflow: hidden;">
@@ -108,8 +103,10 @@
 
 
   	</div> 
-  	<div>
-  		<button class="btn-success" type="submit"> Add</button>
+  	<div class="">
+      <div class="text-center" style="margin-top: 20px;">
+  		  <button class="btn btn-success align-middle" type="submit"> Xác nhận thêm</button>
+      </div>
   	</div>
 	</FORM>
 
@@ -130,6 +127,8 @@
 
       var ab=$(".clone");
       ab.hide();
+
+      CKEDITOR.replace('describer');
 
     });
 

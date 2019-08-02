@@ -40,7 +40,7 @@
 		<div class="row" style="display: table;text-align: left;">
 			<form>
 				@csrf
-				<a href="{{route('account.editpost', [$id = Auth::id(), $idPost = $value->post_id])}}" title="" class="btn btn-info" style="width: 75px;margin-right: 10px;">Edit</a>
+				<a href="{{route('account.editpost', [$idPost = $value->post_id])}}" title="" class="btn btn-info" style="width: 75px;margin-right: 10px;">Edit</a>
 				<button  formaction="{{route('mypost.delete', $id = $value->post_id)}}" title="" class="btn btn-danger " style="width: 75px;" onclick="return confirm('Bạn có muốn xoa bài đăng này?')" formmethod="post">Delete</button>
 			</form>
 		</div>
