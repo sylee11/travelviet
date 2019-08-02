@@ -275,39 +275,6 @@
 			$('#new_post').show();
 			$('#all_post').hide();
 		});
-		$("#scr1").click(function(){
-			var elmnt = document.getElementById("contact");
-			elmnt.scrollIntoView();
-			window.scrollBy(0, 50);
-
-		})
-		$("#scr2").click(function(){
-			var elmnt = document.getElementById("about");
-			elmnt.scrollIntoView();
-			window.scrollBy(0, -40);
-		})
-		$('#btnpositon').click(function(){
-			document.body.scrollTop = 0;
-			document.documentElement.scrollTop = 0;
-
-		})
-		$('#scr3').click(function(){
-			var elmnt = document.getElementById("topplace");
-			elmnt.scrollIntoView();
-			window.scrollBy(0, -100);
-
-		})
-		$(window).scroll(function() {    
-			var scroll = $(window).scrollTop();
-
-			if (scroll >= 200) {
-				console.log("zzz");
-				$("#nav-top").css({'background-color' :'#343a40','color' : 'black'})	;
-			}
-			if (scroll == 0){
-				$("#nav-top").css({'background-color' :'rgba(0,0,0,0.6)','color' : 'white-space'})
-			}
-		})
 
 	});
 	var slideIndex = 1;

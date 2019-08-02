@@ -101,7 +101,7 @@
                             <span class="font-weight-bold">
                                 Descrice:
                             </span>
-                            {{str_limit($p->describer, 65)}}
+                            {!! str_limit($p->describer, 65) !!}
                             <a class="" href="{{route('detail', $p->slug)}}">
                                 See more
                             </a>

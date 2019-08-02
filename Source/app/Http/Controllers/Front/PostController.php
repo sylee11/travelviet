@@ -143,9 +143,9 @@ class PostController extends Controller
 	}
 
 
-	public function showformEditPost($id , $idPost)
+	public function showformEditPost($idPost)
 	{
-
+        $id = Auth::id();
 		$post = Post::find($idPost);
 		$category = Category::all();
 		$place = Place::all();
@@ -155,9 +155,13 @@ class PostController extends Controller
     	return view('pages.editpost',['category' => $category, 'place' => $place, 'city' =>$city, 'district' => $district, 'post' => $post]);
 	}
 
-	public function edit(Request $request, $id , $idpost){
-
+	public function edit(Request $request, $idpost){
 		//edit post
+
+        //check idpost input co khớp k
+        if(POST::find($idpost) == null || POST::find($idpost)->first()->user_id != Auth::id()){
+            return redirect()->back()->with("erro", "Sửa bài viết thất bại!");
+        }
 		$posts = POST::find($idpost);
 		// $posts ->place_id = $request->placeid;
         $posts ->phone = $request->phone;

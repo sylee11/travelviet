@@ -1,3 +1,4 @@
+
 @extends('layouts.admin')
 @section('content')
 
@@ -23,9 +24,9 @@
       <div class="form-group " style="margin-left: 50px;" >
         <label >User id:</label>
         <select class="form-control" id="userid" name="userid" >
-          <option > {{$post->user_id}}</option>
+          <option > {{$post->user->name}}</option>
           @foreach($user as $u)
-          <option>{{ $u->id }}</option>
+          <option value="{{ $u->id }}" @if (old("userid") == $u->id) {{'selected'}} @endif> {{ $u->name }}</option>
 
           @endforeach
         </select>
@@ -34,9 +35,9 @@
       <div class="form-group"  style="margin-left: 50px";>
         <label >Place Id:</label>
         <select class="form-control" id="placeid" name="placeid">
-          <option > {{$post->place_id}}</option>
+          <option > {{$post->place->name}}</option>
           @foreach($place as $p)
-          <option>{{ $p->id }}</option>
+          <option value ="{{ $p->id }}" @if (old('placeid') == $p->id) {{'selected'}} @endif>{{ $p->name }}</option>
 
           @endforeach
         </select>
@@ -74,7 +75,7 @@
     </div>
     <div class="form-group">
       <label for="">Descrice:</label>
-      <textarea class="form-control"  rows="5" id="describer" name="descricer">{{ $post->describer }} </textarea> 
+      <textarea class="form-control" rows="3" id="describer" name="describer" required>{!! $post->describer !!} </textarea>
     </div>
 
     {{-- show all photo --}}
@@ -176,9 +177,12 @@
       //     var xx =$("#xxx");
       //     xx.hide();
       // });
+    CKEDITOR.replace('describer');
     });
 
   
 
   </script>
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+    <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
   @endsection
