@@ -31,6 +31,8 @@
   <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
   <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 
+
+
   {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 --}}
   <!-- Rating -->
@@ -40,8 +42,8 @@
 
   {{-- multi up image --}}
   <script src="{{asset('js/dropzone.js')}}"></script>
-
-
+  <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
+  <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <script>
 

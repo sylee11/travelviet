@@ -17,6 +17,7 @@
   // var infoWindow = new google.maps.InfoWindow();
   var latvalue = {{json_encode($data[0] -> lat)}};
   var longvalue = {{json_encode($data[0] -> longt)}};
+  
 
   function initMap() {
 
@@ -35,6 +36,11 @@
       position: uluru,
       map: map
     });
+    var infowindow = new google.maps.InfoWindow({
+      content: 'Vị trí địa điểm' +'<br>Latitude: ' + latvalue+
+      '<br>Longitude: ' + longvalue
+    });
+    infowindow.open(map,marker);
 
   }
 </script>
@@ -135,7 +141,7 @@ $cmts = $data->unique('rating_id')->values();
       <div style="height:500px;" class="tab-content">
         <div id="description" class="container tab-pane active"><br>
           <h3>{{$data[0]->place}}</h3>
-          <p>{{$data[0]->describer}}</p>
+             {!!($data[0]->describer)!!}
         </div>
         <div id="location" class="container tab-pane fade"><br>
           <h3>Location</h3>

@@ -33,7 +33,7 @@
                     <span class="font-weight-bold">
                         Descrice:
                     </span>
-                    {{$p->describer}}
+                    {!! $p->describer !!}
                 </div>
                 <a class="btn btn-primary" href="/detail/{{$p->slug}}">
                     See more ...
@@ -41,9 +41,13 @@
                 <a class="btn btn-success" onclick="" href="{{route('approved', $p->id)}}" id="">
                     Phê duyệt
                 </a>
-                <a class="btn btn-danger text-center" href="{{route('delete', $p->id)}}">
-                    Xoá bài viết
-                </a>
+                <form method="delete" >
+                        @csrf
+                        <input type="" name="iddelete" value="{{$p->id}}" style="display: none;">
+                        <button class="btn btn-dark text-center"  formaction="{{route('approved/deletepost')}}"  onclick="return confirm('Bạn có muốn xóa bài đăng này?')" formmethod="post">
+                            Xóa
+                        </button>
+                    </form>
             </div>
 
         </div>

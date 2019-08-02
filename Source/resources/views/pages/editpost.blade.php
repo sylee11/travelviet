@@ -24,7 +24,7 @@
 					{{ session('erro') }}
 				</div>
 				@endif
-			<FORM   action="{{route('account.editpost', [$id =Auth::id() , $idpost=$post->id] )}}" method="post" enctype="multipart/form-data">
+			<FORM   action="{{route('account.editpost', [$id =Auth::id() , $idpost=$post->id] )}}" method="post" enctype="multipart/form-data" id="formedit">
 				@csrf
 				<div class="form-row">
 					<div class="form-group col-md-6">
@@ -75,6 +75,7 @@
 					</div>
 
 				</div>
+				
 				<div class="form-group">
 					<label class="col-form-label "> Số điện thoại </label>
 					<input type="tel" class="form-control col-md-8 @error('phone') is-invalid @enderror "  placeholder="034567890"  value="{{$post->phone}}" name="phone" id="phone">
@@ -95,7 +96,7 @@
 				</div>
 				<div class="form-group">
 					<label for="textarea"> Mô tả chi tiết </label>
-					<textarea name="descrice" class="form-control " rows="20" id="descrice" required=""  > {{ $post->describer }}</textarea>
+					<textarea class="form-control" rows="15" id="editor1" name="descrice" required>{{ $post->describer }}</textarea >
 						
 				</div>
 
@@ -113,7 +114,7 @@
 				<div class="form-group">
 					<div class="form-group d-flex" >
 					 @foreach($post->photos as $p)
-			          	<div id="xxx" class="{{$p->id}}" style="display: flex; width: 150px; height: 150px; background-image: url({{"/".$p->photo_path}}); background-repeat: no-repeat; background-size: cover; margin-left: 10px;" >
+			          	<div id="{{$p->id}}" class="{{$p->id}}" style="display: flex; width: 150px; height: 150px; background-image: url({{"/".$p->photo_path}}); background-repeat: no-repeat; background-size: cover; margin-left: 10px;" >
 				            <button id="{{$p->id}}" class="{{$p->id}} btn-success"   type="button"  style="background-image:url('https://png.pngtree.com/svg/20170521/cancle_1301160.png') ; width: 25px; height: 25px; background-repeat: no-repeat; margin: 0; padding: 0; " >
 				            	X
 				            </button>
@@ -121,10 +122,8 @@
 				            	$(document).ready(function(){
 	                			$(".{{$p->id}}").click(function(){
 					                var x =$(".{{$p->id}}");	
-					                console.log(x);
 					                x.hide();
 					                var t = document.getElementById("p1").value;
-					                console.log(t);
 					                document.getElementById("p1").value = t +  "{{$p->id}}/";
 					            });  
 					            }) 
@@ -138,7 +137,8 @@
 				<div class="d-flex">
 					<div class="justify-content-center" style="margin-left: 45% ; margin-bottom: 50px;">
 						<button type="submit" class="btn btn-primary text-center" >Lưu lại</button>
-						<button type="reset" class="btn btn-dark">Reset</button>
+						<button type="reset" class="btn btn-dark" id="btnreset" onclick="return confirm('Có thay đổi cần lưu, bạn có chắc chắn thoát?')">Reset</button>
+
 					</div>
 				</div>
 			</FORM>
@@ -161,12 +161,32 @@
 
 	    var ab=$(".clone");
 	    ab.hide();
+
+	    //ckeditor
+	    CKEDITOR.replace('editor1');
+
+	    //reset all form
+	    $("#btnreset").click(function(){
+	    	var t = document.getElementById("p1").value;
+	    	$('#formedit').trigger("reset");
+	    	$('.gallery img').hide();
+	    	var splitted = t.split("/");
+	    	for(i=0; i<splitted.length; i++){
+	    		var xmt = splitted[i];
+				 //$("#splitted[i]").css("display", "block");
+				 document.getElementById(xmt).style.display = 'flex';
+				 // $('.xmt').show();
+
+	    	}
+
+	    })
+
 	   
     });
-   $("img").click(function(){
-   		$("img").hide();
 
-   })
+   $('#gallery-photo-add').on('click', function() {
+		$('.gallery img').hide();
+	});
 
 $(function() {
     // Multiple images preview in browser

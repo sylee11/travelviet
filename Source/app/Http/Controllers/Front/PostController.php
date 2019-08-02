@@ -14,6 +14,7 @@ use App\City;
 use DB;
 use Auth;
 use File;
+use App\Rating;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\CreatePost;
@@ -89,11 +90,11 @@ class PostController extends Controller
                 $thumbnailImage = Image::make($pho);
                 if($thumbnailImage->width() < 1000 || $thumbnailImage->height()<600)
                 {
-                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá nhỏ so với yêu cầu)');
+                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá nhỏ so với yêu cầu)')->withInput($request->input());
                 }
                 if($thumbnailImage->width() > 2500 && $thumbnailImage->height()>1300)
                 {
-                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá lớn so với yêu cầu)');
+                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá lớn so với yêu cầu)')->withInput($request->input());
                 }
 	        }
         }
@@ -237,14 +238,25 @@ class PostController extends Controller
 
     public function delete($id)
     {
-        $posts = DB::table('posts')
-            ->where('id' , '=' ,$id)->delete();
-        $photo =DB::table('photos')
-            ->where('post_id', '=' ,$id)->delete();
-        $path = "/picture/admin/post/".$id; 
-        File::deleteDirectory(public_path($path));
-        return redirect()->route('mypost')->with('success', ' Xóa thanh công');
+        if(POST::where('id', $id)->first() == null){
+            return redirect()->back()->with("errro","không thể xóa !!");            
+        }
+        $check = POST::where('id', $id)->first()->user_id;
+        if($check != Auth::id()) {
+            return redirect()->back()->with("errro","không thể xóa !!");
+        }
+        else
 
+        {
+            $posts = DB::table('posts')
+                ->where('id' , '=' ,$id)->delete();
+            $photo =DB::table('photos')
+                ->where('post_id', '=' ,$id)->delete();
+            $path = "/picture/admin/post/".$id;
+            $rating = Rating::where('post_id', $id)->delete(); 
+            File::deleteDirectory(public_path($path));
+            return redirect()->route('mypost')->with('success', ' Xóa thanh công');
+        }
     }
 
 }

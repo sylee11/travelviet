@@ -38,7 +38,8 @@ Route::group(['namespace' => 'Front'], function (){
 	// Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
 	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
 
-	
+    
+	Route::get('/autocomplete/search', 'SearchListController@autocompleteSearch')->name('autocomplete.search');
 
 	Route::get('/user/{user_id}','FrontController@userInfo');
 	Route::get('/user/{user_id}/post','FrontController@userPost');
@@ -60,7 +61,7 @@ Route::group(['namespace' => 'Front'], function (){
 			Route::get('/approved', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::get('/approved/{id}', 'ApprovedController@approved')->name('approved');
 			// Route::get('/approved/all', 'ApprovedController@allpost')->name('xxx');
-			Route::get('/approved/{id}/delete', 'ApprovedController@delete')->name('delete');
+			Route::post('/deletepost', 'ApprovedController@delete')->name('approved/deletepost');
 			// Route::get('/approved/search', 'ApprovedController@search')->name('approved.search');
 		});
 		Route::get('aa/admin/approved/all', 'ApprovedController@allpost')->name('approved.all');
@@ -75,7 +76,7 @@ Route::group(['namespace' => 'Front'], function (){
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
 //	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::get('/mypost','ProfileController@mypost')->name('mypost');
-	Route::get('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
+	Route::post('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
 
 	Route::get('/detail/{slug}','FrontController@detail')->name('detail')->middleware('viewcount');
 
@@ -196,5 +197,5 @@ Auth::routes();
 
 //test
 Route::get('/abc', function() {
- 	return view('layouts.app');
+ 	return view('includes.erro404');
 })->name('test');
