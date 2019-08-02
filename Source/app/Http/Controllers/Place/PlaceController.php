@@ -112,7 +112,7 @@ public function postedit (Request $request,$id)
     $place->longt=$request->get('lng');
     $place->save();
 
-    return \Redirect::route('admin.place.edit', [$place->id])->with('message', 'Place has been updated!');
+    return \Redirect::route('admin.place.edit', [$place->id,'place'=>$place])->with('message', 'Place has been updated!');
     
 }
 public function getdetail ($id)

@@ -31,6 +31,8 @@
   <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
   <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 
+
+
   {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 --}}
   <!-- Rating -->

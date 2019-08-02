@@ -75,6 +75,7 @@
 					</div>
 
 				</div>
+				
 				<div class="form-group">
 					<label class="col-form-label "> Số điện thoại </label>
 					<input type="tel" class="form-control col-md-8 @error('phone') is-invalid @enderror "  placeholder="034567890"  value="{{$post->phone}}" name="phone" id="phone">

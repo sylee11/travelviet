@@ -194,10 +194,27 @@ class SearchListController extends Controller
 		->Paginate(10);
 
 		return view('pages.search_list',['post' => $post],['search'=>$search]);
-
-
 	}
-	
+	function autocompleteSearch(Request $request)
+	{
+		if($request->get('query'))
+		{
+			$query = $request->get('query');
+			$data = DB::table('places')
+			->where('name', 'LIKE', "%{$query}%")
+			->get();
+			$output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+			foreach($data as $row)
+			{
+			$output .= '
+				<li><a href="#">'.$row->name.'</a></li>
+				';
+			}
+			$output .= '</ul>';
+			echo $output;
+		}
+	}
+
 	public function googlemap()
 	{
 		$place = DB::table('places')->get();

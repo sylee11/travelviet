@@ -17,6 +17,7 @@
   // var infoWindow = new google.maps.InfoWindow();
   var latvalue = {{json_encode($data[0] -> lat)}};
   var longvalue = {{json_encode($data[0] -> longt)}};
+  
 
   function initMap() {
 
@@ -35,6 +36,11 @@
       position: uluru,
       map: map
     });
+    var infowindow = new google.maps.InfoWindow({
+      content: 'Vị trí địa điểm' +'<br>Latitude: ' + latvalue+
+      '<br>Longitude: ' + longvalue
+    });
+    infowindow.open(map,marker);
 
   }
 </script>

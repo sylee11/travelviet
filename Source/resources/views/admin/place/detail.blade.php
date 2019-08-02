@@ -39,14 +39,15 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-3">
-      <label for="">Lat</label>
-      <input type="text" value="{{$place->lat}}" class="form-control input-sm" name="lat" id="lat" required="" disabled="">
+<!--       <label for="">Lat</label> -->
+      <input type="hidden" value="{{$place->lat}}" class="form-control input-sm" name="lat" id="lat" required="" disabled="">
     </div>
     <div class="form-group col-md-3">
-      <label for="">Lng</label>
-      <input type="text" value="{{$place->longt}}" class="form-control input-sm" name="lng" id="lng" required="" disabled="">
+      <!-- <label for="">Lng</label> -->
+      <input type="hidden" value="{{$place->longt}}" class="form-control input-sm" name="lng" id="lng" required="" disabled="">
     </div>
   </div>
+
   <button type="submit" class="btn btn-danger">
     <a href="/admin/place" style="color: white">Cancel</a>
   </button>
@@ -70,14 +71,17 @@ async defer></script>
 
 
 <script type="text/javascript">
-  var infowindow = new google.maps.InfoWindow;
-  
-  
+ 
+  var latvalue = {!! json_encode($place->lat) !!}; 
+  var lngvalue = {!! json_encode($place->longt) !!};
+  var namevalue = {!! json_encode($place->name) !!};
+  var addressvalue = {!! json_encode($place->address) !!};
+   var infowindow = new google.maps.InfoWindow;
   function initAutocomplete() {
    
     var pos = {
-      lat: 16.02,
-      lng: 108.13
+      lat: latvalue,
+      lng: lngvalue
     };
         var map = new google.maps.Map(document.getElementById('map'), {
           center: pos,
@@ -85,7 +89,11 @@ async defer></script>
           mapTypeId: 'roadmap'
         });
         var marker = new google.maps.Marker({position: pos, map: map });
-         
+        var infowindow = new google.maps.InfoWindow({
+          content:'<b>Tên địa điểm:</b> '+namevalue+ '<br><b>Địa chỉ:</b>'+addressvalue+ '<br>Vị trí địa điểm: ' +'Lat :' + latvalue+
+          ' Long: ' + lngvalue
+        });
+        infowindow.open(map,marker); 
        
        }
    

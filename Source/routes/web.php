@@ -38,7 +38,8 @@ Route::group(['namespace' => 'Front'], function (){
 	// Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
 	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
 
-	
+    
+	Route::get('/autocomplete/search', 'SearchListController@autocompleteSearch')->name('autocomplete.search');
 
 	Route::get('/user/{user_id}','FrontController@userInfo');
 	Route::get('/user/{user_id}/post','FrontController@userPost');
@@ -77,7 +78,7 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::get('/mypost','ProfileController@mypost')->name('mypost');
 	Route::post('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
 
-	Route::get('/detail/{slug}','FrontController@detail')->name('detail');
+	Route::get('/detail/{slug}','FrontController@detail')->name('detail')->middleware('viewcount');
 
 	Route::post('/detail/rate','FrontController@rate');
 	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');

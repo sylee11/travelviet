@@ -14,7 +14,7 @@
      {{--  <button  data-target="#demo" class="btn btn-primary  " style="width: 150px; height: 50px; border-radius: 20px; background-color: #3997A6">
       Tìm kiếm địa điểm </button> --}}
       <div style="display: flex;justify-content: center;">
-      <form action="{{route('get.list')}}" method="get">
+      <form action="{{route('get.list')}}" method="get" autocomplete="off">
         <input type="hidden" name="_token" value="{{ csrf_token()}}">
         <div style=" padding-top: 40px;" class="row">
           <div class="col-lg-3" style="padding-right: 50px;">
@@ -27,13 +27,22 @@
               @endforeach
               @endif
             </select>
+            
+            
+           <!--  <input type="text" class="typeahead form-control" name="cities_id"  id="city"  placeholder="Tỉnh, thành phố" style="background-color: #467F3E; color: white; border-radius: 10px; height: 40px; width: 180px; margin-bottom: 10px;">
+            -->
+            <!-- <div class="form-group">
+              <input type="text" value="" name="cities_id" id="city" class="form-control input-lg" placeholder="Tỉnh, thành phố"  />
+              <div id="cityList">
+              </div>
+            </div> -->
           </div>
-
           <div class="col-lg-3" style="padding-right: 50px;">
             <select class="btn btn-secondary dropdown-toggle" name="districts_id" id="district" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px; width: 180px; margin-bottom: 10px;">
               <option>Quận,huyện</option>
 
             </select>
+
           </div>
 
           <div class="col-lg-3" style="padding-right: 50px;">
@@ -62,10 +71,13 @@
 
 
         </div>
+        
+
+
         <script type="text/javascript">
           $(document).ready(function(){
             $('#city').change(function(){
-              console.log("ãv");
+              
               var cityID = $(this).val();    
 
               if(cityID){
@@ -95,13 +107,23 @@
         <div class="align-middle" id="searchhead">
           <form class="form-inline" action="{{route('search.list')}}" method="get">
             <input type="hidden" name="_token" value="{{ csrf_token()}}">
-
-            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" required="" id="inputsearch">
-            <button class="btn " type="submit" style="background: #FB8B34; color: white; " id="btnsearch"> <span class="font-weight-bold" >Search </span></button>
+            <div class="row">
+              
+            
+            <div>
+               <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" required="" id="inputsearch">
+               <div id="searchList"></div>
+            </div>
+           
+            
+            <div>
+              <button class="btn " type="submit" style="background: #FB8B34; color: white; " id="btnsearch"> <span class="font-weight-bold" >Search </span></button>
+            </div>
+            </div>
           </form>
-
+        
         </div>
-
+        
       </div>
     </div>
 
@@ -143,6 +165,33 @@
   </div>
 
 </div>
+<script>
+  $(document).ready(function(){
+
+   $('#inputsearch').keyup(function(){ 
+    var query = $(this).val();
+    if(query != '')
+    {
+     var _token = $('input[name="_token"]').val();
+     $.ajax({
+      url:"{{ route('autocomplete.search') }}",
+      method:"GET",
+      data:{query:query, _token:_token},
+      success:function(data){
+       $('#searchList').fadeIn();  
+       $('#searchList').html(data);
+     }
+   });
+   }
+ });
+
+   $(document).on('click', 'li', function(){  
+    $('#inputsearch').val($(this).text());  
+    $('#searchList').fadeOut();  
+  });  
+
+ });
+</script>
 <main class="container" >
   @yield('content-section')
 </main>
