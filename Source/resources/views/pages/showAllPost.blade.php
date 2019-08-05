@@ -3,7 +3,9 @@
 <div class="container " style="margin-top: 200px; text-align: left;">
     <h3 class="card-title text-center " style="margin: 100px;">
         Phê duyệt bài viết
+
     </h3>
+
     <div class="row">
         <form action="{{route('approved.all')}}" class="form-inline w-100" method="get" style="margin-bottom:  20px; ">
             <label style="margin-left: 100px;">
@@ -75,11 +77,12 @@
     @else
     <div class="row " id="zz" style="margin-bottom: 50px;">
         @foreach($data as $p)
+        {{Session::put('key'.$p->postid, $p->postid)}}
         <div class="col-lg-3" style="margin-bottom: 50px;">
             <div class="card col-lg">
                 <img  class="card-img-top" src="{{"/".$p->photo_path}}" style="width: 220px; height: 200px;" alt="card_img" >
                     <div class="card-body " style="height: 300px; overflow: hidden;text-overflow: ellipsis;">
-                        <div class="card-title font-weight-bold text-center ">
+                        <div class="card-title font-italic-weight-bold text-center ">
                             {{$p->title}}
                         </div>
                         <div class="card-title">
@@ -98,8 +101,8 @@
                             <span class="font-weight-bold">
                                 Descrice:
                             </span>
-                            {{str_limit($p->describer, 65)}}
-                            <a class="" href="{{route('detail', $p->postid)}}">
+                            {!! str_limit($p->describer, 65) !!}
+                            <a class="" href="{{route('detail', $p->slug)}}">
                                 See more
                             </a>
                         </div>
@@ -121,18 +124,22 @@
                 </div>
                 <div>
                     Action:
-						@if($p->is_approved == 0)
-                    <a class="btn btn-success " href="{{route('approved', $p->postid)}}" id="{{$p->postid}}">
-                        Duyệt
-                    </a>
-                    @else
-                    <a class="btn btn-danger text-center" href="{{route('approved', $p->postid)}}">
-                        Hủy Duyệt
-                    </a>
-                    @endif
-                    <a class="btn btn-dark text-center" href="{{route('delete', $p->postid)}}" onclick="return confirm('Bạn có muốn xóa bài đăng này?')">
-                        Xóa
-                    </a>
+                    <form method="delete" >
+                        {{ csrf_field() }}
+                        @if($p->is_approved == 0)
+                        <a class="btn btn-success " href="{{route('approved', $p->postid)}}" id="{{$p->postid}}">
+                            Duyệt
+                        </a>
+                        @else
+                        <a class="btn btn-danger text-center" href="{{route('approved', $p->postid)}}">
+                            Hủy Duyệt
+                        </a>
+                        @endif
+                        <input type="" name="iddelete" value="{{$p->postid}}" style="display: none;">
+                        <button class="btn btn-dark text-center"  formaction="{{route('approved/deletepost')}}"  onclick="return confirm('Bạn có muốn xóa bài đăng này?')" formmethod="post">
+                            Xóa
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -15,32 +15,32 @@ class PlaceController extends Controller
     public function index()
     {
         
-     $place=Place::all();
-     $category=Category::all();
-     $city=City::all();
-     $district=District::all();
-     return view('admin.place.index',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
+       $place=Place::all();
+       $category=Category::all();
+       $city=City::all();
+       $district=District::all();
+       return view('admin.place.index',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
         //return($place)->toArray();
-     
- }
- public function getadd()
- {
+       
+   }
+   public function getadd()
+   {
     $place=Place::all();
     $category=Category::all();
     $city=City::all();
     $district=District::all();
     return view('admin.place.add',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
- }
- public function getCityList(Request $request)
- {
+}
+public function getCityList(Request $request)
+{
     $districts = DB::table("districts")
     ->where("cities_id",$request->cities_id)
     ->pluck("name","id");
     return response()->json($districts);
 
 }
- public function store(Request $request)
- {
+public function store(Request $request)
+{
     $this->validate($request,
         [
             'name'=>'required|max:255',
@@ -76,18 +76,18 @@ public function xoa($id)
     $place = Place::find($id);
     $place->delete();
     
-     return redirect()->back()->with('success','ban da xoa thanh cong');
+    return redirect()->back()->with('success','ban da xoa thanh cong');
     
 }
 
 public function getedit ($id)
 {
-   $place=Place::find($id);
+ $place=Place::find($id);
    // $place=Place::all();
-    $category=Category::all();
-    $city=City::all();
-    $district=District::all();
-    return view('admin.place.edit',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
+ $category=Category::all();
+ $city=City::all();
+ $district=District::all();
+ return view('admin.place.edit',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
 }
 public function postedit (Request $request,$id)
 {
@@ -112,16 +112,16 @@ public function postedit (Request $request,$id)
     $place->longt=$request->get('lng');
     $place->save();
 
-    return \Redirect::route('admin.place.edit', [$place->id])->with('message', 'Place has been updated!');
+    return \Redirect::route('admin.place.edit', [$place->id,'place'=>$place])->with('message', 'Place has been updated!');
     
 }
 public function getdetail ($id)
 {
-   $place=Place::find($id);
-   
-    $category=Category::all();
-    $city=City::all();
-    $district=District::all();
-    return view('admin.place.detail',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
+ $place=Place::find($id);
+ 
+ $category=Category::all();
+ $city=City::all();
+ $district=District::all();
+ return view('admin.place.detail',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
 }
 }

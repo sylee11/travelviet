@@ -17,6 +17,7 @@
   // var infoWindow = new google.maps.InfoWindow();
   var latvalue = {{json_encode($data[0] -> lat)}};
   var longvalue = {{json_encode($data[0] -> longt)}};
+  
 
   function initMap() {
 
@@ -35,6 +36,11 @@
       position: uluru,
       map: map
     });
+    var infowindow = new google.maps.InfoWindow({
+      content: 'Vị trí địa điểm' +'<br>Latitude: ' + latvalue+
+      '<br>Longitude: ' + longvalue
+    });
+    infowindow.open(map,marker);
 
   }
 </script>
@@ -135,7 +141,7 @@ $cmts = $data->unique('rating_id')->values();
       <div style="height:500px;" class="tab-content">
         <div id="description" class="container tab-pane active"><br>
           <h3>{{$data[0]->place}}</h3>
-          <p>{{$data[0]->describer}}</p>
+             {!!($data[0]->describer)!!}
         </div>
         <div id="location" class="container tab-pane fade"><br>
           <h3>Location</h3>
@@ -165,8 +171,8 @@ $cmts = $data->unique('rating_id')->values();
         <form action="/detail/rate" method="POST">
           @csrf
           <label for="">Rating:</label>
-          <input type="hidden" name="post_id" value="{{$data[0]->id}}">
-          <input type="hidden" name="user_id" value="{{Auth::id()}}">
+          <!-- <input type="hidden" name="post_id" value="{{$data[0]->id}}"> -->
+          <?php session(['post_id' => $data[0]->id]); ?>
 
           <span class="star-rating">
             <input type="radio" name="rating" value="1"><i></i>
@@ -237,7 +243,7 @@ $cmts = $data->unique('rating_id')->values();
       @foreach ($post_relate as $record)
       <div class="col-sm-3" style="margin:50px 0;">
         <div class="card-img" style="height:280px;">
-          <a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
+          <a href="{{route('detail',$record->slug)}}" title="" style="text-decoration: none;">
             <div style="height: 200px;">
               <img class="card-img-top list_images" src="/{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
             </div>

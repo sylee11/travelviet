@@ -31,6 +31,8 @@
   <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
   <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 
+
+
   {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 --}}
   <!-- Rating -->
@@ -40,8 +42,9 @@
 
   {{-- multi up image --}}
   <script src="{{asset('js/dropzone.js')}}"></script>
-
-
+  <script src="{{asset('js/index.js')}}"></script>
+  <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
+  <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <script>
 
@@ -212,6 +215,15 @@
 
           <!-- Modal body -->
           <div class="modal-body">
+            {{-- reopen modal when có lỗi --}}
+            @if ($errors->count() > 0)
+              <script type="text/javascript">
+                $( window ).on("load", function() {
+                  $("#myModal").modal("toggle");
+                });
+              </script>
+                
+            @endif
             @include('auth.login')
           </div>
 
@@ -238,6 +250,14 @@
 
           <!-- Modal body -->
           <div class="modal-body">
+            @if ($errors->count() > 0)
+              <script type="text/javascript">
+                $( window ).on("load", function() {
+                  $("#myModal").modal("toggle");
+                });
+              </script>
+                
+            @endif
             @include('auth.register2')
           </div>
           @include('sweetalert::alert')
@@ -255,7 +275,7 @@
   </div>
   <div>
     <button class="btn btn-dark" style="width: 50px; height: 50px; position: fixed;bottom: 20px;
-  right: 30px;" id="btnpositon"> ^</button>
+  right: 30px; display: none;" id="btnpositon"> ^</button>
   </div>
 
   @yield('content')

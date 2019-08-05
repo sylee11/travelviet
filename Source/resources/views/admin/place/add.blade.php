@@ -9,7 +9,7 @@
 </div>
 @endif
 @if(Session::has('message'))
-<div class="alert alert-danger">
+<div class="alert alert-success">
 	{{Session::get('message')}}
 </div>
 @endif
@@ -143,15 +143,27 @@ async defer></script>
 					lat: position.coords.latitude,
 					lng: position.coords.longitude
 				};
-				    $('#lat').val(position.coords.latitude);
-					$('#lng').val(position.coords.longitude);
+				$('#lat').val(position.coords.latitude);
+				$('#lng').val(position.coords.longitude);
+	
 				var map = new google.maps.Map(document.getElementById('map'), {
 					center: pos,
-					zoom: 10,
+					zoom: 16,
 					mapTypeId: 'roadmap'
 				});
-				var marker = new google.maps.Marker({position: pos, map: map,draggable: true });
-
+				// var marker = new google.maps.Marker({position: pos, map: map,draggable: true });
+                
+				var marker = new google.maps.Marker({
+					position: pos,
+					draggable: true,	
+					map: map
+				});
+                var infowindow = new google.maps.InfoWindow({
+						content: 'Vị trí của bạn ' +'<br>Latitude: ' + position.coords.latitude+
+						'<br>Longitude: ' + position.coords.longitude
+					});
+					infowindow.open(map,marker);
+				
 				var input = document.getElementById('pac-input');
 				var searchBox = new google.maps.places.SearchBox(input);
                 
@@ -172,17 +184,32 @@ async defer></script>
             }
             map.fitBounds(bounds);
             map.setZoom(16);
-        });
+        });   
+               
 				google.maps.event.addListener(marker,'position_changed',function(){
-					var lat =marker.getPosition().lat();
-					var lng =marker.getPosition().lng();
+					 lat =marker.getPosition().lat();
+					 lng =marker.getPosition().lng();
 
 					$('#lat').val(lat);
 					$('#lng').val(lng);
+					if ( position.coords.latitude!=lat ||position.coords.longitude!=lng) {
+						infowindow.close();
+						infowindow = new google.maps.InfoWindow({
+							content: 'Vị trí bạn muốn chọn' +'<br>Latitude: ' + lat+
+						'<br>Longitude: ' + lng
+						});
+						// marker.addListener('click', function() {
+							infowindow.open(marker.get('map'), marker);
+						//});
+                  }
 				});
+				
+				
 			}, function() {
 				handleLocationError(true, infoWindow, map.getCenter());
 			});
+         
+
 		}
 	}
 </script>

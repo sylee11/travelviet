@@ -38,7 +38,8 @@ Route::group(['namespace' => 'Front'], function (){
 	// Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
 	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
 
-	
+    
+	Route::get('/autocomplete/search', 'SearchListController@autocompleteSearch')->name('autocomplete.search');
 
 	Route::get('/user/{user_id}','FrontController@userInfo');
 	Route::get('/user/{user_id}/post','FrontController@userPost');
@@ -46,8 +47,8 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::group(['prefix' => 'account', 'middleware' => 'auth'],function(){
 		Route::get('/{id}/post', 'PostController@showformAddPost')->name('account.addpost');
 		Route::post('/{id}/post', 'PostController@add')->name('account.addpost');
-		Route::get('/{id}/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
-		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
+		Route::get('/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
+		Route::post('/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
 		Route::group(['prefix' => 'admin'], function(){
 			Route::get('/approved/show/{id}', 'ApprovedController@show')->name('acount.admin.approved');
@@ -60,7 +61,7 @@ Route::group(['namespace' => 'Front'], function (){
 			Route::get('/approved', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::get('/approved/{id}', 'ApprovedController@approved')->name('approved');
 			// Route::get('/approved/all', 'ApprovedController@allpost')->name('xxx');
-			Route::get('/approved/{id}/delete', 'ApprovedController@delete')->name('delete');
+			Route::post('/deletepost', 'ApprovedController@delete')->name('approved/deletepost');
 			// Route::get('/approved/search', 'ApprovedController@search')->name('approved.search');
 		});
 		Route::get('aa/admin/approved/all', 'ApprovedController@allpost')->name('approved.all');
@@ -75,9 +76,9 @@ Route::group(['namespace' => 'Front'], function (){
 //	Route::post('/update', 'ProfileController@update')->name('profile.update');
 //	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::get('/mypost','ProfileController@mypost')->name('mypost');
-	Route::get('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
+	Route::post('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
 
-	Route::get('/detail/{id}','FrontController@detail')->name('detail');
+	Route::get('/detail/{slug}','FrontController@detail')->name('detail')->middleware('viewcount');
 
 	Route::post('/detail/rate','FrontController@rate');
 	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');
@@ -118,7 +119,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
 		Route::get('/', 'PostController2@index')->name('admin.post.index');
-		Route::get('/delete/{id}', 'PostController2@destroy')->name('admin.post.delete');
+		Route::post('/delete/{id}', 'PostController2@destroy')->name('admin.post.delete');
 		Route::get('/approved/{id}', 'PostController2@approved')->name('admin.post.approved');
 		Route::get('/unapproved/{id}', 'PostController2@unapproved')->name('admin.post.unapproved');
 		Route::post('/add', 'PostController2@store')->name('admin.post.add');
@@ -197,5 +198,5 @@ Auth::routes();
 
 //test
 Route::get('/abc', function() {
- 	return view('layouts.app');
+ 	return view('includes.erro404');
 })->name('test');

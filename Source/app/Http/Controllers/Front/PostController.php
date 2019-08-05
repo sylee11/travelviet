@@ -14,9 +14,11 @@ use App\City;
 use DB;
 use Auth;
 use File;
+use App\Rating;
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\CreatePost;
+use Illuminate\Support\Str;
 class PostController extends Controller
 {
     //
@@ -76,7 +78,7 @@ class PostController extends Controller
         $post ->is_approved = 0;
         $post ->describer = $request->descrice;
         // $post ->save();
-
+        $post ->slug = Str::slug($request->title, '-');
 
         
  
@@ -88,11 +90,11 @@ class PostController extends Controller
                 $thumbnailImage = Image::make($pho);
                 if($thumbnailImage->width() < 1000 || $thumbnailImage->height()<600)
                 {
-                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá nhỏ so với yêu cầu)');
+                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá nhỏ so với yêu cầu)')->withInput($request->input());
                 }
                 if($thumbnailImage->width() > 2500 && $thumbnailImage->height()>1300)
                 {
-                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá lớn so với yêu cầu)');
+                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá lớn so với yêu cầu)')->withInput($request->input());
                 }
 	        }
         }
@@ -141,9 +143,9 @@ class PostController extends Controller
 	}
 
 
-	public function showformEditPost($id , $idPost)
+	public function showformEditPost($idPost)
 	{
-
+        $id = Auth::id();
 		$post = Post::find($idPost);
 		$category = Category::all();
 		$place = Place::all();
@@ -153,9 +155,13 @@ class PostController extends Controller
     	return view('pages.editpost',['category' => $category, 'place' => $place, 'city' =>$city, 'district' => $district, 'post' => $post]);
 	}
 
-	public function edit(Request $request, $id , $idpost){
-
+	public function edit(Request $request, $idpost){
 		//edit post
+
+        //check idpost input co khớp k
+        if(POST::find($idpost) == null || POST::find($idpost)->first()->user_id != Auth::id()){
+            return redirect()->back()->with("erro", "Sửa bài viết thất bại!");
+        }
 		$posts = POST::find($idpost);
 		// $posts ->place_id = $request->placeid;
         $posts ->phone = $request->phone;
@@ -236,14 +242,25 @@ class PostController extends Controller
 
     public function delete($id)
     {
-        $posts = DB::table('posts')
-            ->where('id' , '=' ,$id)->delete();
-        $photo =DB::table('photos')
-            ->where('post_id', '=' ,$id)->delete();
-        $path = "/picture/admin/post/".$id; 
-        File::deleteDirectory(public_path($path));
-        return redirect()->route('mypost')->with('success', ' Xóa thanh công');
+        if(POST::where('id', $id)->first() == null){
+            return redirect()->back()->with("errro","không thể xóa !!");            
+        }
+        $check = POST::where('id', $id)->first()->user_id;
+        if($check != Auth::id()) {
+            return redirect()->back()->with("errro","không thể xóa !!");
+        }
+        else
 
+        {
+            $posts = DB::table('posts')
+                ->where('id' , '=' ,$id)->delete();
+            $photo =DB::table('photos')
+                ->where('post_id', '=' ,$id)->delete();
+            $path = "/picture/admin/post/".$id;
+            $rating = Rating::where('post_id', $id)->delete(); 
+            File::deleteDirectory(public_path($path));
+            return redirect()->route('mypost')->with('success', ' Xóa thanh công');
+        }
     }
 
 }

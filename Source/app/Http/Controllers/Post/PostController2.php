@@ -12,6 +12,7 @@ use App\Photo;
 use File;
 use App\Rating;
 use App\Place;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -24,25 +25,6 @@ class PostController2 extends Controller
      */
     public function index()
     {
-        //$posts =User::find(1)->post;
-        // $user = $posts->user;
-        //dd($posts);
-        //$user = User::post();
-        
-
-        // $posts = DB::table('posts')
-        //     ->join('users', 'users.id', '=', 'posts.user_id')
-        //     ->select('posts.*', 'users.name')
-        //     ->get();
-        //$posts = POST::all() ;
-        //$user = USER::find(10)->get();
-        //dd($userss);
-        // $user = User::find(1);
-        // $posts->user()->get();
-
-        //$posts = POST::find(33)->get();
-
-        //eloquent 
         $postss = POST::all();
         $user = USER::all();
         $place = PLACE::all();
@@ -90,40 +72,22 @@ class PostController2 extends Controller
         $posts -> phone = $request ->number;
         $posts -> place_id = $request ->placeid;
         $posts -> title = $request ->title;
-        if($request ->describer){
         $posts -> describer = $request ->input('describer');
-        }
-        else return "none describer";
-        // $t = $request -> checkbox;
-        // dd($t);
         if($request->checkbox){
             $posts -> is_approved = $request -> checkbox;
         }
         else{
         $posts -> is_approved =0;
         }
-        $posts -> save();
-
+        $posts ->slug = Str::slug($request->title, '-');
         //find last id
-       // $posts = POST::latest()->first();
-        //$posts = $posts->id
-        //make folder chua photo
+        //make folder chứa photo
         $path = 'picture/admin/post/'.$posts->id;
-        File::makeDirectory($path);
-
-        //insert 1 photo
-
-        // $file = $request->filesTest;
-        // $file->move('picture', $file->getClientOriginalName());
-        //$photo = new PHOTO;
-        // $photo->photo_path = "picture/".$file->getClientOriginalName();
-        // $photo->flag = 0;
-        // $photo->posts_id=$posts->id;
-        // $photo ->save ();
-
-
-
+        if(!File::exists($path)){
+            File::makeDirectory($path, 0644);
+        }
         //insert multi photo
+        $posts -> save();
         if($request->has('filename')){
             foreach($request->file('filename') as $image)
             {   
@@ -137,7 +101,7 @@ class PostController2 extends Controller
                 foreach ($t as $key => $value) {
                         if($value->photo_path ==  $namet  ){
                             $p = POST::find($posts->id)->delete();
-                            return "anh trung nhau";
+                            return redirect()->back()->with("erro","image trùng");
                         }
                 }  
 
@@ -153,11 +117,7 @@ class PostController2 extends Controller
             $photoflag->save();
             return back()->with('success', 'Your images has been successfully');
         }
-        return "You are not choose picture";
  
-        //return redirect (route('admin.post.index'));
-
-
 
     }
 
@@ -302,7 +262,7 @@ class PostController2 extends Controller
 
         $rating =Rating::where('post_id', $id)->delete();
         $postss = POST::all();
-        return redirect (route('admin.post.index'))->with('success', 'delete had!');
+        return redirect (route('admin.post.index'))->with('success', 'delete done!');
         // $posts= POST::all();
 
 
@@ -352,9 +312,7 @@ class PostController2 extends Controller
         $photos ->delete();
         $path =$photos->photo_path; 
         File::delete($path);
-        //return( "avc");
         return back();
-        //dd($path);
     }
 
 

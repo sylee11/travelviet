@@ -13,7 +13,7 @@
 			@foreach ($top_rating as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
 				<div class="card-img" style="height:280px;" id="card-img">
-					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;">
+					<a href='{{route("detail",$record->slug)}}' title="" style="text-decoration: none;">
 						<div style="height: 200px;">
 							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
 						</div>
@@ -62,7 +62,7 @@
 			@foreach ($new_post as $record)
 			<div class="col-sm-4" style="margin:50px 0;">
 				<div class="card-img" id="card-img" >
-					<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;"id="pic">
+					<a href="{{route('detail',$record->slug)}}" title="" style="text-decoration: none;"id="pic">
 						<div style="height: 200px;">
 							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}} " >
 						</div>
@@ -275,39 +275,6 @@
 			$('#new_post').show();
 			$('#all_post').hide();
 		});
-		$("#scr1").click(function(){
-			var elmnt = document.getElementById("contact");
-			elmnt.scrollIntoView();
-			window.scrollBy(0, 50);
-
-		})
-		$("#scr2").click(function(){
-			var elmnt = document.getElementById("about");
-			elmnt.scrollIntoView();
-			window.scrollBy(0, -40);
-		})
-		$('#btnpositon').click(function(){
-			document.body.scrollTop = 0;
-			document.documentElement.scrollTop = 0;
-
-		})
-		$('#scr3').click(function(){
-			var elmnt = document.getElementById("topplace");
-			elmnt.scrollIntoView();
-			window.scrollBy(0, -100);
-
-		})
-		$(window).scroll(function() {    
-			var scroll = $(window).scrollTop();
-
-			if (scroll >= 200) {
-				console.log("zzz");
-				$("#nav-top").css({'background-color' :'#343a40','color' : 'black'})	;
-			}
-			if (scroll == 0){
-				$("#nav-top").css({'background-color' :'rgba(0,0,0,0.6)','color' : 'white-space'})
-			}
-		})
 
 	});
 	var slideIndex = 1;

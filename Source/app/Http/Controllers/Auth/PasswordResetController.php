@@ -18,7 +18,10 @@ class PasswordResetController extends Controller
 
 
 	public function showResetForm(Request $request, $token = null)
-    {
+    {   
+        if(count(PasswordReset::where('token', $token)->get()) == 0){
+            return view('includes.erro404');
+        }
         return view('auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );
@@ -51,11 +54,8 @@ class PasswordResetController extends Controller
             $user->notify(
                 new PasswordResetRequest($passwordReset->token)
             );
-        	
-        	 //return 'Send success';
-            //return view('notifation.sendmailsuccess');
+
             return redirect()->route('sendmailsuccess');
-        	//alert()->success('Thông báo','Send mail reset password success!');
 
     }
     /**
@@ -77,29 +77,24 @@ class PasswordResetController extends Controller
         ]);
 
 
-
         $passwordReset = PasswordReset::where([
             ['token', $request->token],
             ['email', $request->email]
         ])->first();
 
         // kiem tra token
-        if (Carbon::parse($passwordReset->updated_at)->addMinutes(1)->isPast()) {
+        if (!$passwordReset ){
+             return redirect()->back()->with("erro","Nhap sai Email");
+        }
+        if (Carbon::parse($passwordReset->updated_at)->addMinutes(5)->isPast()) {
              $passwordReset->delete();
-             return response()->json([
-                 'message' => 'This password reset token is invalid.'
-             ], 404);
+             return view('includes.erro404');
          }
 
-        if (!$passwordReset )
-            return response()->json([
-                'message' => 'This password reset token is invalid.'
-            ], 404);
+        
         $user = User::where('email', $passwordReset->email)->first();
         if (!$user)
-            return response()->json([
-                'message' => 'We cant find a user with that e-mail address.'
-            ], 404);
+             return redirect()->back()->with("erro","Nhap sai Email");
         $user->password = bcrypt($request->password);
         $user->save();
         $passwordReset->delete();

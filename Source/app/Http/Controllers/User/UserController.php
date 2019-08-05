@@ -77,7 +77,10 @@ public function postedit (Request $request,$id)
     $user->birthday = $request->get('birthday');
     $user->address = $request->get('address');
     $user->phone = $request->get('phone');
+    if($user->role!=1)
     $user->role = $request->get('role');
+    else
+    $user->role=1;
     $user->status = $request->get('status');
         // $user->avatar = $request->get('avatar');
 

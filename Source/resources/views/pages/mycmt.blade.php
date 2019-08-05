@@ -9,7 +9,7 @@
 </h1>
 <div style='text-align:left;margin:20px auto;width:75%' class="list-group">
     @foreach ($data as $key=>$value)
-    <a href="/detail/{{$value->post_id}}" class="list-group-item list-group-item-action ">
+    <a href="/detail/{{$value->slug}}" class="list-group-item list-group-item-action ">
         <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1">Title: {{$value->title}}</h5>
             <small>{{ date('d-m-Y', strtotime($value->created_at)) }}</small>
