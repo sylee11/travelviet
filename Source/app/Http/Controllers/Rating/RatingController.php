@@ -24,7 +24,9 @@ class RatingController extends Controller
 	public function add(Request $request)
 	{
 		$this->validate($request, [
-			'rating' => ['required', new inputRating],
+			'name_se' => 'required',
+			'rating' => 'required',
+			'title' => 'required',
 			'comment' => 'required',
 		]);
 		//dd("hello");
@@ -32,7 +34,7 @@ class RatingController extends Controller
 		$record->user_id=$request->user_id;
 		$record->rating=$request->rating;
 		$record->post_id=$request->post_id;
-		$record->cmt=strip_tags($request->get('comment'));
+		$record->cmt=$request->comment;
 
 		$record->save();
 		return redirect('admin/rating')->with("success","Rating added success !");
@@ -43,20 +45,27 @@ class RatingController extends Controller
 		$post=Post::get();
 		return view('admin.rating.edit',['show'=>$show,'user'=>$user,'post'=>$post]);
 	}
+	public function select(Request $request){
+		$name= $request->get('query2');
+		$title= $request->get('query');
+
+		$user=User::where('name','LIKE','%'.$name.'%')->get();
+		$post=Post::where('title','LIKE','%'.$title.'%')->get();
+
+		return response()->json(['user'=>$user,'post'=>$post]);
+	}
 	public function update(Request $request, $id){
 		$this->validate($request, [
-			'rating' => ['required', new inputRating],
+			'rating' => 'required',
 			'comment' => 'required',
 		]);
 		$rating= Rating::find($id);
 		$rating->user_id = $request->get('user_id');
 		$rating->rating = $request->get('rating');
 		$rating->post_id = $request->get('post_id');
-		$rating->cmt = strip_tags($request->get('comment'));
-
+		$rating->cmt = $request->get('comment');
 		$rating->save();
 		return redirect('admin/rating')->with("success","Rating updated success !");
-
 	}
 	public function delete($id){
 		$rating= Rating::find($id);
