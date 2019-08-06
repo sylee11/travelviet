@@ -47,9 +47,12 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::group(['prefix' => 'account', 'middleware' => 'auth'],function(){
 		Route::get('/{id}/post', 'PostController@showformAddPost')->name('account.addpost');
 		Route::post('/{id}/post', 'PostController@add')->name('account.addpost');
-		Route::get('/{id}/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
-		Route::post('/{id}/edit/{idpost}', 'PostController@edit')->name('account.editpost');
+		Route::get('/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
+		Route::post('/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
+		Route::get('/autocomplete', 'PostController@autocomplete')->name('post.autocomplete');
+		Route::get('/autocompletetinh', 'PostController@autocompleteTinh')->name('post.autocompletetinh');
+		Route::get('/autocompletehuyen', 'PostController@autocompleteHuyen')->name('post.autocompletehuyen');
 		Route::group(['prefix' => 'admin'], function(){
 			Route::get('/approved/show/{id}', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::post('/manageacout/blockuser', 'UserController@blockuser')->name('account.admin.blockuser');
@@ -78,7 +81,7 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::get('/mypost','ProfileController@mypost')->name('mypost');
 	Route::post('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
 
-	Route::get('/detail/{slug}','FrontController@detail')->name('detail');
+	Route::get('/detail/{slug}','FrontController@detail')->name('detail')->middleware('viewcount');
 
 	Route::post('/detail/rate','FrontController@rate');
 	Route::post('/update-profile', 'ProfileController@update')->name('profile.update');
@@ -119,7 +122,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 	});
 	Route::group(['prefix' => 'post','namespace'=>'post'], function(){
 		Route::get('/', 'PostController2@index')->name('admin.post.index');
-		Route::get('/delete/{id}', 'PostController2@destroy')->name('admin.post.delete');
+		Route::post('/delete/{id}', 'PostController2@destroy')->name('admin.post.delete');
 		Route::get('/approved/{id}', 'PostController2@approved')->name('admin.post.approved');
 		Route::get('/unapproved/{id}', 'PostController2@unapproved')->name('admin.post.unapproved');
 		Route::post('/add', 'PostController2@store')->name('admin.post.add');
@@ -161,6 +164,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('/', 'RatingController@index')->name('admin.rating.index');
 		Route::post('/add','RatingController@add')->name('admin.rating.add');
 		Route::get('edit/{id}', 'RatingController@edit')->name('admin.rating.edit');
+		Route::get('/select', 'RatingController@select')->name('admin.rating.select');
 		Route::post('update/{id}', 'RatingController@update')->name('admin.rating.update');
 		Route::get('/delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
 	});
@@ -194,8 +198,7 @@ Route::get('/home','HomeController@index')->name('home');
 Auth::routes();
 
 
-
 //test
 Route::get('/abc', function() {
- 	return view('includes.erro404');
+ 	return view('test');
 })->name('test');

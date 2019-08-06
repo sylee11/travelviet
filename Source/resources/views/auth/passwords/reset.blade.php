@@ -8,6 +8,11 @@
                 <div class="card-header">{{ __('Reset Password') }}</div>
 
                 <div class="card-body">
+                    @if (session('erro'))
+                    <div class="alert alert-danger">
+                        {{ session('erro') }}
+                    </div>
+                    @endif
                     <form method="POST" action="{{ route('account.password.reset') }}">
                         @csrf
 

@@ -3,7 +3,7 @@
 @section('content')
 <!-- ///////////add profile///////////// -->
 <div class="container"  id="show_profile" style="margin-top: 150px; margin-bottom: 50px;">
-	<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" style="border-radius: 50%;width: 200px;">
+	<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" style="border-radius: 50%;width: 200px;height:200px;">
 	<hr>
 	<form class="form" role="form" autocomplete="off" style="margin-top: 30px;">
 		<div class="form-group row">

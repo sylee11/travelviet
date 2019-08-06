@@ -52,7 +52,7 @@
   	</div>
 	<div class="form-group">
     	<label for="">Descrice:</label>
-  		<textarea class="form-control" disabled="true" rows="5" id="descrice" name="descrice">{{ $post->describer }} </textarea> 
+  		<textarea class="form-control" disabled="true" rows="5" id="descrice" name="descrice">{!!$post->describer!!} </textarea> 
   	</div>
 
     {{-- show all photo --}}

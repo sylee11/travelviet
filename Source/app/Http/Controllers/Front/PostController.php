@@ -40,7 +40,6 @@ class PostController extends Controller
             'address' => 'required',
         ]);
 
-
     	$place = Place::all();
 
     	// $check = $request->file();
@@ -48,10 +47,14 @@ class PostController extends Controller
     	$post = new Post;
     	$post -> user_id = Auth::id();
     	$post -> phone = $request ->phone;
+
+        //find id place
+
+        $findIdPDistrict = District::where('name' , $request->districts_id)->first()->id;
     	//check place exist
     	$findPlace = Place::where([
             ['name', '=', $request->name],
-            ['districts_id', '=', $request->districts_id]
+            ['districts_id', '=', $findIdPDistrict]
             ])->first();
     	if($findPlace){
     		 //dd($findPlace);
@@ -68,7 +71,7 @@ class PostController extends Controller
     		//$newPlace->category_id = $request->category->id;
     		$newPlace->category_id = Category::where('name', $request->category)->first()->id;
             
-            $newPlace->districts_id = $request->districts_id;
+            $newPlace->districts_id = $findIdPDistrict;
     		$newPlace -> save();
 
     		$post ->place_id = $newPlace->id;
@@ -143,9 +146,9 @@ class PostController extends Controller
 	}
 
 
-	public function showformEditPost($id , $idPost)
+	public function showformEditPost($idPost)
 	{
-
+        $id = Auth::id();
 		$post = Post::find($idPost);
 		$category = Category::all();
 		$place = Place::all();
@@ -155,9 +158,12 @@ class PostController extends Controller
     	return view('pages.editpost',['category' => $category, 'place' => $place, 'city' =>$city, 'district' => $district, 'post' => $post]);
 	}
 
-	public function edit(Request $request, $id , $idpost){
-
+	public function edit(Request $request, $idpost){
 		//edit post
+        //check idpost input co khớp k
+        if(POST::find($idpost) == null || POST::find($idpost)->first()->user_id != Auth::id()){
+            return redirect()->back()->with("erro", "Sửa bài viết thất bại!");
+        }
 		$posts = POST::find($idpost);
 		// $posts ->place_id = $request->placeid;
         $posts ->phone = $request->phone;
@@ -169,11 +175,12 @@ class PostController extends Controller
         $place = Place::where('name', $request->name)->first();
         $place ->address = $request->address;
       	$place->category_id = Category::where('name', $request->category)->first()->id;
-      	$a = district::where('name', $request->districts_id)->get();
-      	if($a->count() != 1){
-        	$place->districts_id = $request->districts_id; 
+        $place->districts_id = District::where('name', $request->districts_id)->first()->id; 
+      	// $a = district::where('name', $request->districts_id)->get();
+      	// if($a->count() != 1){
+       //  	$place->districts_id = $request->districts_id; 
      		
-      	}
+      	// }
 
 
         $path = 'picture/admin/post/'.$posts->id;
@@ -257,6 +264,37 @@ class PostController extends Controller
             File::deleteDirectory(public_path($path));
             return redirect()->route('mypost')->with('success', ' Xóa thanh công');
         }
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $search = $request->get('term');
+        $result = Place::where('name', 'LIKE',$search. '%')->get();
+        return response()->json($result);
+    }
+
+    public function autocompleteTinh(Request $request)
+    {
+        $search = $request->get('term');
+        $result = City::where('name', 'LIKE',$search. '%')->get();
+        return response()->json($result);
+    }
+
+    public function autocompleteHuyen(Request $request)
+    {
+        $search = $request->get('term');
+        $findID = City::where('name', $request->get('city'))->first()->id;
+        if($request->get('term') == ""){
+            $result = District::where([
+                ['cities_id',$findID]
+            ])->get();
+            return response()->json($result);
+        }
+        $result = District::where([
+            ['cities_id',$findID],
+            ['name', 'LIKE', $search.'%']
+        ])->get();
+        return response()->json($result);
     }
 
 }
