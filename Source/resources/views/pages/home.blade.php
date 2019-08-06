@@ -63,8 +63,8 @@
               <button type="submit" class="btn btn-primary" id="find" style="height: 37px; background-color: #3997A6" >
                 <i class="fas fa-search" style="color: white "></i></button>
 
-              <button class="btn " type="button"  style="height: 37px; margin-left: 30px; background-color: #3997A6   "> <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
-              </button>
+              <a style="height: 37px; margin-left: 30px; background-color: #3997A6   "class="btn btn-primary" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
+              
             </div>
 
             </div>

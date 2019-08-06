@@ -161,7 +161,8 @@ class PostController extends Controller
 	public function edit(Request $request, $idpost){
 		//edit post
         //check idpost input co khớp k
-        if(POST::find($idpost) == null || POST::find($idpost)->first()->user_id != Auth::id()){
+        //dd(POST::find($idpost)->user_id);
+        if(POST::find($idpost) == null || POST::find($idpost)->user_id != Auth::id()){
             return redirect()->back()->with("erro", "Sửa bài viết thất bại!");
         }
 		$posts = POST::find($idpost);
@@ -169,7 +170,7 @@ class PostController extends Controller
         $posts ->phone = $request->phone;
         $posts ->is_approved = $request->approved;
         $posts ->title = $request ->title;
-        $posts ->describer = $request->input('descrice');
+        $posts ->describer= $request->input('descrice');
 
         //edit place
         $place = Place::where('name', $request->name)->first();
