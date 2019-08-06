@@ -62,15 +62,16 @@ class PostController2 extends Controller
         // import posts
         $posts = new POST;
         //check user dóe'n exist
-        if(USER::find($request->userid)){
-            $posts -> user_id = $request ->userid;
-        }
-        else{
-            return "userid not exist";
-        }
+        // if(USER::find($request->userid)){
+        //     $posts -> user_id = $request ->userid;
+        // }
+        // else{
+        //     return "userid not exist";
+        // }
 
+        $posts -> user_id = User::where('name', $request->userid)->first()->id;
         $posts -> phone = $request ->number;
-        $posts -> place_id = $request ->placeid;
+        $posts -> place_id = Place::where('name',$request ->placeid)->first()->id;
         $posts -> title = $request ->title;
         $posts -> describer = $request ->input('describer');
         if($request->checkbox){
@@ -149,26 +150,16 @@ class PostController2 extends Controller
     {
         // xu li edit info
         $posts = POST::find($id);
-        if(USER::find($request->userid)){
-            $posts ->user_id = $request ->userid;
+        //check user id có thay đổi không
+        if(POST::find($id)->user_id != USER::where('name',$request->userid)->first()->user_id){
+            $posts ->user_id = User::where('name',$request ->userid)->first()->id;
+
         }
-        else{
-            return "userid not exist";
-        }
-        // if(PLACE::find($request->placeid)){
-        //     $posts ->place_id = $request ->placeid;
-        // }
-        // else{
-        //     return "placeid not exist";
-        // }
-        $posts ->place_id = $request->placeid;
+        $posts ->place_id = Place::where('name',$request ->placeid)->first()->id;
         $posts ->phone = $request->phone;
         $posts ->is_approved = $request->approved;
         $posts ->title = $request ->title;
-        $posts ->describer = $request->input('descricer');
-
-        $posts -> save();
-
+        $posts ->describer = $request->input('describer');
 
 
         // xu li them anh moi
@@ -195,9 +186,8 @@ class PostController2 extends Controller
                 $photo ->save ();
             }
         }
-        //dd($posts);
 
-
+        $posts -> save();
         //delete photo
         $photoedit = $request->p1; // This will get all the request data.
         //$data = json_decode($request->getContent());
@@ -226,9 +216,6 @@ class PostController2 extends Controller
 
         
         return redirect (route('admin.post.detail', $posts->id))->with('success', "Changed done");
-        //return back()->with('success', 'Your images has been successfully');
-        //dd($name); // This will dump and die
-        //var_dump($data);
     }
 
     /**
@@ -315,5 +302,15 @@ class PostController2 extends Controller
         return back();
     }
 
+    public function autocompleteUser(Request $request){
+        $search = $request->get('term');
+        $result = User::where('name', 'LIKE','%'.$search. '%')->get();
+        return response()->json($result);
+    }
 
+    public function autocompletePlace(Request $request){
+        $search = $request->get('term');
+        $result = Place::where('name', 'LIKE','%'.$search. '%')->get();
+        return response()->json($result);
+    }
 }
