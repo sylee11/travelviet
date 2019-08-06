@@ -15,13 +15,13 @@
 
 	  	</div>
 		<div class="form-group " style="margin-left: 50px;" >
-	    	<label >User id:</label>
-	    	<input type="number" value="{{$post->user_id}}" disabled="true" class="form-control @error('userid') is-invalid @enderror" id="userid " name="userid">
+	    	<label >User:</label>
+	    	<input type="" value="{{$post->user->name}}" disabled="true" class="form-control @error('userid') is-invalid @enderror" id="userid " name="userid">
 	  	</div>
 
 	  	<div class="form-group"  style="margin-left: 50px";>
 	    	<label >Place Id:</label>
-	    	<input type="number" value="{{$post->place_id}}" disabled="true" class="form-control" id="userid " name="userid">
+	    	<input type="" value="{{$post->place->name}}" disabled="true" class="form-control" id="userid " name="userid">
 	  	</div>
 
 	</div>
@@ -69,14 +69,18 @@
 
     </div>
 
-  	<div class="flex-row ">
-  		<div class="justify-content-center flex-wrap">
-  			<a href="{{route('admin.post.showedit',$post->id)}}" type="button" class="btn btn-primary list-inline"> Edit</a>
-  			<a href="{{ route('admin.post.delete', $post->id)}}" class="btn-danger btn" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')"> Delete</a>
-  		</div>
-
-  	</div>
+  
 	</FORM>
+    <div class="row" style="margin: 50px 40% 50px ">
+      <div class="">
+        <a href="{{route('admin.post.showedit',$post->id)}}" class="btn  btn-info nav-link"> Edit</a>
+        
+      </div>
+      <form method="post" action="{{ route('admin.post.delete', $post->id)}}" class="">
+          @csrf
+          <button type="submit" class="btn btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 10px;"> Delete</button>
+      </form>
+    </div>
 
 {{-- script add muti image --}}
 </div>

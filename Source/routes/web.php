@@ -130,7 +130,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('/{id}/edit', 'PostController2@showformedit')->name('admin.post.showedit');
 		Route::post('/{id}/edit', 'PostController2@edit')->name('admin.post.edit');
 		Route::get('/{id}/edit/deletephoto', 'PostController2@deletephoto')->name('admin.post.deletephoto');
-
+		Route::get('/autocompleteUser', 'PostController2@autocompleteUser')->name('post.autocompleteUser');
+		Route::get('/autocompletePlcae', 'PostController2@autocompletePlace')->name('post.autocompletePlace');
 
 		    //
 	});
