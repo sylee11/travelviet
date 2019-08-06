@@ -16,10 +16,10 @@
 	</div>
 	<div class="col-sm-6">
 		<div class="text">
-			<h5 class="card-title text-primary">{{$record->title}}</h5>
-			<span class="text-descript">
-				<p>{{$record->describer}}</p>
-			</span>
+			<h5>{{$record->title}}</h5>
+			<div >
+				{!!Str::limit($record->describer, 100, ' ...')!!}
+			</div>
 			<div class="rating">
 				@for($i=0;$i< ceil($record->avg_rating);$i++)
 				<span class="fa fa-star checked"></span>
