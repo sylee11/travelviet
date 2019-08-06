@@ -18,29 +18,26 @@
     <div style="display: flex;">
       <div class="form-group">
         <label >Id:</label>
-        <input type="number"  placeholder="{{$post->id}}" disabled="true" class="form-control" id="userid " name="id">
+        <input type="number"  placeholder="{{$post->id}}" disabled="true" class="form-control" id="postid " name="id">
 
       </div>
       <div class="form-group " style="margin-left: 50px;" >
-        <label >User id:</label>
-        <select class="form-control" id="userid" name="userid" >
+        <label >User :</label>
+        {{-- <select class="form-control" id="userid" name="userid" >
           <option > {{$post->user->name}}</option>
           @foreach($user as $u)
           <option value="{{ $u->id }}" @if (old("userid") == $u->id) {{'selected'}} @endif> {{ $u->name }}</option>
 
           @endforeach
-        </select>
+        </select> --}}
+        <input class="form-control" type="text" name="userid" id="userid" value="{{old('userid', $post->user->name)}}" required="">
+        <div id="errouser" style="display: none;"> <span style="color: red"> Không tồn tại user </span></div>
       </div>
 
       <div class="form-group"  style="margin-left: 50px";>
-        <label >Place Id:</label>
-        <select class="form-control" id="placeid" name="placeid">
-          <option > {{$post->place->name}}</option>
-          @foreach($place as $p)
-          <option value ="{{ $p->id }}" @if (old('placeid') == $p->id) {{'selected'}} @endif>{{ $p->name }}</option>
-
-          @endforeach
-        </select>
+        <label >Place :</label>
+        <input class="form-control" type="text" name="placeid" id="placeid" value="{{old('placeid', $post->place->name)}}" required="">
+        <div id="erroplace" style="display: none;"> <span style="color: red"> Không tồn tại place </span></div>
       </div>
 
     </div>
@@ -75,7 +72,7 @@
     </div>
     <div class="form-group">
       <label for="">Descrice:</label>
-      <textarea class="form-control" rows="3" id="describer" name="describer" required>{!! $post->describer !!} </textarea>
+      <textarea class="form-control" rows="3" id="describer" name="describer" >{!! $post->describer !!} </textarea>
     </div>
 
     {{-- show all photo --}}
@@ -144,7 +141,7 @@
 
 <div class="flex-row ">
   <div class="justify-content-center flex-wrap "  style="margin: 20px;">
-    <button class="btn-success" type="submit"  onclick="return confirm('Bạn có muốn sửa bản ghi này?')" > Save</button>
+    <button class="btn-success" type="submit"  onclick="return confirm('Bạn có muốn sửa bản ghi này?')"  id="submit"> Save</button>
     <button class="btn-secondary" type="reset"> Cancel</button>
   </div>
 </div>
@@ -154,6 +151,8 @@
 
 {{-- script add muti image --}}
 </div>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
 <script type="text/javascript">
 
   var A = [];
@@ -173,13 +172,44 @@
     var ab=$(".clone");
     ab.hide();
 
-      // $(".btnxx").click(function(){
-      //     var xx =$("#xxx");
-      //     xx.hide();
-      // });
+
+    $("#submit").on('click',function(){
+        if($("#errouser").css('display') == 'block' || $("#erroplace").css('display') == 'block'){
+            alert("Erros! Vui lòng kiểm tra lại thông tin");
+            return false;
+          }
+    }) 
     CKEDITOR.replace('describer');
     });
 
+
+    $('#userid').typeahead({
+        source:  function (term, process) {
+        return $.get("{{ route('post.autocompleteUser')}}", { term: term }, function (data) {
+            if(data.length == 0){
+              $('#errouser').css('display', 'block');
+            }
+            else{
+              $('#errouser').css('display','none');
+            }
+                return process(data);
+            });
+        }
+    });
+
+    $('#placeid').typeahead({
+        source:  function (term, process) {
+        return $.get("{{ route('post.autocompletePlace')}}", { term: term }, function (data) {
+            if(data.length == 0){
+              $('#erroplace').css('display', 'block');
+            }
+            else{
+              $('#erroplace').css('display','none');
+            }
+                return process(data);
+            });
+        }
+    });
   
 
   </script>

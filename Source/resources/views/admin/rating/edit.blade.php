@@ -75,7 +75,6 @@
 						//console.log(value);
 						newData.push(value);
 					});
-						console.log(newData);
 						return process(newData);
 					}else{
 						$('#error').show();

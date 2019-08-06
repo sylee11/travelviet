@@ -20,6 +20,8 @@ class CreatePostsTable extends Migration
             $table->integer('phone')->nullable();
             $table->string('title')->nullable();
             $table->string('describer')->nullable();
+            $table->string('slug')->nullable();
+            $table->integer('view_count')->default(0);
             $table->unsignedBigInteger('place_id');
             $table->timestamps();
         });

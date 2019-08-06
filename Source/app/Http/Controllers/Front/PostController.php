@@ -161,14 +161,18 @@ class PostController extends Controller
 	public function edit(Request $request, $idpost){
 		//edit post
         //check idpost input co khớp k
-        //dd(POST::find($idpost)->user_id);
+
+        $check = 3;
+
         if(POST::find($idpost) == null || POST::find($idpost)->user_id != Auth::id()){
             return redirect()->back()->with("erro", "Sửa bài viết thất bại!");
         }
 		$posts = POST::find($idpost);
 		// $posts ->place_id = $request->placeid;
         $posts ->phone = $request->phone;
-        $posts ->is_approved = $request->approved;
+        if($request->approved != null){
+            $posts ->is_approved = $request->approved;
+        }
         $posts ->title = $request ->title;
         $posts ->describer= $request->input('descrice');
 
@@ -293,7 +297,7 @@ class PostController extends Controller
         }
         $result = District::where([
             ['cities_id',$findID],
-            ['name', 'LIKE', $search.'%']
+            ['name', 'LIKE', '%'.$search.'%']
         ])->get();
         return response()->json($result);
     }

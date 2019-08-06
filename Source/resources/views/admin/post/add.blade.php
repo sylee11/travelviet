@@ -1,7 +1,5 @@
 
 <head>
-{{--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
- --}}
 </head>
 <div class="container">
     @if(count($errors) >0)
@@ -32,31 +30,24 @@
   @endif
 	<FORM method="post" class="" action="{{route('admin.post.add')}}" enctype="multipart/form-data">
 	@csrf
-{{-- @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif --}}
+
 	<div style="display: flex;">
 		<div class="form-group">
-	    	<label >User id:</label>
-	    {{-- 	<input type="number" class="form-control @error('userid') is-invalid @enderror" id="userid " name="userid"> --}}
+	    	<label >User :</label>
 	    	@error('userid')
                 <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
                 </span>
             @enderror
-        <select class="form-control" id="userid" name="userid">
+{{--         <select class="form-control" id="userid" name="userid">
           @foreach($user as $u)
             @if($u->role == 1 || $u ->role == 2 )
             <option value="{{ $u->id}}"  @if (old('userid') == $u->id) {{ 'selected' }} @endif>{{$u->name}}</option>
             @endif
           @endforeach
-        </select>
+        </select> --}}
+        <input class="form-control" type="text" name="userid" id="userid" value="{{old('userid')}}" required="">
+        <div id="errouser" style="display: none;"> <span style="color: red"> Không tồn tại user </span></div>
 	  	</div>
 		<div class="form-group" style="margin-left: 40px;">
 	    	<label for="">Phone number:</label>
@@ -64,13 +55,16 @@
 	  	</div>
 	</div>
 	<div class="form-group">
-    	<label for="">Place id:</label>
-       <select class="form-control" id="placeid" name="placeid">
+    	<label for="">Place :</label>
+       {{-- <select class="form-control" id="placeid" name="placeid">
           @foreach($place as $p)
             <option value="{{ $p->id }}" @if (old('placeid') == $p->id) {{ 'selected' }} @endif>{{$p->name}}</option>
 
           @endforeach
-      </select>
+      </select> --}}
+      <input class="form-control" type="text" name="placeid" id="placeid" value="{{old('placeid')}}" required="">
+      <div id="erroplace" style="display: none;"> <span style="color: red"> Không tồn tại địa điểm này </span>
+      </div>
   </div>
 	<div class="form-group">
     	<label for="">Title:</label>
@@ -105,13 +99,15 @@
   	</div> 
   	<div class="">
       <div class="text-center" style="margin-top: 20px;">
-  		  <button class="btn btn-success align-middle" type="submit"> Xác nhận thêm</button>
+  		  <button class="btn btn-success align-middle" type="submit" id="submit"> Xác nhận thêm</button>
       </div>
   	</div>
 	</FORM>
 
 {{-- script add muti image --}}
 </div>
+    {{-- include typeahead --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 <script type="text/javascript">
 
     $(document).ready(function() {
@@ -130,6 +126,40 @@
 
       CKEDITOR.replace('describer');
 
+      $("#submit").on('click',function(){
+        if($("#errouser").css('display') == 'block' || $("#erroplace").css('display') == 'block'){
+            alert("Erros! Vui lòng kiểm tra lại thông tin");
+            return false;
+          }
+      }) 
+
     });
 
+    $('#userid').typeahead({
+        source:  function (term, process) {
+        return $.get("{{ route('post.autocompleteUser')}}", { term: term }, function (data) {
+            if(data.length == 0){
+              $('#errouser').css('display', 'block');
+            }
+            else{
+              $('#errouser').css('display','none');
+            }
+                return process(data);
+            });
+        }
+    });
+
+    $('#placeid').typeahead({
+        source:  function (term, process) {
+        return $.get("{{ route('post.autocompletePlace')}}", { term: term }, function (data) {
+            if(data.length == 0){
+              $('#erroplace').css('display', 'block');
+            }
+            else{
+              $('#erroplace').css('display','none');
+            }
+                return process(data);
+            });
+        }
+    });
 </script>

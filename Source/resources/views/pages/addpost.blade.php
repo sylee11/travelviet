@@ -67,10 +67,17 @@
 			<div class="form-group col-md-6">
 				<label  for="name" class="col-form-label" > Tỉnh - Thành phố </label>
 				<input type="text" autocomplete="off"  class="form-control" name="city" id="city" required="" value="{{ old('city') }}" placeholder="Tỉnh-Thành phố" >
+				<div id="errotinh" style="display: none;">
+					<span style="color: red;">Không tìm thấy kết quả</span>
+				</div>
 			</div>
-			<div class="form-group col-md-6">
+			
+			<div class="form-group col-md-6" style="display: none" id="showquan">
 				<label  for="name" class="col-form-label" > Quận - Huyện </label>
 				<input type="text" autocomplete="off"  class="form-control" name="districts_id" id="district" required="" value="{{ old('city') }}" placeholder="Quận-Huyện" >
+				<div id="errohuyen" style="display: none;">
+					<span style="color: red;">Không tìm thấy kết quả</span>
+				</div>
 			</div>
 		</div>
 
@@ -144,8 +151,8 @@
 		</div>				
 
 		<div style=" margin-top: 100px; margin-bottom: 50px;">
-			<button type="submit" class="btn btn-primary" style="width: 100px;">Đăng bài</button>
-			<button type="reset" class="btn btn-dark" style="width: 100px;"> Reset</button>
+			<button type="submit" class="btn btn-primary" style="width: 100px;" id="submit">Đăng bài</button>
+			<button type="reset" class="btn btn-dark" style="width: 100px;" id="reset"> Reset</button>
 		</div>
 	</FORM>
 
@@ -157,17 +164,18 @@
 
 	$(document).ready(function() {
 
-		$(".add").click(function(){ 
-			var html = $(".clone").html();
-			$(".increment").after(html);
-		});
+		$('#reset').on('click', function(){
+			$('.gallery img').hide();		
+		})
 
-		$("body").on("click",".btn-danger",function(){ 
-			$(this).parents(".control-group").remove();
-		});
-
-		var ab=$(".clone");
-		ab.hide();
+		//ckeck lỗi nhập trk khi submit
+	    $('#submit').on('click', function(){
+	    	$('#errotinh').css('display') ;
+	    	if($('#errotinh').css('display') == "block" || $('#errohuyen').css('display') == 'block'){
+	    		alert("Erro, vui lòng kiểm tra lại thông tin");
+	    		return false;
+	    	}
+	    })
 	});
 	$('#gallery-photo-add').on('click', function() {
 		$('.gallery img').hide();
@@ -203,6 +211,7 @@
     CKEDITOR.replace('editor1');
 	});
 	
+
 </script>
 
 {{-- gg map by nam --}}
@@ -290,6 +299,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
 <script type="text/javascript">
+	//autocomplete địa điểm
     var routes = "{{ route('post.autocomplete')}}";
     $('#name').typeahead({
         source:  function (term, process) {
@@ -299,19 +309,35 @@
         }
     });
 
+
     var route2 = "{{ route('post.autocompletetinh')}}";
     $('#city').typeahead({
         source:  function (term, process) {
         return $.get(route2, { term: term }, function (data) {
+        		if(data.length == 0){
+        			$('#errotinh').css('display', 'block');
+        		}
+        		else{
+        			$('#errotinh').css('display','none');
+        		}
                 return process(data);
             });
         }
     });
 
-
+    //auto complete tỉnh huyện
     var tinh;
     $("#city").blur(function(){
     	tinh = $("#city").val();
+    	if(tinh != ""){
+    		$("#showquan").css({'display':'block'});
+    	}
+    })
+
+    $("#city").keyup(function(){
+
+    	$("#showquan").css({'display':'none'});
+
     })
 
 
@@ -319,6 +345,15 @@
     $('#district').typeahead({
         source:  function (term, process) {
         return $.get(route3, { term : term , city : tinh }, function (data) {
+        		console.log(data.length);
+        		if(data.length == 0){
+        			$('#errohuyen').css('display', 'block');
+				    console.log($("district").val());
+				    // })
+        		}
+        		else{
+        			$('#errohuyen').css('display', 'none');        			
+        		}
                 return process(data);
             });
         }
