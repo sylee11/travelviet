@@ -57,11 +57,8 @@
              title:'vị trí của bạn',
              infoWindow: {
               content: 'vị trí của bạn'
-            }
-
+            }  
           });
-          
-
             $.each( place, function( index, value ){
               marker.addMarker({
                 lat: value.lat,

@@ -23,40 +23,45 @@
 <form action="{{route('admin.user.edit1', $user->id)}}" method="post" enctype="multipart/form-data">
 	{{csrf_field()}}
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-  <div class="form-group">
+  <div class="row">
+    <div class="form-group col-md-4">
     <label for="name">Name</label>
     <input type="text" name="name" value="{{ $user->name }}" class="form-control" required autocomplete="name">
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-4">
     <label for="inputEmail4">Email</label>
     <input id="email" type="email" name="email" value="{{ $user->email }}" class="form-control" disabled="">
   </div>
-
-  <div class="form-group">
-    <input type="checkbox" name="changePassword" id=changePasword >
-    <label for="">Đổi mật khẩu</label>
-    <input  type="password" name="password" value="" class="form-control password" disabled="" placeholder="Password" required>
   </div>
-  <div class="form-group">
-    <label for="">Nhập lại mật khẩu</label>
-    <input  type="password" name="passwordAgain" value="" class="form-control password" disabled="" placeholder="Password" required>
+  
+  <div class="row">
+    <div class="form-group col-md-4">
+      <input type="checkbox" name="changePassword" id=changePasword >
+      <label for="">Đổi mật khẩu</label>
+      <input  type="password" name="password" value="" class="form-control password" disabled="" placeholder="Password" required>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="">Nhập lại mật khẩu</label>
+      <input  type="password" name="passwordAgain" value="" class="form-control password" disabled="" placeholder="Confirm Password" required>
+    </div>
   </div>
-
-  <div class="form-group">
+  <div class="row">
+  <div class="form-group col-md-4">
     <label for="">Phone</label>
     <input type="phone" name="phone" value="{{ $user->phone }}" class="form-control" required autocomplete="phone">
   </div>
-  <div class="form-group">
+  <div class="form-group col-md-8">
     <label for="">Address</label>
     <input type="address" name="address" value="{{ $user->address }}" class="form-control" required autocomplete="address">
   </div>
-  <div class="form-group">
-    <label for="">Birthday</label>
+  </div>
+    <div class="form-group ">
+    <label for="">Birthday:</label>
     <input  type="date" name="birthday" value="{{ $user->birthday }}" required autocomplete="birthday">
   </div>
-  <div class="form-group">
-    <label for="">Satus</label>
+  @if($user->role !=1 )
+  <div class="form-group ">
+    <label for="">Status:</label>
     <label class="radio-inline">
       <input  name="status" value="0" @if($user->status == 0)
       {{"checked"}}
@@ -67,21 +72,18 @@
       @endif>No Block
     </label>
   </div>
-  <!-- <div class="form-group">
-    <label for="">Avatar</label>
-    <input  type="file" name="avatar" value=""  required autocomplete="file">
-  </div> -->
+  @endif
   <h5>Avatar</h5>
   <div class="form-group">
       <img src="{{  $user->avatar }}" alt="{{ $user->avatar }}" style="width: 100px; height: 100px; background-repeat: no-repeat;" />
   </div>
    <div class="form-group">
     <label for="">Chọn ảnh mới</label>
-    <input  type="file" name="avatar" value="{{$user->avatar}}"   autocomplete="file">
+    <input  type="file" name="avatar" value="{{$user->avatar}}" accept="image/x-png,image/jpeg"   autocomplete="file">
   </div>
   @if($user->role !=1 )
   <div class="form-group">
-    <label for="">Role</label>
+    <label for="">Role:</label>
     <label class="radio-inline">
       <input  name="role" value="1" @if($user->role == 1)
       {{"checked"}}
@@ -99,9 +101,9 @@
   <button type="submit" class="btn btn-primary">
     <i class="fa fa-btn fa-sign-in"></i>Update
   </button>
-  <button type="submit" class="btn btn-danger">
-    <a href="/admin/user" style="color: white">Cancel</a>
-  </button>
+  
+    <a href="/admin/user" class="btn btn-danger" style="color: white">Cancel</a>
+  
 </form>
 <script>
   $(document).ready(function(){

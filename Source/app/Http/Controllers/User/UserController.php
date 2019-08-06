@@ -37,7 +37,7 @@ class UserController extends Controller
             'email.email'=>'bạn chưa nhập đúng định dạng',
             'email.unique'=>'email da ton tai',
             'password.required'=>'bạn chưa nhập mk',
-            'password.min(8)'=>'bạn nhập ít nhất 5 kí tự',
+            'password.min(8)'=>'bạn nhập ít nhất 8 kí tự',
 
 
         ]
@@ -177,11 +177,19 @@ public function xoa($id)
 public function block($id,Request $request)
 {
     $user = User::find($id);
+    $check = $user->role;
+   // dd($check);
+    if($check == 1){
 
-    $user->status=0;
-    $user->save();
-    $user=User::all();
-    return view('admin.user.index',['user'=>$user]);
+        return redirect()->back()->with('error' , 'Bạn không thể block admin');
+    }
+    else{
+     $user->status=0;
+     $user->save();
+     $user=User::all();
+     return redirect()->back()->with('success','Bạn đã Block thành công'); 
+    }
+    
 
         // return redirect('admin.user.index')->with('thongbao','ban da xoa thanh cong');
 }
@@ -192,7 +200,7 @@ public function unblock($id,Request $request)
     $user->status=1;
     $user->save();
     $user=User::all();
-    return view('admin.user.index',['user'=>$user]);
+    return redirect()->back()->with('success','Bạn đã Unblock thành công');
 
         // return redirect('admin.user.index')->with('thongbao','ban da xoa thanh cong');
 }
