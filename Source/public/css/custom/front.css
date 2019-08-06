@@ -138,18 +138,12 @@
 		font-weight: bold;
 		font-size: 24px;
 		color: black;
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 1;
+		-webkit-box-orient: vertical;
 	}
 	.created{
 		font-size: 13px;
 		color: #795e5e;
 	}
-	.text-descript{
-		overflow: hidden;
-		text-overflow: ellipsis;
-		display: -webkit-box;
-		line-height: 16px;
-		max-height: 32px;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-	}
-	

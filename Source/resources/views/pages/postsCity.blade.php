@@ -20,7 +20,7 @@
 			<p class="created">By: {{$value->name}}</p>
 			@endif
 			<span class="text-descript">
-				<p >{{$value->describer}}</p>
+				{!!$value->describer!!}
 			</span>
 			<a href="{{route('detail',$value->post_id)}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;">Xem chi tiết</a>
 		</div>

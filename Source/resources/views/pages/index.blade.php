@@ -5,7 +5,7 @@
 @section('content-section')
 
 <div class="home">
-	<div class="container-fluid"id="topplace">
+	<div class="container-fluid" id="topplace">
 		<div style="text-align: center;margin-top:50px;color: #b3b3ba;" ><h2>Những địa điểm được đánh giá cao</h2></div>
 
 		<div class="row" style="justify-content: center;">
@@ -167,7 +167,7 @@
 		</div>
 		@endif
 	</div>
-
+</div>
 	<div class="container top_city">
 		<div style="color: #b3b3ba;"><h2>Điểm đến nhiều nhất</h2></div>
 		<!-- Full-width images with number text -->
@@ -248,7 +248,7 @@
 		</div>
 	</div>
 	
-</div>
+
 <div class="container">
 	<div style="text-align: center;margin-top:50px;" id="contact">
 		<h2 class="section-heading" style="color: #b3b3ba;">Contact Us</h2>
