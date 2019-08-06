@@ -27,8 +27,6 @@
         border-color: #4d90fe;
       }
 	</style>
-	<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-	
 </head>
 
 @extends('layouts.app')
@@ -59,12 +57,20 @@
 			</div>	
 			<div class="form-group col-md-6">
 				<label  for="name" class="col-form-label" > Tên địa điểm </label>
-				<input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" required="" value="{{ old('name') }}" placeholder="Tên địa điểm">
+				<input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" required="" value="{{ old('name') }}" placeholder="Tên địa điểm" autocomplete="off">
 				@error('name')
 				<span class="invalid-feedback" role="alert">
 					<strong>{{ $message }}</strong>
 				</span>
 				@enderror
+			</div>
+			<div class="form-group col-md-6">
+				<label  for="name" class="col-form-label" > Tỉnh - Thành phố </label>
+				<input type="text" autocomplete="off"  class="form-control" name="city" id="city" required="" value="{{ old('city') }}" placeholder="Tỉnh-Thành phố" >
+			</div>
+			<div class="form-group col-md-6">
+				<label  for="name" class="col-form-label" > Quận - Huyện </label>
+				<input type="text" autocomplete="off"  class="form-control" name="districts_id" id="district" required="" value="{{ old('city') }}" placeholder="Quận-Huyện" >
 			</div>
 		</div>
 
@@ -79,25 +85,6 @@
 				@enderror
 
 			</div>
-			<div class="form-group col-md-3">
-				<label> Tỉnh, Thành Phố</label>
-				<select  class="custom-select form-control" id="city" onchange="myFunction()" required="" value="{{ old('city') }}" name="city">
-					<option value="">Tỉnh ,thành phố</option>
-					@foreach($city as $ci)
-					<option> {{$ci->name}}</option>
-					@endforeach
-
-				</select>
-
-			</div>
-			<div class="form-group col-md-3">
-				<label>Quận, Huyện</label>
-
-				<select class="custom-select form-control" name="districts_id" id="district" required="" >
-					<option value="">Quận, huyện</option>						
-				</select>
-			</div>
-
 		</div>
 		<div class="form-group ">
 			<label for="">Map</label>
@@ -144,33 +131,6 @@
 		</div>
 
 
-		{{-- <div class="custom-file"> 
-			<div class="input-group control-group increment" >
-				<img id="uploadPreview" style="width: 100px; height: 100px; display: none;"  />
-				<input id="uploadImage" type="file" name="filename[]" class="form-control @error('filename') is-invalid @enderror" style="width: 100px; " onchange="PreviewImage()">
-				@error('filename')
-				<span class="invalid-feedback" role="alert">
-					<strong>{{ $message }}</strong>
-				</span>
-				@enderror
-				<div class="input-group-btn">  
-					<button class="btn btn-success add" type="button"><i class="glyphicon glyphicon-plus" id="add"></i>Add More picture</button>
-				</div>
-			</div>
-			<div class=" clone" style="overflow: hidden;">
-				<div class="control-group input-group" style="margin-top:10px">
-					<img id="uploadPreview" style="width: 100px; height: 100px; display: none;"  />
-					<input id=" uploadImage" type="file" multiple="" name="filename[]" class="form-control" onchange="PreviewImage()">
-					<div class="input-group-btn"> 
-						<button class="btn btn-danger" type="button"><i class="glyphicon glyphicon-remove" id="removed"></i> Remove</button>
-					</div>
-				</div>
-			</div>
-		</div> --}}
-
-		{{-- 				<form action="/" method="post" class="dropzone" id="my-awesome-dropzone" enctype="multipart/form-data">
-
-		</form> --}}
 		<h5 class="form-control-label"> Thêm ảnh cho bài viết</h5>
 		<div class="form-control-file">
 			<input multiple type="file"  id="gallery-photo-add" class="form-control" name="filename[]" required="" accept="image/x-png,image/jpeg">
@@ -186,14 +146,8 @@
 		<div style=" margin-top: 100px; margin-bottom: 50px;">
 			<button type="submit" class="btn btn-primary" style="width: 100px;">Đăng bài</button>
 			<button type="reset" class="btn btn-dark" style="width: 100px;"> Reset</button>
-
-
 		</div>
 	</FORM>
-
-	{{-- 			<form action="/" method="post" class="dropzone" id="my-awesome-dropzone">
-
-	</form> --}} 
 
 
 </div>
@@ -214,8 +168,6 @@
 
 		var ab=$(".clone");
 		ab.hide();
-
-
 	});
 	$('#gallery-photo-add').on('click', function() {
 		$('.gallery img').hide();
@@ -247,41 +199,13 @@
     	a.hide();
     	imagesPreview(this, 'div.gallery');
     });
-});
-
-	function myFunction(){
-		var cityID = document.getElementById("city").value; 
-		console.log(cityID);   
-		if(cityID){
-			$.ajaxSetup({
-				headers: {
-					'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-				}
-			});
-			$.ajax({
-				type:"GET",
-				url:"{{route('acount.post.getcity')}}?cities_id="+cityID,
-				success:function(res){               
-					if(res){
-						$("#district").empty();
-						$.each(res,function(key,value){
-							$("#district").append('<option value="'+key+'">'+value+'</option>');
-						});
-					}else{
-						$("#district").empty();
-					}
-				}
-			});
-		}else
-		{
-			$("#district").empty();    
-		}      
-	};
+    //add ck editor
+    CKEDITOR.replace('editor1');
+	});
 	
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-rW15K4v7WHlCWmnCYMLzyR0pU1cPpeI&libraries=places&callback=initAutocomplete"
-async defer></script>
+
+{{-- gg map by nam --}}
 <script type="text/javascript">
 	var infowindow = new google.maps.InfoWindow;
 	function initAutocomplete() {
@@ -361,14 +285,46 @@ async defer></script>
 		}
 	}
 </script>
-        <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
         <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-rW15K4v7WHlCWmnCYMLzyR0pU1cPpeI&libraries=places&callback=initAutocomplete"async defer></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
 <script type="text/javascript">
-window.onload = function(){
+    var routes = "{{ route('post.autocomplete')}}";
+    $('#name').typeahead({
+        source:  function (term, process) {
+        return $.get(routes, { term: term }, function (data) {
+                return process(data);
+            });
+        }
+    });
+
+    var route2 = "{{ route('post.autocompletetinh')}}";
+    $('#city').typeahead({
+        source:  function (term, process) {
+        return $.get(route2, { term: term }, function (data) {
+                return process(data);
+            });
+        }
+    });
 
 
-    	CKEDITOR.replace('editor1');
+    var tinh;
+    $("#city").blur(function(){
+    	tinh = $("#city").val();
+    })
 
-};
+
+    var route3 = "{{ route('post.autocompletehuyen')}}";
+    $('#district').typeahead({
+        source:  function (term, process) {
+        return $.get(route3, { term : term , city : tinh }, function (data) {
+                return process(data);
+            });
+        }
+    });
+   
+
+   
 </script>
 @endsection

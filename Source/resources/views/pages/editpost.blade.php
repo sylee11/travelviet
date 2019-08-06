@@ -55,23 +55,13 @@
                             @enderror
 					
 					</div>
-					<div class="form-group col-md-3">
-						<label> Tỉnh, Thành Phố</label>
-						<select  class="custom-select form-control" id="city" onchange="myFunction()"  >
-							<option> {{$post->place->districts->cities->name}}</option>
-							@foreach($city as $ci)
-								<option> {{$ci->name}}</option>
-							@endforeach
-							
-						</select>
-
+					<div class="form-group col-md-6">
+						<label  for="name" class="col-form-label" > Tỉnh - Thành phố </label>
+						<input type="text" autocomplete="off"  class="form-control" name="city" id="city" required="" value="{{ old('city',$post->place->districts->cities->name) }}" placeholder="Tỉnh-Thành phố" >
 					</div>
-					<div class="form-group col-md-3">
-						<label>Quận, Huyện</label>
-
-						<select class="custom-select form-control" name="districts_id" id="district">
-						<option> {{$post->place->districts->name}}</option>						
-						</select>
+					<div class="form-group col-md-6">
+						<label  for="name" class="col-form-label" > Quận - Huyện </label>
+						<input type="text" autocomplete="off"  class="form-control" name="districts_id" id="district" required="" value="{{ old('city',$post->place->districts->name) }}" placeholder="Quận-Huyện"  >
 					</div>
 
 				</div>
@@ -213,38 +203,48 @@ $(function() {
     });
 });
 
-    function myFunction(){
-    var cityID = document.getElementById("city").value; 
-    console.log(cityID);   
-    if(cityID){
-    	$.ajaxSetup({
-		  headers: {
-		    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-		  }
-		});
-        $.ajax({
-           type:"GET",
-           url:"{{route('acount.post.getcity')}}?cities_id="+cityID,
-           success:function(res){               
-            if(res){
-                $("#district").empty();
-                $("#district").append('<option>District</option>');
-                $.each(res,function(key,value){
-                    $("#district").append('<option value="'+key+'">'+value+'</option>');
-                });
-            }else{
-               $("#district").empty();
-            }
-           }
-        });
-    }else
-    {
-        $("#district").empty();    
-    }      
-   };
-	
-
 </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+<script type="text/javascript">
+    var routes = "{{ route('post.autocomplete')}}";
+    $('#name').typeahead({
+        source:  function (term, process) {
+        return $.get(routes, { term: term }, function (data) {
+                return process(data);
+            });
+        }
+    });
+
+    var route2 = "{{ route('post.autocompletetinh')}}";
+    $('#city').typeahead({
+        source:  function (term, process) {
+        return $.get(route2, { term: term }, function (data) {
+                return process(data);
+            });
+        }
+    });
+
+
+    var tinh;
+    $("#city").blur(function(){
+    	tinh = $("#city").val();
+    })
+
+
+    var route3 = "{{ route('post.autocompletehuyen')}}";
+    $('#district').typeahead({
+        source:  function (term, process) {
+        return $.get(route3, { term : term , city : tinh }, function (data) {
+                return process(data);
+            });
+        }
+    });
+   
+
+   
+</script>
+
 
 {{-- @push('scripts')
 	<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
@@ -252,6 +252,7 @@ $(function() {
 	<script> CKEDITOR.replace('editor3'); </script>
 @endpush --}}
 	@endsection
+
 
 
 

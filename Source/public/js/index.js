@@ -8,8 +8,6 @@ $(document).ready(function(){
 		if (scroll == 0){
 			$("#nav-top").css({'background-color' :'rgba(0,0,0,0.6)','color' : 'white-space'})
 		}
-			console.log($(document).height() - $(window).height());
-			console.log(scroll);
 
 		if( ($(document).height() - $(window).height()) - scroll <50 ){
 			$("#btnpositon").css({'background-color' :'white','color' : 'black'})

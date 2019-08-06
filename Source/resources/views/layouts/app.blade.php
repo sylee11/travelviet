@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap&subset=vietnamese" rel="stylesheet">
-
+  
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -32,7 +32,6 @@
   <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 
 
-
   {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 --}}
   <!-- Rating -->
@@ -43,8 +42,8 @@
   {{-- multi up image --}}
   <script src="{{asset('js/dropzone.js')}}"></script>
   <script src="{{asset('js/index.js')}}"></script>
-  <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
   <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+  <script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <script>
 
@@ -219,7 +218,10 @@
             @if ($errors->count() > 0)
               <script type="text/javascript">
                 $( window ).on("load", function() {
-                  $("#myModal").modal("toggle");
+                  $('#myModal').modal('show');
+                    sss
+                  //$("#myModal").modal("toggle");
+                  console.log("zz");
                 });
               </script>
                 

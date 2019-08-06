@@ -50,6 +50,9 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::get('/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
 		Route::post('/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
+		Route::get('/autocomplete', 'PostController@autocomplete')->name('post.autocomplete');
+		Route::get('/autocompletetinh', 'PostController@autocompleteTinh')->name('post.autocompletetinh');
+		Route::get('/autocompletehuyen', 'PostController@autocompleteHuyen')->name('post.autocompletehuyen');
 		Route::group(['prefix' => 'admin'], function(){
 			Route::get('/approved/show/{id}', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::post('/manageacout/blockuser', 'UserController@blockuser')->name('account.admin.blockuser');
@@ -195,8 +198,7 @@ Route::get('/home','HomeController@index')->name('home');
 Auth::routes();
 
 
-
 //test
 Route::get('/abc', function() {
- 	return view('includes.erro404');
+ 	return view('test');
 })->name('test');
