@@ -181,7 +181,7 @@ public function block($id,Request $request)
     $user->status=0;
     $user->save();
     $user=User::all();
-    return view('admin.user.index',['user'=>$user]);
+   return redirect()->back()->with('success','Bạn đã Block thành công');
 
         // return redirect('admin.user.index')->with('thongbao','ban da xoa thanh cong');
 }
@@ -192,7 +192,7 @@ public function unblock($id,Request $request)
     $user->status=1;
     $user->save();
     $user=User::all();
-    return view('admin.user.index',['user'=>$user]);
+    return redirect()->back()->with('success','Bạn đã Unblock thành công');
 
         // return redirect('admin.user.index')->with('thongbao','ban da xoa thanh cong');
 }
