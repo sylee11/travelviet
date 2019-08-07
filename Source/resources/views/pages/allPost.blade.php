@@ -29,7 +29,7 @@
 				@foreach ($all_posts as $record)
 				<div class="col-sm-6" style="margin:50px 0;">
 					<div class="card-img" id="card-img" style="background-color: #e2e2e2;">
-						<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;"id="pic">
+						<a href="{{route('detail',$record->slug)}}" title="" style="text-decoration: none;"id="pic">
 							<div style="height: 200px;">
 								<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}} " >
 							</div>
