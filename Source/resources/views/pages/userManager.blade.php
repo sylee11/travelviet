@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-	<div class="container" style="margin-top: 200px">
+	<div class="container" style="margin-top: 100px">
 		@if(Session::has('success'))
 		<div class="alert alert-danger">
 			{{Session::get('success')}}
@@ -12,7 +12,7 @@
 			{{Session::get('errro')}}
 		</div>
 		@endif
-		<h4 class="" style="margin-bottom: 100px;"> Quản lí user hệ thống </h4>
+		<h4 class="" style="margin-bottom: 50px;"> Quản lí user hệ thống </h4>
 	</div>
 
 	<form class="form-inline" style="margin-left: 40%; margin-bottom: 50px;  " method="get" action="{{route('account.admin.searchuser')}}">

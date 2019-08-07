@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="container " style="margin-top: 200px; text-align: left;">
-    <h3 class="card-title text-center " style="margin: 100px;">
+<div class="container " style="margin-top: 100px; text-align: left;">
+    <h3 class="card-title text-center " style="margin-bottom: 30px ;">
         Phê duyệt bài viết
 
     </h3>

@@ -51,11 +51,12 @@
 $photo_path = $data->unique('photo_path')->values();
 $cmts = $data->unique('rating_id')->values();
 ?>
-<div class="container" style='text-align:left;margin-top:75px;'>
-  <h1 class="my-4">{{$data[0]->title}}
-    <small style="text-align:right;font-size: 18px;">by <a style="color: black;text-decoration: none;" href="/user/{{$data[0]->user_id}}"> {{$data[0]->name}}</a>,{{ date('d-m-Y', strtotime($data[0]->create_at)) }}</small>
+<div class="container" style='text-align:left;margin-top:100px;'>
+  <h1 class="my-4" style="margin-bottom: 0px;">{{$data[0]->title}}</h1>
 
-  </h1>
+    <small style="text-align:right;font-size: 18px; margin-bottom: 20px;">By <a style="color: blue;text-decoration: none;" href="/user/{{$data[0]->user_id}}"> {{$data[0]->name}}</a> Ngày {{ date('d-m-Y', strtotime($data[0]->create_at)) }}  <i title="{{$data[0]->view_count}} luot xem" class="fas fa-eye"> {{$data[0]->view_count}}</i></small>
+
+  
   <div class="row">
 
     <div class="col">
@@ -169,7 +170,7 @@ $cmts = $data->unique('rating_id')->values();
               @endfor
               <span>{{$user_rate->rating}}</span></p>
         @endif
-        <form action="/detail/rate" method="POST">
+        <form action="/detail/rate" method="POST" onsubmit="myButton.disabled = true; return true;">
           @csrf
           <label for="">Rating:</label>
           <!-- <input type="hidden" name="post_id" value="{{$data[0]->id}}"> -->
@@ -192,7 +193,7 @@ $cmts = $data->unique('rating_id')->values();
 
 
           </div>
-          <button>Send</button>
+          <button name="myButton">Send</button>
         </form>
         @else
         <a style="width:150px;" class="btn btn-primary" href="/login">Please Login</a>

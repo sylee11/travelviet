@@ -53,6 +53,7 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::get('/autocomplete', 'PostController@autocomplete')->name('post.autocomplete');
 		Route::get('/autocompletetinh', 'PostController@autocompleteTinh')->name('post.autocompletetinh');
 		Route::get('/autocompletehuyen', 'PostController@autocompleteHuyen')->name('post.autocompletehuyen');
+		Route::get('/autocompleteAddress', 'PostController@autocompleteAddress')->name('post.autocompleteAddress');
 		Route::group(['prefix' => 'admin'], function(){
 			Route::get('/approved/show/{id}', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::post('/manageacout/blockuser', 'UserController@blockuser')->name('account.admin.blockuser');
@@ -132,7 +133,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('/{id}/edit/deletephoto', 'PostController2@deletephoto')->name('admin.post.deletephoto');
 		Route::get('/autocompleteUser', 'PostController2@autocompleteUser')->name('post.autocompleteUser');
 		Route::get('/autocompletePlcae', 'PostController2@autocompletePlace')->name('post.autocompletePlace');
-
+		// Route::get('/autocompleteAddress', 'PostController2@autocompleteAddress')->name('post.autocompleteAddress');
 		    //
 	});
 	Route::group(['prefix' => 'category','namespace'=>'category'], function(){

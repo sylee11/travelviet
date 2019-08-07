@@ -19,6 +19,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\CreatePost;
 use Illuminate\Support\Str;
+use App\Events\CreatePostHandler;
 class PostController extends Controller
 {
     //
@@ -81,7 +82,7 @@ class PostController extends Controller
         $post ->is_approved = 0;
         $post ->describer = $request->descrice;
         // $post ->save();
-        $post ->slug = Str::slug($request->title, '-');
+        //$post ->slug = Str::slug($request->title, '-');
 
         
  
@@ -104,6 +105,7 @@ class PostController extends Controller
 
         //save post
         $post ->save();
+        event(new CreatePostHandler($post));
         $toUsers = User::where('role','1')->get();
         \Notification::send($toUsers, new CreatePost($post));
         //create folder
@@ -299,6 +301,15 @@ class PostController extends Controller
             ['cities_id',$findID],
             ['name', 'LIKE', '%'.$search.'%']
         ])->get();
+        return response()->json($result);
+    }
+    public function autocompleteAddress(Request $request){
+        // $search = Place::where('name', $request->term)->first()
+        $result = Place::join('districts', 'places.districts_id', '=', 'districts.id')
+                ->join('cities','districts.cities_id','=','cities.id')
+                ->select('districts.name as districtname', 'cities.name as cityname' ,'places.address as address')
+                ->where('places.name','=',$request->term)
+                ->first();
         return response()->json($result);
     }
 

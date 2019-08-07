@@ -8,7 +8,7 @@ header {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  background-image: url('../picture/front/background2.jpg');
+  background-image: url('../picture/front/header3.jpg');
   background-repeat: no-repeat;
   text-align: center;
   color: white;
@@ -65,7 +65,7 @@ header {
   }
 }
 .header-content {
-  background-color: rgba(0,0,0.5,0.3);
+  background-color: rgba(0,0,0.5,0.4);
   position: absolute;
   top:50px;
 

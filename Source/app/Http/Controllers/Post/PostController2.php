@@ -313,4 +313,5 @@ class PostController2 extends Controller
         $result = Place::where('name', 'LIKE','%'.$search. '%')->get();
         return response()->json($result);
     }
+
 }
