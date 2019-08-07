@@ -12,7 +12,7 @@
 
 @extends('layouts.app')
 	@section('content')
-		<div class="container" style="margin-top: 200px; text-align: left;">
+		<div class="container" style="margin-top: 100px; text-align: left;">
 			<h3 class="text-center"> Edit Post</h3>
 				@if (session('success'))
 				<div class="alert alert-success">
@@ -45,8 +45,8 @@
 				</div>
 
 				<div class="form-row " >
-					<div class="form-group col-md-6">
-						<label  for="address" class="col-form-label col-md-4 "> Địa chỉ </label>
+					<div class="form-group col-md-12">
+						<label  for="address" class="col-form-label col-md-4 "> Địa chỉ cụ thể</label>
 						<input type="text"  class="form-control col-md-8 @error('address') is-invalid @enderror"    value="{{$post->place->address}}" placeholder="Phường(Xã)-Quận(Huyện)-Tỉnh(ThànhPhố)" name="address" id="address" required="" >
 							@error('address')
                                 <span class="invalid-feedback" role="alert">

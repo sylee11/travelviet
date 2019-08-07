@@ -303,6 +303,15 @@ class PostController extends Controller
         ])->get();
         return response()->json($result);
     }
+    public function autocompleteAddress(Request $request){
+        // $search = Place::where('name', $request->term)->first()
+        $result = Place::join('districts', 'places.districts_id', '=', 'districts.id')
+                ->join('cities','districts.cities_id','=','cities.id')
+                ->select('districts.name as districtname', 'cities.name as cityname' ,'places.address as address')
+                ->where('places.name','=',$request->term)
+                ->first();
+        return response()->json($result);
+    }
 
 }
 

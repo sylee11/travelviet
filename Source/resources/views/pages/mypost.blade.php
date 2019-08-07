@@ -14,7 +14,7 @@
 		{{ session('errro') }}
 	</div>
 	@endif
-	<h1 style="margin-top:150px;margin-bottom: 50px;">Những bài viết của tôi</h1>
+	<h1 style="margin-top:50px;margin-bottom: 50px;">Những bài viết của tôi</h1>
 	<a href="{{route('account.addpost', $id = Auth::id())}}" title="" class="btn btn-info" style="display: table;justify-content: left;margin-bottom: 50px;">Tạo mới</a>
 	@foreach ($data as $key=>$value)
 	<div class="row" style="margin-bottom: 50px;background-color: #f5f4ef;width: 100%;height:300px;justify-content: center;align-items: center;">

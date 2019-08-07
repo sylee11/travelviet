@@ -31,7 +31,7 @@
 
 @extends('layouts.app')
 @section('content')
-<div class="container" style="margin-top: 200px; text-align: left;">
+<div class="container" style="margin-top: 100px; text-align: left;">
 
 	<h3 class="text-center"> Add new Post</h3>
 	@if (session('success'))
@@ -306,6 +306,24 @@
         return $.get(routes, { term: term }, function (data) {
                 return process(data);
             });
+        },
+        //auto điền thông tin nếu place trùng
+        afterSelect: function(place){
+        	var place = $('#name').val();
+        	$.ajax({
+        		url: "{{route('post.autocompleteAddress')}}",
+        		type: 'get',
+        		dataType: 'json',
+        		data: {term:place},
+        		success: function(data){
+	        		if(data.length !=0){
+	        			$('#city').val(data.cityname);
+	    				$("#showquan").css({'display':'block'});
+	        			$('#district').val(data.districtname);
+	        			$('#address').val(data.address)
+        			}
+        		}
+        	})
         }
     });
 
@@ -334,13 +352,23 @@
     	}
     })
 
+    //when clik city
     $("#city").keyup(function(){
 
     	$("#showquan").css({'display':'none'});
 
     })
 
+    //when kick chọn lại địa điểm
+    $("#name").keydown(function(){
 
+    	$('#city').val('');
+	    $("#showquan").css({'display':'none'});
+	    $('#district').val('');
+	    $('#address').val('')
+
+    })
+    // autocomplete huyện from tỉnh
     var route3 = "{{ route('post.autocompletehuyen')}}";
     $('#district').typeahead({
         source:  function (term, process) {
