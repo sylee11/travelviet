@@ -115,7 +115,7 @@ class FrontController extends Controller
 	public function allPosts(){
 		$all_posts = Post::join('photos', 'posts.id', '=', 'photos.post_id')
 		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-		->select('posts.id', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
+		->select('posts.id','posts.slug', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
 		->orderBy('posts.id', 'desc')
 		->groupBy('posts.id')
 		->groupBy('title')
