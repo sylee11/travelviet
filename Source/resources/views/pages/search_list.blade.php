@@ -6,7 +6,10 @@
 
 @if(count($post)==0)
 <div class="container" style="margin-top: 200px;">
-	<h1 style="margin-top:100px;margin-bottom: 125px;">Danh sách kết quả tìm kiếm trống</h1>
+	<h1 style="margin-top:100px;">Danh sách kết quả tìm kiếm trống</h1>
+	<div style="margin-bottom: 125px;">
+		<p>Tìm thấy {{count($post)}} bài viết cho từ khóa <b>{{$search}}</b> </p>
+	</div>
 </div>
 @endif
 @if(count($post)!=0)
