@@ -162,7 +162,7 @@ class FrontController extends Controller
 		->join('places', 'posts.place_id', '=', 'places.id')
 		->leftJoin('ratings', 'posts.id', '=', 'ratings.post_id')
 		->leftJoin('users as userscmt', 'ratings.user_id', '=', 'userscmt.id')
-		->select('posts.id', 'posts.place_id', 'posts.title', 'posts.user_id', 'posts.describer','posts.slug' ,'posts.created_at as create_at', 'photos.photo_path', 'users.name', 'places.name as place', 'places.lat', 'places.longt','ratings.id as rating_id' ,'ratings.cmt', 'ratings.rating as rate', 'ratings.created_at', 'userscmt.id as cmtid', 'userscmt.name as cmtname', 'userscmt.avatar')
+		->select('posts.id', 'posts.place_id', 'posts.title', 'posts.user_id', 'posts.describer','posts.slug','posts.view_count' ,'posts.created_at as create_at', 'photos.photo_path', 'users.name', 'places.name as place', 'places.lat', 'places.longt','ratings.id as rating_id' ,'ratings.cmt', 'ratings.rating as rate', 'ratings.created_at', 'userscmt.id as cmtid', 'userscmt.name as cmtname', 'userscmt.avatar')
 		->where('posts.id', '=', $post_id)
 		->get();
 
