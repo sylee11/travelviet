@@ -8,11 +8,13 @@
 	<div class="card-header">
 		<i class="fas fa-table"></i>
 	Data Table User </div>
-	@if(Session::has('success1'))
-	<div class="alert alert-success">
-		{{Session::get('success1')}}
-	</div>
-	@endif
+	 @if(count($errors)>0)
+        <div class="alert alert-danger">
+          @foreach($errors->all() as $err)
+          {{$err}} <br>
+          @endforeach
+      </div>
+     @endif 
 	@if(Session::has('success'))
 	<div class="alert alert-success">
 		{{Session::get('success')}}
@@ -55,12 +57,12 @@
 							</div>
 							<div class="form-row">
 								
-								<div class="form-group col-md-4">
+								<div class="form-group col-md-5">
 									<label for="inputState">Role</label>
 									<select id="inputState" class="form-control" name="role">
-										<option selected value="1">admin</option>
+										<option selected value="3">Người xem</option>
 										<option value="2">Người đăng bài</option>
-										<option value="3">Người Xem</option>
+										<option value="1">admin</option>
 									</select>
 								</div>
 								

@@ -76,7 +76,7 @@ async defer></script>
   var lngvalue = {!! json_encode($place->longt) !!};
   var namevalue = {!! json_encode($place->name) !!};
   var addressvalue = {!! json_encode($place->address) !!};
-   var infowindow = new google.maps.InfoWindow;
+  var infowindow = new google.maps.InfoWindow;
   function initAutocomplete() {
    
     var pos = {

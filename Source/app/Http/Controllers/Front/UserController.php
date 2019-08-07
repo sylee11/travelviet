@@ -9,6 +9,7 @@ use DB;
 use App\Post;
 use App\Rating;
 use App\Photo;
+use App\Social;
 use File;
 class UserController extends Controller
 {
@@ -36,7 +37,8 @@ class UserController extends Controller
             $photo->delete();
             File::deleteDirectory(public_path($path));
         }
-         
+        $social=Social::where('user_id',$request->id);
+        $social->delete(); 
         $user->delete();
         $post->delete();
 

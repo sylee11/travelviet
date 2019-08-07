@@ -31,7 +31,7 @@
 
 @extends('layouts.app')
 @section('content')
-<div class="container" style="margin-top: 200px; text-align: left;">
+<div class="container" style="margin-top: 60px; text-align: left;">
 
 	<h3 class="text-center"> Add new Post</h3>
 	@if (session('success'))
@@ -283,9 +283,7 @@
 							infowindow.open(marker.get('map'), marker);
 						//});
                   }
-				});
-				
-				
+				});			
 			}, function() {
 				handleLocationError(true, infoWindow, map.getCenter());
 			});

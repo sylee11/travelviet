@@ -18,21 +18,6 @@
         <!-- <input type="hidden" name="_token" value="{{ csrf_token()}}"> -->
         <div style=" padding-top: 40px;" class="row">
           <div class="col-lg-3" style="padding-right: 50px;">
-
-            <!-- <input class="typeahead form-control" value="" type="text" id="city" name="cities_id" placeholder="Tỉnh, thành phố"> -->
-            
-            
-
-           <!--  <input list="city"  name="cities_id" placeholder="Tỉnh, thành phố">
-            <datalist  name="cities_id" id="city">
-              <option value="">Tỉnh, thành phố</option>
-              @if($city)
-              @foreach ($city as  $record)
-              <option data-value="{{$record->id}}">{{$record->name}}</option>
-              @endforeach
-              @endif
-            </datalist> -->
-
              <select  class="btn  dropdown-toggle" style="background-color: #467F3E; color: white; border-radius: 10px; height: 40px; width: 180px; margin-bottom: 10px;" name="cities_id" id="city" >
               <option value="">Tỉnh, thành phố</option>
               @if($city)
@@ -71,28 +56,6 @@
           </form>
 
         </div>
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script> -->
-        <!-- <script type="text/javascript">
-
-          $('#city').autocomplete({
-             source: "{{URL::to('autocomplete')}}",
-            // minLength:2,
-             select:function(key,value)
-             {
-              console.log(value); 
-             }
-          })
-          // var path = "{{ route('autocomplete') }}";
-          // $('input.typeahead').typeahead({
-          //   source:  function (query, process) {
-          //     return $.get(path, { query: query }, function (data) {
-
-          //       return process(data);
-          //     });
-          //   }
-
-          // });
-        </script> -->
 
 
         <script type="text/javascript">
@@ -126,17 +89,13 @@
         </script>
 
         <div class="align-middle" id="searchhead">
-          <form class="form-inline" action="{{route('search.list')}}" method="get">
-            <input type="hidden" name="_token" value="{{ csrf_token()}}">
-            <div class="row">
-              
-            
+          <form class="form-inline" action="{{route('search.list')}}" method="get">   
+            <div class="row">        
             <div>
                <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" required="" id="inputsearch">
                <div id="searchList"></div>
             </div>
-           
-            
+                 
             <div>
               <button class="btn " type="submit" style="background: #FB8B34; color: white; " id="btnsearch"> <span class="font-weight-bold" >Search </span></button>
             </div>
