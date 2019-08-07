@@ -13,28 +13,29 @@
 	{{Session::get('message')}}
 </div>
 @endif
-<form action="{{route('admin.place.add')}}" method="post">
+<form action="{{route('admin.place.add')}}" method="post" >
 	<input type="hidden" name="_token" value="{{ csrf_token()}}">
 	<div class="form-group">
 		<label for="">Tên địa điểm </label>
-		<input id="name" type="text" class="form-control" name="name" value=""    required autofocus >
+		<input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}"  required autofocus >
 	</div >
-	<div class="form-group col-md-2">
+	
+	<div class="form-group">
+		<label for="">Address </label>
+		<input id="address" type="text" class="form-control" name="address" value="{{old('address')}}"    required autofocus >
+	</div>
+	<div class="form-row">
+		<div class="form-group col-md-4">
 		<label for="">Category</label>
-		<select class="custom-select" name="category_id">
-			<option value="">Category</option>
+		<select class="custom-select" name="category_id"  >
+			<option name="category" >Category</option>
 			@if($category)
 			@foreach ($category as $ca)
 			<option  value="{{$ca->id}}" >{{$ca->name}}</option>
 			@endforeach
 			@endif
 		</select>
-	</div>
-	<div class="form-group">
-		<label for="">Address </label>
-		<input id="address" type="text" class="form-control" name="address" value=""    required autofocus >
-	</div>
-	<div class="form-row">
+	    </div>
 		<div class="form-group col-md-3">
 			<label for="">City</label>
 			<select class="custom-select" name="city_id" id="city">
@@ -74,9 +75,9 @@
 
 
 	<button type="submit" class="btn btn-primary">Add</button>
-	<button type="submit" class="btn btn-danger">
-    <a href="/admin/place" style="color: white">Cancel</a>
-  </button>
+	
+    <a href="/admin/place" class="btn btn-danger" style="color: white">Cancel</a>
+  
 </form>
 <script type="text/javascript">
 
@@ -89,7 +90,7 @@
 				success:function(res){               
 					if(res){
 						$("#district").empty();
-						$("#district").append('<option>District</option>');
+						
 						$.each(res,function(key,value){
 							$("#district").append('<option value="'+key+'">'+value+'</option>');
 						});

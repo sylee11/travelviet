@@ -19,6 +19,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\CreatePost;
 use Illuminate\Support\Str;
+use App\Events\CreatePostHandler;
 class PostController extends Controller
 {
     //
@@ -81,7 +82,7 @@ class PostController extends Controller
         $post ->is_approved = 0;
         $post ->describer = $request->descrice;
         // $post ->save();
-        $post ->slug = Str::slug($request->title, '-');
+        //$post ->slug = Str::slug($request->title, '-');
 
         
  
@@ -104,6 +105,7 @@ class PostController extends Controller
 
         //save post
         $post ->save();
+        event(new CreatePostHandler($post));
         $toUsers = User::where('role','1')->get();
         \Notification::send($toUsers, new CreatePost($post));
         //create folder
@@ -161,7 +163,9 @@ class PostController extends Controller
 	public function edit(Request $request, $idpost){
 		//edit post
         //check idpost input co khớp k
+
         $check = 3;
+
         if(POST::find($idpost) == null || POST::find($idpost)->user_id != Auth::id()){
             return redirect()->back()->with("erro", "Sửa bài viết thất bại!");
         }
@@ -172,7 +176,7 @@ class PostController extends Controller
             $posts ->is_approved = $request->approved;
         }
         $posts ->title = $request ->title;
-        $posts ->describer = $request->input('descrice');
+        $posts ->describer= $request->input('descrice');
 
         //edit place
         $place = Place::where('name', $request->name)->first();

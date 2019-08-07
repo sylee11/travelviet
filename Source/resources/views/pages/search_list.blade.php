@@ -31,7 +31,7 @@
 				@endfor
 			</div>
 			<div> <h5><i class="fas fa-map-marker-alt " style="color: blue;"></i> {{$record->address}}</h5></div>
-			<a href="/detail/{{$record->id}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;margin-bottom: 15px;">Xem chi tiết</a>
+			<a href="/detail/{{$record->slug}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;margin-bottom: 15px;">Xem chi tiết</a>
 			
 		</div>
 		
