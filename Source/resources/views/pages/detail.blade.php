@@ -232,7 +232,7 @@ $cmts = $data->unique('rating_id')->values();
 
           @endfor
 
-          <p style='padding-top:10px'>{!!$value->cmt!!}</p>
+         {!!$value->cmt!!}
       </div>
     </div>
     @endforeach

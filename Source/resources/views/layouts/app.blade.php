@@ -96,6 +96,9 @@
                 <span class="badge badge-light">{{Auth::user()->unreadNotifications->count()}}</span>
               </a>
               <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">  
+              @if(Auth::user()->Notifications->count()>0)  
+              <a href="/deletenotify" class="dropdown-item" style="color:red;background-color:gray">Delete all notification</a>
+              @endif
               @foreach(Auth::user()->unreadNotifications as $notification)
                 <!-- <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item"> {{$notification->type}} id={{$notification->data['post_id']}}</a> -->
                 <a href="{{$notification->data['link']}}" id="notify" class="dropdown-item"> {{$notification->data['message']}}</a>
