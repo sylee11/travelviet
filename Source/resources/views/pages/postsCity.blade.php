@@ -19,10 +19,10 @@
 			@if(!empty($value->name))
 			<p class="created">By: {{$value->name}}</p>
 			@endif
-			<span class="text-descript">
-				{!!$value->describer!!}
-			</span>
-			<a href="{{route('detail',$value->post_id)}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;">Xem chi tiết</a>
+			<div>
+				{!!Str::limit($value->describer, 100, ' ...')!!}
+			</div>
+			<a href="{{route('detail',$value->slug)}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;">Xem chi tiết</a>
 		</div>
 	</div>
 </div>
