@@ -6,6 +6,7 @@
   #map {
     height: 500px;
   }
+ 
 </style>
 
 @endsection
@@ -19,7 +20,10 @@
   var longvalue = {{json_encode($data[0] -> longt)}};
   var namevalue = {!! json_encode($data[0]->name) !!};
   var addressvalue = {!! json_encode($data[0]->address) !!};
-
+  var directionsDisplay;
+  var directionsService;
+  var stepDisplay;
+  var markerArray = [];
   function initMap() {
 
     var uluru = {
@@ -42,8 +46,8 @@
       '<br>Địa chỉ: ' + addressvalue
     });
     infowindow.open(map,marker);
-
-  }
+    
+}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxqyb5cmgcv7j9hY-GcPZYcNQlwyfWaT0&callback=initMap" async defer></script>
 
@@ -147,6 +151,7 @@ $cmts = $data->unique('rating_id')->values();
         </div>
         <div id="location" class="container tab-pane fade"><br>
           <h3>Location</h3>
+          
           <div id="map"></div>
         </div>
 

@@ -20,23 +20,7 @@ class ApprovedController extends Controller
 {
 	public function show($id)
 	{
-		//show top users
-		//$id = Auth::id();
-		//$post = Post::where('is_approved', 0)->get();
-		// foreach ($post as $s) {
-		// 	# code...
-		// 			$sa = $s->photos;
-		// 			foreach ($sa as $ka) {
-		// 				echo $ka->photo_path;
-		// 				echo "</br>";
 
-		// 			}
-
-		// }
-		// var_dump($post->photos);
-		// return;
-		//dd($post);
-		//$photo = Photo::all();
 		$notifytable = DB::table('notifications')
 			->select('data', 'type')
 			->where('notifications.id', '=', $id)->first();
@@ -78,6 +62,9 @@ class ApprovedController extends Controller
 	}
 	public function approved($id)
 	{
+		if(Post::where('id', $id)->first() == null){
+			return view('includes.erro404');
+		}
 		$data = Post::where('id', $id)->first();
 		if ($data) {
 			if ($data->is_approved == 0) {
@@ -112,6 +99,10 @@ class ApprovedController extends Controller
 
 	public function delete(Request $request)
 	{	
+		$id= $request->iddelete;
+		if(Post::where('id', $id)->first() == null){
+			return view('includes.erro404');
+		}
 		$id= $request->iddelete;
 		$data = Post::where('id', $id)->first()->delete();
 		$path = "/picture/admin/post/" . $id;
