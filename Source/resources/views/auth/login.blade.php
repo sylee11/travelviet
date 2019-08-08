@@ -39,7 +39,7 @@ $loginUrl = $helper->getLoginUrl('https://travel.test/fb-callback', $permissions
         <span class="bg-light">OR</span>
     </p>
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" id="formlogin">
         @csrf
 
         <div class="form-group row">
@@ -84,7 +84,7 @@ $loginUrl = $helper->getLoginUrl('https://travel.test/fb-callback', $permissions
 
         <div class="form-group row mb-0">
             <div class="col-md-8 offset-md-2">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary" form="formlogin">
                     {{ __('Login') }}
                 </button>
 

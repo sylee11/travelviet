@@ -416,6 +416,9 @@ class FrontController extends Controller
 
 	public function detail($slug)
 	{
+		if(Post::where('slug',$slug)->first() == null){
+			return view('includes.erro404');
+		}
 		$post = Post::where('slug',$slug)->first();
 		event(new ViewPostHandler($post));
 		$post_id = DB::table('posts')
