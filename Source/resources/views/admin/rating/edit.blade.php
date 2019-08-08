@@ -97,7 +97,15 @@
 		$("#title").keyup(function(){
 			$('#error2').hide();
 		});
-	});
+		 //ckeck lỗi nhập trk khi submit
+		 $('#add').on('click', function(){
+		 	if($('#error').css('display') == "block" || $('#error2').css('display') == 'block'){
+               // console.log($('#error').css('display'));
+               alert("Error, vui lòng kiểm tra lại thông tin");
+               return false;
+           }
+       })
+		});
 
 	$input2.typeahead({
 		source: function (query2, process) {

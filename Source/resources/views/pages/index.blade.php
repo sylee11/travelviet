@@ -173,7 +173,7 @@
 		<!-- Full-width images with number text -->
 		@if (count($city_post) !== 0)
 		@foreach ($city_post as $key => $element)
-		<div class="mySlides">
+		<div class="mySlides" style="padding: 0px;">
 			<a href="{{route('show.posts',$element->id)}}" title="{{ $element->name }}">
 				<div class="numbertext">{{$key+1}} / {{count($city_post)}}</div>
 				<img src="{{ $element->photo_path }}" style="width:100%">
@@ -197,7 +197,7 @@
 		<div class="row" style="justify-content: center;">
 			@if (count($city_post) !== 0)
 			@foreach ($city_post as $key => $element)
-			<div class="col-2 ">
+			<div class="col-2 " style="padding: 0px;">
 				<img class="demo cursor" src="{{ $element->photo_path }}" style="width:100%;height: 100px;" onclick="currentSlide({{$key+1}})" alt="{{ $element->name }}">
 			</div>
 			@endforeach
