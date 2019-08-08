@@ -51,14 +51,15 @@ class PostController extends Controller
 
         //check một lần nữa tỉnh huyênj
         if(District::where('name' , $request->districts_id)->first() == null){
-            return redirect()->back()->with('erro', 'kiểm tra lại dư liệu nhập')->withInput($request->input());;
+            return redirect()->back()->with('erro', 'kiểm tra lại dư liệu nhập')->withInput($request->input());
         }
         else{
-            if(City::where('id',District::where('name' , $request->districts_id)->first()->cities_id) == $request->districts_id){
+            // dd(City::where('id',District::where('name' , $request->districts_id)->first()->cities_id)->first()->id == City::where('name',$request->city)->first()->id);
+            if(City::where('id',District::where('name' , $request->districts_id)->first()->cities_id)->first()->id == City::where('name',$request->city)->first()->id){
                     $findIdPDistrict = District::where('name' , $request->districts_id)->first()->id;
             }
             else{
-                return redirect()->back()->with('erro', 'kiểm tra lại dư liệu nhập')->withInput($request->input());;
+                return redirect()->back()->with('erro', 'kiểm tra lại dư liệu nhập')->withInput($request->input());
             }
         }
     	//check place exist
