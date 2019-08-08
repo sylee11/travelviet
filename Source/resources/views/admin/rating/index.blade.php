@@ -85,7 +85,7 @@
 					<td>{{$record->updated_at}}</td>
 					<td align="center" style="display: flex;">
 						<a href="{{route('admin.rating.edit',$record->id)}}" class="btn-info nav-link" role='button'> Edit</a>
-						<a href="{{route('admin.rating.delete',$record->id)}}" class="btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</a>
+						<button form= "formDel" formaction ="{{route('admin.rating.delete',$record->id)}}" class="btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</button>
 					</td>
 				</tr>
 				@endforeach
@@ -93,6 +93,9 @@
 			</tbody>
 		</table>
 	</div>
+	<form method="post" id="formDel" hidden>
+		@csrf
+	</form>
 </div>
 <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 </div>
