@@ -6,7 +6,7 @@
 	<div style="width: 800px;">
 		<div class="row" style="border-style: ridge;">
 			<div class="col-3" style="display: flex;align-items: center;">
-				<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" style="border-radius: 50%;width: 200px;height:200px;">
+				<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" style="border-radius: 50%;width: 150px;height:150px;">
 			</div>
 			<div class="col-9">
 				<form class="form" role="form" autocomplete="off" style="padding: 50px 0px;margin-bottom: 30px;">

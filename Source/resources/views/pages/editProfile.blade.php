@@ -10,12 +10,12 @@
 					{{csrf_field()}}
 					<div class="image-upload">
 						<label for="file-input">
-							<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" id="avatar" style="border-radius: 50%;width: 200px;height: 200px;">
+							<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" id="avatar" style="border-radius: 50%;width: 150px;height: 150px;">
 						</label>
 
 						<input id="file-input" type="file"  name="avatar" style="display: none;" {{-- onchange="readURL(this);" --}} />
 					</div>
-					<button  class="btn-sm btn btn-primary" id="change_avatar">Update avatar</button>
+					<button  class="btn-sm btn btn-primary" id="change_avatar">Update</button>
 
 				</form>
 			</div>
@@ -53,8 +53,12 @@
 							<input class="form-control" type="text" value="{{Auth::user()->phone}}" name ="phone">
 						</div>
 					</div>
-					<button class="btn btn-info" >Update</button>
-					<a href="{{ url('profile') }}" title=""  id="edit_button"class="btn btn-info">Cancel</a>
+					<div class="form-group row" style="margin-bottom: 30px;">
+						<div class="col">
+							<button class="btn btn-info" >Update</button>
+							<a href="{{ url('profile') }}" title=""  id="edit_button"class="btn btn-info">Cancel</a>
+						</div>
+					</div>
 				</form>
 			</div>
 		</div>

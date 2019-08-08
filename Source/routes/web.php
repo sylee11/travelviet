@@ -168,7 +168,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('edit/{id}', 'RatingController@edit')->name('admin.rating.edit');
 		Route::get('/select', 'RatingController@select')->name('admin.rating.select');
 		Route::post('update/{id}', 'RatingController@update')->name('admin.rating.update');
-		Route::get('/delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
+		Route::post('/delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
 	});
 });
 
