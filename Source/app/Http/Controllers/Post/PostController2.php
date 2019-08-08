@@ -108,7 +108,7 @@ class PostController2 extends Controller
             $photoflag = Photo::where('post_id', $posts->id)->first();
             $photoflag->flag =1;
             $photoflag->save();
-            return back()->with('success', 'Your images has been successfully');
+            return back()->with('success', 'Your post has been successfully');
         }
  
 

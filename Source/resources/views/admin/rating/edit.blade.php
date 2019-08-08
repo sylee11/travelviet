@@ -115,7 +115,7 @@
 							postData.push(value);
 
 						});
-						return process(postData);
+						return process(data.post);
 					}else{
 						$('#error2').show();
 						return process("");
