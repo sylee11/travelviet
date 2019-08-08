@@ -125,25 +125,292 @@ class FrontController extends Controller
 			['photos.flag', '=', '1']
 		])
 		->paginate(15);
+		$category= Category::all();
 
-		return view('pages.allPost',['all_posts'=>$all_posts]);
+		return view('pages.allPost',['all_posts'=>$all_posts,'category'=>$category]);
 	}
 	public function searchPost(Request $request){
-		$search = $request->search;
-		$post= DB::table('posts')
-		->join('places','posts.place_id','=','places.id')
-		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-		->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+		$search_city = $request->get('search_city');
+		$result1 = City::where('name', 'LIKE',$search_city.'%')->get();
+		$search = $request->get('place');
+		$city = $request->get('city_input');
+		$category= $request->get('category');
+		$city_selected= $request->get('city_selected');
+		$query7= $request->get('query7');
+		//dd($request->all());
+		if($category == 0){
+			if($city_selected && $query7 == ''){
+				//dd("1");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
-		->where([
-			['places.name','LIKE','%'.$search.'%'],
-			['photos.flag', '=', '1'],
-			['is_approved','=','1']
-		])
+				->where([
+					['cities.name', '=',$city_selected],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
 
-		->paginate(15);
+				->paginate(15);
+			}else if($city_selected && $query7){
+				//dd("2");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
-		return view('pages.allPost', ['all_posts' => $post, 'search' => $search]);
+				->where([
+					['cities.name', '=',$city_selected],
+					['places.name','LIKE','%'.$query7.'%'],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}else if($city && $search == ''){
+				//dd("3");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
+				->where([
+					['cities.name','LIKE',$city.'%'],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}else if($city && $search){
+				//dd("4");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
+				->where([
+					['cities.name','LIKE',$city.'%'],
+					['places.name','LIKE','%'.$search.'%'],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}else if($search){
+				//dd("5");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
+				->where([
+					['places.name','LIKE','%'.$search.'%'],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}
+			else{
+				//dd("6");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
+				->where([
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}
+
+		}else{
+			if($city_selected && $query7 == ''){
+				//dd("1");
+				//dd($request->all());
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')
+				->join('categories', 'categories.id', '=', 'places.category_id')
+				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
+				->where([
+					['cities.name', '=',$city_selected],
+					['categories.id', '=',$category],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}else if($city_selected && $query7){
+				dd("2");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')
+				->join('categories', 'categories.id', '=', 'places.category_id')
+				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
+				->where([
+					['cities.name', '=',$city_selected],
+					['places.name','LIKE','%'.$query7.'%'],
+					['categories.id', '=',$category],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}else if($city && $search == ''){
+				//dd("3");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')
+				->join('categories', 'categories.id', '=', 'places.category_id')
+				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
+				->where([
+					['cities.name','LIKE',$city.'%'],
+					['categories.id', '=',$category],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}else if($city && $search && $city_selected == ''){
+				//dd("4");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')
+				->join('categories', 'categories.id', '=', 'places.category_id')
+				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
+				->where([
+					['cities.name','LIKE',$city.'%'],
+					['places.name','LIKE','%'.$search.'%'],
+					['categories.id', '=',$category],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}else if($search){
+				//dd("5");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')
+				->join('categories', 'categories.id', '=', 'places.category_id')
+				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
+				->where([
+					['places.name','LIKE','%'.$search.'%'],
+					['categories.id', '=',$category],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}
+			else{
+				//dd("6");
+				$post= DB::table('posts')
+				->join('places','posts.place_id','=','places.id')
+				->join('districts', 'places.districts_id', '=', 'districts.id')
+				->join('cities', 'districts.cities_id', '=', 'cities.id')
+				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
+				->join('photos', 'posts.id', '=', 'photos.post_id')
+				->join('categories', 'categories.id', '=', 'places.category_id')
+				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
+				->where([
+					['categories.id', '=',$category],
+					['photos.flag', '=', '1'],
+					['is_approved','=','1']
+				])
+
+				->paginate(15);
+			}
+		}
+
+
+
+		$output = '';
+		$total_row = $post->count();
+		if($total_row > 0)
+		{
+			foreach($post as $row)
+			{
+				$output .= '
+				<div class="col-sm-6" style="margin:10px 0;">
+				<div class="card-img" id="card-img" style="background-color: #e2e2e2;">
+				<a href="'.route("detail",$row->id).'" title="" style="text-decoration: none;" id="pic">
+				<div style="height: 200px;">
+				<img class="card-img-top list_images" src="' .$row->photo_path. '" alt="'.$row->title.'" >
+				</div>
+
+				<div class="card-body">
+
+				<h5 class="card-title text-primary">
+
+				<span style="display:block;text-overflow: ellipsis;overflow: hidden; white-space: nowrap;font-size: 16px;color: black;">
+				'.$row->title.'
+				</span>
+				</h5>
+				<div class="rating">';
+				for($i=0;$i< ceil($row->avg_rating);$i++)
+					$output .='<span class="fa fa-star checked" ></span>';
+				for($i=ceil($row->avg_rating);$i< 5;$i++)
+					$output .='<span class="fa fa-star unchecked" ></span>';
+				$output .='</div>
+
+				<p class="card-text">
+				</p>
+
+				</div>
+				</a>
+
+				</div>
+				</div>';
+			}
+		}else{
+			$output .= '
+			<div style="margin:10px 0;color:red;font-weight:bold;font-size:20px;text-align:center;" >Không có bài viết nào</div>
+			';
+		}
+		$data1 = array(
+			'table_data'  => $output,
+			'total_data'  => $total_row
+		);
+
+		return response()->json(['all_posts' => $post,'data1'=>$data1, 'search' => $search,'city'=>$result1]);
 
 	}
 
@@ -152,8 +419,8 @@ class FrontController extends Controller
 		$post = Post::where('slug',$slug)->first();
 		event(new ViewPostHandler($post));
 		$post_id = DB::table('posts')
-				->select('posts.id')
-				->where('posts.slug','=',$slug)->first()->id;
+		->select('posts.id')
+		->where('posts.slug','=',$slug)->first()->id;
 		//dd($post_id);
 		$data = DB::table('posts')
 

@@ -6,71 +6,119 @@
 
 <div class="container-fluid">
 	<div style="text-align: center;margin-top:100px;color: black;margin-bottom: 50px;"><h2>Tất cả các bài viết</h2></div>
-	<form class="form-inline" style="margin-bottom: 50px;justify-content: center;" method="get" action="{{route('search.posts')}}">
-		<input type="text" class="form-control" name="search" 
-		value="" placeholder="Nhập từ khóa" style="width: 300px;">
-		<button type="submit" class="btn-success btn" style="margin-left: 20px;"> Search</button>
+	
+	<form class="form-inline" style="justify-content: center;" >
+		<input type="text" autocomplete="off"  class="form-control" name="place" id="place" required="" value="" placeholder="Nhập địa điểm" style="width: 300px;">
 	</form>
-	@if(isset($search))
-	<div class="font-weight-bold">
-		Đã tìm thấy <span style="color: green;">{{$all_posts->count()}}</span> kết quả  cho từ khóa <span style="color: green"> "{{$search}}"</span>
+	<div id="count" style="color: green;font-weight: bold;margin-top: 10px;"></div>
+
+<div class="row" style="justify-content: center;">
+	<div class="col-sm-3" style="width: 100%;background-color: #e2e2e2;margin:60px 0;    text-align: left;height: 100%;padding: 20px;">
+		<h4>Bộ lọc tìm kiếm</h4>
+		<hr>
+		<label  for="name" class="col-form-label" > Tỉnh - Thành phố </label>
+		<input type="text" autocomplete="off"  class="form-control" name="city" id="city" required="" value="" placeholder="Tỉnh-Thành phố" >
+		<label for="cate1" class="col-form-label"  > Category </label>
+		<select class="custom-select" class="col-md-2" id="category" name="category">
+			<option value="0" default> Danh mục</option>
+			@foreach($category as $ca)
+			<option value="{{$ca->id}}"> {{$ca->name}} </option>
+			@endforeach
+		</select>
 	</div>
-	@endif
-
-	<div class="row" style="justify-content: center;">
-		<div class="col-sm-3" style="width: 100%;background-color: #e2e2e2;margin:50px 0;">
-			<h4>Tìm kiếm</h4>
-			
-			
-		</div>
-		<div class="col-sm-9" style="width: 100%;">
-			<div class="row">
-				@if($all_posts->count() !== 0)
-				@foreach ($all_posts as $record)
-				<div class="col-sm-6" style="margin:50px 0;">
-					<div class="card-img" id="card-img" style="background-color: #e2e2e2;">
-						<a href="{{route('detail',$record->id)}}" title="" style="text-decoration: none;"id="pic">
-							<div style="height: 200px;">
-								<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}} " >
-							</div>
-
-							<div class="card-body">
-
-								<h5 class="card-title text-primary">
-
-									<span style="display:block;text-overflow: ellipsis;overflow: hidden; white-space: nowrap;font-size: 16px;color: black;">
-										{{$record->title}}
-									</span>
-								</h5>
-								<div class="rating">
-									@for($i=0;$i< ceil($record->avg_rating);$i++)
-									<span class="fa fa-star checked" ></span>
-									@endfor
-									@for($i=ceil($record->avg_rating);$i< 5;$i++)
-									<span class="fa fa-star unchecked" ></span>
-									@endfor
-								</div>
-
-								<p class="card-text">
-								</p>
-
-							</div>
-						</a>
-
-					</div>
-				</div>
-				@endforeach
-			</div>
-			@else
-			<div class="col-sm">
-				<p>Không có dữ liệu</p>
-			</div>
-			@endif
+	<div class="col-sm-9" style="width: 100%;margin:50px 0;">
+		<div class="row"  id="search" style="justify-content: center;">
 		</div>
 
 	</div>
+
+</div>
 
 
 </div>
 <div style="display: inline-block;">{{$all_posts->links()}}</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+<script>
+	var city;
+	//var place;
+	var place= '';
+	var city_input = '';
+	var category= $('#category').val();
+	//console.log("gt"+category);
+	var route2 = "{{ route('search.posts')}}";
+	$('#city').typeahead({
+		source:  function (query, process) {
+			$.ajax({
+				url: "{{route('search.posts')}}",
+				type: 'GET',
+				dataType: 'JSON',
+				data:'search_city=' + query,
+				success: function(data) {
+					return process(data.city);
+				},
+			});
+		},
+		afterSelect: function(args){
+			$('#city').val(args.name);
+			city_selected=args.name;
+			category= $('#category').val();
+			$.ajax({
+				url:"{{ route('search.posts') }}",
+				method:'GET',
+				data:{city_selected:city_selected,query7:place,category:category},
+				dataType:'json',
+				success:function(data)
+				{
+					$('#search').html(data.data1.table_data);
+				}
+			})
+		}
+	});
+
+
+	$(document).ready(function(){
+		fetch_customer_data();
+		$('#category').on('change', function(){
+			place= $('#place').val();
+			city_input= $('#city').val();
+			console.log("thanh pho chon"+city_input);
+			category= $('#category').val();
+			fetch_customer_data(place,city_input,category);
+			$.ajax({
+				url:"{{ route('search.posts') }}",
+				method:'GET',
+				data:{place:place,city_input:city_input,category:category},
+				dataType:'json',
+				success:function(data) 
+				{
+					$('#search').html(data.data1.table_data);
+					//$('#total_records').text(data.total_data);
+				}
+			})
+		});
+		function fetch_customer_data(place = '',city_input = '',category = 0)
+		{
+			$.ajax({
+				url:"{{ route('search.posts') }}",
+				method:'GET',
+				data:{place:place,city_input:city_input,category:category},
+				dataType:'json',
+				success:function(data) 
+				{
+					$('#search').html(data.data1.table_data);
+					$('#count').text("Có "+data.data1.total_data+" kết quả được tìm thấy");
+				}
+			})
+		}
+
+		$(document).on('keyup', function(){
+			var place = $('#place').val();
+			place= $('#place').val();
+			city_input =$('#city').val();
+			//console.log("t"+query1);
+			fetch_customer_data(place,city_input,category);
+		});
+	});
+</script>
+
 @endsection
