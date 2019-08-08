@@ -86,7 +86,7 @@ class FrontController extends Controller
 		$cities = Post::join('places', 'posts.place_id', '=', 'places.id')
 		->join('districts', 'places.districts_id', '=', 'districts.id')
 		->join('cities', 'districts.cities_id', '=', 'cities.id')
-		->select('cities.id', \DB::raw('count(posts.id) as sum'))
+		->select('cities.id','posts.slug', \DB::raw('count(posts.id) as sum'))
 		->orderBy('sum', 'desc')
 		->groupBy('cities.id')
 		->where('is_approved', '=', '1')->take(6)->get();
@@ -98,7 +98,7 @@ class FrontController extends Controller
 			->join('districts', 'places.districts_id', '=', 'districts.id')
 			->join('cities', 'districts.cities_id', '=', 'cities.id')
 			->join('photos', 'posts.id', '=', 'photos.post_id')
-			->select('photos.photo_path', 'cities.name', 'cities.id')
+			->select('photos.photo_path', 'cities.name', 'cities.id','posts.slug')
 			->where([
 				['cities.id', '=', $value->id],
 				['is_approved', '=', '1'],
@@ -146,7 +146,7 @@ class FrontController extends Controller
 				->join('districts', 'places.districts_id', '=', 'districts.id')
 				->join('cities', 'districts.cities_id', '=', 'cities.id')
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','posts.slug','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['cities.name', '=',$city_selected],
@@ -162,7 +162,7 @@ class FrontController extends Controller
 				->join('districts', 'places.districts_id', '=', 'districts.id')
 				->join('cities', 'districts.cities_id', '=', 'cities.id')
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['cities.name', '=',$city_selected],
@@ -179,7 +179,7 @@ class FrontController extends Controller
 				->join('districts', 'places.districts_id', '=', 'districts.id')
 				->join('cities', 'districts.cities_id', '=', 'cities.id')
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['cities.name','LIKE',$city.'%'],
@@ -195,7 +195,7 @@ class FrontController extends Controller
 				->join('districts', 'places.districts_id', '=', 'districts.id')
 				->join('cities', 'districts.cities_id', '=', 'cities.id')
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['cities.name','LIKE',$city.'%'],
@@ -212,7 +212,7 @@ class FrontController extends Controller
 				->join('districts', 'places.districts_id', '=', 'districts.id')
 				->join('cities', 'districts.cities_id', '=', 'cities.id')
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.slug','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['places.name','LIKE','%'.$search.'%'],
@@ -229,7 +229,7 @@ class FrontController extends Controller
 				->join('districts', 'places.districts_id', '=', 'districts.id')
 				->join('cities', 'districts.cities_id', '=', 'cities.id')
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['photos.flag', '=', '1'],
@@ -250,7 +250,7 @@ class FrontController extends Controller
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->join('categories', 'categories.id', '=', 'places.category_id')
-				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['cities.name', '=',$city_selected],
@@ -269,7 +269,7 @@ class FrontController extends Controller
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->join('categories', 'categories.id', '=', 'places.category_id')
-				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['cities.name', '=',$city_selected],
@@ -289,7 +289,7 @@ class FrontController extends Controller
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->join('categories', 'categories.id', '=', 'places.category_id')
-				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['cities.name','LIKE',$city.'%'],
@@ -308,7 +308,7 @@ class FrontController extends Controller
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->join('categories', 'categories.id', '=', 'places.category_id')
-				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['cities.name','LIKE',$city.'%'],
@@ -328,7 +328,7 @@ class FrontController extends Controller
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->join('categories', 'categories.id', '=', 'places.category_id')
-				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['places.name','LIKE','%'.$search.'%'],
@@ -348,7 +348,7 @@ class FrontController extends Controller
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
 				->join('categories', 'categories.id', '=', 'places.category_id')
-				->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+				->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 				->where([
 					['categories.id', '=',$category],
@@ -371,7 +371,7 @@ class FrontController extends Controller
 				$output .= '
 				<div class="col-sm-6" style="margin:10px 0;">
 				<div class="card-img" id="card-img" style="background-color: #e2e2e2;">
-				<a href="'.route("detail",$row->id).'" title="" style="text-decoration: none;" id="pic">
+				<a href="'.route("detail",$row->slug).'" title="" style="text-decoration: none;" id="pic">
 				<div style="height: 200px;">
 				<img class="card-img-top list_images" src="' .$row->photo_path. '" alt="'.$row->title.'" >
 				</div>
@@ -416,6 +416,9 @@ class FrontController extends Controller
 
 	public function detail($slug)
 	{
+		if(Post::where('slug',$slug)->first() == null){
+			return view('includes.erro404');
+		}
 		$post = Post::where('slug',$slug)->first();
 		event(new ViewPostHandler($post));
 		$post_id = DB::table('posts')

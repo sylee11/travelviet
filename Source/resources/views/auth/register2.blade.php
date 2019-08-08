@@ -10,19 +10,19 @@
 
 <body class="text-center">
     <div class="body">
-    <form class="form-signin" action="{{route('signup')}}" method="post">
+    <form class="form-signin" action="{{route('signup')}}" method="post" id="formregister">
         <input type="hidden" name="_token" value="{{ csrf_token()}}">
         <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
 
         @if(count($errors)>0)
+        @if($errors->all()[0] == "The password must be at least 8 characters.")
         <div class="alert alert-danger">
           @foreach($errors->all() as $err)
           {{$err}} <br>
           @endforeach
-      </div>
-      @endif
-       
-
+        </div>
+        @endif
+        @endif
         <a class="btn btn-block btn-social btn-google"  href="{{route('login.social')}}" >
 
         <i class="fab fa-google"></i>
@@ -51,7 +51,7 @@
                 
             </select>
         </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+        <button class="btn btn-lg btn-primary btn-block" form="formregister" type="submit">Sign up</button>
         <hr id="hr1">
         <p>Have an account? <a href="">Login</a></p>
     </form>
