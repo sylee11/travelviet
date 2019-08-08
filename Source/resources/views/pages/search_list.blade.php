@@ -4,6 +4,15 @@
 @endpush
 @section('content')
 
+@if(count($post)==0)
+<div class="container" style="margin-top: 200px;">
+	<h1 style="margin-top:100px;">Danh sách kết quả tìm kiếm trống</h1>
+	<div style="margin-bottom: 125px;">
+		<p>Tìm thấy {{count($post)}} bài viết cho từ khóa <b>{{$search}}</b> </p>
+	</div>
+</div>
+@endif
+@if(count($post)!=0)
 <div class="container" style="margin-top: 50px;">
 	<h1 style="margin-top:100px;margin-bottom: 50px;">Danh sách kết quả tìm kiếm </h1>
 	<div >
@@ -31,7 +40,7 @@
 				@endfor
 			</div>
 			<div> <h5><i class="fas fa-map-marker-alt " style="color: blue;"></i> {{$record->address}}</h5></div>
-			<a href="/detail/{{$record->id}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;margin-bottom: 15px;">Xem chi tiết</a>
+			<a href="/detail/{{$record->slug}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;margin-bottom: 15px;">Xem chi tiết</a>
 			
 		</div>
 		
@@ -40,5 +49,5 @@
 @endforeach
 <div style="display: inline-block;">{{$post->links()}}</div>
 </div>
-
+@endif
 @endsection

@@ -5,6 +5,11 @@
 	<div class="card-header">
 		<i class="fas fa-table"></i>
 	Data Table Place </div>
+	@if(Session::has('message'))
+	<div class="alert alert-success">
+		{{Session::get('message')}}
+	</div>
+	@endif
     @if(Session::has('success'))
 	<div class="alert alert-success">
 		{{Session::get('success')}}
@@ -12,9 +17,9 @@
 	@endif
 	<div class="card-body">
 		<div style="margin-bottom: 15px">
-			<button type="button" class="btn btn-success" >
-				<a href="{{route('admin.place.add')}}" style="color: white"><i class="fas fa-plus"></i> ADD</a>
-			</button>
+			
+			<a href="{{route('admin.place.add')}}" class="btn btn-success" style="color: white"><i class="fas fa-plus"></i> ADD</a>
+			
 		</div>
 		<div class="table-responsive">
 			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -49,18 +54,18 @@
 						<td>{{$p->created_at}}</td>
 						<td>{{$p->updated_at}}</td>
 						<td>{{$p->category->name}}</td>
-						<td>{{$p ->address}}</td>
+						<td>{{$p->address}}</td>
 						<td align="center">
 							<!-- <button type="submit" class="btn-success">Detail</button> -->
 							<button type="button" class="btn-success" data-toggle="modal" data-target="#myModal">
-								<a href="{{route('admin.place.detail', $p->id)}}" style="color: white">Detail</a>
+								<a href="{{route('admin.place.detail', $p->id)}}" style="color: white;text-decoration: none;">Detail</a>
 							</button>
 							<button type="button" class="btn-info" data-toggle="modal" data-target="#myModal">
-								<a href="{{route('admin.place.edit', $p->id)}}" style="color: white">Edit</a>
+								<a href="{{route('admin.place.edit', $p->id )}}" style="color: white;text-decoration: none;">Edit</a>
 							</button>
 
 							<button type="button" class="btn-danger" >
-								<a href="{{route('admin.place.delete', $p->id)}}" style="color: white" onclick="return confirm ('Bạn có muốn xóa {{$p->name}}')">Delete</a>
+								<a href="{{route('admin.place.delete', $p->id)}}" style="color: white;text-decoration: none;" onclick="return confirm ('Bạn có muốn xóa {{$p->name}}')">Delete</a>
 							</button>
 						</td>
 					</tr>

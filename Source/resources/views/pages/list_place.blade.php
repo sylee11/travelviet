@@ -3,10 +3,16 @@
 <link href="{{asset('css/custom/front.css')}}" rel="stylesheet">
 @endpush
 @section('content')
+@if(count($post)==0)
+<div class="container" style="margin-top: 200px;">
+	<h1 style="margin-top:100px;margin-bottom: 125px;">Danh sách kết quả tìm kiếm trống</h1>
+</div>
+@endif
+@if(count($post)!=0)
 <div class="container" style="margin-top: 50px;">
 	<h1 style="margin-top:100px;margin-bottom: 50px;">Danh sách kết quả tìm kiếm </h1>
 	<div >
-		<p>Tìm thấy {{count($post)}} bài viết </p>
+		<p>Tìm thấy <b>{{count($post)}}</b> bài viết </p>
 	</div>
 	@foreach ($post as $record)
 	<div class="row" style="margin-bottom: 50px;background-color: #f5f4ef;width: 100%;height:300px;justify-content: center;
@@ -16,10 +22,12 @@
 	</div>
 	<div class="col-sm-6">
 		<div class="text">
+
 			<h5>{{$record->title}}</h5>
 			<div >
 				{!!Str::limit($record->describer, 100, ' ...')!!}
 			</div>
+
 			<div class="rating">
 				@for($i=0;$i< ceil($record->avg_rating);$i++)
 				<span class="fa fa-star checked"></span>
@@ -29,7 +37,7 @@
 				@endfor
 			</div>
 			<div> <h5><i class="fas fa-map-marker-alt " style="color: blue;"></i> {{$record->address}}</h5></div>
-			<a href="/detail/{{$record->id}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;margin-bottom: 15px;">Xem chi tiết</a>
+			<a href="/detail/{{$record->slug}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;margin-bottom: 15px;">Xem chi tiết</a>
 			
 		</div>
 		
@@ -38,5 +46,5 @@
 @endforeach
 <div style="display: inline-block;">{{$post->links()}}</div>
 </div>
-
+@endif
 @endsection

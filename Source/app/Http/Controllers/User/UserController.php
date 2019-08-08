@@ -33,11 +33,11 @@ class UserController extends Controller
         [
             'name.required'=>'bạn chưa nhập tên người dùng',
             'name.max(255)'=>'ten co do dai ko qua 255',
-            'email.required'=>'bạn chưa nhập email',
-            'email.email'=>'bạn chưa nhập đúng định dạng',
-            'email.unique'=>'email da ton tai',
-            'password.required'=>'bạn chưa nhập mk',
-            'password.min(8)'=>'bạn nhập ít nhất 5 kí tự',
+            'email.required'=>'Bạn chưa nhập email',
+            'email.email'=>'Bạn chưa nhập đúng định dạng',
+            'email.unique'=>'Email đã tồn tại',
+            'password.required'=>'bạn chưa nhập mật khẩu',
+            'password.min(8)'=>'Bạn nhập ít nhất 8 kí tự',
 
 
         ]
@@ -50,9 +50,7 @@ class UserController extends Controller
     $user->status=1;
     $user->save();
     $user=User::all();
-    return redirect()->back()->with('success1','bạn đã thêm thành công một user');
-
-    // return view('admin.user.index',['user'=>$user]);
+    return redirect()->back()->with('success','Bạn đã thêm thành công một user');
 }
 public function getedit ($id)
 {
@@ -64,25 +62,24 @@ public function postedit (Request $request,$id)
     $user = User::find($id);
 
     $this->validate($request,
-        [
-            'name'=>'required|max:255',
-            'status'=>'required',
+        [        
             'avatar' => ' mimes:jpeg,jpg,png | max:1000'
-        ],
-        [
-            'name.max(255)'=>'ten co do dai ko qua 255',
         ]
     );
     $user->name = $request->get('name');
     $user->birthday = $request->get('birthday');
     $user->address = $request->get('address');
     $user->phone = $request->get('phone');
-    if($user->role!=1)
-    $user->role = $request->get('role');
+    if($user->role!=1){
+        $user->role = $request->get('role');
+    }    
     else
     $user->role=1;
-    $user->status = $request->get('status');
-        // $user->avatar = $request->get('avatar');
+    if($user->role!=1){
+        $user->status = $request->get('status');
+    }  
+    else
+    $user->status=1;
 
     if ($request->hasFile('avatar')) {
         
@@ -135,18 +132,6 @@ public function xoa($id)
     }
     else{
 
-        // $photo =DB::table('photos')
-        // ->join('posts','photos.post_id','=','posts.id')
-        // ->join('users','posts.user_id','=','users.id')
-
-        // ->where([
-        //     // ['photos.post_id', '=','posts.id'],
-        //     ['user_id','=',$id]
-        // ])
-        // ->delete();
-
-        // File::deleteDirectory(public_path($path));
-
         $post1 = Post::where('user_id', $id);
         $postid = Post::where('user_id', $id)->get();
         foreach ($postid as $p) {  
@@ -162,7 +147,11 @@ public function xoa($id)
             ['user_id','=',$id],
         ])
         ->delete();
-
+        $social =DB::table('socials')  
+        ->where([
+            ['user_id','=',$id],
+        ])
+        ->delete();
         $post = DB::table('posts')
         ->where('user_id','=',$id)
         ->delete();
@@ -177,13 +166,19 @@ public function xoa($id)
 public function block($id,Request $request)
 {
     $user = User::find($id);
+    $check = $user->role;
+   // dd($check);
+    if($check == 1){
 
-    $user->status=0;
-    $user->save();
-    $user=User::all();
-    return view('admin.user.index',['user'=>$user]);
-
-        // return redirect('admin.user.index')->with('thongbao','ban da xoa thanh cong');
+        return redirect()->back()->with('error' , 'Bạn không thể block admin');
+    }
+    else{
+     $user->status=0;
+     $user->save();
+     $user=User::all();
+     return redirect()->back()->with('success','Bạn đã Block thành công'); 
+    }
+  
 }
 public function unblock($id,Request $request)
 {
@@ -192,8 +187,6 @@ public function unblock($id,Request $request)
     $user->status=1;
     $user->save();
     $user=User::all();
-    return view('admin.user.index',['user'=>$user]);
-
-        // return redirect('admin.user.index')->with('thongbao','ban da xoa thanh cong');
+    return redirect()->back()->with('success','Bạn đã Unblock thành công');
 }
 }

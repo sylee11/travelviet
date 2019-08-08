@@ -43,14 +43,12 @@ public function store(Request $request)
 {
     $this->validate($request,
         [
-            'name'=>'required|max:255',
             'category_id'=>'required',
             'city_id'=>'required',
             'districts_id'=>'required'
         ],
         [
-            'name.required'=>'bạn tên địa điểm ',
-            'name.max(255)'=>'ten co do dai ko qua 255',
+            
             'category_id.required'=>'bạn chưa chọn loại địa điểm  ',
             'city_id.required'=>'bạn chưa chọn tỉnh, thành phố ',
             'districts_id.required'=>'bạn chưa chọn quận huyện'
@@ -68,7 +66,7 @@ public function store(Request $request)
     $category=Category::all();
     $city=City::all();
     $district=District::all();
-    return \Redirect::route('admin.place.add',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city])->with('message', 'Place has been add!');
+    return \Redirect::route('admin.place.index',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city])->with('message', 'Place has been add!');
 }
 
 public function xoa($id)
@@ -93,17 +91,6 @@ public function postedit (Request $request,$id)
 {
     $place = Place::find($id);
 
-    $this->validate($request,
-        [
-            'name'=>'required|max:255',
-            
-        ],
-        [
-            'name.max(255)'=>'ten co do dai ko qua 255',
-            'email.unique'=>'email da ton tai'
-
-        ]
-    );
     $place->name = $request->get('name');
     $place->address = $request->get('address');
     $place->category_id = $request->get('category_id');

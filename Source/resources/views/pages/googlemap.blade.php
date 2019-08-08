@@ -11,23 +11,24 @@
   <!--  <script src="https://maps.google.com/maps/api/js"></script> -->
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.js"></script>
-  <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxqyb5cmgcv7j9hY-GcPZYcNQlwyfWaT0&callback=initMap">
-</script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-rW15K4v7WHlCWmnCYMLzyR0pU1cPpeI&libraries=places&callback=initMap"async defer></script>
 
 <style type="text/css">
   #map {
     border:1px solid red;
-    height: 500px;
-   
+    height: 500px; 
   }
+  
 </style>
 
 
 </head>
 <body>
-
-  <div id="map" style="height: 500px;top:60px;border:1px solid red;  "></div>
+  <div>
+    
+    <div id="map" style="height: 500px;top:60px;border:1px solid red;  "></div>
+  </div>
+   
   <script type="text/javascript">
    var map, infoWindow;
    var markers = [];
@@ -51,28 +52,25 @@
               center: pos,
               zoom:12
             });
-
+            
             marker.addMarker({
              position: pos,
              title:'vị trí của bạn',
              infoWindow: {
               content: 'vị trí của bạn'
-            }
-
+            }  
           });
-          
-
             $.each( place, function( index, value ){
               marker.addMarker({
                 lat: value.lat,
                 lng: value.longt,
-                title: value.address,
+                title: value.name,
                 infoWindow: {
                   content: 'Tên địa điểm :'+value.name+'<br>Địa chỉ :'+value.address
-                }
+                }       
               });
              });
-   
+            
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });

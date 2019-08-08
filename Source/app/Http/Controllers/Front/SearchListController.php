@@ -27,14 +27,12 @@ class SearchListController extends Controller
 		$districts = DB::table("districts")
 		->where("cities_id",$request->cities_id)
 		->pluck("name","id");
-		 return response()->json($districts);
+		return response()->json($districts);
 	}
 	
 	public function getList(Request $request)
 	{  
-	 // $category=Category::all();
-	// 	$city=City::all();
-	// 	$district=District::all();
+	 
 		$city=$request->cities_id;
 		$district=$request->districts_id;
 		$category=$request->category_id;
@@ -46,7 +44,7 @@ class SearchListController extends Controller
 			->join('districts','places.districts_id','=','districts.id')
 			->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 			->join('photos', 'posts.id', '=', 'photos.post_id')
-			->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
+			->select('posts.id', 'posts.title','posts.describer','posts.slug','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
 			->where([
 				['photos.flag', '=', '1'],
 				['is_approved','=','1']
@@ -70,7 +68,7 @@ class SearchListController extends Controller
 					->join('categories','places.category_id','=','categories.id')
 					->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 					->join('photos', 'posts.id', '=', 'photos.post_id')
-					->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
+					->select('posts.id', 'posts.title','posts.slug','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
 
 					->where([
 						['photos.flag', '=', '1'],
@@ -91,7 +89,7 @@ class SearchListController extends Controller
 					->join('categories','places.category_id','=','categories.id')
 					->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 					->join('photos', 'posts.id', '=', 'photos.post_id')
-					->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
+					->select('posts.id', 'posts.title','posts.slug','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
 					
 					->where([
 						['photos.flag', '=', '1'],
@@ -113,7 +111,7 @@ class SearchListController extends Controller
 				->join('categories','places.category_id','=','categories.id')
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
-				->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
+				->select('posts.id', 'posts.title','posts.describer','posts.slug','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
 
 				->where([
 					['photos.flag', '=', '1'],
@@ -135,7 +133,7 @@ class SearchListController extends Controller
 				->join('categories','places.category_id','=','categories.id')
 				->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
-				->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
+				->select('posts.id', 'posts.title','posts.describer','posts.slug','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
 				
 				->where([
 					['photos.flag', '=', '1'],
@@ -160,7 +158,7 @@ class SearchListController extends Controller
 			->join('categories','places.category_id','=','categories.id')
 			->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
 			->join('photos', 'posts.id', '=', 'photos.post_id')
-			->select('posts.id', 'posts.title','posts.describer','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
+			->select('posts.id', 'posts.title','posts.describer','posts.slug','places.address','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')->groupBy('posts.describer')->groupBy('places.address')
 
 			->where([
 				['photos.flag', '=', '1'],
@@ -182,7 +180,7 @@ class SearchListController extends Controller
 		$post= DB::table('posts')
 		->join('places','posts.place_id','=','places.id')
 		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-		->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.describer','places.address', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+		->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
 
 		->where([
 			['places.name','LIKE','%'.$search.'%'],
@@ -195,26 +193,43 @@ class SearchListController extends Controller
 
 		return view('pages.search_list',['post' => $post],['search'=>$search]);
 	}
-	function autocompleteSearch(Request $request)
-	{
-		if($request->get('query'))
-		{
-			$query = $request->get('query');
-			$data = DB::table('places')
-			->where('name', 'LIKE', "%{$query}%")
-			->get();
-			$output = '<ul class="dropdown-menu" style="display:block; position:relative">';
-			foreach($data as $row)
-			{
-			$output .= '
-				<li><a href="#">'.$row->name.'</a></li>
-				';
-			}
-			$output .= '</ul>';
-			echo $output;
-		}
-	}
+	// function autocompleteSearch(Request $request)
+	// {
+	// 	if($request->get('query'))
+	// 	{
+	// 		$query = $request->get('query');
+	// 		$data = DB::table('places')
+	// 		->where('name', 'LIKE', "%{$query}%")
+	// 		->get();
+	// 		$output = '<ul class="dropdown-menu" style="display:block; position:relative">';
+	// 		foreach($data as $row)
+	// 		{
+	// 		$output .= '
+	// 			<li><a href="#">'.$row->name.'</a></li>
+	// 			';
+	// 		}
+	// 		$output .= '</ul>';
+	// 		echo $output;
+	// 	}
+	// }
+    
+    // public function autocomplete(Request $request)
+    // {
+    // 	// $search =$request ->query; 
+    // 	// $cities = City::where("name","LIKE","%".$search."%")
+    // 	//         ->get();
+    // 	// $data=[]; 
+    // 	// foreach ($cities as $key => $value) {
+    // 	// 	$data []=['id'=>$value->id,'name','value'->$value->name]; 
 
+    // 	// }
+    // 	// return response($data); 
+
+    //     $data = City::select("name")
+    //             ->where("name","LIKE","%{$request->input('query')}%")
+    //             ->get();
+    //     return response()->json($data);
+    //}
 	public function googlemap()
 	{
 		$place = DB::table('places')->get();

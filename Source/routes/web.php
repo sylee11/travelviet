@@ -38,21 +38,22 @@ Route::group(['namespace' => 'Front'], function (){
 	// Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
 	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
 
-    
+    Route::get('/autocomplete', 'SearchListController@autocomplete')->name('autocomplete');
 	Route::get('/autocomplete/search', 'SearchListController@autocompleteSearch')->name('autocomplete.search');
 
 	Route::get('/user/{user_id}','FrontController@userInfo');
 	Route::get('/user/{user_id}/post','FrontController@userPost');
 	Route::get('/user/{user_id}/comment','FrontController@userComment');
 	Route::group(['prefix' => 'account', 'middleware' => 'auth'],function(){
-		Route::get('/{id}/post', 'PostController@showformAddPost')->name('account.addpost');
-		Route::post('/{id}/post', 'PostController@add')->name('account.addpost');
+		Route::get('/post', 'PostController@showformAddPost')->name('account.addpost');
+		Route::post('/post', 'PostController@add')->name('account.addpost');
 		Route::get('/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
 		Route::post('/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
 		Route::get('/autocomplete', 'PostController@autocomplete')->name('post.autocomplete');
 		Route::get('/autocompletetinh', 'PostController@autocompleteTinh')->name('post.autocompletetinh');
 		Route::get('/autocompletehuyen', 'PostController@autocompleteHuyen')->name('post.autocompletehuyen');
+		Route::get('/autocompleteAddress', 'PostController@autocompleteAddress')->name('post.autocompleteAddress');
 		Route::group(['prefix' => 'admin'], function(){
 			Route::get('/approved/show/{id}', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::post('/manageacout/blockuser', 'UserController@blockuser')->name('account.admin.blockuser');
@@ -130,8 +131,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('/{id}/edit', 'PostController2@showformedit')->name('admin.post.showedit');
 		Route::post('/{id}/edit', 'PostController2@edit')->name('admin.post.edit');
 		Route::get('/{id}/edit/deletephoto', 'PostController2@deletephoto')->name('admin.post.deletephoto');
-
-
+		Route::get('/autocompleteUser', 'PostController2@autocompleteUser')->name('post.autocompleteUser');
+		Route::get('/autocompletePlcae', 'PostController2@autocompletePlace')->name('post.autocompletePlace');
+		// Route::get('/autocompleteAddress', 'PostController2@autocompleteAddress')->name('post.autocompleteAddress');
 		    //
 	});
 	Route::group(['prefix' => 'category','namespace'=>'category'], function(){

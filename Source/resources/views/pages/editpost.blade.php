@@ -12,7 +12,7 @@
 
 @extends('layouts.app')
 	@section('content')
-		<div class="container" style="margin-top: 200px; text-align: left;">
+		<div class="container" style="margin-top: 100px; text-align: left;">
 			<h3 class="text-center"> Edit Post</h3>
 				@if (session('success'))
 				<div class="alert alert-success">
@@ -45,9 +45,9 @@
 				</div>
 
 				<div class="form-row " >
-					<div class="form-group col-md-6">
-						<label  for="address" class="col-form-label col-md-4 "> Địa chỉ </label>
-						<input type="text"  class="form-control col-md-8 @error('address') is-invalid @enderror"    value="{{$post->place->address}}" placeholder="Phường(Xã)-Quận(Huyện)-Tỉnh(ThànhPhố)" name="address" id="address" required="">
+					<div class="form-group col-md-12">
+						<label  for="address" class="col-form-label col-md-4 "> Địa chỉ cụ thể</label>
+						<input type="text"  class="form-control col-md-8 @error('address') is-invalid @enderror"    value="{{$post->place->address}}" placeholder="Phường(Xã)-Quận(Huyện)-Tỉnh(ThànhPhố)" name="address" id="address" required="" >
 							@error('address')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -58,10 +58,16 @@
 					<div class="form-group col-md-6">
 						<label  for="name" class="col-form-label" > Tỉnh - Thành phố </label>
 						<input type="text" autocomplete="off"  class="form-control" name="city" id="city" required="" value="{{ old('city',$post->place->districts->cities->name) }}" placeholder="Tỉnh-Thành phố" >
+						<div id="errotinh" style="display: none;">
+							<span style="color: red;">Không tìm thấy kết quả</span>
+						</div>
 					</div>
 					<div class="form-group col-md-6">
 						<label  for="name" class="col-form-label" > Quận - Huyện </label>
-						<input type="text" autocomplete="off"  class="form-control" name="districts_id" id="district" required="" value="{{ old('city',$post->place->districts->name) }}" placeholder="Quận-Huyện"  >
+						<input type="text" autocomplete="off"  class="form-control" name="districts_id" id="district" required="" value="{{ old('city',$post->place->districts->name) }}" placeholder="Quận-Huyện"  readonly="" >
+						<div id="errohuyen" style="display: none;">
+							<span style="color: red;">Không tìm thấy kết quả</span>
+						</div>
 					</div>
 
 				</div>
@@ -126,7 +132,7 @@
 				</div>
 				<div class="d-flex">
 					<div class="justify-content-center" style="margin-left: 45% ; margin-bottom: 50px;">
-						<button type="submit" class="btn btn-primary text-center" >Lưu lại</button>
+						<button type="submit" class="btn btn-primary text-center"  id="submit">Lưu lại</button>
 						<button type="reset" class="btn btn-dark" id="btnreset" onclick="return confirm('Có thay đổi cần lưu, bạn có chắc chắn thoát?')">Reset</button>
 
 					</div>
@@ -139,18 +145,6 @@
 <script type="text/javascript">
 
     $(document).ready(function() {
-
-	    $(".add").click(function(){ 
-	        var html = $(".clone").html();
-	        $(".increment").after(html);
-	    });
-
-	    $("body").on("click",".btn-danger",function(){ 
-	        $(this).parents(".control-group").remove();
-	    });
-
-	    var ab=$(".clone");
-	    ab.hide();
 
 	    //ckeditor
 	    CKEDITOR.replace('editor1');
@@ -170,7 +164,19 @@
 	    	}
 
 	    })
+	    $("#city").on('click',function(){
+	    	$('#district').val('');
+	    	$('#district').prop('readonly', false);
+	    })
 
+	    //ckeck lỗi nhập trk khi submit
+	    $('#submit').on('click', function(){
+	    	$('#errotinh').css('display') ;
+	    	if($('#errotinh').css('display') == "block" || $('#errohuyen').css('display') == 'block'){
+	    		alert("Erro, vui lòng kiểm tra lại thông tin");
+	    		return false;
+	    	}
+	    })
 	   
     });
 
@@ -220,6 +226,12 @@ $(function() {
     $('#city').typeahead({
         source:  function (term, process) {
         return $.get(route2, { term: term }, function (data) {
+                if(data.length == 0){
+        			$('#errotinh').css('display', 'block');
+        		}
+        		else{
+        			$('#errotinh').css('display','none');
+        		}
                 return process(data);
             });
         }
@@ -236,6 +248,14 @@ $(function() {
     $('#district').typeahead({
         source:  function (term, process) {
         return $.get(route3, { term : term , city : tinh }, function (data) {
+        	    if(data.length == 0){
+        			$('#errohuyen').css('display', 'block');
+				    console.log($("district").val());
+				    // })
+        		}
+        		else{
+        			$('#errohuyen').css('display', 'none');        			
+        		}
                 return process(data);
             });
         }

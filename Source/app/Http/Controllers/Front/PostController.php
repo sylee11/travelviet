@@ -19,6 +19,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\CreatePost;
 use Illuminate\Support\Str;
+use App\Events\CreatePostHandler;
 class PostController extends Controller
 {
     //
@@ -31,7 +32,7 @@ class PostController extends Controller
     	return view('pages.addpost',['category' => $category, 'place' => $place, 'city' =>$city, 'district' => $district]);
     }
 
-    public function Add(Request $request, $id){
+    public function Add(Request $request){
     	$request-> validate([
             'name' => 'required',
             'phone' => 'required|min:10 ',
@@ -48,9 +49,18 @@ class PostController extends Controller
     	$post -> user_id = Auth::id();
     	$post -> phone = $request ->phone;
 
-        //find id place
-
-        $findIdPDistrict = District::where('name' , $request->districts_id)->first()->id;
+        //check một lần nữa tỉnh huyênj
+        if(District::where('name' , $request->districts_id)->first() == null){
+            return redirect()->back()->with('erro', 'kiểm tra lại dư liệu nhập')->withInput($request->input());;
+        }
+        else{
+            if(City::where('id',District::where('name' , $request->districts_id)->first()->cities_id) == $request->districts_id){
+                    $findIdPDistrict = District::where('name' , $request->districts_id)->first()->id;
+            }
+            else{
+                return redirect()->back()->with('erro', 'kiểm tra lại dư liệu nhập')->withInput($request->input());;
+            }
+        }
     	//check place exist
     	$findPlace = Place::where([
             ['name', '=', $request->name],
@@ -72,19 +82,16 @@ class PostController extends Controller
     		$newPlace->category_id = Category::where('name', $request->category)->first()->id;
             
             $newPlace->districts_id = $findIdPDistrict;
-    		$newPlace -> save();
 
-    		$post ->place_id = $newPlace->id;
     	}
 
         $post ->title = $request ->title;
         $post ->is_approved = 0;
         $post ->describer = $request->descrice;
         // $post ->save();
-        $post ->slug = Str::slug($request->title, '-');
+        //$post ->slug = Str::slug($request->title, '-');
 
         
- 
 	    
         //check image
         if($request->has('filename')){
@@ -102,8 +109,15 @@ class PostController extends Controller
 	        }
         }
 
+        //save new place
+        if($findPlace == null){
+            $newPlace -> save();
+            $post ->place_id = $newPlace->id;
+
+        }
         //save post
         $post ->save();
+        event(new CreatePostHandler($post));
         $toUsers = User::where('role','1')->get();
         \Notification::send($toUsers, new CreatePost($post));
         //create folder
@@ -148,8 +162,16 @@ class PostController extends Controller
 
 	public function showformEditPost($idPost)
 	{
+
         $id = Auth::id();
-		$post = Post::find($idPost);
+        //check 
+        if(Post::where('slug', $idPost)->first() == null){
+            return view('includes.erro404');
+        }
+        if( Post::where('slug', $idPost)->first()->user_id != $id){
+            return view('includes.erro404');            
+        }
+		$post = Post::where('slug',$idPost)->first();
 		$category = Category::all();
 		$place = Place::all();
 		$city = City::all();
@@ -161,28 +183,27 @@ class PostController extends Controller
 	public function edit(Request $request, $idpost){
 		//edit post
         //check idpost input co khớp k
-        if(POST::find($idpost) == null || POST::find($idpost)->first()->user_id != Auth::id()){
+        if(POST::find($idpost) == null || POST::find($idpost)->user_id != Auth::id()){
             return redirect()->back()->with("erro", "Sửa bài viết thất bại!");
         }
 		$posts = POST::find($idpost);
 		// $posts ->place_id = $request->placeid;
         $posts ->phone = $request->phone;
-        $posts ->is_approved = $request->approved;
+        if($request->approved != null){
+            $posts ->is_approved = $request->approved;
+        }
         $posts ->title = $request ->title;
-        $posts ->describer = $request->input('descrice');
+        $posts ->describer= $request->input('descrice');
 
         //edit place
-        $place = Place::where('name', $request->name)->first();
+        $place = Place::where([
+            ['name', $request->name],
+            ['districts_id', District::where('name',$request->districts_id)->first()->id]
+            ])->first();
         $place ->address = $request->address;
       	$place->category_id = Category::where('name', $request->category)->first()->id;
         $place->districts_id = District::where('name', $request->districts_id)->first()->id; 
-      	// $a = district::where('name', $request->districts_id)->get();
-      	// if($a->count() != 1){
-       //  	$place->districts_id = $request->districts_id; 
-     		
-      	// }
-
-
+        //edit photos
         $path = 'picture/admin/post/'.$posts->id;
         if($request->has('filename')){
             foreach($request->file('filename') as $image)
@@ -192,19 +213,20 @@ class PostController extends Controller
                 //check photo exit
                 $namet=$path."/".$name;                
                 $t = DB::table('photos')
-                ->where("post_id", "=", $id)->get();
+                ->where("post_id", "=", $idpost)->get();
                 foreach ($t as $key => $value) {
-                          if($value->photo_path ==  $namet  )
-                              return "Photo exits";
+                        if($value->photo_path ==  $namet  )
+                        return redirect()->back()->with('erro','Photo does exitst');
+
                 }  
                 $thumbnailImage = Image::make($image);
-                if($thumbnailImage->width() < 1000 || $thumbnailImage->height()<600)
+                if($thumbnailImage->width() < 800 || $thumbnailImage->height()<500)
                 {
-                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá nhỏ so với yêu cầu)');
+                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 800 * 500 .( hình quá nhỏ so với yêu cầu)');
                 }
                 if($thumbnailImage->width() > 2500 && $thumbnailImage->height()>1300)
                 {
-                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá lớn so với yêu cầu)');
+                    return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối da 2500 * 1300 .( hình quá lớn so với yêu cầu)');
                 }
                 $image->move($path, $name);  
                 $photo = new photo;
@@ -292,8 +314,17 @@ class PostController extends Controller
         }
         $result = District::where([
             ['cities_id',$findID],
-            ['name', 'LIKE', $search.'%']
+            ['name', 'LIKE', '%'.$search.'%']
         ])->get();
+        return response()->json($result);
+    }
+    public function autocompleteAddress(Request $request){
+        // $search = Place::where('name', $request->term)->first()
+        $result = Place::join('districts', 'places.districts_id', '=', 'districts.id')
+                ->join('cities','districts.cities_id','=','cities.id')
+                ->select('districts.name as districtname', 'cities.name as cityname' ,'places.address as address')
+                ->where('places.name','=',$request->term)
+                ->first();
         return response()->json($result);
     }
 

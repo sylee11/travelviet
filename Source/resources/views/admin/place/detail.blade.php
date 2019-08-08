@@ -11,24 +11,25 @@
     <label for="name">Name</label>
     <input type="text" name="name" value="{{ $place->name }}" disabled="" class="form-control" required autocomplete="name">
   </div>
-  <div class="form-group col-md-2">
-    <label for="">Category</label>
-    <input  class="custom-select" type="text" name="category_id" disabled="" value="{{$place->category->name}}" >
-    
-  </div>
+  
+  
   <div class="form-group">
     <label for="">Address</label>
     <input id="text" type="text" name="address" value="{{ $place->address }}" class="form-control" required autocomplete="address" disabled="">
   </div>
   <div class="form-row">
+    <div class="form-group col-md-4">
+    <label for="">Category</label>
+    <input  class="form-control" type="text" name="category_id" disabled="" value="{{$place->category->name}}" >
+  </div>
     <div class="form-group col-md-3">
       <label for="">City</label>
-      <input type="text" name="" class="custom-select" value="{{$place->districts->cities->name}}" disabled="">
+      <input type="text" name="" class="form-control" value="{{$place->districts->cities->name}}" disabled="">
       
     </div>
     <div class="form-group col-md-3">
       <label for="">District</label>
-      <input type="text" class="custom-select" name="districts_id" disabled="" value="{{$place->districts->name}}">
+      <input type="text" class="form-control" name="districts_id" disabled="" value="{{$place->districts->name}}">
      
     </div>
   </div>
@@ -48,10 +49,9 @@
     </div>
   </div>
 
-  <button type="submit" class="btn btn-danger">
-    <a href="/admin/place" style="color: white">Cancel</a>
-  </button>
-
+  
+    <a href="/admin/place"  class="btn btn-danger" style="color: white">Cancel</a>
+  
 </form>
 
 
@@ -76,7 +76,7 @@ async defer></script>
   var lngvalue = {!! json_encode($place->longt) !!};
   var namevalue = {!! json_encode($place->name) !!};
   var addressvalue = {!! json_encode($place->address) !!};
-   var infowindow = new google.maps.InfoWindow;
+  var infowindow = new google.maps.InfoWindow;
   function initAutocomplete() {
    
     var pos = {

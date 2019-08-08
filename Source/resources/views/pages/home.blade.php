@@ -14,12 +14,11 @@
      {{--  <button  data-target="#demo" class="btn btn-primary  " style="width: 150px; height: 50px; border-radius: 20px; background-color: #3997A6">
       Tìm kiếm địa điểm </button> --}}
       <div style="display: flex;justify-content: center;">
-      <form action="{{route('get.list')}}" method="get" autocomplete="off">
-        <input type="hidden" name="_token" value="{{ csrf_token()}}">
+      <form action="{{route('get.list')}}" method="get" >
+        <!-- <input type="hidden" name="_token" value="{{ csrf_token()}}"> -->
         <div style=" padding-top: 40px;" class="row">
           <div class="col-lg-3" style="padding-right: 50px;">
-
-            <select  class="btn  dropdown-toggle" style="background-color: #467F3E; color: white; border-radius: 10px; height: 40px; width: 180px; margin-bottom: 10px;" name="cities_id" id="city" >
+             <select  class="btn  dropdown-toggle" style="background-color: #467F3E; color: white; border-radius: 10px; height: 40px; width: 180px; margin-bottom: 10px;" name="cities_id" id="city" >
               <option value="">Tỉnh, thành phố</option>
               @if($city)
               @foreach ($city as  $record)
@@ -27,15 +26,7 @@
               @endforeach
               @endif
             </select>
-            
-            
-           <!--  <input type="text" class="typeahead form-control" name="cities_id"  id="city"  placeholder="Tỉnh, thành phố" style="background-color: #467F3E; color: white; border-radius: 10px; height: 40px; width: 180px; margin-bottom: 10px;">
-            -->
-            <!-- <div class="form-group">
-              <input type="text" value="" name="cities_id" id="city" class="form-control input-lg" placeholder="Tỉnh, thành phố"  />
-              <div id="cityList">
-              </div>
-            </div> -->
+          
           </div>
           <div class="col-lg-3" style="padding-right: 50px;">
             <select class="btn btn-secondary dropdown-toggle" name="districts_id" id="district" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px; width: 180px; margin-bottom: 10px;">
@@ -57,21 +48,14 @@
               <button type="submit" class="btn btn-primary" id="find" style="height: 37px; background-color: #3997A6" >
                 <i class="fas fa-search" style="color: white "></i></button>
 
-              <button class="btn " type="button"  style="height: 37px; margin-left: 30px; background-color: #3997A6   "> <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
-              </button>
+              <a style="height: 37px; margin-left: 30px; background-color: #3997A6   "class="btn btn-primary" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
+              
             </div>
 
             </div>
           </form>
-          <!-- <div style="padding-top: 100px;">
-            <button class="btn btn-primary"  style="height: 37px;   ">
-              <a class="" href="{{route('google.map')}}"><i class="fas fa-map-marker-alt " style="color: white; " ></i></a>
-            </button>
-          </div> -->
-
 
         </div>
-        
 
 
         <script type="text/javascript">
@@ -105,17 +89,13 @@
         </script>
 
         <div class="align-middle" id="searchhead">
-          <form class="form-inline" action="{{route('search.list')}}" method="get">
-            <input type="hidden" name="_token" value="{{ csrf_token()}}">
-            <div class="row">
-              
-            
+          <form class="form-inline" action="{{route('search.list')}}" method="get">   
+            <div class="row">        
             <div>
                <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" required="" id="inputsearch">
                <div id="searchList"></div>
             </div>
-           
-            
+                 
             <div>
               <button class="btn " type="submit" style="background: #FB8B34; color: white; " id="btnsearch"> <span class="font-weight-bold" >Search </span></button>
             </div>
@@ -165,33 +145,7 @@
   </div>
 
 </div>
-<script>
-  $(document).ready(function(){
 
-   $('#inputsearch').keyup(function(){ 
-    var query = $(this).val();
-    if(query != '')
-    {
-     var _token = $('input[name="_token"]').val();
-     $.ajax({
-      url:"{{ route('autocomplete.search') }}",
-      method:"GET",
-      data:{query:query, _token:_token},
-      success:function(data){
-       $('#searchList').fadeIn();  
-       $('#searchList').html(data);
-     }
-   });
-   }
- });
-
-   $(document).on('click', 'li', function(){  
-    $('#inputsearch').val($(this).text());  
-    $('#searchList').fadeOut();  
-  });  
-
- });
-</script>
 <main class="container" >
   @yield('content-section')
 </main>
