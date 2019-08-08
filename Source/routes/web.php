@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Routing\Controller;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -204,3 +205,7 @@ Auth::routes();
 Route::get('/abc', function() {
  	return view('test');
 })->name('test');
+Route::get('/deletenotify', function() {
+	Auth::user()->notifications()->delete();
+	return back();
+});
