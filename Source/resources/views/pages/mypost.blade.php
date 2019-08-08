@@ -15,7 +15,7 @@
 	</div>
 	@endif
 	<h1 style="margin-top:50px;margin-bottom: 50px;">Những bài viết của tôi</h1>
-	<a href="{{route('account.addpost', $id = Auth::id())}}" title="" class="btn btn-info" style="display: table;justify-content: left;margin-bottom: 50px;">Tạo mới</a>
+	<a href="{{route('account.addpost')}}" title="" class="btn btn-info" style="display: table;justify-content: left;margin-bottom: 50px;">Tạo mới</a>
 	@foreach ($data as $key=>$value)
 	<div class="row" style="margin-bottom: 50px;background-color: #f5f4ef;width: 100%;height:300px;justify-content: center;align-items: center;">
 		<div class="col-sm-6">
@@ -40,7 +40,7 @@
 			<div class="row" style="display: table;text-align: left;">
 				<form>
 					@csrf
-					<a href="{{route('account.editpost', [$idPost = $value->post_id])}}" title="" class="btn btn-info" style="width: 75px;margin-right: 10px;">Edit</a>
+					<a href="{{route('account.editpost', [$idPost = $value->slug])}}" title="" class="btn btn-info" style="width: 75px;margin-right: 10px;">Edit</a>
 					<button  formaction="{{route('mypost.delete', $id = $value->post_id)}}" title="" class="btn btn-danger " style="width: 75px;" onclick="return confirm('Bạn có muốn xoa bài đăng này?')" formmethod="post">Delete</button>
 				</form>
 			</div>
