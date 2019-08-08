@@ -27,7 +27,6 @@ class ProfileController extends Controller
 	{
 		$user = Auth::user();
 		$user->name = $request->get('name');
-		$user->email = $request->get('email');
 		$user->birthday = $request->get('birthday');
 		$user->address = $request->get('address');
 		$user->phone = $request->get('phone');

@@ -40,14 +40,13 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
 
     Route::get('/autocomplete', 'SearchListController@autocomplete')->name('autocomplete');
-	Route::get('/autocomplete/search', 'SearchListController@autocompleteSearch')->name('autocomplete.search');
-
+	
 	Route::get('/user/{user_id}','FrontController@userInfo');
 	Route::get('/user/{user_id}/post','FrontController@userPost');
 	Route::get('/user/{user_id}/comment','FrontController@userComment');
 	Route::group(['prefix' => 'account', 'middleware' => 'auth'],function(){
-		Route::get('/{id}/post', 'PostController@showformAddPost')->name('account.addpost');
-		Route::post('/{id}/post', 'PostController@add')->name('account.addpost');
+		Route::get('/post', 'PostController@showformAddPost')->name('account.addpost');
+		Route::post('/post', 'PostController@add')->name('account.addpost');
 		Route::get('/edit/{idpost}', 'PostController@showformEditPost')->name('account.editpost');
 		Route::post('/edit/{idpost}', 'PostController@edit')->name('account.editpost');
 		Route::get('/get-city-list', 'PostController@getCityList')->name('acount.post.getcity');
@@ -169,7 +168,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('edit/{id}', 'RatingController@edit')->name('admin.rating.edit');
 		Route::get('/select', 'RatingController@select')->name('admin.rating.select');
 		Route::post('update/{id}', 'RatingController@update')->name('admin.rating.update');
-		Route::get('/delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
+		Route::post('/delete/{id}', 'RatingController@delete')->name('admin.rating.delete');
 	});
 });
 

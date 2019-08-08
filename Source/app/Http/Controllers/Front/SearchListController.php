@@ -193,43 +193,14 @@ class SearchListController extends Controller
 
 		return view('pages.search_list',['post' => $post],['search'=>$search]);
 	}
-	// function autocompleteSearch(Request $request)
-	// {
-	// 	if($request->get('query'))
-	// 	{
-	// 		$query = $request->get('query');
-	// 		$data = DB::table('places')
-	// 		->where('name', 'LIKE', "%{$query}%")
-	// 		->get();
-	// 		$output = '<ul class="dropdown-menu" style="display:block; position:relative">';
-	// 		foreach($data as $row)
-	// 		{
-	// 		$output .= '
-	// 			<li><a href="#">'.$row->name.'</a></li>
-	// 			';
-	// 		}
-	// 		$output .= '</ul>';
-	// 		echo $output;
-	// 	}
-	// }
     
-    // public function autocomplete(Request $request)
-    // {
-    // 	// $search =$request ->query; 
-    // 	// $cities = City::where("name","LIKE","%".$search."%")
-    // 	//         ->get();
-    // 	// $data=[]; 
-    // 	// foreach ($cities as $key => $value) {
-    // 	// 	$data []=['id'=>$value->id,'name','value'->$value->name]; 
-
-    // 	// }
-    // 	// return response($data); 
-
-    //     $data = City::select("name")
-    //             ->where("name","LIKE","%{$request->input('query')}%")
-    //             ->get();
-    //     return response()->json($data);
-    //}
+    public function autocomplete(Request $request)
+    {
+        $data = Place::select("name")
+                ->where("name","LIKE","%{$request->input('query')}%")
+                ->get();
+        return response()->json($data);
+    }
 	public function googlemap()
 	{
 		$place = DB::table('places')->get();

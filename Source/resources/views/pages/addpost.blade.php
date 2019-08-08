@@ -46,7 +46,7 @@
 		{{ session('erro') }}
 	</div>
 	@endif
-	<FORM   action="{{route('account.addpost', $id = Auth::id() )}}" method="post" enctype="multipart/form-data">
+	<FORM   action="{{route('account.addpost')}}" method="post" enctype="multipart/form-data">
 		@csrf
 		<div class="form-row">
 			<div class="form-group col-md-6">

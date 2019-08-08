@@ -61,13 +61,6 @@ class PostController2 extends Controller
 
         // import posts
         $posts = new POST;
-        //check user dóe'n exist
-        // if(USER::find($request->userid)){
-        //     $posts -> user_id = $request ->userid;
-        // }
-        // else{
-        //     return "userid not exist";
-        // }
 
         $posts -> user_id = User::where('name', $request->userid)->first()->id;
         $posts -> phone = $request ->number;
@@ -81,7 +74,6 @@ class PostController2 extends Controller
         $posts -> is_approved =0;
         }
         $posts ->slug = Str::slug($request->title, '-');
-        //find last id
         //make folder chứa photo
         $path = 'picture/admin/post/'.$posts->id;
         if(!File::exists($path)){
@@ -116,7 +108,7 @@ class PostController2 extends Controller
             $photoflag = Photo::where('post_id', $posts->id)->first();
             $photoflag->flag =1;
             $photoflag->save();
-            return back()->with('success', 'Your images has been successfully');
+            return back()->with('success', 'Your post has been successfully');
         }
  
 

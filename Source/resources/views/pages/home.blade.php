@@ -56,8 +56,7 @@
           </form>
 
         </div>
-
-
+         
         <script type="text/javascript">
           $(document).ready(function(){
             $('#city').change(function(){
@@ -87,13 +86,12 @@
             });
           });
         </script>
-
+        
         <div class="align-middle" id="searchhead">
           <form class="form-inline" action="{{route('search.list')}}" method="get">   
             <div class="row">        
             <div>
-               <input class="form-control mr-sm-2" type="text" placeholder="Search" name="search" required="" id="inputsearch">
-               <div id="searchList"></div>
+               <input class="typeahead form-control mr-sm-2" type="text" placeholder="Search" name="search" required="" id="inputsearch" autocomplete="off">
             </div>
                  
             <div>
@@ -106,7 +104,18 @@
         
       </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
+    <script type="text/javascript">
+      var path = "{{ route('autocomplete') }}";
+      $('input.typeahead').typeahead({
+        source:  function (query, process) {
+          return $.get(path, { query: query }, function (data) {
+            return process(data);
+          });
+        }
+      });
+    </script>
   </div>
 </header>
 <div class="" style="width: 100%; background-color: #3BB5C9; margin: 0px; color: white;" id="about">
