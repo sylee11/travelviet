@@ -17,7 +17,8 @@
   // var infoWindow = new google.maps.InfoWindow();
   var latvalue = {{json_encode($data[0] -> lat)}};
   var longvalue = {{json_encode($data[0] -> longt)}};
-  
+  var namevalue = {!! json_encode($data[0]->name) !!};
+  var addressvalue = {!! json_encode($data[0]->address) !!};
 
   function initMap() {
 
@@ -37,8 +38,8 @@
       map: map
     });
     var infowindow = new google.maps.InfoWindow({
-      content: 'Vị trí địa điểm' +'<br>Latitude: ' + latvalue+
-      '<br>Longitude: ' + longvalue
+      content: 'Tên địa điểm: ' + namevalue+
+      '<br>Địa chỉ: ' + addressvalue
     });
     infowindow.open(map,marker);
 

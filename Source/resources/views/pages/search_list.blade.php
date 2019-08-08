@@ -4,6 +4,15 @@
 @endpush
 @section('content')
 
+@if(count($post)==0)
+<div class="container" style="margin-top: 200px;">
+	<h1 style="margin-top:100px;">Danh sách kết quả tìm kiếm trống</h1>
+	<div style="margin-bottom: 125px;">
+		<p>Tìm thấy {{count($post)}} bài viết cho từ khóa <b>{{$search}}</b> </p>
+	</div>
+</div>
+@endif
+@if(count($post)!=0)
 <div class="container" style="margin-top: 50px;">
 	<h1 style="margin-top:100px;margin-bottom: 50px;">Danh sách kết quả tìm kiếm </h1>
 	<div >
@@ -40,5 +49,5 @@
 @endforeach
 <div style="display: inline-block;">{{$post->links()}}</div>
 </div>
-
+@endif
 @endsection

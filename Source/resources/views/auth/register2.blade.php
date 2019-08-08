@@ -37,12 +37,12 @@
             <span class="bg-light">OR</span>
         </p>
         <label for="inputName" class="sr-only">Name</label>
-        <input type="text" id="inputName" class="form-control" name="name" placeholder="  Name" required autofocus>
+        <input type="text" id="inputName" class="form-control" name="name" value="{{old('name')}}" placeholder="  Name" required autofocus>
         <label for="inputEmail" class="sr-only" >Email address</label>
-        <input type="email" id="inputEmail" class="form-control" name="email" placeholder="Email address" required >
+        <input type="email" id="inputEmail" class="form-control" name="email" value="{{old('email')}}" placeholder="Email address" required >
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
-        <div class="form-group col-md-7">
+        <div class="form-group col-md-8">
             <label for="inputState">Role</label>
             <select id="inputState" class="form-control" name="role">
                 <option selected value="3">Người xem</option>
