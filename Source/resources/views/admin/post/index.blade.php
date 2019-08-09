@@ -23,6 +23,7 @@
 						<th>Author</th>
 						<th>Status approved</th>
 						<th>Place</th>
+						<th>View count</th>
 						<th>Time create</th>
 						<th>Time modify</th>
 						<th>Action</th>
@@ -35,6 +36,7 @@
 						<th>Author</th>
 						<th>Status approved</th>
 						<th>Place</th>
+						<th>View count</th>
 						<th>Time create</th>
 						<th>Time modify</th>
 						<th>Action</th>
@@ -61,7 +63,7 @@
 							</div>
 						@endif </th>
 						<th style="font-weight: normal;">{{ $post->place_id }}</th>
-
+						<th style="font-weight: normal;">{{ $post->view_count }}</th>
 						<th style="font-weight: normal;">{{ $post->created_at }}</th>
 						<th style="font-weight: normal;">{{ $post->updated_at }}</th>
 

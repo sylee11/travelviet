@@ -15,6 +15,7 @@ use App\Photo;
 use File;
 use App\Notifications\AcceptPost;
 use App\Notifications\CreatePost;
+use Illuminate\Support\Facades\URL;
 
 class ApprovedController extends Controller
 {
@@ -98,7 +99,7 @@ class ApprovedController extends Controller
 	}
 
 	public function delete(Request $request)
-	{	
+	{	//dd(strpos(URL::previous(),"admin/approved/show")!=false);
 		$id= $request->iddelete;
 		if(Post::where('id', $id)->first() == null){
 			return view('includes.erro404');
@@ -108,6 +109,24 @@ class ApprovedController extends Controller
 		$path = "/picture/admin/post/" . $id;
 		File::deleteDirectory(public_path($path));
 		$Rating = Rating::where('post_id', $id)->delete();
+		
+		DB::table('notifications')
+			->where([
+				['notifications.data', 'like', "{\"post_id\":$id%"],
+				['notifications.type', '=', 'App\Notifications\CreatePost'],
+			])
+			->delete();
+		if(strpos(URL::previous(),"admin/approved/show") != false){
+			$data = DB::table('posts')
+			->join('photos', 'posts.id', '=', 'photos.post_id')
+			->join('users', 'posts.user_id', '=', 'users.id')
+			->join('places', 'posts.place_id', '=', 'places.id')
+			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid', 'posts.created_at as time')
+			->orderby('postid','desc')
+			->where('photos.flag', '=', 1)
+			->Paginate(8);
+		return view('pages.showAllPost', ['data' => $data, 'selec' => 'Tất cả bài viết', 'chose' => 'Actor', 'search' => '']);
+		}
 		return back();
 	}
 
