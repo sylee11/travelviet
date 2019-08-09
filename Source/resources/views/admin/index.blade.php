@@ -35,7 +35,6 @@
     </div>
   </div>
 </div>
-
 <!-- Area Chart Example-->
 <!--        <div class="card mb-3">
           <div class="card-header">
@@ -50,16 +49,15 @@
       </div>
 -->
 
-<form action="/admin" method="GET">
+<form action="/admin/chart" method="GET">
   <label>Table</label>
-  <select name="dbname" >
-  <option value="" selected disabled hidden>Choose here</option>
+  <select required name="dbname">
+    <option value="" selected disabled hidden>Choose here</option>
     <option value="users">User</option>
     <option value="ratings">Rating</option>
-    <option value=""></option>
-    <option value=""></option>
+    <option value="posts">Post</option>
   </select>
-  <label>Year</label>
+  <!--  <label>Year</label>
   <select name="year" >
   <option value="" selected disabled hidden>Choose here</option>
     <option value="2019">2019</option>
@@ -67,8 +65,8 @@
     <option value=""></option>
     <option value=""></option>
   </select>
-  
-  <input class="btn-success" type="submit">
+
+  <input class="btn-success" type="submit">-->
   <br>
 
   <input type="month" name="begin">
@@ -77,6 +75,7 @@
 </form>
 
 <div style="height: 400px">
+  @if(isset($chart))
   {!! $chart->container() !!}
   <div>
 
@@ -84,9 +83,9 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
     {!! $chart->script() !!}
+    @endif
 
 
-   
 
 
     @endsection
