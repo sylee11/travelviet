@@ -4,8 +4,10 @@
 	opacity: 0.7;
 	}*/
 	.home{
-/*		font-family: cursive;
-*/	}
+		
+	}
+
+
 	.list_images:hover {
 		opacity: 1;
 	}
@@ -48,7 +50,10 @@
 		color: white;
 		height: 500px;
 	}
-
+	.demo{
+		width:100%;
+		height: 100px;
+	}
 	/* Position the image container (needed to position the left and right arrows) */
 	.top_city {
 		position: relative;
@@ -132,7 +137,6 @@
 	.text{
 		display: table;
 		text-align: left;
-		font-family: cursive;
 	}
 	.text h5{
 		font-weight: bold;
@@ -146,4 +150,15 @@
 	.created{
 		font-size: 13px;
 		color: #795e5e;
+	}
+	@media only screen and (max-width: 400px) {
+		.mySlides img{
+			height:200px;
+		}
+		.demo {
+			height:30px;
+		}
+		.numbertext{
+			top: 80px;
+		}
 	}
