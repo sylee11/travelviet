@@ -97,7 +97,7 @@
 		</div>
 		<div class="form-group ">
 			<label for="">Map</label>
-			<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+			<input id="pac-input" style="width: 200px;" class="controls" type="text" placeholder="Search Box" >
 			<div id="map"></div>
 		</div>
 		<div class="form-row">

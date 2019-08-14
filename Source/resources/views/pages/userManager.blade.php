@@ -15,10 +15,12 @@
 		<h4 class="" style="margin-bottom: 50px;"> Quản lí user hệ thống </h4>
 	</div>
 
-	<form class="form-inline" style="margin-left: 40%; margin-bottom: 50px;  " method="get" action="{{route('account.admin.searchuser')}}">
-		<input type="text" class="form-control" name="search" 
-		 value="{{$search}}" placeholder="Nhập tên user cần tìm" >
-		<button type="submit" class="btn-success btn"> Search</button>
+	<form class="" style="display: inline-flex;" method="get" action="{{route('account.admin.searchuser')}}">
+		<div class="d-flex" style="justify-content: center;">
+            <input type="text" class="form-control " name="search"  style="width: 250px;margin-right: 5px;" 
+                value="{{$search}}" placeholder="Nhập tên user cần tìm" >
+            <button type="submit" class="btn-success btn"> Search</button>      
+        </div>
 	</form>
 		@if($search != NUll)
 			<div class="font-weight-bold">
