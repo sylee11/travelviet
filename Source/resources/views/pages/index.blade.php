@@ -2,6 +2,9 @@
 <link href="{{asset('css/custom/front.css')}}" rel="stylesheet">
 @endpush
 @extends('pages.home')
+<style type="text/css" media="screen">
+	
+</style>
 @section('content-section')
 
 <div class="home">
@@ -22,7 +25,7 @@
 
 							<h5 class="card-title">
 
-								<span style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap; font-size: 16px;color: black;">
+								<span style="display:block;text-overflow: ellipsis;overflow: hidden; white-space: nowrap; font-size: 16px;color: black;">
 									{{$record->title}}
 								</span>
 							</h5>
@@ -168,86 +171,85 @@
 		@endif
 	</div>
 </div>
-	<div class="container top_city">
-		<div style="color: #b3b3ba;"><h2>Điểm đến nhiều nhất</h2></div>
-		<!-- Full-width images with number text -->
+<div class="container top_city">
+	<div style="color: #b3b3ba;"><h2>Điểm đến nhiều nhất</h2></div>
+	<!-- Full-width images with number text -->
+	@if (count($city_post) !== 0)
+	@foreach ($city_post as $key => $element)
+	<div class="mySlides" style="padding: 0px;">
+		<a href="{{route('show.posts',$element->id)}}" title="{{ $element->name }}">
+			<div class="numbertext">{{$key+1}} / {{count($city_post)}}</div>
+			<img src="{{ $element->photo_path }}" style="width:100%">
+		</a>
+	</div>
+	@endforeach
+	@else
+	<div>Không có dữ liệu</div>	
+	@endif
+
+	<!-- Next and previous buttons -->
+	<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+	<a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+	<!-- Image text -->
+	<div class="caption-container">
+		<p id="caption"></p>
+	</div>
+
+	<!-- Thumbnail images -->
+	<div class="row" style="justify-content: center;">
 		@if (count($city_post) !== 0)
 		@foreach ($city_post as $key => $element)
-		<div class="mySlides" style="padding: 0px;">
-			<a href="{{route('show.posts',$element->id)}}" title="{{ $element->name }}">
-				<div class="numbertext">{{$key+1}} / {{count($city_post)}}</div>
-				<img src="{{ $element->photo_path }}" style="width:100%">
-			</a>
+		<div class="col-2 img_sli" style="">
+			<img class="demo cursor" src="{{ $element->photo_path }}"  onclick="currentSlide({{$key+1}})" alt="{{ $element->name }}">
 		</div>
 		@endforeach
 		@else
-		<div>Không có dữ liệu</div>	
+		<div>Không có dữ liệu</div>
 		@endif
+	</div>
+</div>
 
-		<!-- Next and previous buttons -->
-		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-		<a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-		<!-- Image text -->
-		<div class="caption-container">
-			<p id="caption"></p>
+<div class="d-flex" style="background-image: url(../picture/front/header2.jpg); width: 100%; height: 500px; margin-top: 100px;" >
+	<div class="container" style="margin-bottom: 50px;">
+		<div style="text-align: center;margin-top:50px;">
+			<h2 class="section-heading" style="color: white;">Top thành viên tích cực</h2>
+			<hr align="content" width="20%" color="#3997A6" size="0.1px" style="padding-bottom: 1px;">
 		</div>
+		<div class="row " style="justify-content: center;margin-left: 20%; width:60%; border: 2px dotted #D3D3D3; padding: 20px;" >
+			@if(count($top_user) !== 0)
+			@foreach($top_user as $record)
+			<div style="padding: 0 15px;">
+				<a href="/user/{{$record->id}}" title="" style="text-decoration: none;">
+					@if (!empty($record->avatar))
+					<img src="{{ $record->avatar }}" alt="Avatar" class="avatar" title="{{!empty($record->name)?$record->name:'no name'}}" style="width: 60px;height:60px;border-radius: 50%;">
 
-		<!-- Thumbnail images -->
-		<div class="row" style="justify-content: center;">
-			@if (count($city_post) !== 0)
-			@foreach ($city_post as $key => $element)
-			<div class="col-2 " style="padding: 0px;">
-				<img class="demo cursor" src="{{ $element->photo_path }}" style="width:100%;height: 100px;" onclick="currentSlide({{$key+1}})" alt="{{ $element->name }}">
+					@else
+					<img src="{{ asset('picture/images.png') }}" alt="Avatar" class="avatar" title="{{!empty($record->name)?$record->name:'no name'}}" style="width: 60px;height:60px;border-radius: 50%;">
+					@endif
+				</a>
 			</div>
 			@endforeach
 			@else
-			<div>Không có dữ liệu</div>
+			<div class="col-sm">
+				<p>Không có dữ liệu</p>
+			</div>
+			@endif
+		</div>
+		<div class="row" style="margin-top: 100px;" id="invite">
+			<div class="col-lg-8">
+				<p  style="color: white; font-size: 30px;">Bạn muốn bài viết của mình xuất hiện ở đây?</p>	
+				<p style="color: white; font-size: 18px;"> Chia sẻ hình ảnh, những chuyến đi để chia sẻ những trải nghiệm của mình đến mọi người! </p>
+			</div>
+			@if(Auth::check())
+			<a  class="btn btn-success " style="height: 50px; margin-top: 30px;margin-left: 100px;"  href="{{ route('mypost') }}"> Tham gia ngay !</a>
+			@else
+			<a  class="btn btn-success " style="height: 50px; margin-top: 30px;margin-left: 100px;" data-toggle="modal" data-target="#myModal" href="{{ route('login') }}"> Tham gia ngay !</a>
 			@endif
 		</div>
 	</div>
+</div>
 
-	<div class="d-flex" style="background-image: url(../picture/front/header2.jpg); width: 100%; height: 500px; margin-top: 100px;" > 
-		<div class="container" style="margin-bottom: 50px;">
-			<div style="text-align: center;margin-top:50px;">
-				<h2 class="section-heading" style="color: white;">Top thành viên tích cực</h2>
-				<hr align="content" width="20%" color="#3997A6" size="0.1px" style="padding-bottom: 1px;"> 
-			</div>
-			{{-- <div style="text-align: center;margin-top:50px;color: #b3b3ba;margin-bottom: 50px;"><h2>Blog có số lượng bài viết nhiều nhất</h2></div> --}}
-			<div class="row " style="justify-content: center;margin-left: 20%; width:60%; border: 2px dotted #D3D3D3; padding: 20px;" >
-				@if(count($top_user) !== 0)
-				@foreach($top_user as $record)
-				<div style="padding: 0 15px;">
-					<a href="/user/{{$record->id}}" title="" style="text-decoration: none;">
-						@if (!empty($record->avatar))
-						<img src="{{ $record->avatar }}" alt="Avatar" class="avatar" title="{{!empty($record->name)?$record->name:'no name'}}" style="width: 60px;height:60px;border-radius: 50%;">
-
-						@else
-						<img src="{{ asset('picture/images.png') }}" alt="Avatar" class="avatar" title="{{!empty($record->name)?$record->name:'no name'}}" style="width: 60px;height:60px;border-radius: 50%;">
-						@endif
-					</a>
-				</div>
-				@endforeach
-				@else
-				<div class="col-sm">
-					<p>Không có dữ liệu</p>
-				</div>
-				@endif
-			</div>
-			<div class="row" style="margin-top: 100px;" id="invite">
-				<div class="col-lg-8">
-					<p  style="color: white; font-size: 30px;">Bạn muốn bài viết của mình xuất hiện ở đây?</p>	
-					<p style="color: white; font-size: 18px;"> Chia sẻ hình ảnh, những chuyến đi để chia sẻ những trải nghiệm của mình đến mọi người! </p>
-				</div>
-				@if(Auth::check())
-				<a  class="btn btn-success " style="height: 50px; margin-top: 30px;margin-left: 100px;"  href="{{ route('mypost') }}"> Tham gia ngay !</a>
-				@else
-				<a  class="btn btn-success " style="height: 50px; margin-top: 30px;margin-left: 100px;" data-toggle="modal" data-target="#myModal" href="{{ route('login') }}"> Tham gia ngay !</a>
-				@endif
-			</div>
-		</div>
-	</div>
-	
 
 <div class="container">
 	<div style="text-align: center;margin-top:50px;" id="contact">
