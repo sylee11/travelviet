@@ -40,11 +40,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 <script>
 	var city;
-	//var place;
 	var place= '';
 	var city_input = '';
 	var category= $('#category').val();
-	//console.log("gt"+category);
 	var route2 = "{{ route('search.posts')}}";
 	$('#city').typeahead({
 		source:  function (query, process) {
@@ -70,6 +68,7 @@
 				success:function(data)
 				{
 					$('#search').html(data.data1.table_data);
+					$('#count').text("Có "+data.data1.total_data+" kết quả được tìm thấy");
 				}
 			})
 		}
@@ -81,7 +80,6 @@
 		$('#category').on('change', function(){
 			place= $('#place').val();
 			city_input= $('#city').val();
-			console.log("thanh pho chon"+city_input);
 			category= $('#category').val();
 			fetch_customer_data(place,city_input,category);
 			$.ajax({
@@ -92,7 +90,7 @@
 				success:function(data) 
 				{
 					$('#search').html(data.data1.table_data);
-					//$('#total_records').text(data.total_data);
+					$('#count').text("Có "+data.data1.total_data+" kết quả được tìm thấy");
 				}
 			})
 		});

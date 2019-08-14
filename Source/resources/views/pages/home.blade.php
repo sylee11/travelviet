@@ -35,7 +35,6 @@
             </select>
 
           </div>
-
           <div class="col-lg-3" style="padding-right: 50px;">
             <select class="btn btn-secondary dropdown-toggle dropdown-menu-lg-right" name="category_id" id="category" style="background-color: #467F3E; color: white; height: 40px; border-radius: 10px; width: 180px; margin-bottom: 10px;">
               <option value="">Category</option>

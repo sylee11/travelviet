@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap&subset=vietnamese" rel="stylesheet">
-  
+
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -57,6 +57,7 @@
       </script> -->
   <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);height: 60px; width: 100%; padding: 0px; box-sizing: border-box;"  id="nav-top">
+
       <div class="container-fluid" style="color: white; margin: 0px; padding: 0; width: 100%">
         <a href="{{ route('home.page') }} "><img src="/picture/front/logo5.png" style="" id="logo5"></a>
 
@@ -68,9 +69,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- Left Side Of Navbar -->
           <ul class="navbar-nav mr-auto">
-            <li ><a   class="nav-link  border-0" style="cursor:pointer; "  id="scr2"> About Us </a></li> 
-            <li ><a   class="nav-link  border-0" style=" cursor:pointer;"  id="scr3"> Địa điểm </a></li> 
-            <li ><a   class="nav-link  border-0" style=" cursor:pointer;"  id="scr1"> Liên hệ </a></li> 
+            <li><a class="nav-link  border-0" style="cursor:pointer; " id="scr2"> About Us </a></li>
+            <li><a class="nav-link  border-0" style=" cursor:pointer;" id="scr3"> Địa điểm </a></li>
+            <li><a class="nav-link  border-0" style=" cursor:pointer;" id="scr1"> Liên hệ </a></li>
 
           </ul>
 
@@ -95,8 +96,10 @@
                 <i class="fa fa-bell fa-2x" style="margin-top: 0%;"></i>
                 <span class="badge badge-light">{{Auth::user()->unreadNotifications->count()}}</span>
               </a>
-              <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">  
-              @foreach(Auth::user()->unreadNotifications as $notification)
+              @if(Auth::user()->Notifications->count()>0)
+              <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
+                <a href="/deletenotify" class="dropdown-item" style="color:red;border-bottom:1px solid black;padding-bottom:10px;">Delete all notifications</a>
+                @foreach(Auth::user()->unreadNotifications as $notification)
                 <!-- <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item"> {{$notification->type}} id={{$notification->data['post_id']}}</a> -->
                 <a href="{{$notification->data['link']}}" id="notify" class="dropdown-item"> {{$notification->data['message']}}</a>
                 @endforeach
@@ -107,6 +110,7 @@
                 @endif
                 @endforeach
               </div>
+              @endif
             </li>
             <li class="nav-item dropdown" style="">
               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: white;font-size: 13px;" v-pre>
@@ -215,15 +219,15 @@
           <!-- Modal body -->
           <div class="modal-body">
             {{-- reopen modal when có lỗi --}}
-             @if ($errors->count() > 0)
-              @if($errors->all()[0] == "These credentials do not match our records.")
-              <script type="text/javascript">
-                console.log("xx");
-                $( window ).on("load", function() {
-                  $("#myModal").modal("show");
-                });
-              </script>
-              @endif
+            @if ($errors->count() > 0)
+            @if($errors->all()[0] == "These credentials do not match our records.")
+            <script type="text/javascript">
+              console.log("xx");
+              $(window).on("load", function() {
+                $("#myModal").modal("show");
+              });
+            </script>
+            @endif
             @endif
             @include('auth.login')
           </div>
@@ -252,13 +256,13 @@
           <!-- Modal body -->
           <div class="modal-body">
             @if ($errors->count() > 0)
-              @if($errors->all()[0] == "The password must be at least 8 characters.")
-              <script type="text/javascript">
-                $( window ).on("load", function() {
-                  $("#myModal2").modal("show");
-                  })
-              </script>
-              @endif
+            @if($errors->all()[0] == "The password must be at least 8 characters.")
+            <script type="text/javascript">
+              $(window).on("load", function() {
+                $("#myModal2").modal("show");
+              })
+            </script>
+            @endif
             @endif
             @include('auth.register2')
           </div>
