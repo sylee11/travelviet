@@ -9,7 +9,7 @@
     <div class="header-content-inner" style="font-family: 'Lobster', cursive;
 ">
 
-      <h1 id="homeHeading" style="font-size: 45px; margin-left: 20%; margin-right: 20%;">Travel Việt - Du Lịch Trong Tầm Tay Bạn</h1>
+      <h1 id="homeHeading" style="">Travel Việt - Du Lịch Trong Tầm Tay Bạn</h1>
       <hr align="content" width="20%" color="#3997A6" size="5px" style="padding-bottom: 1.5px;"> 
      {{--  <button  data-target="#demo" class="btn btn-primary  " style="width: 150px; height: 50px; border-radius: 20px; background-color: #3997A6">
       Tìm kiếm địa điểm </button> --}}
@@ -118,10 +118,10 @@
     </script>
   </div>
 </header>
-<div class="" style="width: 100%; background-color: #3BB5C9; margin: 0px; color: white;" id="about">
-  <div class="row" style="" >
+<div class="" style="box-sizing: border-box; width: 100%; background-color: #3BB5C9; margin: 0px; color: white;" id="about">
+  <div class="row" style="width: 100%; box-sizing: border-box;" style="margin:0px; padding: 0px" >
       <div class="col-lg-12 col-lg-offset-2">
-        <h2 class="section-heading text-center" style="margin-top: 50px;">PHƯƠNG CHÂM CỦA CHÚNG TÔI
+        <h2 class="section-heading text-center" style="margin: 50px 0px 0px 0%; padding: 0px;">PHƯƠNG CHÂM CỦA CHÚNG TÔI
           <i class="fa fa-heart text-primary heart-icon" style="color: red"></i>
         </h2>
         <hr align="content" width="20%" color="white" size="5px" style="padding-bottom: 1.5px;"> 

@@ -30,9 +30,24 @@ header {
 #inputsearch {
 
 }
+#logo5{
+  width: 100px; height: 40px; margin-left: 50px;
+}
+#homeHeading{
+  font-size: 45px; margin-left: 20%; margin-right: 20%;
+}
 @media only screen and (max-width: 600px) {
   header {
-    height : 800px;
+    height : 650px;
+  }
+  #homeHeading{
+    font-size: 25px; margin-left: 10%; margin-right: 10%;
+  }
+  #navbarSupportedContent{ 
+    background-color: #666666;
+    text-align: right;
+    margin: 0px;
+    padding-right:  10%;
   }
   #searchhead {
   }
@@ -46,11 +61,25 @@ header {
   #invite {
     display: none;
   }
+  #logo5{
+    margin-left:10px;
+
+  }
 }
 @media only screen and (max-width: 400px) {
   header {
-    height : 900px;
+    height : 600px;
   }
+  #homeHeading{
+    font-size: 25px; margin-left: 10%; margin-right: 10%;
+  }
+  #navbarSupportedContent{ 
+    background-color: #666666;
+    text-align: right;
+    margin: 0px;
+    padding-right:  10%;
+  }
+
   #searchhead {
   }
   #btnsearch {
@@ -62,6 +91,10 @@ header {
   }
   #invite {
     display: none;
+  }
+  #logo5{
+    margin-left: 10px;
+    
   }
 }
 .header-content {
