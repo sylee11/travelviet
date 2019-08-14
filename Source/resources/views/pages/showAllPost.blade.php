@@ -11,7 +11,7 @@
             <label style="margin-left: 100px;">
                 Bộ lọc:
             </label>
-            <select class="form-control w-40" id="chose" name="chose">
+            <select class="form-control w-40" id="chose" name="chose" style="">
                 <option 
                     @if($selec == "Tất cả bài viết") selected="selected"
                     @endif>

@@ -4,8 +4,8 @@
     <div class="container" style="display: flex; color: white;">
 ======= -->
   <section id="main-footer" style="margin-top: 40px; font-family: 'Raleway', sans-serif; 
- " >
-    <div class="container row align-middle" style=" color: white; margin-top: 50px; margin-left: 7%;">
+ padding: 0px ; margin-left:  0px 20%;" >
+    <div class=" row align-middle" style=" color: white; margin-top: 50px; margin: 0px;">
 
       <div class="col-sm-3" >
         <div style="margin-top: 40px;">
@@ -26,7 +26,7 @@
 
       </div >
       <div class="col-sm-3 " style="margin-top: 50px;">
-        <ul class="list_style">
+        <ul class="list_style" style="padding: 0px;">
           <li class="nav-head" style="margin-bottom: 30px;">US</li>
           <li><a href="" target="_blank" style="color: #3997A6;">About</a></li>
             <li><a href="" target="_blank" style="color: #3997A6;">Services</a></li>
@@ -34,14 +34,14 @@
         </ul>
       </div>
       <div class="col-sm-3 " style="margin-top: 50px;">
-        <ul class="list_style">
+        <ul class="list_style" style="padding: 0px;">
           <li class="nav-head" style="margin-bottom: 30px;">TOUR AND BLOG</li>
           <li><a href="" target="_blank" style="color: #3997A6;">Our Top Tours</a></li>
           <li><a href="" target="_blank" style="color: #3997A6;">Blogs</a></li>
         </ul>
       </div>
       <div class="col-sm-3 " style="margin-top: 50px;">
-        <ul class="list_style">
+        <ul class="list_style" style="padding: 0px;">
           <li class="nav-head" style="margin-bottom: 30px;">SUPPORT</li>
           <li><a href="" target="_blank" style="color: #3997A6;">Contact</a></li>
           <li><a href="" target="_blank" style="color: #3997A6;">Terms and Conditions</a></li>

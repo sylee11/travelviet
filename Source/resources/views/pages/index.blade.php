@@ -6,7 +6,7 @@
 
 <div class="home">
 	<div class="container-fluid" id="topplace">
-		<div style="text-align: center;margin-top:50px;color: #b3b3ba;" ><h2>Những địa điểm được đánh giá cao</h2></div>
+		<div style="text-align: center;margin-top:50px;color: #b3b3ba;" ><h2>NHỮNG ĐỊA ĐIỂM ĐƯỢC ĐÁNH GIÁ CAO</h2></div>
 
 		<div class="row" style="justify-content: center;">
 			@if($top_rating->count() !== 0)
@@ -55,7 +55,7 @@
 
 
 	<div class="container-fluid" id="new_post">
-		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những bài viết mới nhất</h2></div>
+		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>NHỮNG BÀI VIẾT MỚI NHẤT</h2></div>
 
 		<div class="row" style="justify-content: center;">
 			@if($new_post->count() !== 0)
@@ -113,7 +113,7 @@
 	</div>
 
 	<div class="container-fluid" id="all_post" style="display: none;">
-		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>Những bài viết mới nhất</h2></div>
+		<div style="text-align: center;margin-top:50px;color: #b3b3ba;"><h2>NHỮNG BÀI VIẾT MỚI NHẤT</h2></div>
 
 		<div class="row">
 			@if($all_post->count() !== 0)

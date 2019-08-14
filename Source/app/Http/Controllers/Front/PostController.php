@@ -99,7 +99,7 @@ class PostController extends Controller
         	foreach ($request->file('filename') as $pho) {
         		$name=$pho->getClientOriginalName();
                 $thumbnailImage = Image::make($pho);
-                if($thumbnailImage->width() < 1000 || $thumbnailImage->height()<600)
+                if($thumbnailImage->width() < 800 || $thumbnailImage->height()<400)
                 {
                     return redirect()->back()->with('erro','Vui lòng chọn hình có kích thước tối thiểu 1000 * 600 .( hình quá nhỏ so với yêu cầu)')->withInput($request->input());
                 }

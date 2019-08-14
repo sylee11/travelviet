@@ -56,12 +56,13 @@
         alert();
       </script> -->
   <div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);height: 60px; width: 100%;" id="nav-top">
+    <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);height: 60px; width: 100%; padding: 0px; box-sizing: border-box;"  id="nav-top">
+
       <div class="container-fluid" style="color: white; margin: 0px; padding: 0; width: 100%">
-        <a href="{{ route('home.page') }} "><img src="/picture/front/logo5.png" style="width: 100px; height: 40px; margin-left: 50px;"></a>
+        <a href="{{ route('home.page') }} "><img src="/picture/front/logo5.png" style="" id="logo5"></a>
 
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="{{ __('Toggle navigation') }}">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -279,8 +280,8 @@
   </div>
   </div>
   <div>
-    <button class="btn btn-dark" style="width: 50px; height: 50px; position: fixed;bottom: 20px;
-  right: 30px; display: none;" id="btnpositon"> ^</button>
+    <button class="btn btn-dark" style="width: 50px; height: 50px; position: fixed;bottom:180px;
+  right: 20px; display: none;" id="btnpositon">^</button>
   </div>
 
   @yield('content')
