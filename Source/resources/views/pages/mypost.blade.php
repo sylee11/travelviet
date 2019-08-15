@@ -14,8 +14,16 @@
 		{{ session('errro') }}
 	</div>
 	@endif
-	<h1 style="margin-top:50px;margin-bottom: 50px;">Những bài viết của tôi</h1>
-	<a href="{{route('account.addpost')}}" title="" class="btn btn-info" style="display: table;justify-content: left;margin-bottom: 50px;">Tạo mới</a>
+	@if($data->count() == 0)
+		<h1 style="margin-top:100px;margin-bottom: 100px; font-size: 35px;">Bạn chưa đăng bài nào cả !! <br>Hãy đăng bài để chia nào .</h1>
+		<div style="display: flex;width: 100%;" >
+			<a href="{{route('account.addpost')}}" title="" class="" style="justify-content: center;margin-bottom: 120px;">Tạo bài viết đầu tiên của bạn tại đây</a>
+		</div>
+
+	@else
+		<h1 style="margin-top:50px;margin-bottom: 50px;">Những bài viết của tôi</h1>
+		<a href="{{route('account.addpost')}}" title="" class="btn btn-info" style="display: table;justify-content: left;margin-bottom: 50px;">Tạo mới</a>
+	@endif	
 	@foreach ($data as $key=>$value)
 	<div class="row" style="margin-bottom: 50px;background-color: #f5f4ef;width: 100%;justify-content: center;align-items: center;">
 		<div class="col-sm-6">
