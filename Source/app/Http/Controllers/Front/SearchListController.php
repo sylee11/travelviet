@@ -49,8 +49,7 @@ class SearchListController extends Controller
 				['photos.flag', '=', '1'],
 				['is_approved','=','1']
 			])
-			->Paginate(10);
-					// ->get();
+			->Paginate(5);
 			return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 		}
 
@@ -76,8 +75,7 @@ class SearchListController extends Controller
 						['category_id','=', $request->category_id],
 						['districts_id','=', $request->districts_id]
 					])
-					->Paginate(10);
-					// ->get();
+					->Paginate(5);
 
 					return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 				}
@@ -97,8 +95,7 @@ class SearchListController extends Controller
 						['cities_id','=', $request->cities_id],
 						['districts_id','=', $request->districts_id]
 					])
-					// ->get();
-					->Paginate(10);
+					->Paginate(5);
 					return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 				}
 			}
@@ -119,8 +116,7 @@ class SearchListController extends Controller
 					['cities_id','=', $request->cities_id]
 				])
 
-				// ->get();
-				->Paginate(10);
+				->Paginate(5);
 
 				return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 			}
@@ -141,9 +137,7 @@ class SearchListController extends Controller
 					['cities_id','=', $request->cities_id],
 					['category_id','=', $request->category_id],
 				])
-
-				// ->get();
-				->Paginate(10);
+				->Paginate(5);
 
 				return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 			}		
@@ -165,9 +159,7 @@ class SearchListController extends Controller
 				['is_approved','=','1'],
 				['category_id','=', $request->category_id]
 			])
-			->where('photos.flag', '=', '1')
-			// ->get();
-			->Paginate(10);
+			->Paginate(5);
 
 			return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 		}
@@ -189,7 +181,7 @@ class SearchListController extends Controller
 			
 		])
 
-		->Paginate(10);
+		->Paginate(3);
 
 		return view('pages.search_list',['post' => $post],['search'=>$search]);
 	}

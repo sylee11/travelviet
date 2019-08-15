@@ -16,7 +16,7 @@
 <div class="container" style="margin-top: 50px;">
 	<h1 style="margin-top:100px;margin-bottom: 50px;">Danh sách kết quả tìm kiếm </h1>
 	<div >
-		<p>Tìm thấy {{count($post)}} bài viết cho từ khóa <b>{{$search}}</b> </p>
+		<p>Tìm thấy <b>{{count($post)}}</b> bài viết cho từ khóa <b>{{$search}}</b> </p>
 	</div>
 	
 	@foreach ($post as $record)
@@ -50,4 +50,5 @@
 <div style="display: inline-block;">{{$post->links()}}</div>
 </div>
 @endif
+
 @endsection
