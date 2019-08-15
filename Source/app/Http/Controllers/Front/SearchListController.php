@@ -183,7 +183,7 @@ class SearchListController extends Controller
 			
 		])
 
-		->Paginate(10);s
+		->Paginate(10);
 		return view('pages.search_list',['post' => $post],['search'=>$search]);
 	}
     
