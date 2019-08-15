@@ -42,5 +42,10 @@ $(document).ready(function(){
 		window.scrollBy(0, -100);
 
 	})
+	$('#createacc').click(function(){
+		console.log("xx");
+	    $("#myModal").modal("hide");
+	    $('#myModal2').modal('show');
+	})
 })		
 

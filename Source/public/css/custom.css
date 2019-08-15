@@ -38,7 +38,7 @@ header {
 }
 @media only screen and (max-width: 600px) {
   header {
-    height : 650px;
+    height : 700px;
   }
   #homeHeading{
     font-size: 25px; margin-left: 10%; margin-right: 10%;
@@ -68,7 +68,7 @@ header {
 }
 @media only screen and (max-width: 400px) {
   header {
-    height : 600px;
+    height : 650px;
   }
   #homeHeading{
     font-size: 25px; margin-left: 10%; margin-right: 10%;
