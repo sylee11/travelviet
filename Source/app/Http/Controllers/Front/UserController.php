@@ -17,7 +17,7 @@ class UserController extends Controller
     	$search = "";
     	$user = DB::table('users')
     	->select('users.*')
-    	->Paginate(40);
+    	->Paginate(10);
     	return view('pages.userManager', ['user' => $user,'search' => $search]);
     }
 
@@ -51,7 +51,8 @@ class UserController extends Controller
 
     public function search(Request $request){
     	$search = $request->search;
-    	$user = User::where('name', 'like' , "%".$request->search."%")->Paginate(10);
+    	$user = User::where('name', 'like' , "%".$request->search."%")->Paginate(8);
+        $user->appends(['search'=>$search]);
     	return view('pages.userManager', ['user' => $user, 'search' => $search]);
     }
     public function findpost(Request $request){

@@ -239,14 +239,13 @@ $cmts = $data->unique('rating_id')->values();
     @endif
   </div>
 
-
+  @if($post_relate->count() !== 0)
   <div class="container-fluid">
     <div style="text-align: center;margin-top:50px;">
       <h2>Những bài viết liên quan</h2>
     </div>
 
     <div class="row" style="justify-content: center;">
-      @if($post_relate->count() !== 0)
       @foreach ($post_relate as $record)
       <div class="col-sm-3" style="margin:50px 0;">
         <div class="card-img" style="height:280px;">
@@ -280,8 +279,6 @@ $cmts = $data->unique('rating_id')->values();
         </div>
       </div>
       @endforeach
-      @else
-      <p>Không có bài viết liên quan</p>
       @endif
     </div>
   </div>

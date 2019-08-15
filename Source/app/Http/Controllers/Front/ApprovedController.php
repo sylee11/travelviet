@@ -94,7 +94,7 @@ class ApprovedController extends Controller
 			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid', 'posts.created_at as time')
 			->orderby('postid','desc')
 			->where('photos.flag', '=', 1)
-			->Paginate(8);
+			->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 		return view('pages.showAllPost', ['data' => $data, 'selec' => 'Tất cả bài viết', 'chose' => 'Actor', 'search' => '']);
 	}
 
@@ -124,7 +124,7 @@ class ApprovedController extends Controller
 			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid', 'posts.created_at as time')
 			->orderby('postid','desc')
 			->where('photos.flag', '=', 1)
-			->Paginate(8);
+			->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 		return view('pages.showAllPost', ['data' => $data, 'selec' => 'Tất cả bài viết', 'chose' => 'Actor', 'search' => '']);
 		}
 		return back();
@@ -144,7 +144,7 @@ class ApprovedController extends Controller
 				->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid', 'posts.created_at as time')
 				->orderby('postid','desc')
 				->where('photos.flag', '=', 1)
-				->Paginate(8);
+				->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 
 			return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 		} elseif ($request->chose == "Bài viết chưa duyệt") {
@@ -156,7 +156,7 @@ class ApprovedController extends Controller
 				->orderby('postid','desc')
 				->where('posts.is_approved', '=', 0)
 				->where('photos.flag', '=', 1)
-				->Paginate(8);
+				->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 			return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 		} elseif ($request->chose == "Bài viết đã duyệt") {
 			$data = DB::table('posts')
@@ -167,7 +167,7 @@ class ApprovedController extends Controller
 				->orderby('postid','desc')
 				->where('posts.is_approved', '=', 1)
 				->where('photos.flag', '=', 1)
-				->Paginate(8);
+				->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 			return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 		}
 		// dd($data);
@@ -178,7 +178,7 @@ class ApprovedController extends Controller
 			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
 			->orderby('postid','desc')
 			->where('photos.flag', '=', 1)
-			->Paginate(8);
+			->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 
 		return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 	}
@@ -198,7 +198,8 @@ class ApprovedController extends Controller
 					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
 					->orderby('postid','desc')
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
+				$data->appends(['search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 			if ($chose == 'Actor' &&  $selec == 'Bài viết đã duyệt') {
@@ -210,7 +211,7 @@ class ApprovedController extends Controller
 					->orderby('postid','desc')
 					->where('posts.is_approved', '=', 1)
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 			if ($chose == 'Actor' &&  $selec == 'Bài viết chưa duyệt') {
@@ -222,7 +223,7 @@ class ApprovedController extends Controller
 					->orderby('postid','desc')
 					->where('posts.is_approved', '=', 0)
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 
@@ -235,7 +236,7 @@ class ApprovedController extends Controller
 					->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid','posts.created_at as time')
 					->orderby('postid','desc')
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 			if ($chose == 'Địa điểm' &&  $selec == 'Bài viết đã duyệt') {
@@ -247,7 +248,7 @@ class ApprovedController extends Controller
 					->orderby('postid','desc')
 					->where('posts.is_approved', '=', 1)
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 			if ($chose == 'Địa điểm' &&  $selec == 'Bài viết chưa duyệt') {
@@ -259,7 +260,7 @@ class ApprovedController extends Controller
 					->orderby('postid','desc')
 					->where('posts.is_approved', '=', 0)
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 		} else {
@@ -276,7 +277,7 @@ class ApprovedController extends Controller
 
 					])
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 			if ($chose == 'Actor' &&  $selec == 'Bài viết đã duyệt') {
@@ -292,7 +293,7 @@ class ApprovedController extends Controller
 
 					])
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 			if ($chose == 'Địa điểm' &&  $selec == 'Bài viết chưa duyệt') {
@@ -308,7 +309,7 @@ class ApprovedController extends Controller
 
 					])
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 			if ($chose == 'Địa điểm' &&  $selec == 'Bài viết đã duyệt') {
@@ -323,7 +324,7 @@ class ApprovedController extends Controller
 						['posts.is_approved', '=', 1],
 						['photos.flag', '=', 1]
 					])
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 
@@ -338,7 +339,7 @@ class ApprovedController extends Controller
 						['posts.title', 'like', "%" . $search . "%"],
 					])
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 			if ($chose == 'Actor' &&  $selec == 'Tất cả bài viết') {
@@ -352,7 +353,7 @@ class ApprovedController extends Controller
 						['users.name', 'like', "%" . $search . "%"],
 					])
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			} elseif ($chose == 'Địa điểm') {
 				$data = DB::table('posts')
@@ -363,7 +364,7 @@ class ApprovedController extends Controller
 					->orderby('postid','desc')
 					->where('posts.title', 'like', "%" . $search . "%")
 					->where('photos.flag', '=', 1)
-					->Paginate(8);
+					->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 				return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 			}
 		}

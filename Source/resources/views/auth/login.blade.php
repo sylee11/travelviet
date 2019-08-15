@@ -111,9 +111,9 @@ $loginUrl = $helper->getLoginUrl('https://travel.test/fb-callback', $permissions
 
 
                 
-                <a class="btn btn-link" href="{{ route('register') }}">
+                <button class="btn btn-link" type="button"  id="createacc">
                     {{ __('Have an account?') }}
-                </a>
+                </button>
                 
             </div>
         </div>
