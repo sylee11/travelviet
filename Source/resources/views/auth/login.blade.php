@@ -26,22 +26,21 @@ $loginUrl = $helper->getLoginUrl('https://travel.test/fb-callback', $permissions
 @section('content')
 <div class="card-body" style="text-align:center;">
 
-    <a href="{{route('login.social')}}" class="btn btn-social btn-google">
-        <i class="fab fa-google"></i>
-
-        Sign in with Google
-    </a>
-    <a href="{{$loginUrl}}" class="btn btn-social btn-facebook">
-        <i class="fab fa-facebook-f"></i>
-        Sign in with Facebook
-    </a>
-    <p class="divider-text">
-        <span class="bg-light">OR</span>
-    </p>
-
     <form method="POST" action="{{ route('login') }}" id="formlogin">
         @csrf
+        <a href="{{route('login.social')}}" class="btn btn-block btn-social btn-google">
+            <i class="fab fa-google"></i>
 
+            Sign in with Google
+        </a>
+        <a href="{{$loginUrl}}" class="btn btn-block btn-social btn-facebook">
+            <i class="fab fa-facebook-f"></i>
+            Sign in with Facebook
+        </a>
+
+        <p class="divider-text">
+            <span class="bg-light">OR</span>
+        </p>
         <div class="form-group row">
             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
 
@@ -110,7 +109,7 @@ $loginUrl = $helper->getLoginUrl('https://travel.test/fb-callback', $permissions
             <div class="col-md-8 offset-md-2">
 
 
-                
+
                 <a class="btn btn-link" href="{{ route('register') }}">
                     {{ __('Have an account?') }}
                 </a>
