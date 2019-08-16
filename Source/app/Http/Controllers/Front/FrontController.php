@@ -235,8 +235,8 @@ class FrontController extends Controller
 					['photos.flag', '=', '1'],
 					['is_approved','=','1']
 				])
-
-				->paginate(15);
+				->get();
+				// ->paginate(15);
 			}
 
 		}else{

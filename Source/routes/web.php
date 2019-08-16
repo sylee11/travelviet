@@ -54,7 +54,7 @@ Route::group(['namespace' => 'Front'], function (){
 		Route::get('/autocompletetinh', 'PostController@autocompleteTinh')->name('post.autocompletetinh');
 		Route::get('/autocompletehuyen', 'PostController@autocompleteHuyen')->name('post.autocompletehuyen');
 		Route::get('/autocompleteAddress', 'PostController@autocompleteAddress')->name('post.autocompleteAddress');
-		Route::group(['prefix' => 'admin'], function(){
+		Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function(){
 			Route::get('/approved/show/{id}', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::post('/manageacout/blockuser', 'UserController@blockuser')->name('account.admin.blockuser');
 			Route::post('/manageacout/findpost', 'UserController@findpost')->name('account.admin.findpost');
@@ -68,10 +68,10 @@ Route::group(['namespace' => 'Front'], function (){
 			Route::post('/deletepost', 'ApprovedController@delete')->name('approved/deletepost');
 			// Route::get('/approved/search', 'ApprovedController@search')->name('approved.search');
 		});
-		Route::get('aa/admin/approved/all', 'ApprovedController@allpost')->name('approved.all');
-		Route::get('aa/approved/search', 'ApprovedController@search')->name('approved.search');
-		Route::get('aa/approved/search/appect', 'ApprovedController@appcetall')->name('approved.appectall');
-		Route::get('aa/approved/search/unappect', 'ApprovedController@unappcetall')->name('approved.unappectall');
+		Route::get('aa/admin/approved/all', 'ApprovedController@allpost')->name('approved.all')->middleware('admin');
+		Route::get('aa/approved/search', 'ApprovedController@search')->name('approved.search')->middleware('admin');
+		Route::get('aa/approved/search/appect', 'ApprovedController@appcetall')->name('approved.appectall')->middleware('admin');
+		Route::get('aa/approved/search/unappect', 'ApprovedController@unappcetall')->name('approved.unappectall')->middleware('admin');
 
 
 	});
