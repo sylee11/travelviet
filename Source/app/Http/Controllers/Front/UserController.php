@@ -11,9 +11,10 @@ use App\Rating;
 use App\Photo;
 use App\Social;
 use File;
+use Config;
 class UserController extends Controller
 {
-    public function show(){
+    protected function show(){
     	$search = "";
     	$user = DB::table('users')
     	->select('users.*')
@@ -26,32 +27,33 @@ class UserController extends Controller
     	if($user->first()->role == 1){
     		return redirect()->back()->with('errro' , 'Ban khong the xoa admin');
     	}
-    	$post = Post::where('user_id', $request->id);
-        $postid = Post::where('user_id', $request->id)->get();
-        foreach ($postid as $p) {
-            # code...
-            $photo = Photo::where('post_id', $p->id);
-            $rating2 = Rating::where('post_id', $p->id);
-            $path = "/picture/admin/post/".$p->id; 
-            $rating2->delete();
-            $photo->delete();
-            File::deleteDirectory(public_path($path));
-        }
-        $social=Social::where('user_id',$request->id);
-        $social->delete(); 
-        $user->delete();
-        $post->delete();
+        DB:transaction(function(){
+        	$post = Post::where('user_id', $request->id);
+            $postid = Post::where('user_id', $request->id)->get();
+            foreach ($postid as $p) {
+                # code...
+                $photo = Photo::where('post_id', $p->id);
+                $rating2 = Rating::where('post_id', $p->id);
+                $path = "/picture/admin/post/".$p->id; 
+                $rating2->delete();
+                $photo->delete();
+                File::deleteDirectory(public_path($path));
+            }
+            $social=Social::where('user_id',$request->id);
+            $social->delete(); 
+            $user->delete();
+            $post->delete();
 
-        //delete rating user (post khac)
-        $rating =  Rating::where('user_id', $request->id);
-        $rating->delete();
-
+            //delete rating user (post khac)
+            $rating =  Rating::where('user_id', $request->id);
+            $rating->delete();
+        });
     	return redirect()->back()->with('success', 'delete success');
     }
 
     public function search(Request $request){
     	$search = $request->search;
-    	$user = User::where('name', 'like' , "%".$request->search."%")->Paginate(8);
+    	$user = User::where('name', 'like' , "%".$request->search."%")->paginate(Config::get('constant.pagenation'));
         $user->appends(['search'=>$search]);
     	return view('pages.userManager', ['user' => $user, 'search' => $search]);
     }
@@ -62,10 +64,7 @@ class UserController extends Controller
 			->join('users','posts.user_id','=','users.id')
 			->select('posts.id as post_id', 'posts.title', 'posts.describer', 'posts.created_at', 'posts.is_approved', 'photos.photo_path','users.name')
 			->where('posts.user_id', '=', $id)
-			->where('photos.flag', '=', '1')->paginate(5);
-		//var_dump($data->count());
-		//return;
-		//	if($data->count() !==0)
+			->where('photos.flag', '=', '1')->paginate(Config::get('constant.pagenation'));
 		return view('pages/userpost', ['data' => $data]);
     }
 
