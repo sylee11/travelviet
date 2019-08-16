@@ -53,7 +53,7 @@
         </div>
         <button class="btn btn-lg btn-primary btn-block" form="formregister" type="submit">Sign up</button>
         <hr id="hr1">
-        <p>Have an account? <a href="">Login</a></p>
+        <p>Have an account? <button type="button" class="btn-link btn" id="signin">Login</button></p>
     </form>
    
     </div>

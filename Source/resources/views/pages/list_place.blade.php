@@ -5,7 +5,7 @@
 @section('content')
 @if(count($post)==0)
 <div class="container" style="margin-top: 200px;">
-	<h1 style="margin-top:100px;margin-bottom: 125px;">Danh sách kết quả tìm kiếm trống</h1>
+	<h1 style="margin-top:200px;margin-bottom: 300px;">Không có kết quả tìm kiếm !!<br>Vui lòng tìm kiếm từ bằng từ khóa khác .</h1>
 </div>
 @endif
 @if(count($post)!=0)

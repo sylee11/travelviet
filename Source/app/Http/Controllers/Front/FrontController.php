@@ -237,7 +237,9 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(6);
+				->get();
+				// ->paginate(15);
+
 			}
 
 		}else{

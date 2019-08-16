@@ -31,7 +31,7 @@
 
 	@foreach($user as $us)
 	<div class=" col-lg-3" style="margin-top: 50px;">
-		<img  class="card-img-top text-center" @if ($us->avatar)  src="{{$us->avatar}}" @else src="/picture/images (5).jpg" @endif   style="width: 150px; height: 150px; border-radius: 50%;"  alt="card_img " >
+		<img  class="card-img-top text-center" @if ($us->avatar)  src="{{$us->avatar}}" @else src="/picture/images.png" @endif   style="width: 150px; height: 150px; border-radius: 50%;"  alt="card_img " >
 		<div class="card-title" style="margin-top: 10px;"> 
 			<a href="" data-toggle="modal" data-target="#detailModal" data-username="{{$us->name}}" data-email="{{$us->email}}" data-birthday="{{$us->birthday}}" data-address="{{$us->address}}" data-phone="{{$us->phone}}" data-id="{{$us->id}}"  data-photo ="{{$us->avatar}}" id="xxx" class="btn-link"> <span class="font-weight-bold">{{$us->name}}</span> </a>
 		</div>
@@ -115,7 +115,6 @@
                     $('#detailModal').on('show.bs.modal', function(event) {
                         var button = $(event.relatedTarget)
                         var name = button.data('username')
-                        console.log(name)
                         var namecategory = button.data('email')
                         var birthday = button.data('birthday')
                         var address = button.data('address')
@@ -135,7 +134,12 @@
                     modal.find('#databirth').val(birthday)
                     modal.find('#dataaddress').val(address)
                     modal.find('#dataphone').val(phone)
-                    modal.find('#picture').attr("src", pho)
+                    if(pho == ''){
+                        modal.find('#picture').attr("src","/picture/images.png")
+                    }
+                    else{
+                        modal.find('#picture').attr("src", pho)
+                    }
                     })
                 })
         </script>

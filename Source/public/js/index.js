@@ -42,5 +42,13 @@ $(document).ready(function(){
 		window.scrollBy(0, -100);
 
 	})
+	$('#createacc').click(function(){
+	    $("#myModal").modal("hide");
+	    $('#myModal2').modal('show');
+	})
+	$('#signin').click(function(){
+		$('#myModal2').modal('hide');
+	    $("#myModal").modal("show");
+	})
 })		
 

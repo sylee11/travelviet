@@ -201,7 +201,7 @@ $cmts = $data->unique('rating_id')->values();
           <button name="myButton">Send</button>
         </form>
         @else
-        <a style="width:150px;" class="btn btn-primary" href="/login">Please Login</a>
+        <a style="width:150px;" class="btn btn-primary" data-toggle="modal" data-target="#myModal" href="{{ route('login') }}">Please Login</a>
         @endif
       </div>
     </div>
@@ -213,9 +213,9 @@ $cmts = $data->unique('rating_id')->values();
     <div class="media border p-3">
 
       @if($value->avatar)
-      <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="{{$value->avatar}}" alt="">
+      <img style="width:40px; height: 40px;" class="mr-3 mt-3 rounded-circle" src="{{$value->avatar}}" alt="">
       @else
-      <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="/picture/images.png" alt="">
+      <img style="width:40px; height: 40px;" class="mr-3 mt-3 rounded-circle" src="/picture/images.png" alt="">
       @endif
       <div class="media-body">
 
@@ -239,14 +239,13 @@ $cmts = $data->unique('rating_id')->values();
     @endif
   </div>
 
-
+  @if($post_relate->count() !== 0)
   <div class="container-fluid">
     <div style="text-align: center;margin-top:50px;">
       <h2>Những bài viết liên quan</h2>
     </div>
 
     <div class="row" style="justify-content: center;">
-      @if($post_relate->count() !== 0)
       @foreach ($post_relate as $record)
       <div class="col-sm-3" style="margin:50px 0;">
         <div class="card-img" style="height:280px;">
@@ -280,8 +279,6 @@ $cmts = $data->unique('rating_id')->values();
         </div>
       </div>
       @endforeach
-      @else
-      <p>Không có bài viết liên quan</p>
       @endif
     </div>
   </div>
