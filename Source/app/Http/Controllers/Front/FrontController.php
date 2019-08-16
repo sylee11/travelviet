@@ -113,21 +113,22 @@ class FrontController extends Controller
 	}
 
 	public function allPosts(){
-		$all_posts = Post::join('photos', 'posts.id', '=', 'photos.post_id')
+		$post= DB::table('posts')
+		->join('places','posts.place_id','=','places.id')
+		->join('districts', 'places.districts_id', '=', 'districts.id')
+		->join('cities', 'districts.cities_id', '=', 'cities.id')
 		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
-		->select('posts.id','posts.slug', 'title', 'photos.photo_path', \DB::raw('avg(ratings.rating) as avg_rating'))
-		->orderBy('posts.id', 'desc')
-		->groupBy('posts.id')
-		->groupBy('title')
-		->groupBy('photos.photo_path')
+		->join('photos', 'posts.id', '=', 'photos.post_id')->select('posts.id','posts.slug','posts.describer','places.address', 'posts.title','photos.photo_path','places.name',\DB::raw('avg(ratings.rating) as avg_rating'))->groupBy('posts.id')->groupBy('posts.title')->groupBy('photos.photo_path')
+
 		->where([
-			['is_approved', '=', '1'],
-			['photos.flag', '=', '1']
+			['photos.flag', '=', '1'],
+			['is_approved','=','1']
 		])
-		->paginate(15);
+
+		->paginate(6);
 		$category= Category::all();
 
-		return view('pages.allPost',['all_posts'=>$all_posts,'category'=>$category]);
+		return view('pages.allPost',['category'=>$category,'all_post'=>$post]);
 	}
 	public function searchPost(Request $request){
 		$search_city = $request->get('search_city');
@@ -154,7 +155,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}else if($city_selected && $query7){
 				//dd("2");
 				$post= DB::table('posts')
@@ -171,7 +172,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}else if($city && $search == ''){
 				//dd("3");
 				$post= DB::table('posts')
@@ -187,7 +188,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}else if($city && $search){
 				//dd("4");
 				$post= DB::table('posts')
@@ -204,7 +205,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}else if($search){
 				//dd("5");
 				$post= DB::table('posts')
@@ -220,7 +221,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}
 			else{
 				//dd("6");
@@ -235,8 +236,10 @@ class FrontController extends Controller
 					['photos.flag', '=', '1'],
 					['is_approved','=','1']
 				])
+
 				->get();
 				// ->paginate(15);
+
 			}
 
 		}else{
@@ -259,7 +262,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}else if($city_selected && $query7){
 				dd("2");
 				$post= DB::table('posts')
@@ -279,7 +282,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}else if($city && $search == ''){
 				//dd("3");
 				$post= DB::table('posts')
@@ -298,7 +301,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}else if($city && $search && $city_selected == ''){
 				//dd("4");
 				$post= DB::table('posts')
@@ -318,7 +321,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}else if($search){
 				//dd("5");
 				$post= DB::table('posts')
@@ -337,7 +340,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}
 			else{
 				//dd("6");
@@ -356,7 +359,7 @@ class FrontController extends Controller
 					['is_approved','=','1']
 				])
 
-				->paginate(15);
+				->paginate(20);
 			}
 		}
 
@@ -398,7 +401,8 @@ class FrontController extends Controller
 				</a>
 
 				</div>
-				</div>';
+				</div>'
+				;
 			}
 		}else{
 			$output .= '
@@ -409,8 +413,7 @@ class FrontController extends Controller
 			'table_data'  => $output,
 			'total_data'  => $total_row
 		);
-
-		return response()->json(['all_posts' => $post,'data1'=>$data1, 'search' => $search,'city'=>$result1]);
+		return response()->json(['all_posts' => $post,'data1'=>$data1]);
 
 	}
 

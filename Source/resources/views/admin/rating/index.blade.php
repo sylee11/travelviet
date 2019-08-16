@@ -12,9 +12,8 @@
 			<div class="modal-content">
 				@if ($errors->count() > 0)
 				<script type="text/javascript">
-					$( window ).on("load", function() {
+					$(window ).on("load", function() {
 						$('#addModal').modal('show');
-						sss
                   //$("#myModal").modal("toggle");
                   console.log("zz");
               });

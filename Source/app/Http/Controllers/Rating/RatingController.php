@@ -25,7 +25,7 @@ class RatingController extends Controller
 	{
 		$this->validate($request, [
 			'name_se' => 'required',
-			'rating' => 'required',
+			'rating' =>  ['required','integer', new inputRating],
 			'title' => 'required',
 			'comment' => 'required',
 		]);
@@ -56,7 +56,9 @@ class RatingController extends Controller
 	}
 	public function update(Request $request, $id){
 		$this->validate($request, [
-			'rating' => 'required',
+			'name_se' => 'required',
+			'rating' => ['required','integer', new inputRating],
+			'title' => 'required',
 			'comment' => 'required',
 		]);
 		$rating= Rating::find($id);

@@ -31,7 +31,7 @@
               <label for="current_password" class="col-md-4 control-label">Current Password</label>
 
               <div class="col-md-6">
-                <input id="current_password" type="password" class="form-control" name="current_password" required>
+                <input id="current_password" type="password" class="form-control" name="current_password" >
 
                 @if ($errors->has('current_password'))
                 <span class="help-block">
@@ -45,7 +45,7 @@
               <label for="new_password" class="col-md-4 control-label">New Password</label>
 
               <div class="col-md-6">
-                <input id="new_password" type="password" class="form-control" name="new_password" required>
+                <input id="new_password" type="password" class="form-control" name="new_password" >
 
                 @if ($errors->has('new_password'))
                 <span class="help-block">
@@ -59,7 +59,7 @@
               <label for="password_confirmation" class="col-md-4 control-label">Confirm New Password</label>
 
               <div class="col-md-6">
-                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required>
+                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" >
               </div>
             </div>
 
