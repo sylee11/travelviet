@@ -17,6 +17,7 @@ class ChangePasswordController extends Controller
 			'current_password' => 'required',
 			'new_password' => 'required|min:6',
 		]);
+		//dd(Auth::user()->password ."->".bcrypt('12345678'));
 		if (!(Hash::check($request->get('current_password'), Auth::user()->password))) {
 			return redirect()->back()->with("error","Your current password does not matches with the password you provided");
 		}else if(strcmp($request->get('current_password'), $request->get('new_password')) == 0){
@@ -27,8 +28,9 @@ class ChangePasswordController extends Controller
 		}
 		else{
 			$user = Auth::user();
-			$user->password = Hash::make($request->get('new_password'));
-			$user->save();
+			$user->password = bcrypt($request->get('new_password'));
+			
+			//$user->save();
 			return redirect()->back()->with("success","Password changed successfully !");
 		}
 	}

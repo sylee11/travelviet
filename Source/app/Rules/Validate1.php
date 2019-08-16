@@ -4,15 +4,14 @@ namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class inputRating implements Rule
+class Validate1 implements Rule
 {
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-
-    public function __construct()
+    public function __construct($rating)
     {
         //
     }
@@ -26,10 +25,8 @@ class inputRating implements Rule
      */
     public function passes($attribute, $value)
     {
-            return $value < 6 && $value >= 0;
 
     }
-
 
     /**
      * Get the validation error message.
@@ -38,6 +35,6 @@ class inputRating implements Rule
      */
     public function message()
     {
-        return ':attribute between 0 and 5';
+        return 'message';
     }
 }
