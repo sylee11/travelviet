@@ -143,6 +143,13 @@ class PostController2 extends Controller
     public function edit(Request $request,$id)
     {
         // xu li edit info
+        $request-> validate([
+            'user_id' => 'reiquired',
+            'phone' => 'required|max:10',
+            'title' => 'required',
+            'describer' => 'required',
+            'placeid' => 'required',
+        ]);
         $posts = POST::find($id);
         //check user id có thay đổi không
         if(POST::find($id)->user_id != USER::where('name',$request->userid)->first()->user_id){
