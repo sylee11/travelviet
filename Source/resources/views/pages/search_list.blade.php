@@ -12,11 +12,13 @@
 </div>
 @endif
 @if(count($post)!=0)
-<div class="container" style="margin-top: 50px;">
-	<h1 style="margin-top:100px;margin-bottom: 50px;">Danh sách kết quả tìm kiếm </h1>
+<h1 style="margin-top:100px;margin-bottom: 50px;">Danh sách kết quả tìm kiếm </h1>
 	<div >
-		<p>Tìm thấy {{count($post)}} bài viết cho từ khóa <b>{{$search}}</b> </p>
+		<span>Tìm thấy <b>{{count($post)}}</b> bài viết cho từ khóa <b>{{$search}}</b> </span>
 	</div>
+@endif
+<div class="container" style="margin-top: 50px;">
+	
 	
 	@foreach ($post as $record)
 	<div class="row" style="margin-bottom: 50px;background-color: #f5f4ef;width: 100%;height:300px;justify-content: center;
@@ -46,7 +48,9 @@
 	</div>
 </div>
 @endforeach
-<div style="display: inline-block;">{{$post->links()}}</div>
+
 </div>
-@endif
+<div style="display: inline-block;">{!!$post->links()!!}</div>
+
+
 @endsection
