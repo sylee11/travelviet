@@ -428,7 +428,7 @@ class FrontController extends Controller
 	{
 		$rating = $request->get('rating');
 		if ($rating != NULL && $rating !=1 && $rating !=2 &&$rating !=3 && $rating !=4 && $rating !=5)return back();
-		$cmt = $request->get('commentarea');
+		$cmt = htmlspecialchars($request->get('commentarea'));
 		$user_id = Auth::id();
 		$post_id = $request->session()->pull('post_id');
 		//$user_rate = DB::table('ratings')->where('user_id', $user_id)->first();
