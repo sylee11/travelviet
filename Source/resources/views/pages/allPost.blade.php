@@ -12,33 +12,36 @@
 	</form>
 	<div id="count" style="color: green;font-weight: bold;margin-top: 10px;"></div>
 
-<div class="row" style="justify-content: center;">
-	<div class="col-sm-3" style="width: 100%;background-color: #e2e2e2;margin:60px 0;    text-align: left;height: 100%;padding: 20px;">
-		<h4>Bộ lọc tìm kiếm</h4>
-		<hr>
-		<label  for="name" class="col-form-label" > Tỉnh - Thành phố </label>
-		<input type="text" autocomplete="off"  class="form-control" name="city" id="city" required="" value="" placeholder="Tỉnh-Thành phố" >
-		<label for="cate1" class="col-form-label"  > Category </label>
-		<select class="custom-select" class="col-md-2" id="category" name="category">
-			<option value="0" default> Danh mục</option>
-			@foreach($category as $ca)
-			<option value="{{$ca->id}}"> {{$ca->name}} </option>
-			@endforeach
-		</select>
-	</div>
-	<div class="col-sm-9" style="width: 100%;margin:50px 0;">
-		<div class="row"  id="search" style="justify-content: center;">
+	<div class="row" style="justify-content: center;">
+		<div class="col-sm-3" style="width: 100%;background-color: #e2e2e2;margin:60px 0;    text-align: left;height: 100%;padding: 20px;">
+			<h4>Bộ lọc tìm kiếm</h4>
+			<hr>
+			<label  for="name" class="col-form-label" > Tỉnh - Thành phố </label>
+			<input type="text" autocomplete="off"  class="form-control" name="city" id="city" required="" value="" placeholder="Tỉnh-Thành phố" >
+			<label for="cate1" class="col-form-label"  > Category </label>
+			<select class="custom-select" class="col-md-2" id="category" name="category">
+				<option value="0" default> Danh mục</option>
+				@foreach($category as $ca)
+				<option value="{{$ca->id}}"> {{$ca->name}} </option>
+				@endforeach
+			</select>
+		</div>
+		<div class="col-sm-9" style="width: 100%;margin:50px 0;">
+			<div class="row"  id="search" style="justify-content: center;">
+			</div>
+
 		</div>
 
 	</div>
 
-</div>
-
 
 </div>
+
 {{-- <div style="display: inline-block;">{{$all_posts->links()}}</div>
  --}}<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+
 <script>
+
 	var city;
 	var place= '';
 	var city_input = '';
@@ -63,12 +66,12 @@
 			$.ajax({
 				url:"{{ route('search.posts') }}",
 				method:'GET',
-				data:{city_selected:city_selected,query7:place,category:category},
+				data:{city_selected:city_selected,place:place,category:category},
 				dataType:'json',
 				success:function(data)
 				{
 					$('#search').html(data.data1.table_data);
-					$('#count').text("Có "+data.data1.total_data+" kết quả được tìm thấy");
+					$('#count').text("Có "+data.all_posts.total+" kết quả được tìm thấy");
 				}
 			})
 		}
@@ -90,7 +93,7 @@
 				success:function(data) 
 				{
 					$('#search').html(data.data1.table_data);
-					$('#count').text("Có "+data.data1.total_data+" kết quả được tìm thấy");
+					$('#count').text("Có "+data.all_posts.total+" kết quả được tìm thấy");
 				}
 			})
 		});
@@ -103,8 +106,10 @@
 				dataType:'json',
 				success:function(data) 
 				{
+					console.log(data.all_posts.last_page);
 					$('#search').html(data.data1.table_data);
-					$('#count').text("Có "+data.data1.total_data+" kết quả được tìm thấy");
+					$('#count').text("Có "+data.all_posts.total+" kết quả được tìm thấy");
+					//$('#search').html(data.all_posts);
 				}
 			})
 		}
