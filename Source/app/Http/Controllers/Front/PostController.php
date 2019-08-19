@@ -151,7 +151,7 @@ class PostController extends Controller
     //show form edit post
 	public function showformEditPost($idPost)
 	{
-        
+
         $id = Auth::id();
         //check  
         if(Post::where('slug', $idPost)->first() == null){
@@ -180,6 +180,7 @@ class PostController extends Controller
             'address' => [
                 'required',            ]
         ]);
+        //check input dia diem
         //check idpost input 
         if(POST::find($idpost) == null || POST::find($idpost)->user_id != Auth::id()){
             return redirect()->back()->with(config::get('constant.error'), config::get('constant.message_edit_fail'));
