@@ -192,10 +192,8 @@ class SearchListController extends Controller
 			['is_approved','=','1']
 			
 		])
-
-
 		->Paginate(10);
-         $post->appends(['search'=>$search]);
+		$post->appends(['search'=>$search]);
 		return view('pages.search_list',['post' => $post],['search'=>$search]);
 	}
     
@@ -210,6 +208,5 @@ class SearchListController extends Controller
 	{
 		$place = DB::table('places')->get();
 		return view('pages.googlemap',compact('place'));
-		// return view('pages.googlemap',['place'=>$place]);
 	}
 }

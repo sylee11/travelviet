@@ -13,13 +13,16 @@
 				<div class="form-row">
 					<div class="form-group  col-md-6 dropdown">
 						<label for="username">Reviewers:</label>
-						<input  class="form-control" type="text" name="name_se" value="{{old('name_se', $show->user->name)}}" id="name" required>
+						<input  class="form-control" type="text" name="name_se" value="{{old('name_se', $show->user->name)}}" id="name" >
 						<input  class="form-control" type="text" name="user_id" value="{{$show->user->id}}" id="user_id" hidden>
+						@if ($errors->has('name_se'))
+						<span class="text-danger">{{ $errors->first('name_se') }}</span>
+						@endif
 						<div id="error" style="display: none;color: red;font-weight: bold;">Không có trong danh sách</div>
 					</div>
 					<div class="form-group  col-md-6">
 						<label for="rating">Rating:</label>
-						<input type="number" class="form-control" id="rating"  value='{{old('rating', $show->rating)}}' placeholder="Enter Rating" name="rating" required min="1" max="5">
+						<input type="text" class="form-control" id="rating"  value='{{old('rating', $show->rating)}}' placeholder="Enter Rating" name="rating"  min="1" max="5">
 						@if ($errors->has('rating'))
 						<span class="text-danger">{{ $errors->first('rating') }}</span>
 						@endif
@@ -28,8 +31,11 @@
 
 				<div class="form-group">
 					<label for="post">Post:</label>
-					<input  class="form-control" type="text" name="title" value="{{old('title', $show->post->title)}}" id="title" required>
+					<input  class="form-control" type="text" name="title" value="{{old('title', $show->post->title)}}" id="title" >
 					<input  class="form-control" type="text" name="post_id" value="{{$show['post_id']}}" id="post_id" hidden>
+					@if ($errors->has('title'))
+					<span class="text-danger">{{ $errors->first('title') }}</span>
+					@endif
 					<div id="error2" style="display: none;color: red;font-weight: bold;">Không có trong danh sách</div>
 				</div>
 				<div class="form-group">

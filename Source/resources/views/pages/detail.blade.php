@@ -201,7 +201,7 @@ $cmts = $data->unique('rating_id')->values();
           <button name="myButton">Send</button>
         </form>
         @else
-        <a style="width:150px;" class="btn btn-primary" href="/login">Please Login</a>
+        <a style="width:150px;" class="btn btn-primary" data-toggle="modal" data-target="#myModal" href="{{ route('login') }}">Please Login</a>
         @endif
       </div>
     </div>
@@ -213,9 +213,9 @@ $cmts = $data->unique('rating_id')->values();
     <div class="media border p-3">
 
       @if($value->avatar)
-      <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="{{$value->avatar}}" alt="">
+      <img style="width:40px; height: 40px;" class="mr-3 mt-3 rounded-circle" src="{{$value->avatar}}" alt="">
       @else
-      <img style="width:60px" class="mr-3 mt-3 rounded-circle" src="/picture/images.png" alt="">
+      <img style="width:40px; height: 40px;" class="mr-3 mt-3 rounded-circle" src="/picture/images.png" alt="">
       @endif
       <div class="media-body">
 
