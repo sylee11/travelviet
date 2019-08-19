@@ -7,9 +7,9 @@
 			{{Session::get('success')}}
 		</div>
 		@endif
-		@if(Session::has('errro'))
+		@if(Session::has('error'))
 		<div class="alert alert-danger">
-			{{Session::get('errro')}}
+			{{Session::get('error')}}
 		</div>
 		@endif
 		<h4 class="" style="margin-bottom: 50px;"> Quản lí user hệ thống </h4>
