@@ -26,7 +26,7 @@ class inputRating implements Rule
      */
     public function passes($attribute, $value)
     {
-            return $value < 6 && $value >= 0;
+            return $value < 6 && $value > 0;
 
     }
 

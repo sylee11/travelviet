@@ -66,7 +66,7 @@
 			$.ajax({
 				url:"{{ route('search.posts') }}",
 				method:'GET',
-				data:{city_selected:city_selected,query7:place,category:category},
+				data:{city_selected:city_selected,place:place,category:category},
 				dataType:'json',
 				success:function(data)
 				{

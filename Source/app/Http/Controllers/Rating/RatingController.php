@@ -11,6 +11,7 @@ use App\Post;
 use Illuminate\Validation\Rule;
 use Response;
 use App\Rules\inputRating;
+use Config;
 
 class RatingController extends Controller
 {
@@ -30,14 +31,16 @@ class RatingController extends Controller
 			'comment' => 'required',
 		]);
 		//dd("hello");
-		$record = new Rating();
-		$record->user_id=$request->user_id;
-		$record->rating=$request->rating;
-		$record->post_id=$request->post_id;
-		$record->cmt=$request->comment;
+		if($request){
+			$record = new Rating();
+			$record->user_id=$request->user_id;
+			$record->rating=$request->rating;
+			$record->post_id=$request->post_id;
+			$record->cmt=$request->comment;
 
-		$record->save();
-		return redirect('admin/rating')->with("success","Rating added success !");
+			$record->save();
+			return redirect('admin/rating')->with("success",Config::get('constant.rating.addSuccess'));
+		}
 	}
 	public function edit($id){
 		$show= Rating::find($id);
@@ -67,12 +70,12 @@ class RatingController extends Controller
 		$rating->post_id = $request->get('post_id');
 		$rating->cmt = $request->get('comment');
 		$rating->save();
-		return redirect('admin/rating')->with("success","Rating updated success !");
+		return redirect('admin/rating')->with("success",Config::get('constant.rating.editSuccess'));
 	}
 	public function delete($id){
 		$rating= Rating::find($id);
 		//dd($rating);
 		$rating->delete();
-		return redirect('admin/rating')->with("success","Rating deleted success !");
+		return redirect('admin/rating')->with("success",Config::get('constant.rating.delSuccess'));
 	}
 }
