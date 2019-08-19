@@ -178,7 +178,14 @@ class SearchListController extends Controller
 	}
 	public function getsearch(Request $request)
 	{
-
+        $this->validate($request,
+        [
+            'search'=>'required',
+        ],
+        [
+            'search.required'=>'Bạn chưa nhập từ khóa tìm kiếm',
+        ]
+    );
 		$search = $request ->search;
 
 		$post= DB::table('posts')

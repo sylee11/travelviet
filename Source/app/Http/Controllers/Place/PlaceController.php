@@ -9,6 +9,7 @@ use App\Category;
 use App\City;
 use App\District;
 use DB;
+use Config;
 class PlaceController extends Controller
 {
     
@@ -68,7 +69,7 @@ class PlaceController extends Controller
         $category=Category::all();
         $city=City::all();
         $district=District::all();
-        return \Redirect::route('admin.place.index',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city])->with('message', 'Place has been add!');
+        return \Redirect::route('admin.place.index',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city])->with('message', Config::get('constant.place.addPlace'));
     }
 
     public function xoa($id)
@@ -76,7 +77,7 @@ class PlaceController extends Controller
         $place = Place::find($id);
         $place->delete();
         
-        return redirect()->back()->with('success','ban da xoa thanh cong');
+        return redirect()->back()->with('success', Config::get('constant.place.deletePlace'));
         
     }
 
@@ -101,7 +102,7 @@ class PlaceController extends Controller
         $place->longt=$request->get('lng');
         $place->save();
 
-        return \Redirect::route('admin.place.edit', [$place->id,'place'=>$place])->with('message', 'Place has been updated!');
+        return \Redirect::route('admin.place.edit', [$place->id,'place'=>$place])->with('message',  Config::get('constant.place.editPlace'));
         
     }
     public function getdetail ($id)

@@ -12,6 +12,7 @@ use App\Post;
 use App\Rating;
 use File;
 use Image;
+use Config;
 
 class UserController extends Controller
 {
@@ -50,7 +51,7 @@ class UserController extends Controller
     $user->status=1;
     $user->save();
     $user=User::all();
-    return redirect()->back()->with('success','Bạn đã thêm thành công một user');
+    return redirect()->back()->with('success',Config::get('constant.user.addUser'));
 }
 public function getedit ($id)
 {
@@ -99,7 +100,7 @@ if(isset($request->changePassword ))
 {
     $this->validate($request,
         [
-
+            
             'password' => ['required', 'string', 'min:8'],
             'passwordAgain'=>'required|same:password'
 
@@ -117,7 +118,7 @@ if(isset($request->changePassword ))
 
 $user->save();
 
-return \Redirect::route('admin.user.edit', [$user->id])->with('message', 'User has been updated!');
+return \Redirect::route('admin.user.edit', [$user->id])->with('message', Config::get('constant.user.editUser'));
 
 }
 
@@ -126,7 +127,7 @@ public function xoa($id)
     $user = User::find($id);
     $check = $user->role;
     if($check == 1){
-        return redirect()->back()->with('error' , 'Ban khong the xoa admin');
+        return redirect()->back()->with('error' , Config::get('constant.user.deleteAdminUser'));
     }
     else{
         $post1 = Post::where('user_id', $id);
@@ -156,7 +157,7 @@ public function xoa($id)
         $user->delete();
 
         $user=User::all();
-        return redirect()->back()->with('success','ban da xoa thanh cong');
+        return redirect()->back()->with('success',Config::get('constant.user.deleteUser'));
   }
 
 }
@@ -167,13 +168,13 @@ public function block($id,Request $request)
    // dd($check);
     if($check == 1){
 
-        return redirect()->back()->with('error' , 'Bạn không thể block admin');
+        return redirect()->back()->with('error' , Config::get('constant.user.blockAdminUser'));
     }
     else{
        $user->status=0;
        $user->save();
        $user=User::all();
-       return redirect()->back()->with('success','Bạn đã Block thành công'); 
+       return redirect()->back()->with('success',Config::get('constant.user.blockUser')); 
    }
 
 }
@@ -184,6 +185,6 @@ public function unblock($id,Request $request)
     $user->status=1;
     $user->save();
     $user=User::all();
-    return redirect()->back()->with('success','Bạn đã Unblock thành công');
+    return redirect()->back()->with('success',Config::get('constant.user.unblockUser'));
 }
 }
