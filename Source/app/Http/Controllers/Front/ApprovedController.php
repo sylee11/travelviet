@@ -94,7 +94,8 @@ class ApprovedController extends Controller
 			->select('posts.*', 'posts.title', 'posts.describer', 'photos.photo_path', 'users.name', 'places.name as place', 'users.*', 'posts.is_approved', 'posts.id as postid', 'posts.created_at as time')
 			->orderby('postid','desc')
 			->where('photos.flag', '=', 1)
-			->Paginate(8); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
+			->Paginate(8);
+			 // $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 		return view('pages.showAllPost', ['data' => $data, 'selec' => 'Tất cả bài viết', 'chose' => 'Actor', 'search' => '']);
 	}
 

@@ -18,11 +18,11 @@ class UserController extends Controller
     public function index()
     {
 
-       $user=User::all();
-       return view('admin.user.index',['user'=>$user]);
-   }
-   public function store(Request $request)
-   {
+     $user=User::all();
+     return view('admin.user.index',['user'=>$user]);
+ }
+ public function store(Request $request)
+ {
     $this->validate($request,
         [
             'name'=>'required|max:255',
@@ -54,8 +54,8 @@ class UserController extends Controller
 }
 public function getedit ($id)
 {
- $user=User::find($id);
- return view('admin.user.edit',['user'=>$user]);
+   $user=User::find($id);
+   return view('admin.user.edit',['user'=>$user]);
 }
 public function postedit (Request $request,$id)
 {
@@ -74,50 +74,50 @@ public function postedit (Request $request,$id)
         $user->role = $request->get('role');
     }    
     else
-    $user->role=1;
+        $user->role=1;
     if($user->role!=1){
         $user->status = $request->get('status');
     }  
     else
-    $user->status=1;
+        $user->status=1;
 
     if ($request->hasFile('avatar')) {
-        
-           $avatar = $request->avatar;
-            $avatarName = "/picture/avatar/" . $request->avatar->getClientOriginalName();
-            Image::make($avatar)->save(public_path($avatarName));
-            $user->avatar = $avatarName;
-            $user->save();
 
-    }
-    else
-    {
-        $user->avatar = $user->avatar; 
-    }
-    
-    if(isset($request->changePassword ))
-    {
-        $this->validate($request,
-            [
+     $avatar = $request->avatar;
+     $avatarName = "/picture/avatar/" . $request->avatar->getClientOriginalName();
+     Image::make($avatar)->save(public_path($avatarName));
+     $user->avatar = $avatarName;
+     $user->save();
 
-                'password' => ['required', 'string', 'min:8'],
-                'passwordAgain'=>'required|same:password'
+ }
+ else
+ {
+    $user->avatar = $user->avatar; 
+}
 
-            ],
-            [   
-             'password.required'=>'bạn chưa nhập pass',
-             'password.min(8)'=>'bạn nhập ít nhất 8 kí tự'  ,
-             'passwordAgain.required'=>'bạn chưa nhập lại mật khẩu'     
-         ]
-     );
-        $user->password=bcrypt($request->password);
+if(isset($request->changePassword ))
+{
+    $this->validate($request,
+        [
 
-    }
+            'password' => ['required', 'string', 'min:8'],
+            'passwordAgain'=>'required|same:password'
+
+        ],
+        [   
+           'password.required'=>'bạn chưa nhập pass',
+           'password.min(8)'=>'bạn nhập ít nhất 8 kí tự'  ,
+           'passwordAgain.required'=>'bạn chưa nhập lại mật khẩu'     
+       ]
+   );
+    $user->password=bcrypt($request->password);
+
+}
 
 
-    $user->save();
+$user->save();
 
-    return \Redirect::route('admin.user.edit', [$user->id])->with('message', 'User has been updated!');
+return \Redirect::route('admin.user.edit', [$user->id])->with('message', 'User has been updated!');
 
 }
 
@@ -125,13 +125,10 @@ public function xoa($id)
 {
     $user = User::find($id);
     $check = $user->role;
-   // dd($check);
     if($check == 1){
-
         return redirect()->back()->with('error' , 'Ban khong the xoa admin');
     }
     else{
-
         $post1 = Post::where('user_id', $id);
         $postid = Post::where('user_id', $id)->get();
         foreach ($postid as $p) {  
@@ -160,7 +157,7 @@ public function xoa($id)
 
         $user=User::all();
         return redirect()->back()->with('success','ban da xoa thanh cong');
-    }
+  }
 
 }
 public function block($id,Request $request)
@@ -173,12 +170,12 @@ public function block($id,Request $request)
         return redirect()->back()->with('error' , 'Bạn không thể block admin');
     }
     else{
-     $user->status=0;
-     $user->save();
-     $user=User::all();
-     return redirect()->back()->with('success','Bạn đã Block thành công'); 
-    }
-  
+       $user->status=0;
+       $user->save();
+       $user=User::all();
+       return redirect()->back()->with('success','Bạn đã Block thành công'); 
+   }
+
 }
 public function unblock($id,Request $request)
 {
