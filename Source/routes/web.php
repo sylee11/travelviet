@@ -140,7 +140,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('/', 'CategoryController@index')->name('admin.category.index');
 		Route::post('/delete','CategoryController@delete');
 		Route::post('/edit','CategoryController@edit');
-		Route::post('/editlayout','CategoryController@editlayout');
+		Route::any('/editlayout','CategoryController@editlayout');
 		Route::get('/addlayout',function(){
 			return view('admin.category.addlayout');
 		});
