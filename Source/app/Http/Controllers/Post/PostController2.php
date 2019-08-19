@@ -14,6 +14,7 @@ use App\Rating;
 use App\Place;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Config;
 
 
 class PostController2 extends Controller
@@ -57,6 +58,7 @@ class PostController2 extends Controller
             'number' => 'required|max:10',
             'title' => 'required',
             'describer' => 'required',
+            'placeid' => 'required',
         ]);
 
         // import posts
@@ -94,7 +96,7 @@ class PostController2 extends Controller
                 foreach ($t as $key => $value) {
                         if($value->photo_path ==  $namet  ){
                             $p = POST::find($posts->id)->delete();
-                            return redirect()->back()->with("erro","image trùng");
+                            return redirect()->back()->with(config::get('constant.error'), config::get('constant.message_fail_photo'));
                         }
                 }  
 
@@ -108,7 +110,7 @@ class PostController2 extends Controller
             $photoflag = Photo::where('post_id', $posts->id)->first();
             $photoflag->flag =1;
             $photoflag->save();
-            return back()->with('success', 'Your post has been successfully');
+            return back()->with(config::get('constant.success'), config::get('constant.message_add_success'));
         }
  
 
@@ -199,7 +201,7 @@ class PostController2 extends Controller
 
         $photocheck = Photo::where('post_id', $posts->id);
         if($photocheck->count() == 0){
-            return redirect() ->back()->with('erro', " Please chose one image and save again");
+            return redirect() ->back()->with(config::get('constant.error'), config::get('constant.message_fail_photo'));
         }
 
         $photoflag = Photo::where('post_id', $posts->id)->first();
@@ -207,7 +209,7 @@ class PostController2 extends Controller
         $photoflag->save();
 
         
-        return redirect (route('admin.post.detail', $posts->id))->with('success', "Changed done");
+        return redirect (route('admin.post.detail', $posts->id))->with(config::get('constant.success'), config::get('constant.message_edit_success'));
     }
 
     /**
@@ -241,7 +243,7 @@ class PostController2 extends Controller
 
         $rating =Rating::where('post_id', $id)->delete();
         $postss = POST::all();
-        return redirect (route('admin.post.index'))->with('success', 'delete done!');
+        return redirect (route('admin.post.index'))->with(config::get('constant.success'), config::get('constant.message_delete_success'));
         // $posts= POST::all();
 
 

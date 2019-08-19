@@ -9,9 +9,9 @@
 		{{ session('success') }}
 	</div>
 	@endif
-	@if (session('errro'))
+	@if (session('error'))
 	<div class="alert alert-danger">
-		{{ session('errro') }}
+		{{ session('error') }}
 	</div>
 	@endif
 	@if($data->count() == 0)

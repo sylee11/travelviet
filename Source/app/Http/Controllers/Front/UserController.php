@@ -14,6 +14,7 @@ use File;
 use Config;
 class UserController extends Controller
 {
+    //show all user in system
     protected function show(){
     	$search = "";
     	$user = DB::table('users')
@@ -22,12 +23,14 @@ class UserController extends Controller
     	return view('pages.userManager', ['user' => $user,'search' => $search]);
     }
 
+    //delete one user
     public function delete(Request $request){
     	$user = User::where('id',$request->id);
     	if($user->first()->role == 1){
-    		return redirect()->back()->with('errro' , 'Ban khong the xoa admin');
+    		return redirect()->back()->with(config::get('constant.error'), config::get('constant.message_delete_fail'));
     	}
-        DB:transaction(function(){
+        //Transaction database
+        // DB:transaction(function(){
         	$post = Post::where('user_id', $request->id);
             $postid = Post::where('user_id', $request->id)->get();
             foreach ($postid as $p) {
@@ -47,16 +50,19 @@ class UserController extends Controller
             //delete rating user (post khac)
             $rating =  Rating::where('user_id', $request->id);
             $rating->delete();
-        });
-    	return redirect()->back()->with('success', 'delete success');
+        // });
+    	return redirect()->back()->with(config::get('constant.success'), config::get('constant.message_delete_success'));
     }
 
+    //Search user
     public function search(Request $request){
     	$search = $request->search;
     	$user = User::where('name', 'like' , "%".$request->search."%")->paginate(Config::get('constant.pagenation'));
         $user->appends(['search'=>$search]);
     	return view('pages.userManager', ['user' => $user, 'search' => $search]);
     }
+
+    //Find all post of one user
     public function findpost(Request $request){
     	$id = $request->id;
     	$data = \DB::table('posts')
@@ -68,11 +74,12 @@ class UserController extends Controller
 		return view('pages/userpost', ['data' => $data]);
     }
 
+    //Block one user(not is admin)
     public function blockuser(Request $request){
     	$id = $request->id;
     	$user = User::where('id', $id)->first();
     	if($user->role==1){
-    		return redirect()->back()->with('errro' , 'Ban khong the lock admin');
+    		return redirect()->back()->with(config::get('constant.error') , 'Ban khong the lock admin');
     	}
     	else{
     		if($user->status ==1){

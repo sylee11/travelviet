@@ -8,9 +8,9 @@
         {{ session('success') }}
     </div>
   @endif
-  @if (session('erro'))
+  @if (session('error'))
     <div class="alert alert-danger">
-        {{ session('erro') }}
+        {{ session('error') }}
     </div>
   @endif
   <FORM  method="post" class="" action="{{route('admin.post.edit', $post->id)}}" enctype="multipart/form-data">
