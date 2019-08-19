@@ -14,6 +14,13 @@
 	@section('content')
 		<div class="container" style="margin-top: 100px; text-align: left;">
 			<h3 class="text-center"> Edit Post</h3>
+			  	@if(count($errors)>0)
+			   		<div class="alert alert-danger">
+			    	@foreach($errors->all() as $err)
+			    		{{$err}} <br>
+			    	@endforeach
+			    	</div>
+			  	@endif
 				@if (session('success'))
 				<div class="alert alert-success">
 					{{ session('success') }}

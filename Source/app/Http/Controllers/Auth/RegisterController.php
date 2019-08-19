@@ -101,8 +101,6 @@ class RegisterController extends Controller
         $user->name=$request->name;
         $user->email=$request->email;
         $user->password= bcrypt($request->password);
-        echo bcrypt("123456").'->'.bcrypt("123456");
-        dd(bcrypt("123456"));
         $user->role=$request->role;
         $user->status=1;
         $user->save();

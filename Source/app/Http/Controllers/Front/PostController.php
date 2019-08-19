@@ -151,7 +151,7 @@ class PostController extends Controller
     //show form edit post
 	public function showformEditPost($idPost)
 	{
-
+        
         $id = Auth::id();
         //check  
         if(Post::where('slug', $idPost)->first() == null){
@@ -170,6 +170,16 @@ class PostController extends Controller
 
     //edit post
 	public function edit(Request $request, $idpost){
+        //validate dữ liiêu
+        $request-> validate([
+            'phone' => 'required ',
+            'title' => 'required',
+            'descrice' => 'required',
+            'city' => 'required',
+            'districts_id' => 'required',
+            'address' => [
+                'required',            ]
+        ]);
         //check idpost input 
         if(POST::find($idpost) == null || POST::find($idpost)->user_id != Auth::id()){
             return redirect()->back()->with(config::get('constant.error'), config::get('constant.message_edit_fail'));
