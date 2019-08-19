@@ -16,8 +16,8 @@
 <script>
   var map;
   // var infoWindow = new google.maps.InfoWindow();
-  var latvalue = {{json_encode($data[0] -> lat)}};
-  var longvalue = {{json_encode($data[0] -> longt)}};
+  var latvalue = {{json_encode($data[0]->lat)}};
+  var longvalue = {{json_encode($data[0]->longt)}};
   var namevalue = {!! json_encode($data[0]->place) !!};
   var addressvalue = {!! json_encode($data[0]->address) !!};
   var directionsDisplay;

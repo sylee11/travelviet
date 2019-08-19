@@ -13,6 +13,17 @@
 		<i class="fas fa-table"></i>
 	Data Table Category</div>
 	<div class="card-body">
+
+	@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+	
 		<!-- <div style="margin-bottom: 15px"><a href="/admin/category/addlayout" class="btn btn-success "><i class="fas fa-plus"></i> ADD</a> -->
 			<div style="margin-bottom: 15px">
 				<button data-toggle="modal" data-target="#addModal" class="btn btn-success "><i class="fas fa-plus"></i> ADD</button>
