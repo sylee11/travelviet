@@ -14,6 +14,13 @@
 	@section('content')
 		<div class="container" style="margin-top: 100px; text-align: left;">
 			<h3 class="text-center"> Edit Post</h3>
+			  	@if(count($errors)>0)
+			   		<div class="alert alert-danger">
+			    	@foreach($errors->all() as $err)
+			    		{{$err}} <br>
+			    	@endforeach
+			    	</div>
+			  	@endif
 				@if (session('success'))
 				<div class="alert alert-success">
 					{{ session('success') }}
@@ -38,8 +45,9 @@
 						</select>
 					</div>	
 					<div class="form-group col-md-6">
-						<label  for="name" class="col-form-label"> Tên địa điểm </label>
-						<input type="text" readonly="" class="form-control"  value = "{{$post->place->name}}" name="name" id="name"  >
+						<label  for="name" class="col-form-label" > Tên địa điểm </label>
+						<p class="form-control" style="
+						background-color: #e9ecef ;"> {{$post->place->name}}</p>
 
 					</div>
 				</div>
