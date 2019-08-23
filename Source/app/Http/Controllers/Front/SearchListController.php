@@ -12,16 +12,9 @@ use App\Post;
 use App\Rating;
 use App\Photo;
 use DB;
-
+use Config;
 class SearchListController extends Controller
 {
-	public function searchlist ()
-	{
-		$category=Category::all();
-		$city=City::all();
-		$district=District::all();
-		return view('pages.home',['category'=>$category,'district'=>$district,'city'=>$city]);
-	}
 	public function getCityList(Request $request)
 	{     
 		$districts = DB::table("districts")
@@ -29,7 +22,6 @@ class SearchListController extends Controller
 		->pluck("name","id");
 		return response()->json($districts);
 	}
-	
 	public function getList(Request $request)
 	{  
 	 
@@ -50,7 +42,7 @@ class SearchListController extends Controller
 				['is_approved','=','1']
 			])
 
-			->Paginate(10);$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);				
+			->Paginate(Config::get('constant.pagination'));$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);				
 
 			return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 		}
@@ -78,7 +70,7 @@ class SearchListController extends Controller
 						['districts_id','=', $request->districts_id]
 					])
 
-					->Paginate(10);$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);					
+					->Paginate(Config::get('constant.pagination'));$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);					
 
 
 					return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
@@ -99,11 +91,8 @@ class SearchListController extends Controller
 						['cities_id','=', $request->cities_id],
 						['districts_id','=', $request->districts_id]
 					])
-
-					// ->get();
-					->Paginate(10);$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);					
+					->Paginate(Config::get('constant.pagination'));$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);					
 					return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
-
 				}
 			}
 			elseif($request->cities_id !='' && $request->districts_id =='Quận,huyện' && $request->category_id =='')
@@ -122,9 +111,7 @@ class SearchListController extends Controller
 					['is_approved','=','1'],
 					['cities_id','=', $request->cities_id]
 				])
-
-
-				->Paginate(10);$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);
+				->Paginate(Config::get('constant.pagination'));$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);
 
 				return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 			}
@@ -146,12 +133,11 @@ class SearchListController extends Controller
 					['category_id','=', $request->category_id],
 				])
 
-				->Paginate(10);$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);
+				->Paginate(Config::get('constant.pagination'));$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);
 
 				return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 			}		
 		}
-
 		elseif($request->category_id !='')
 		{
 			$post = DB::table('posts')
@@ -171,16 +157,17 @@ class SearchListController extends Controller
 
 			->where('photos.flag', '=', '1')
 			
-			->Paginate(10);$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);
+			->Paginate(Config::get('constant.pagination'));$post->appends(['cities_id' => $city, 'districts_id'=>$district, 'category_id'=>$category]);
 
 			return view('pages.list_place',['post' => $post],['city'=>$city],['district'=>$district],['category'=>$category]);
 		}
 	}
 	public function getsearch(Request $request)
-	{
+	{   
+		$search1 ='search';
         $this->validate($request,
         [
-            'search'=>'required',
+            $search1=>'required',
         ],
         [
             'search.required'=>'Bạn chưa nhập từ khóa tìm kiếm',
@@ -199,9 +186,9 @@ class SearchListController extends Controller
 			['is_approved','=','1']
 			
 		])
-		->Paginate(10);
-		$post->appends(['search'=>$search]);
-		return view('pages.search_list',['post' => $post],['search'=>$search]);
+		->Paginate(Config::get('constant.pagination'));
+		$post->appends([$search1=>$search]);
+		return view('pages.search_list',['post' => $post],[$search1=>$search]);
 	}
     
     public function autocomplete(Request $request)

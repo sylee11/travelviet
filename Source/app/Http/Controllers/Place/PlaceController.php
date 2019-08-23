@@ -17,12 +17,7 @@ class PlaceController extends Controller
     {
         
        $place=Place::all();
-       $category=Category::all();
-       $city=City::all();
-       $district=District::all();
-       return view('admin.place.index',['place'=>$place,'category'=>$category,'district'=>$district,'city'=>$city]);
-        //return($place)->toArray();
-       
+       return view('admin.place.index',['place'=>$place]);
    }
    public function getadd()
    {
@@ -84,7 +79,6 @@ class PlaceController extends Controller
     public function getedit ($id)
     {
      $place=Place::find($id);
-       // $place=Place::all();
      $category=Category::all();
      $city=City::all();
      $district=District::all();

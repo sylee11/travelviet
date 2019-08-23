@@ -7,14 +7,14 @@
 @if(count($post)==0)
 <div class="container" style="margin-top: 200px;">
 	<div style="margin-bottom: 400px; margin-top: 300px;">
-		<p style="font-size: 30px;">Không Tìm thấy bài viết cho từ khóa <b>{{$search}}</b> </p>
+		<p style="font-size: 30px;">Không Tìm thấy bài viết cho từ khóa <strong>{{$search}}</strong> </p>
 	</div>
 </div>
 @endif
 @if(count($post)!=0)
 <h1 style="margin-top:100px;margin-bottom: 50px;">Danh sách kết quả tìm kiếm </h1>
 	<div >
-		<span>Tìm thấy <b>{{count($post)}}</b> bài viết cho từ khóa <b>{{$search}}</b> </span>
+		<span>Tìm thấy <strong>{{count($post)}}</strong> bài viết cho từ khóa <strong>{{$search}}</strong> </span>
 	</div>
 @endif
 <div class="container" style="margin-top: 50px;">

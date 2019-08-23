@@ -40,16 +40,12 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-3">
-<!--       <label for="">Lat</label> -->
       <input type="hidden" value="{{$place->lat}}" class="form-control input-sm" name="lat" id="lat" required="" disabled="">
     </div>
     <div class="form-group col-md-3">
-      <!-- <label for="">Lng</label> -->
       <input type="hidden" value="{{$place->longt}}" class="form-control input-sm" name="lng" id="lng" required="" disabled="">
     </div>
-  </div>
-
-  
+  </div> 
     <a href="/admin/place"  class="btn btn-danger" style="color: white">Cancel</a>
   
 </form>
