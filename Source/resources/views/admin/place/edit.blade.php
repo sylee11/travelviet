@@ -1,12 +1,6 @@
 @extends('layouts.admin')
 @section('content')
 <h1>Chỉnh sửa địa điểm</h1>
-<!-- @if (session('thongbao'))
- <div class="alert alert-danger">
- 	{{session('thongbao')}}
- </div>
- @endif -->
-
  @if(count($errors)>0)
  <div class="alert alert-danger">
   @foreach($errors->all() as $err)
@@ -73,21 +67,16 @@
   </div>
   <div class="form-row">
     <div class="form-group col-md-3">
-     <!--  <label for="">Lat</label> -->
       <input type="hidden" value="{{$place->lat}}" class="form-control input-sm" name="lat" id="lat" required="">
     </div>
     <div class="form-group col-md-3">
-      <!-- <label for="">Lng</label> -->
       <input type="hidden" value="{{$place->longt}}" class="form-control input-sm" name="lng" id="lng" required="">
     </div>
   </div>
   <button type="submit" class="btn btn-primary">
     <i class="fa fa-btn fa-sign-in"></i>Update
   </button>
-  
     <a href="/admin/place" class="btn btn-danger" style="color: white">Cancel</a>
- 
-
 </form>
 
 <script type="text/javascript">

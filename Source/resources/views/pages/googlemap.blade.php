@@ -8,8 +8,6 @@
 <head>
   <title>Googlemap</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <!--  <script src="https://maps.google.com/maps/api/js"></script> -->
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gmaps.js/0.4.24/gmaps.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-rW15K4v7WHlCWmnCYMLzyR0pU1cPpeI&libraries=places&callback=initMap"async defer></script>
 

@@ -1,6 +1,7 @@
 <?php
 	return [
-		'pagenation' => 12,
+		'pagination' => 10,
+		'pagenation' =>12,
 		'message' => [
 			'message_sussess' => 'Sussess',
 			'message_error' => 'Error',
@@ -36,11 +37,12 @@
         	'blockAdminUser'=>'Bạn không thể block Admin',
         	'unblockUser'=>'Bạn đã unblock thành công'
         ],
-        'place'=>[
+        'place' =>[
         	'addPlace'=>'Bạn đã thêm thành công',
         	'editPlace'=>'Bạn đã sửa thành công',
         	'deletePlace'=>'Bạn đã xóa thành công'
-        ]
+        ],
+        'register' =>'Đăng kí thành công'
 
 	]
 ?>

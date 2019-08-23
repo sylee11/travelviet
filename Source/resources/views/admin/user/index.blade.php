@@ -1,9 +1,6 @@
 @extends('layouts.admin')
 @section('title', '/ User')
 @section('content')
-<!-- @if (Session ::has('success'))
-    <h3>{{Session :: get('success')}}</h3>
-@endif -->
 <div class="card mb-3">
 	<div class="card-header">
 		<i class="fas fa-table"></i>
@@ -91,7 +88,7 @@
 			<button data-toggle="modal" data-target="#myModal1" class="btn btn-success "><i class="fas fa-plus"></i> ADD</button>
 		</div>
 		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+			<table class="table table-bordered" id="dataTable">
 				<thead>
 					<tr>
 						<th>ID</th>

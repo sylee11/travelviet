@@ -1,11 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 <h1>Chỉnh sửa User</h1>
-<!-- @if (session('thongbao'))
- <div class="alert alert-danger">
- 	{{session('thongbao')}}
- </div>
- @endif -->
+
  @if(count($errors)>0)
  <div class="alert alert-danger">
   @foreach($errors->all() as $err)

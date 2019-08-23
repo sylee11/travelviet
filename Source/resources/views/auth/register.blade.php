@@ -1,102 +1,61 @@
 <head>
+    <title>Đăng kí</title>
     <link rel="stylesheet" type="text/css" href="/css/custom/login.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
-    <!--Fontawesome CDN-->
-    <link rel="stylesheet" href="/css/bootstrap-social.css">
-    <!--Custom styles-->
-    {{--     <link rel="stylesheet" href="/css/fontawesome.css">
---}}</head>
+<!--Fontawesome CDN-->
+<link rel="stylesheet" href="/css/bootstrap-social.css">
+<!--Custom styles-->
+<link rel="stylesheet" href="/css/fontawesome.min.css">
+</head>
+
 <body class="text-center">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Register') }}</div>
+    <div class="body">
+    <form class="form-signin" action="{{route('signup')}}" method="post" id="formregister">
+        <input type="hidden" name="_token" value="{{ csrf_token()}}">
+        <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
 
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('register') }}">
-                            @csrf
-
-                            <div class="form-group row" style="margin-left: 35%">
-                                <div>
-                                    <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
-                                    <a class="btn btn-block btn-social btn-google" href="{{route('login.social')}}" >
-                                        <i class="fab fa-google"></i>
-
-                                        Sign in with Google
-                                    </a>
-                                    <a class="btn btn-block btn-social btn-facebook">
-                                        <i class="fab fa-facebook-f"></i>
-                                        Sign in with Facebook
-                                    </a>
-                                    <p class="divider-text">
-                                        <span class="bg-light">OR</span>
-                                    </p>
-                                </div>
-                                
-                                <!-- <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label> -->
-
-
-                            </div>
-                            <div class="form-group row" style="margin-left: 35%"> 
-                                <div class="col-auto">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autocomplete="name"  placeholder=" Name" required autofocus>
-
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="form-group row" style="margin-left: 35%">
-                               <!--  <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email ') }}</label> -->
-                                
-                               <div class="col-auto">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email"  placeholder=" Email">
-
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row" style="margin-left: 35%">
-                            <!-- <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label> -->
-
-                            <div class="col-auto">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password"  placeholder=" Password">
-
-                                @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row" style="margin-left: 35%">
-                           <!--  <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label> -->
-
-                           <div class="col-auto">
-                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password"  placeholder="Password confirm">
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-0" style="margin-right: 10%;" >
-                        <div class="col-md-6 offset-md-4">
-                            <button type="submit" class="btn btn-primary" >
-                                {{ __('Register') }}
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+        @if(count($errors)>0)
+        @if($errors->all()[0] == "The password must be at least 8 characters.")
+        <div class="alert alert-danger">
+          @foreach($errors->all() as $err)
+          {{$err}} <br>
+          @endforeach
         </div>
+        @endif
+        @endif
+        <a class="btn btn-block btn-social btn-google"  href="{{route('login.social')}}" >
+
+        <i class="fab fa-google"></i>
+
+            Sign in with Google
+        </a>
+        <a class="btn btn-block btn-social btn-facebook">
+        <i class="fab fa-facebook-f"></i>
+            Sign in with Facebook
+        </a>
+        <p class="divider-text">
+            <span class="bg-light">OR</span>
+        </p>
+        <label for="inputName" class="sr-only">Name</label>
+        <input type="text" id="inputName" class="form-control" name="name" value="{{old('name')}}" placeholder="  Name" required autofocus>
+        <label for="inputEmail" class="sr-only" >Email address</label>
+        <input type="email" id="inputEmail" class="form-control" name="email" value="{{old('email')}}" placeholder="Email address" required >
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" required>
+        <div class="form-group col-md-8">
+            <label for="inputState">Role</label>
+            <select id="inputState" class="form-control" name="role">
+                <option selected value="3">Người xem</option>
+                <option  value="2">Người đăng bài</option>
+                
+                
+            </select>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" form="formregister" type="submit">Sign up</button>
+        <hr id="hr1">
+        <p>Have an account? <button type="button" class="btn-link btn" id="signin">Login</button></p>
+    </form>
+   
     </div>
-</div>
-</div>
 </body>

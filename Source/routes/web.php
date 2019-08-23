@@ -31,14 +31,11 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::post('/update', 'ProfileController@update')->name('profile.update');
 	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	
-	 Route::get('/searchlist', 'SearchListController@searchlist')->name('search.slide');
+	 // Route::get('/searchlist', 'SearchListController@searchlist')->name('search.slide');
 	Route::get('/get_city_list', 'SearchListController@getCityList')->name('get.city.list');
 	Route::get('/list_place', 'SearchListController@getList')->name('get.list');
-	// Route::post('/list_place', 'SearchListController@postList')->name('get.list');
 	Route::get('/search_list', 'SearchListController@getsearch')->name('search.list');
-	// Route::post('/search_list', 'SearchListController@postsearch')->name('search.list');
 	Route::get('/googlemap', 'SearchListController@googlemap')->name('google.map');
-
     Route::get('/autocomplete', 'SearchListController@autocomplete')->name('autocomplete');
 	
 	Route::get('/user/{user_id}','FrontController@userInfo');
