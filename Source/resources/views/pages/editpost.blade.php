@@ -167,8 +167,6 @@
 	    		var xmt = splitted[i];
 				 //$("#splitted[i]").css("display", "block");
 				 document.getElementById(xmt).style.display = 'flex';
-				 // $('.xmt').show();
-
 	    	}
 
 	    })
@@ -259,7 +257,6 @@ $(function() {
         	    if(data.length == 0){
         			$('#errohuyen').css('display', 'block');
 				    console.log($("district").val());
-				    // })
         		}
         		else{
         			$('#errohuyen').css('display', 'none');        			
@@ -273,13 +270,7 @@ $(function() {
    
 </script>
 
-
-{{-- @push('scripts')
-	<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-	<script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
-	<script> CKEDITOR.replace('editor3'); </script>
-@endpush --}}
-	@endsection
+@endsection
 
 
 

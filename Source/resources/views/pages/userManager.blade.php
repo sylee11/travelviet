@@ -1,15 +1,15 @@
 @extends('layouts.app')
 @section('content')
-
+    
     <div class="container" style="margin-top: 100px">
         @if(Session::has('success'))
         <div class="alert alert-danger">
             {{Session::get('success')}}
         </div>
         @endif
-        @if(Session::has('errro'))
+        @if(Session::has('error'))
         <div class="alert alert-danger">
-            {{Session::get('errro')}}
+            {{Session::get('error')}}
         </div>
         @endif
         <h4 class="" style="margin-bottom: 50px;"> Quản lí user hệ thống </h4>
@@ -31,7 +31,7 @@
 
     @foreach($user as $us)
     <div class=" col-lg-3" style="margin-top: 50px;">
-        <img  class="card-img-top text-center" @if ($us->avatar)  src="{{$us->avatar}}" @else src="/picture/images.png" @endif   style="width: 150px; height: 150px; border-radius: 50%;"  alt="card_img " >
+        <img  alt="card_img" class="card-img-top text-center" @if ($us->avatar)  src="{{$us->avatar}}" @else src="/picture/images.png" @endif   style="width: 150px; height: 150px; border-radius: 50%;"   >
         <div class="card-title" style="margin-top: 10px;"> 
             <a href="" data-toggle="modal" data-target="#detailModal" data-username="{{$us->name}}" data-email="{{$us->email}}" data-birthday="{{$us->birthday}}" data-address="{{$us->address}}" data-phone="{{$us->phone}}" data-id="{{$us->id}}"  data-photo ="{{$us->avatar}}" id="xxx" class="btn-link"> <span class="font-weight-bold">{{$us->name}}</span> </a>
         </div>
