@@ -30,7 +30,6 @@ class ProfileController extends Controller
 		$user->birthday = $request->get('birthday');
 		$user->address = $request->get('address');
 		$user->phone = $request->get('phone');
-		//dd($user->avatar);
 		$user->save();
 		return redirect('profile');
 	}
