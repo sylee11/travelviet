@@ -5,6 +5,7 @@ namespace App\Http\Controllers\category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+
 class CategoryController extends Controller
 {
     public function index()
@@ -24,21 +25,17 @@ class CategoryController extends Controller
         $category = \App\Category::find($id);
         $data['id'] = $id;
         $data['name'] = $category->name;
-        return view('admin.category.edit', ['data' => $data]);;
+        return view('admin.category.edit', ['data' => $data]);
     }
     public function edit(Request $request)
     {
-       /* $request->validate([
-            'name' => 'bail|required|unique:categories,name|max:255',
-            'id' => 'required',
-        ]);*/
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|unique:categories,name|max:255',
             'id' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect('/admin/category')
-                        ->withErrors($validator);
+                ->withErrors($validator);
         }
         $id = \Request::get('id');
         $name = \Request::get('name');
