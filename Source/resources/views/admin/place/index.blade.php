@@ -22,7 +22,7 @@
 			
 		</div>
 		<div class="table-responsive">
-			<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+			<table class="table table-bordered" id="dataTable" >
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -56,7 +56,6 @@
 						<td>{{$p->category->name}}</td>
 						<td>{{$p->address}}</td>
 						<td align="center">
-							<!-- <button type="submit" class="btn-success">Detail</button> -->
 							<button type="button" class="btn-success" data-toggle="modal" data-target="#myModal">
 								<a href="{{route('admin.place.detail', $p->id)}}" style="color: white;text-decoration: none;">Detail</a>
 							</button>

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Redirect;
-
+use Config ;
 class RegisterController extends Controller
 {
     /*
@@ -73,7 +73,7 @@ class RegisterController extends Controller
         ]);
     }
     public function showFormRegister(){
-        return view('auth.register');
+        return view('auth.register2');
     }
 
     public function store(Request $request)
@@ -83,7 +83,6 @@ class RegisterController extends Controller
                 'name'=>'required|max:255',
                 'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                 'password' => ['required', 'string', 'min:8']
-
             ],
             [
                 'name.required'=>'bạn chưa nhập tên người dùng',
@@ -92,26 +91,16 @@ class RegisterController extends Controller
                 'email.email'=>'bạn chưa nhập đúng định dạng',
                 'email.unique'=>'email da ton tai',
                 'password.required'=>'bạn chưa nhập mk',
-                'password.min(8)'=>'bạn nhập ít nhất 5 kí tự',
-
-
+                'password.min(8)'=>'bạn nhập ít nhất 8 kí tự',
             ]
         );
         $user = new User;
         $user->name=$request->name;
         $user->email=$request->email;
         $user->password= bcrypt($request->password);
-        echo bcrypt("123456").'->'.bcrypt("123456");
-        dd(bcrypt("123456"));
         $user->role=$request->role;
         $user->status=1;
         $user->save();
-        // $save =User::insert($user);
-        // if($save)
-             // return view('admin.user.index');
-        // else 
-        return redirect('/')->with('thongbao','Đăng kí thành công');
-
-
+        return redirect('/')->with('thongbao',Config::get('constant.register'));
     }
 }

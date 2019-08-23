@@ -64,20 +64,15 @@
 	</div>
 	<div class="form-row">
 		<div class="form-group col-md-3">
-			<!-- <label for="">Lat</label> -->
 			<input type="hidden" class="form-control input-sm" name="lat" id="lat" required="">
 		</div>
 		<div class="form-group col-md-3">
-			<!-- <label for="">Lng</label> -->
 			<input type="hidden" class="form-control input-sm" name="lng" id="lng" required="">
 		</div>
 	</div>
-
-
 	<button type="submit" class="btn btn-primary">Add</button>
 	
     <a href="/admin/place" class="btn btn-danger" style="color: white">Cancel</a>
-  
 </form>
 <script type="text/javascript">
 

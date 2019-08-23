@@ -1,4 +1,5 @@
 <head>
+    <title>Đăng kí</title>
     <link rel="stylesheet" type="text/css" href="/css/custom/login.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
