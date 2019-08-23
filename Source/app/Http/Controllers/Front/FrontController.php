@@ -39,7 +39,6 @@ class FrontController extends Controller
 			$top = User::where('id', '=', $value->user_id)->first();
 			array_push($top_user, $top);
 		}
-		//dd($top_user);
 		//show posts have rating highest
 		$top_rating = Post::join('ratings', 'posts.id', '=', 'ratings.post_id')
 		->join('photos', 'posts.id', '=', 'photos.post_id')
@@ -54,7 +53,6 @@ class FrontController extends Controller
 		])
 		->take(Config::get('constant.numberRecord1'))
 		->get();
-		//dd($top_user);
 		//show post newest
 		$new_post = Post::join('photos', 'posts.id', '=', 'photos.post_id')
 		->leftjoin('ratings', 'posts.id', '=', 'ratings.post_id')
@@ -91,8 +89,6 @@ class FrontController extends Controller
 		->orderBy('sum', 'desc')
 		->groupBy('cities.id')
 		->where('is_approved', '=', '1')->take(Config::get('constant.numberRecord2'))->get();
-		//dd($cities);
-		//dd($cities);
 		$array = array();
 		foreach ($cities as $value) {
 			$tt = Post::join('places', 'posts.place_id', '=', 'places.id')
@@ -108,7 +104,6 @@ class FrontController extends Controller
 			->first();
 			array_push($array, $tt);
 		}
-		//dd($array);
 
 		return view('pages.index', ['new_post' => $new_post, 'top_rating' => $top_rating, 'top_user' => $top_user, 'all_post' => $all_post, 'city_post' => $array, 'category' => $category, 'district' => $district, 'city' => $city]);
 	}
@@ -138,7 +133,6 @@ class FrontController extends Controller
 		$city = $request->get('city_input');
 		$category= $request->get('category');
 		$city_selected= $request->get('city_selected');
-		//dd($request->all());
 		if($place){
 			if($category != 0){
 				if($city){
@@ -324,7 +318,6 @@ class FrontController extends Controller
 						['photos.flag', '=', '1'],
 						['is_approved','=','1']
 					])
-					//->get();
 					->paginate(Config::get('constant.pagination1'));
 				}
 			}
@@ -349,10 +342,12 @@ class FrontController extends Controller
 				</span>
 				</h5>
 				<div class="rating">';
-				for($i=0;$i< ceil($row->avg_rating);$i++)
+				for($i=0;$i< ceil($row->avg_rating);$i++){
 					$output .='<span class="fa fa-star checked" ></span>';
-				for($i=ceil($row->avg_rating);$i< 5;$i++)
+				}
+				for($i=ceil($row->avg_rating);$i< 5;$i++){
 					$output .='<span class="fa fa-star unchecked" ></span>';
+				}
 				$output .='</div>
 				<p class="card-text">
 				</p>
@@ -383,7 +378,6 @@ class FrontController extends Controller
 		$post_id = DB::table('posts')
 		->select('posts.id')
 		->where('posts.slug','=',$slug)->first()->id;
-		//dd($post_id);
 		$data = DB::table('posts')
 		->join('photos', 'posts.id', '=', 'photos.post_id')
 		->join('users', 'posts.user_id', '=', 'users.id')
@@ -417,7 +411,7 @@ class FrontController extends Controller
 		->distinct()
 		->take(Config::get('constant.numberRecord1'))
 		->get();
-		foreach ($data2 as $key => $value) {
+		foreach ($data2 as $index => $value) {
 			$value->rate = DB::table('ratings')
 			->where('post_id', $value->id)
 			->avg('rating');
@@ -427,7 +421,9 @@ class FrontController extends Controller
 	public function rate(Request $request)
 	{
 		$rating = $request->get('rating');
-		if ($rating != NULL && $rating !=1 && $rating !=2 &&$rating !=3 && $rating !=4 && $rating !=5)return back();
+		if ($rating != NULL && $rating !=1 && $rating !=2 &&$rating !=3 && $rating !=4 && $rating !=5){
+			return back();
+		}
 		$cmt = htmlspecialchars($request->get('commentarea'));
 		$user_id = Auth::id();
 		$post_id = $request->session()->pull('post_id');

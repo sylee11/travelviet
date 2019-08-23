@@ -30,7 +30,6 @@ class RatingController extends Controller
 			'title' => 'required',
 			'comment' => 'required',
 		]);
-		//dd("hello");
 		if($request){
 			$record = new Rating();
 			$record->user_id=$request->user_id;
@@ -74,7 +73,6 @@ class RatingController extends Controller
 	}
 	public function delete($id){
 		$rating= Rating::find($id);
-		//dd($rating);
 		$rating->delete();
 		return redirect('admin/rating')->with("success",Config::get('constant.rating.delSuccess'));
 	}
