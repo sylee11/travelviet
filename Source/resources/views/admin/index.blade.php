@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-<!-- Icon Cards-->
+
 <div class="row">
   <div class="col-xl-3 col-sm-6 mb-3">
     <div class="card text-white bg-primary o-hidden h-100">
@@ -35,19 +35,6 @@
     </div>
   </div>
 </div>
-<!-- Area Chart Example-->
-<!--        <div class="card mb-3">
-          <div class="card-header">
-            <i class="fas fa-chart-area"></i>
-            Area Chart Example</div>
-          <div class="card-body">
-            <canvas id="myAreaChart" width="100%" height="30"></canvas>
-          </div>
-          <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-        </div>
-        <div class="mr-5">Posts</div>
-      </div>
--->
 
 <form action="/admin/chart" method="GET">
   <label>Table</label>
@@ -57,20 +44,11 @@
     <option value="ratings">Rating</option>
     <option value="posts">Post</option>
   </select>
-  <!--  <label>Year</label>
-  <select name="year" >
-  <option value="" selected disabled hidden>Choose here</option>
-    <option value="2019">2019</option>
-    <option value="2018">2018</option>
-    <option value=""></option>
-    <option value=""></option>
-  </select>
-
-  <input class="btn-success" type="submit">-->
+  
   <br>
 
-  <input type="month" name="begin">
-  <input type="month" name="end">
+  <input type="month" name="begin" required>
+  <input type="month" name="end" required>
   <button class="btn-success" type="submit" formaction="/admin/chart" formmethod="GET">Submit</button>
 </form>
 
