@@ -27,7 +27,6 @@ class PostRule implements Rule
     {
         //
         return false;
-        // redirect('');
     }
 
     /**

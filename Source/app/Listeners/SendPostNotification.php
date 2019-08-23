@@ -27,7 +27,6 @@ class SendPostNotification
      */
     public function handle(ViewPostHandler $event)
     {
-       // $event->post->increment('view_count');
         if (!$this->isPostViewed($event->post))
 	    {
 	        $event->post->increment('view_count');

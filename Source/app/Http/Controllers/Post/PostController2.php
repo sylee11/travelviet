@@ -265,7 +265,6 @@ class PostController2 extends Controller
         $posts = DB::table('posts')
             ->where('id', '=' , $id )
             ->update(['is_approved' => 0]);
-        // return view('admin.post.index', ['posts'=>$posts]);
         return redirect (route('admin.post.index'));
 
     }   

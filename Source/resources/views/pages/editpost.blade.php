@@ -1,4 +1,5 @@
 <head>
+	<title>edit post</title>
 	<link rel="stylesheet" type="text/css" href="{{asset('css/dropzone.css')}}">
 	<style type="text/css">
 		.gallery img{

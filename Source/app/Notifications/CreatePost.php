@@ -60,6 +60,5 @@ class CreatePost extends Notification
             'message' => "Bai viet cho phe duyet " . $this->post->title,
             'link' => "/account/admin/approved/show/$this->id",
         ];
-        //return $this->post->toArray();
     }
 }

@@ -22,9 +22,5 @@ class Place extends Model
         return $this->hasMany(Post::class);
 
     }
-    //  public function city ()
-    // {
-    // 	return $this->belongsTo(City::class); 
-    // }
 }
 

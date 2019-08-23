@@ -31,7 +31,6 @@ Route::group(['namespace' => 'Front'], function (){
 	Route::post('/update', 'ProfileController@update')->name('profile.update');
 	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	
-	 // Route::get('/searchlist', 'SearchListController@searchlist')->name('search.slide');
 	Route::get('/get_city_list', 'SearchListController@getCityList')->name('get.city.list');
 	Route::get('/list_place', 'SearchListController@getList')->name('get.list');
 	Route::get('/search_list', 'SearchListController@getsearch')->name('search.list');
@@ -61,9 +60,7 @@ Route::group(['namespace' => 'Front'], function (){
 
 			Route::get('/approved', 'ApprovedController@show')->name('acount.admin.approved');
 			Route::get('/approved/{id}', 'ApprovedController@approved')->name('approved');
-			// Route::get('/approved/all', 'ApprovedController@allpost')->name('xxx');
 			Route::post('/deletepost', 'ApprovedController@delete')->name('approved/deletepost');
-			// Route::get('/approved/search', 'ApprovedController@search')->name('approved.search');
 		});
 		Route::get('aa/admin/approved/all', 'ApprovedController@allpost')->name('approved.all')->middleware('admin');
 		Route::get('aa/approved/search', 'ApprovedController@search')->name('approved.search')->middleware('admin');
@@ -73,9 +70,6 @@ Route::group(['namespace' => 'Front'], function (){
 
 	});
 
-
-//	Route::post('/update', 'ProfileController@update')->name('profile.update');
-//	Route::post('/update_avatar', 'ProfileController@update_avatar')->name('avatar.update');
 	Route::get('/mypost','ProfileController@mypost')->name('mypost');
 	Route::post('/mypost/{id}/delete','PostController@delete')->name('mypost.delete');
 
@@ -130,8 +124,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 		Route::get('/{id}/edit/deletephoto', 'PostController2@deletephoto')->name('admin.post.deletephoto');
 		Route::get('/autocompleteUser', 'PostController2@autocompleteUser')->name('post.autocompleteUser');
 		Route::get('/autocompletePlcae', 'PostController2@autocompletePlace')->name('post.autocompletePlace');
-		// Route::get('/autocompleteAddress', 'PostController2@autocompleteAddress')->name('post.autocompleteAddress');
-		    //
 	});
 	Route::group(['prefix' => 'category','namespace'=>'category'], function(){
 		Route::get('/', 'CategoryController@index')->name('admin.category.index');
@@ -169,12 +161,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 	});
 });
 
-Route::get('/home', function() {
-	return view('pages.home');
-	
-
-});
-
 Route::get('fb-callback','PhpSdkController@callback');
 //Reset password
 Route::group(['prefix' => 'account'], function() {
@@ -192,7 +178,6 @@ Route::group(['prefix' => 'account'], function() {
 
 	});
 });
-Route::get('/home','HomeController@index')->name('home');
 
 Auth::routes();
 
