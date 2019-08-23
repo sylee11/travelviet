@@ -10,7 +10,7 @@
 
 	<div class="card-header">
 
-		<i class="fas fa-table"></i>
+		<em class="fas fa-table"></em>
 	Data Table Category</div>
 	<div class="card-body">
 
@@ -24,15 +24,14 @@
     </div>
 @endif
 	
-		<!-- <div style="margin-bottom: 15px"><a href="/admin/category/addlayout" class="btn btn-success "><i class="fas fa-plus"></i> ADD</a> -->
 			<div style="margin-bottom: 15px">
-				<button data-toggle="modal" data-target="#addModal" class="btn btn-success "><i class="fas fa-plus"></i> ADD</button>
+				<button data-toggle="modal" data-target="#addModal" class="btn btn-success "><em class="fas fa-plus"></em> ADD</button>
 			</div>
 			<div class="table-responsive">
 
 				<form>
 					{{ csrf_field() }}
-					<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<table class="table table-bordered" id="dataTable" style="width: 100%">
 						<thead>
 							<tr>
 								<th>ID</th>
@@ -58,12 +57,10 @@
 								<td>{{$data->name}}</td>
 								<td>{{$data->created_at}}</td>
 								<td>{{$data->updated_at}}</td>
-								<td align="center">
+								<td>
 
 									<button type="button" class="btn-success" data-toggle="modal" data-target="#detailModal" data-idcategory="{{$data->id}}" data-namecategory="{{$data->name}}">Detail</button>
-									<!-- <button type="submit" class="btn-success">Detail</button> -->
 									<button value="{{$data->id}}" name="edit" formaction="{{ url('admin/category/editlayout') }}" formmethod="POST" type="submit" class="btn-info">Edit</button>
-									<!-- <button value="{{$data->id}}" name="id"  formaction="{{ url('/admin/category/delete') }}" formmethod="GET" type="submit" class="btn-danger">Delete</button> -->
 									<button onclick="return confirm('delete?')" value="{{$data->id}}" name="delete" formaction="{{ url('admin/category/delete') }}" formmethod="POST" type="submit" class="btn-danger">Delete</button>
 
 
