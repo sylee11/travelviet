@@ -101,7 +101,7 @@
 		<div style="text-align: end; margin-top: -50px;margin-bottom: 50px;">
 			<a href="{{route('all.posts')}}" title="" style="font-size: 12px;color: red;text-decoration: none;">
 				Tất cả
-				<i class='fas fa-angle-double-right' style='font-size:10px'></i>
+				<em class='fas fa-angle-double-right' style='font-size:10px'></em>
 			</a>
 		</div>
 		<div>
@@ -157,7 +157,7 @@
 		<div style="text-align: end; margin-top: -50px;margin-bottom: 50px;">
 			<a href="{{route('all.posts')}}" title="" style="font-size: 12px;color: red;text-decoration: none;">
 				Tất cả
-				<i class='fas fa-angle-double-right' style='font-size:10px'></i>
+				<em class='fas fa-angle-double-right' style='font-size:10px'></em>
 			</a>
 		</div>
 		<div>
@@ -179,7 +179,7 @@
 	<div class="mySlides" style="padding: 0px;">
 		<a href="{{route('show.posts',$element->id)}}" title="{{ $element->name }}">
 			<div class="numbertext">{{$key+1}} / {{count($city_post)}}</div>
-			<img src="{{ $element->photo_path }}" style="width:100%" alt="photo_path">
+			<img src="{{ $element->photo_path }}" alt="{{ $element->name }}" style="width:100%">
 		</a>
 	</div>
 	@endforeach
@@ -214,7 +214,7 @@
 	<div class="container" style="margin-bottom: 50px;">
 		<div style="text-align: center;margin-top:50px;">
 			<h2 class="section-heading" style="color: white;">Top thành viên tích cực</h2>
-			<hr align="content" width="20%" color="#3997A6" size="0.1px" style="padding-bottom: 1px;">
+			<hr align="content" color="#3997A6" size="0.1px" style="padding-bottom: 1px;width:20%;">
 		</div>
 		<div class="row " style="justify-content: center;margin-left: 20%; width:60%; border: 2px dotted #D3D3D3; padding: 20px;" >
 			@if(count($top_user) !== 0)
@@ -258,11 +258,11 @@
 	</div>
 	<div class="row"  style="justify-content: center;">
 		<div class="col-sm-4 text-center">
-			<a href="tel:+91-8238566835"><i style="color: #3997A6;" class="fa fa-phone fa-3x sr-contact"></i></a>
+			<a href="tel:+91-8238566835"><em style="color: #3997A6;" class="fa fa-phone fa-3x sr-contact"></em></a>
 			<p>+84-199001950</p>
 		</div>
 		<div class="col-sm-4 text-center">
-			<a href="info@travelbrewery.com"><i style="color: #3997A6;" class="fa fa-envelope fa-3x sr-contact"></i></a>
+			<a href="info@travelbrewery.com"><em style="color: #3997A6;" class="fa fa-envelope fa-3x sr-contact"></em></a>
 			<p>Namoccho@travelViet.com</p>
 		</div>
 	</div>
