@@ -342,10 +342,12 @@ class FrontController extends Controller
 				</span>
 				</h5>
 				<div class="rating">';
-				for($i=0;$i< ceil($row->avg_rating);$i++)
+				for($i=0;$i< ceil($row->avg_rating);$i++){
 					$output .='<span class="fa fa-star checked" ></span>';
-				for($i=ceil($row->avg_rating);$i< 5;$i++)
+				}
+				for($i=ceil($row->avg_rating);$i< 5;$i++){
 					$output .='<span class="fa fa-star unchecked" ></span>';
+				}
 				$output .='</div>
 				<p class="card-text">
 				</p>
@@ -376,7 +378,6 @@ class FrontController extends Controller
 		$post_id = DB::table('posts')
 		->select('posts.id')
 		->where('posts.slug','=',$slug)->first()->id;
-		//dd($post_id);
 		$data = DB::table('posts')
 		->join('photos', 'posts.id', '=', 'photos.post_id')
 		->join('users', 'posts.user_id', '=', 'users.id')
@@ -410,7 +411,7 @@ class FrontController extends Controller
 		->distinct()
 		->take(Config::get('constant.numberRecord1'))
 		->get();
-		foreach ($data2 as $key => $value) {
+		foreach ($data2 as $index => $value) {
 			$value->rate = DB::table('ratings')
 			->where('post_id', $value->id)
 			->avg('rating');
@@ -420,7 +421,9 @@ class FrontController extends Controller
 	public function rate(Request $request)
 	{
 		$rating = $request->get('rating');
-		if ($rating != NULL && $rating !=1 && $rating !=2 &&$rating !=3 && $rating !=4 && $rating !=5)return back();
+		if ($rating != NULL && $rating !=1 && $rating !=2 &&$rating !=3 && $rating !=4 && $rating !=5){
+			return back();
+		}
 		$cmt = htmlspecialchars($request->get('commentarea'));
 		$user_id = Auth::id();
 		$post_id = $request->session()->pull('post_id');

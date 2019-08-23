@@ -58,7 +58,7 @@ $cmts = $data->unique('rating_id')->values();
 <div class="container" style='text-align:left;margin-top:100px;'>
   <h1 class="my-4" style="margin-bottom: 0px;">{{$data[0]->title}}</h1>
 
-    <small style="text-align:right;font-size: 18px; margin-bottom: 20px;">By <a style="color: blue;text-decoration: none;" href="/user/{{$data[0]->user_id}}"> {{$data[0]->name}}</a> Ngày {{ date('d-m-Y', strtotime($data[0]->create_at)) }}  <i title="{{$data[0]->view_count}} luot xem" class="fas fa-eye"> {{$data[0]->view_count}}</i></small>
+    <small style="text-align:right;font-size: 18px; margin-bottom: 20px;">By <a style="color: blue;text-decoration: none;" href="/user/{{$data[0]->user_id}}"> {{$data[0]->name}}</a> Ngày {{ date('d-m-Y', strtotime($data[0]->create_at)) }}  <em title="{{$data[0]->view_count}} luot xem" class="fas fa-eye"> {{$data[0]->view_count}}</em></small>
 
   
   <div class="row">
@@ -178,15 +178,14 @@ $cmts = $data->unique('rating_id')->values();
         <form action="/detail/rate" method="POST" onsubmit="myButton.disabled = true; return true;">
           @csrf
           <label for="">Rating:</label>
-          <!-- <input type="hidden" name="post_id" value="{{$data[0]->id}}"> -->
           <?php session(['post_id' => $data[0]->id]); ?>
 
           <span class="star-rating">
-            <input type="radio" name="rating" value="1"><i></i>
-            <input type="radio" name="rating" value="2"><i></i>
-            <input type="radio" name="rating" value="3"><i></i>
-            <input type="radio" name="rating" value="4"><i></i>
-            <input type="radio" name="rating" value="5"><i></i>
+            <input type="radio" name="rating" value="1">
+            <input type="radio" name="rating" value="2">
+            <input type="radio" name="rating" value="3">
+            <input type="radio" name="rating" value="4">
+            <input type="radio" name="rating" value="5">
 
           </span>
 
@@ -305,10 +304,6 @@ $cmts = $data->unique('rating_id')->values();
                   <div class="fb-share-button" data-href="{{url()->current()}}" data-layout="button_count" data-size="small">
                     <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{url()->current()}}" class="fb-xfbml-parse-ignore">Chia sẻ</a>
                   </div>
-                  {{-- <a href="" class="btn btn-social btn-facebook">
-                <i class="fab fa-facebook-f"></i>
-                Share with Facebook
-              </a> --}}
                 </div>
               </div>
 

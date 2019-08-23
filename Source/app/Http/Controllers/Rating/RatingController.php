@@ -30,7 +30,6 @@ class RatingController extends Controller
 			'title' => 'required',
 			'comment' => 'required',
 		]);
-		//dd("hello");
 		if($request){
 			$record = new Rating();
 			$record->user_id=$request->user_id;
