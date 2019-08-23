@@ -30,7 +30,6 @@ class PostController2 extends Controller
         $user = USER::all();
         $place = PLACE::all();
         return view('admin.post.index', ['posts'=>$postss , 'user'=>$user ,'place'=>$place]);
-        //dd($posts);
     }
 
 
@@ -191,9 +190,6 @@ class PostController2 extends Controller
         $posts -> save();
         //delete photo
         $photoedit = $request->p1; // This will get all the request data.
-        //$data = json_decode($request->getContent());
-        // return $request->xxx; 
-        //exit();
         $edit = explode('/',$photoedit);
         foreach ($edit as $da => $value) {
             if(PHOTO::find($value))
@@ -251,10 +247,6 @@ class PostController2 extends Controller
         $rating =Rating::where('post_id', $id)->delete();
         $postss = POST::all();
         return redirect (route('admin.post.index'))->with(config::get('constant.success'), config::get('constant.message_delete_success'));
-        // $posts= POST::all();
-
-
-
     }
 
     public function approved($id)
@@ -265,8 +257,6 @@ class PostController2 extends Controller
             ->update(['is_approved' => 1]);
         $posts= POST::all();
         return redirect (route('admin.post.index'));
-
-
     }   
 
     public function unapproved($id)
@@ -275,8 +265,6 @@ class PostController2 extends Controller
         $posts = DB::table('posts')
             ->where('id', '=' , $id )
             ->update(['is_approved' => 0]);
-        // $posts= POST::all();
-
         // return view('admin.post.index', ['posts'=>$posts]);
         return redirect (route('admin.post.index'));
 
@@ -288,8 +276,6 @@ class PostController2 extends Controller
         $posts = POST::find($id);
         // chu y dặt tên biến
         return view('admin.post.detail', ['post'=>$posts] );
-        //$a = $posts->photos;
-        //dd($posts->photos[0]->id);
   
     }
 

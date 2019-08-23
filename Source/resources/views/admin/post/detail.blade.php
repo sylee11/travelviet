@@ -61,7 +61,6 @@
     	<div >
 
     		@foreach($post->photos as $p)
-    		{{-- <img src="{{"/".$post->photos[1]->photo_path}}" alt="{{$post->photos[0]->photo_path}}" style="width: 100px; height: 100px; background-repeat: no-repeat;"> --}}
     		<img src="{{"/".$p->photo_path}}" alt="{{"/".$p->photo_path}}" style="width: 100px; height: 100px; background-repeat: no-repeat;">
     		@endforeach
 

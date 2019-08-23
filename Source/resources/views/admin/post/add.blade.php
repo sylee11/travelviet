@@ -1,6 +1,3 @@
-
-<head>
-</head>
 <div class="container">
     @if(count($errors) >0)
       <div class="alert alert-danger">
@@ -39,13 +36,6 @@
                 <strong>{{ $message }}</strong>
                 </span>
             @enderror
-{{--         <select class="form-control" id="userid" name="userid">
-          @foreach($user as $u)
-            @if($u->role == 1 || $u ->role == 2 )
-            <option value="{{ $u->id}}"  @if (old('userid') == $u->id) {{ 'selected' }} @endif>{{$u->name}}</option>
-            @endif
-          @endforeach
-        </select> --}}
         <input class="form-control" type="text" name="userid" id="userid" value="{{old('userid')}}" required="">
         <div id="errouser" style="display: none;"> <span style="color: red"> Không tồn tại user </span></div>
 	  	</div>
@@ -56,12 +46,6 @@
 	</div>
 	<div class="form-group">
     	<label for="">Place :</label>
-       {{-- <select class="form-control" id="placeid" name="placeid">
-          @foreach($place as $p)
-            <option value="{{ $p->id }}" @if (old('placeid') == $p->id) {{ 'selected' }} @endif>{{$p->name}}</option>
-
-          @endforeach
-      </select> --}}
       <input class="form-control" type="text" name="placeid" id="placeid" value="{{old('placeid')}}" required="">
       <div id="erroplace" style="display: none;"> <span style="color: red"> Không tồn tại địa điểm này </span>
       </div>

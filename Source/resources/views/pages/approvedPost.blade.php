@@ -58,10 +58,3 @@
     @endif
 </div>
 @endsection
-{{--
-<script type="text/javascript">
-    $('#{{$p->id}}').click(function() {
-location.reload();
-});
-</script>
---}}

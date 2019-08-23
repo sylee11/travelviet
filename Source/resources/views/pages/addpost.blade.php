@@ -1,4 +1,5 @@
 <head>
+	<title>Add new post</title>
 	<link rel="stylesheet" type="text/css" href="{{asset('css/dropzone.css')}}">
 	<style type="text/css">
 		.gallery img{
@@ -102,11 +103,9 @@
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-3">
-				<!-- <label for="">Lat</label> -->
 				<input type="hidden"  class="form-control input-sm" name="lat" id="lat" required="">
 			</div>
 			<div class="form-group col-md-3">
-				<!-- <label for="">Lng</label> -->
 				<input type="hidden" class="form-control input-sm" name="lng" id="lng" required="">
 			</div>
 		</div>
@@ -130,7 +129,6 @@
 		</div>
 		<div class="form-group">
 			<label for="textarea"> Mô tả chi tiết (<span style="color: red">*</span>)</label>
-			{{-- <textarea name="descrice" class="form-control @error('descrice') is-invalid @enderror" rows="20" id="descrice" required=""> </textarea> --}}
 			<textarea class="form-control" rows="10" id="editor1" name="descrice" required>{{ old('descrice') }}</textarea>
 			@error('descrice')
 			<span class="invalid-feedback" role="alert">
@@ -281,9 +279,7 @@
 							content: 'Vị trí bạn muốn chọn' +'<br>Latitude: ' + lat+
 						'<br>Longitude: ' + lng
 						});
-						// marker.addListener('click', function() {
 							infowindow.open(marker.get('map'), marker);
-						//});
                   }
 				});			
 			}, function() {

@@ -19,7 +19,7 @@ class UserController extends Controller
     	$search = "";
     	$user = DB::table('users')
     	->select('users.*')
-    	->Paginate(10);
+    	->Paginate(config::get('constant.pagenation'));
     	return view('pages.userManager', ['user' => $user,'search' => $search]);
     }
 
@@ -30,8 +30,9 @@ class UserController extends Controller
     		return redirect()->back()->with(config::get('constant.error'), config::get('constant.message_delete_fail'));
     	}
         //Transaction database
-        // DB:transaction(function(){
-        	$post = Post::where('user_id', $request->id);
+        $av = $request->id;
+        DB::transaction(function(){
+        	$post = Post::where('user_id', 'nam');
             $postid = Post::where('user_id', $request->id)->get();
             foreach ($postid as $p) {
                 # code...
@@ -50,7 +51,7 @@ class UserController extends Controller
             //delete rating user (post khac)
             $rating =  Rating::where('user_id', $request->id);
             $rating->delete();
-        // });
+        });
     	return redirect()->back()->with(config::get('constant.success'), config::get('constant.message_delete_success'));
     }
 
