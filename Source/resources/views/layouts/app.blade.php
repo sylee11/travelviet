@@ -31,9 +31,6 @@
   <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
   <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
 
-
-  {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
---}}
   <!-- Rating -->
   <link href="{{ asset('css/bootstrap-rating.css') }}" rel="stylesheet">
   <script type="text/javascript" src="{{ asset('js/bootstrap-rating.js') }}"></script>
@@ -59,7 +56,7 @@
     <nav class="navbar navbar-expand-md navbar-light bg-inverse shadow-sm  fixed-top" style="font-family: 'Roboto', sans-serif; background-size: cover;   background-color: rgba(0,0,0,0.6);height: 60px; width: 100%; padding: 0px; box-sizing: border-box;"  id="nav-top">
 
       <div class="container-fluid" style="color: white; margin: 0px; padding: 0; width: 100%">
-        <a href="{{ route('home.page') }} "><img src="/picture/front/logo5.png" style="" id="logo5"></a>
+        <a href="{{ route('home.page') }} "><img src="/picture/front/logo5.png" style="" id="logo5" alt="avatar"></a>
 
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="{{ __('Toggle navigation') }}">
@@ -100,12 +97,10 @@
               <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="navbarDropdown">
                 <a href="/deletenotify" class="dropdown-item" style="color:red;border-bottom:1px solid black;padding-bottom:10px;">Delete all notifications</a>
                 @foreach(Auth::user()->unreadNotifications as $notification)
-                <!-- <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item"> {{$notification->type}} id={{$notification->data['post_id']}}</a> -->
                 <a href="{{$notification->data['link']}}" id="notify" class="dropdown-item"> {{$notification->data['message']}}</a>
                 @endforeach
                 @foreach(Auth::user()->Notifications as $notification)
                 @if($notification->read_at !=NULL)
-                <!-- <a href="/account/admin/approved/show/{{$notification->id}}" id="notify" class="dropdown-item" style="background-color:lightgrey"> {{$notification->type}} id={{$notification->data['post_id']}}</a> -->
                 <a href="{{$notification->data['link']}}" id="notify" class="dropdown-item" style="background-color:lightgrey"> {{$notification->data['message']}}</a>
                 @endif
                 @endforeach
@@ -148,7 +143,6 @@
                 <a class="dropdown-item" href="{{route('mypost')}}">Bài đăng của tôi</a>
                 @else
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#upgradeModal">Cập nhật tài khoản</a>
-                {{-- <a class="dropdown-item" href="{{route('show.upgrade')}}">Upgrate</a> --}}
                 @endif
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
@@ -235,7 +229,6 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
           </div>
 
         </div>
@@ -272,7 +265,6 @@
 
           <!-- Modal footer -->
           <div class="modal-footer">
-            <!-- <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> -->
           </div>
 
         </div>

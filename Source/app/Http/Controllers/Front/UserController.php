@@ -19,7 +19,7 @@ class UserController extends Controller
     	$search = "";
     	$user = DB::table('users')
     	->select('users.*')
-    	->Paginate(10);
+    	->Paginate(config::get('constant.pagenation'));
     	return view('pages.userManager', ['user' => $user,'search' => $search]);
     }
 
@@ -30,8 +30,9 @@ class UserController extends Controller
     		return redirect()->back()->with(config::get('constant.error'), config::get('constant.message_delete_fail'));
     	}
         //Transaction database
-        // DB:transaction(function(){
-        	$post = Post::where('user_id', $request->id);
+        $av = $request->id;
+        DB::transaction(function(){
+        	$post = Post::where('user_id', 'nam');
             $postid = Post::where('user_id', $request->id)->get();
             foreach ($postid as $p) {
                 # code...
@@ -50,7 +51,7 @@ class UserController extends Controller
             //delete rating user (post khac)
             $rating =  Rating::where('user_id', $request->id);
             $rating->delete();
-        // });
+        });
     	return redirect()->back()->with(config::get('constant.success'), config::get('constant.message_delete_success'));
     }
 
@@ -66,12 +67,17 @@ class UserController extends Controller
     public function findpost(Request $request){
     	$id = $request->id;
     	$data = \DB::table('posts')
-			->join('photos', 'posts.id', '=', 'photos.post_id')
-			->join('users','posts.user_id','=','users.id')
-			->select('posts.id as post_id', 'posts.title', 'posts.describer', 'posts.created_at', 'posts.is_approved', 'photos.photo_path','users.name')
-			->where('posts.user_id', '=', $id)
-			->where('photos.flag', '=', '1')->paginate(Config::get('constant.pagenation'));
-		return view('pages/userpost', ['data' => $data]);
+        ->join('photos', 'posts.id', '=', 'photos.post_id')
+        ->join('users', 'posts.user_id', '=', 'users.id')
+        ->select('posts.id as post_id', 'posts.title','posts.slug' ,'posts.describer', 'posts.created_at', 'posts.is_approved', 'photos.photo_path', 'users.name')
+        ->where([
+            ['posts.user_id', '=', $id],
+            ['posts.is_approved', '=', '1'],
+            ['photos.flag', '=', '1']
+        ])
+        ->orderBy('posts.id', 'desc')
+        ->paginate(Config::get('constant.pagination1'));
+        return view('pages/userpost', ['data' => $data]);
     }
 
     //Block one user(not is admin)

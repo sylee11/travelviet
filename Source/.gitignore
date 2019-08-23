@@ -4,6 +4,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/sonar-project.properties
 .env
 .phpunit.result.cache
 Homestead.json

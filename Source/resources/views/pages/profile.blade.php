@@ -23,7 +23,7 @@
 <div class="container"  id="show_profile" style="margin-top: 100px; margin-bottom: 50px;display:flex;justify-content: center;">
 	<div style="width: 800px;border-style: ridge;">
 		<div style="display: flex;justify-content: center;margin-top: 10px;margin-bottom: 10px;">
-			<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" style="">
+			<img alt="avatar" @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" style="" >
 		</div>
 		<div class="row" style="justify-content: center;">
 			<div class="col-9">

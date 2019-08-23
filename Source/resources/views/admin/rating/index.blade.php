@@ -4,7 +4,7 @@
 <div class="card mb-3">
 	<div class="card-header">
 
-		<i class="fas fa-table"></i>
+		<em class="fas fa-table"></em>
 	Data Table Rating</div>
 
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -27,7 +27,7 @@
 
 <div class="card-body">
 	<div style="margin-bottom: 15px">
-		<button data-toggle="modal" data-target="#addModal" class="btn btn-success "><i class="fas fa-plus"></i> ADD</button>
+		<button data-toggle="modal" data-target="#addModal" class="btn btn-success "><em class="fas fa-plus"></em> ADD</button>
 	</div>
 	<div class="table-responsive">
 		@if (session('success'))
@@ -46,7 +46,7 @@
 			{{ session('error') }}
 		</div>
 		@endif
-		<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		<table class="table table-bordered" id="dataTable" style="width: 100%;">
 			<thead>
 				<tr>
 					<th>ID</th>
@@ -82,7 +82,7 @@
 					<td>{{$record->post->title}}</td>
 					<td>{{$record->created_at}}</td>
 					<td>{{$record->updated_at}}</td>
-					<td align="center" style="display: flex;">
+					<td style="display: flex;">
 						<a href="{{route('admin.rating.edit',$record->id)}}" class="btn-info nav-link" role='button'> Edit</a>
 						<button form= "formDel" formaction ="{{route('admin.rating.delete',$record->id)}}" class="btn-danger nav-link" role='button' onclick="return confirm('Bạn có muốn xóa bản ghi này?')" style="margin-left: 5px;"> Delete</button>
 					</td>

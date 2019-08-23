@@ -24,7 +24,6 @@ class InviteController extends Controller
       $invite= new Invite();
       $invite->email=$request->get('email');
       $invite->token= md5(uniqid(rand(), true));
-      //dd($invite);
 
       $invite->save();
       // send the email

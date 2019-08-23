@@ -28,7 +28,7 @@
 				{{csrf_field()}}
 				<div class="image-upload">
 					<label for="file-input">
-						<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" id="avatar">
+						<img @if(!empty(Auth::user()->avatar)) src="{{Auth::user()->avatar}}" @else src="/picture/images.png" @endif alt="avatar" class="user-avatar" id="avatar">
 					</label>
 
 					<input id="file-input" type="file"  name="avatar" style="display: none;" {{-- onchange="readURL(this);" --}} />

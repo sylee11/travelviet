@@ -401,7 +401,8 @@ class FrontController extends Controller
 		$user_rate =  DB::table('ratings')->select('rating')->where([
 			['user_id', '=', $user_id],
 			['post_id', '=', $post_id],
-		])->orderBy('id', 'desc')->first();
+		])->whereNotNull('rating')
+		->orderBy('id', 'desc')->first();
 		session()->put('link',  url()->current());
 		$data2 = DB::table('posts')
 		->join('photos', 'posts.id', '=', 'photos.post_id')
@@ -426,26 +427,23 @@ class FrontController extends Controller
 	public function rate(Request $request)
 	{
 		$rating = $request->get('rating');
-		$cmt = $request->get('commentarea');
+		if ($rating != NULL && $rating !=1 && $rating !=2 &&$rating !=3 && $rating !=4 && $rating !=5)return back();
+		$cmt = htmlspecialchars($request->get('commentarea'));
 		$user_id = Auth::id();
 		$post_id = $request->session()->pull('post_id');
-		$user_rate = DB::table('ratings')->where('user_id', $user_id)->first();
+		//$user_rate = DB::table('ratings')->where('user_id', $user_id)->first();
 		$rate = new Rating;
-		if ($user_rate === NULL) {
-			$rate->cmt = $cmt;
-			$rate->rating = $rating;
-			$rate->user_id = $user_id;
-			$rate->post_id = $post_id;
+		$rate->cmt = $cmt;
+		$rate->user_id = $user_id;
+		$rate->post_id = $post_id;
+		if ($rating === NULL) {
 			$rate->save();
 		} else {
 			DB::table('ratings')->where([
 				['user_id', '=', $user_id],
 				['post_id', '=', $post_id],
 			])->update(['rating' => null]);
-			$rate->cmt = $cmt;
 			$rate->rating = $rating;
-			$rate->user_id = $user_id;
-			$rate->post_id = $post_id;
 			$rate->save();
 		}
 		return back();
