@@ -3,14 +3,21 @@
 @section('content')
 
 <div class="container">
+  @if(count($errors)>0)
+   <div class="alert alert-danger">
+    @foreach($errors->all() as $err)
+    {{$err}} <br>
+    @endforeach
+    </div>
+  @endif
   @if (session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
     </div>
   @endif
-  @if (session('erro'))
+  @if (session('error'))
     <div class="alert alert-danger">
-        {{ session('erro') }}
+        {{ session('error') }}
     </div>
   @endif
   <FORM  method="post" class="" action="{{route('admin.post.edit', $post->id)}}" enctype="multipart/form-data">
@@ -85,9 +92,7 @@
 
       @foreach($post->photos as $p)
 
-      {{-- <img src="{{"/".$p->photo_path}}" alt="{{"/".$p->photo_path}}" style="width: 100px; height: 100px; background-repeat: no-repeat;"> --}}
       <div id="xxx" class="{{$p->id}}" style="display: flex; width: 150px; height: 150px; background-image: url({{"/".$p->photo_path}}); background-repeat: no-repeat; background-size: cover; margin-left: 10px;" >
-       {{--  <a href="{{route('admin.post.deletephoto' , $p)}}"><img  src="/picture/front/close.png" style="width: 20px; height: 20px;" style="margin-left: 100px; " onclick="return confirm('Bạn có chắc muốn xóa ảnh này??')"></a> --}}
        <button class="{{$p->id}}" onclick="" type="button"  style="background-image:url('/picture/front/close.png'); width: 20px; height: 20px; " >
 
        </button>
@@ -111,12 +116,7 @@
 </div>
 
 <div class="custom-file">
-  {{--      <input type="file" class="custom-file-input" id="customFile" name="image" required="true">
-  <label class="custom-file-label" for="customFile" >Choose file</label> --}}
-
   {{ csrf_field() }}
-  {{--         <input type="file" name="filesTest" required="true" multiple data-show-upload="true">
-  --}}
   <h5>Add more photo</h5>
   <div class="input-group control-group increment" >
     {{--           <input type="file" name="filename[]" class="form-control">

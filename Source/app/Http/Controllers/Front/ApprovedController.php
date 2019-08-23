@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\URL;
 
 class ApprovedController extends Controller
 {
+
 	public function show($id)
 	{
 
@@ -28,23 +29,11 @@ class ApprovedController extends Controller
 			->where('notifications.id', '=', $id)->first();
 
 		$id_post = substr($notifytable->data, 11, strpos($notifytable->data, ',') - 11);
-		//var_dump($id_post);return;
-		/*if ($notifytable->type == 'App\Notifications\AcceptPost') {
 
-			DB::table('notifications')
-				->where('notifications.id', '=', $id)
-				->delete();
-			return redirect("/detail/$id_post");
-		}*/
 		DB::table('notifications')
 			->where('notifications.id', '=', $id)
 			->update(['read_at' => now()]);
 
-		//$notification->markAsRead();
-		//$id_post =$notification->data['post_id'];
-
-
-		//	print($id_post);return;
 		$data = DB::table('posts')
 			->join('photos', 'posts.id', '=', 'photos.post_id')
 			->join('users', 'posts.user_id', '=', 'users.id')
@@ -54,14 +43,10 @@ class ApprovedController extends Controller
 			->where('posts.is_approved', '=', 0)
 			->where('photos.flag', '=', '1')
 			->get();
-		//var_dump($data);
-		//	return;
-
 		return view('pages.approvedPost', ['data' => $data]);
-
-		//		dd($data);
-
 	}
+
+	//Aprove one post
 	public function approved($id)
 	{
 		if(Post::where('id', $id)->first() == null){
@@ -100,7 +85,7 @@ class ApprovedController extends Controller
 	}
 
 	public function delete(Request $request)
-	{	//dd(strpos(URL::previous(),"admin/approved/show")!=false);
+	{	
 		$id= $request->iddelete;
 		if(Post::where('id', $id)->first() == null){
 			return view('includes.erro404');
@@ -136,7 +121,6 @@ class ApprovedController extends Controller
 		$selec = $request->chose;
 		$search = $request->search;
 		$chose = $request->chose2;
-		//dd($selec);
 		if ($request->chose == "Tất cả bài viết") {
 			$data = DB::table('posts')
 				->join('photos', 'posts.id', '=', 'photos.post_id')
@@ -171,7 +155,6 @@ class ApprovedController extends Controller
 				->paginate(Config::get('constant.pagenation')); $data->appends(['chose'=> $selec,'chose2' => $chose, 'search'=> $search]);
 			return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 		}
-		// dd($data);
 		$data = DB::table('posts')
 			->join('photos', 'posts.id', '=', 'photos.post_id')
 			->join('users', 'posts.user_id', '=', 'users.id')
@@ -183,15 +166,15 @@ class ApprovedController extends Controller
 
 		return view('pages.showAllPost', ['data' => $data, 'selec' => $selec, 'chose' => $chose, 'search' => $search]);
 	}
+
+	//filter and search post
 	public function search(Request $request)
 	{
 		$search = $request->search;
 		$chose = $request->chose2;
 		$selec = $request->chose;
-		// dd($search == '');
 		if ($search == '') {
 			if ($chose == 'Actor' &&  $selec == 'Tất cả bài viết') {
-				// dd($selec);
 				$data = DB::table('posts')
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
@@ -229,7 +212,6 @@ class ApprovedController extends Controller
 			}
 
 			if ($chose == 'Địa điểm' &&  $selec == 'Tất cả bài viết') {
-				// dd($selec);
 				$data = DB::table('posts')
 					->join('photos', 'posts.id', '=', 'photos.post_id')
 					->join('users', 'posts.user_id', '=', 'users.id')
@@ -371,6 +353,7 @@ class ApprovedController extends Controller
 		}
 	}
 
+	//Approved all post
 	public function appcetall()
 	{
 		$data = Post::where('is_approved', 0)->get();
@@ -380,6 +363,8 @@ class ApprovedController extends Controller
 		}
 		return back();
 	}
+
+	//UnApproved all post
 	public function unappcetall()
 	{
 		$data = Post::where('is_approved', 1)->get();

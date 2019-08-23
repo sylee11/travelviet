@@ -15,10 +15,10 @@
 			@if($top_rating->count() !== 0)
 			@foreach ($top_rating as $record)
 			<div class="col-sm-3" style="margin:50px 0;">
-				<div class="card-img" style="height:280px;" id="card-img">
+				<div class="card-img" style="height:280px;" id="card-img" >
 					<a href='{{route("detail",$record->slug)}}' title="" style="text-decoration: none;">
 						<div style="height: 200px;">
-							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;">
+							<img class="card-img-top list_images" src="{{ $record->photo_path }}" alt="{{$record->title}}" style="height: 200px;" alt="avatar">
 						</div>
 
 						<div class="card-body">

@@ -20,9 +20,9 @@
             <div class="text">
                 <h5>{{$value->title}}</h5>
                 <p class="created">Created: {{$value->created_at}}</p>
-                <span class="text-descript">
-                    <p>{{$value->describer}}</p>
-                </span>
+                <div>
+                    {!!Str::limit($value->describer, 100, ' ...')!!}
+                </div>
                 <a href="{{route('detail',$value->slug)}}" title="" class="btn btn-danger" style="border-radius: 50px;padding: 6px 20px;margin-top: 15px;margin-bottom: 15px;">Xem chi tiết</a>
 
             </div>

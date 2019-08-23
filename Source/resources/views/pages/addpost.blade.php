@@ -1,4 +1,5 @@
 <head>
+	<title>Add new post</title>
 	<link rel="stylesheet" type="text/css" href="{{asset('css/dropzone.css')}}">
 	<style type="text/css">
 		.gallery img{
@@ -41,9 +42,9 @@
 		{{ session('success') }}
 	</div>
 	@endif
-	@if (session('erro'))
+	@if (session('error'))
 	<div class="alert alert-danger">
-		{{ session('erro') }}
+		{{ session('error') }}
 	</div>
 	@endif
 	<FORM   action="{{route('account.addpost')}}" method="post" enctype="multipart/form-data">
@@ -58,7 +59,7 @@
 				</select>
 			</div>	
 			<div class="form-group col-md-6">
-				<label  for="name" class="col-form-label" > Tên địa điểm </label>
+				<label  for="name" class="col-form-label" > Tên địa điểm(<span style="color: red">*</span>) </label>
 				<input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" required="" value="{{ old('name') }}" placeholder="Tên địa điểm" autocomplete="off">
 				@error('name')
 				<span class="invalid-feedback" role="alert">
@@ -67,7 +68,7 @@
 				@enderror
 			</div>
 			<div class="form-group col-md-6">
-				<label  for="name" class="col-form-label" > Tỉnh - Thành phố </label>
+				<label  for="name" class="col-form-label" > Tỉnh - Thành phố (<span style="color: red">*</span>) </label>
 				<input type="text" autocomplete="off"  class="form-control" name="city" id="city" required="" value="{{ old('city') }}" placeholder="Tỉnh-Thành phố" >
 				<div id="errotinh" style="display: none;">
 					<span style="color: red;">Không tìm thấy kết quả</span>
@@ -75,7 +76,7 @@
 			</div>
 			
 			<div class="form-group col-md-6" style="display: none" id="showquan">
-				<label  for="name" class="col-form-label" > Quận - Huyện </label>
+				<label  for="name" class="col-form-label" > Quận - Huyện (<span style="color: red">*</span>)</label>
 				<input type="text" autocomplete="off"  class="form-control" name="districts_id" id="district" required="" value="{{ old('city') }}" placeholder="Quận-Huyện" >
 				<div id="errohuyen" style="display: none;">
 					<span style="color: red;">Không tìm thấy kết quả</span>
@@ -102,16 +103,14 @@
 		</div>
 		<div class="form-row">
 			<div class="form-group col-md-3">
-				<!-- <label for="">Lat</label> -->
 				<input type="hidden"  class="form-control input-sm" name="lat" id="lat" required="">
 			</div>
 			<div class="form-group col-md-3">
-				<!-- <label for="">Lng</label> -->
 				<input type="hidden" class="form-control input-sm" name="lng" id="lng" required="">
 			</div>
 		</div>
 		<div class="form-group">
-			<label class="col-form-label "> Số điện thoại </label>
+			<label class="col-form-label "> Số điện thoại (<span style="color: red">*</span>) </label>
 			<input type="tel" class="form-control col-md-8 @error('phone') is-invalid @enderror "  placeholder="034567890" name="phone" id="phone" value="{{ old('phone') }}">
 			@error('phone')
 			<span class="invalid-feedback" role="alert">
@@ -120,7 +119,7 @@
 			@enderror
 		</div>
 		<div class="form-group">
-			<label class="col-sm-2 col-form-label @error('title') is-invalid @enderror"> Title bài đăng </label>
+			<label class="col-sm-2 col-form-label @error('title') is-invalid @enderror">Title bài đăng (<span style="color: red">*</span>)</label>
 			<input type="text" class="form-control col-md-8" placeholder="Tiêu đề bài viết" name="title" id="title" required="" value="{{ old('title') }}" >
 			@error('title')
 			<span class="invalid-feedback" role="alert">
@@ -129,8 +128,7 @@
 			@enderror
 		</div>
 		<div class="form-group">
-			<label for="textarea"> Mô tả chi tiết </label>
-			{{-- <textarea name="descrice" class="form-control @error('descrice') is-invalid @enderror" rows="20" id="descrice" required=""> </textarea> --}}
+			<label for="textarea"> Mô tả chi tiết (<span style="color: red">*</span>)</label>
 			<textarea class="form-control" rows="10" id="editor1" name="descrice" required>{{ old('descrice') }}</textarea>
 			@error('descrice')
 			<span class="invalid-feedback" role="alert">
@@ -140,7 +138,7 @@
 		</div>
 
 
-		<h5 class="form-control-label"> Thêm ảnh cho bài viết</h5>
+		<h5 class="form-control-label"> Thêm ảnh cho bài viết (<span style="color: red">*</span>)</h5>
 		<div class="form-control-file">
 			<input multiple type="file"  id="gallery-photo-add" class="form-control" name="filename[]" required="" accept="image/x-png,image/jpeg">
 			@error('filename')
@@ -281,9 +279,7 @@
 							content: 'Vị trí bạn muốn chọn' +'<br>Latitude: ' + lat+
 						'<br>Longitude: ' + lng
 						});
-						// marker.addListener('click', function() {
 							infowindow.open(marker.get('map'), marker);
-						//});
                   }
 				});			
 			}, function() {

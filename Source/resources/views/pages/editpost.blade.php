@@ -14,14 +14,21 @@
 	@section('content')
 		<div class="container" style="margin-top: 100px; text-align: left;">
 			<h3 class="text-center"> Edit Post</h3>
+			  	@if(count($errors)>0)
+			   		<div class="alert alert-danger">
+			    	@foreach($errors->all() as $err)
+			    		{{$err}} <br>
+			    	@endforeach
+			    	</div>
+			  	@endif
 				@if (session('success'))
 				<div class="alert alert-success">
 					{{ session('success') }}
 				</div>
 				@endif
-				@if (session('erro'))
+				@if (session('error'))
 				<div class="alert alert-danger">
-					{{ session('erro') }}
+					{{ session('error') }}
 				</div>
 				@endif
 			<FORM   action="{{route('account.editpost', [$idpost=$post->id] )}}" method="post" enctype="multipart/form-data" id="formedit">
@@ -38,8 +45,9 @@
 						</select>
 					</div>	
 					<div class="form-group col-md-6">
-						<label  for="name" class="col-form-label"> Tên địa điểm </label>
-						<input type="text" readonly="" class="form-control"  value = "{{$post->place->name}}" name="name" id="name"  >
+						<label  for="name" class="col-form-label" > Tên địa điểm </label>
+						<p class="form-control" style="
+						background-color: #e9ecef ;"> {{$post->place->name}}</p>
 
 					</div>
 				</div>
@@ -159,8 +167,6 @@
 	    		var xmt = splitted[i];
 				 //$("#splitted[i]").css("display", "block");
 				 document.getElementById(xmt).style.display = 'flex';
-				 // $('.xmt').show();
-
 	    	}
 
 	    })
@@ -251,7 +257,6 @@ $(function() {
         	    if(data.length == 0){
         			$('#errohuyen').css('display', 'block');
 				    console.log($("district").val());
-				    // })
         		}
         		else{
         			$('#errohuyen').css('display', 'none');        			
@@ -265,13 +270,7 @@ $(function() {
    
 </script>
 
-
-{{-- @push('scripts')
-	<script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-	<script type="text/javascript" src="{{asset('ckeditor/adapters/jquery.js') }}"></script>
-	<script> CKEDITOR.replace('editor3'); </script>
-@endpush --}}
-	@endsection
+@endsection
 
 
 

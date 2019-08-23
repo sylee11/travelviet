@@ -1,8 +1,4 @@
 <footer class="bg-dark" >
-<!-- <<<<<<< HEAD
-  <section id="main-footer" style="margin: 70px;" >
-    <div class="container" style="display: flex; color: white;">
-======= -->
   <section id="main-footer" style="margin-top: 40px; font-family: 'Raleway', sans-serif; 
  padding: 0px ; margin-left:  0px 20%;" >
     <div class=" row align-middle" style=" color: white; margin-top: 50px; margin: 0px;">

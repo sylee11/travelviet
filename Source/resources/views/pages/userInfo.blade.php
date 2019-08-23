@@ -4,7 +4,7 @@
 <!-- ///////////add profile///////////// -->
 
 <div class="container"  id="show_profile" style="margin-top: 150px; margin-bottom: 50px;">
-	<img @if(!empty($data->avatar)) src="/{{$data->avatar}}" @else src="/picture/images.png" @endif alt="" class="user-avatar" style="border-radius: 50%;width: 200px;">
+	<img alt="avatar" @if(!empty($data->avatar)) src="/{{$data->avatar}}" @else src="/picture/images.png" @endif alt="image profile" class="user-avatar" style="border-radius: 50%;width: 200px;">
 	<hr>
 	
 	<form class="form" role="form" autocomplete="off" style="margin-top: 30px;">

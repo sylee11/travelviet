@@ -11,11 +11,8 @@
 
       <h1 id="homeHeading" style="">Travel Việt - Du Lịch Trong Tầm Tay Bạn</h1>
       <hr align="content" width="20%" color="#3997A6" size="5px" style="padding-bottom: 1.5px;"> 
-     {{--  <button  data-target="#demo" class="btn btn-primary  " style="width: 150px; height: 50px; border-radius: 20px; background-color: #3997A6">
-      Tìm kiếm địa điểm </button> --}}
       <div style="display: flex;justify-content: center;">
       <form action="{{route('get.list')}}" method="get" >
-        <!-- <input type="hidden" name="_token" value="{{ csrf_token()}}"> -->
         <div style=" padding-top: 40px;" class="row">
           <div class="col-lg-3" style="padding-right: 50px;">
              <select  class="btn  dropdown-toggle" style="background-color: #467F3E; color: white; border-radius: 10px; height: 40px; width: 180px; margin-bottom: 10px;" name="cities_id" id="city" >

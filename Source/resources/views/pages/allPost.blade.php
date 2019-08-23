@@ -37,8 +37,7 @@
 
 </div>
 
-{{-- <div style="display: inline-block;">{{$all_posts->links()}}</div>
- --}}<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
 
 <script>
 
@@ -109,7 +108,6 @@
 					console.log(data.all_posts.last_page);
 					$('#search').html(data.data1.table_data);
 					$('#count').text("Có "+data.all_posts.total+" kết quả được tìm thấy");
-					//$('#search').html(data.all_posts);
 				}
 			})
 		}
@@ -118,7 +116,6 @@
 			var place = $('#place').val();
 			place= $('#place').val();
 			city_input =$('#city').val();
-			//console.log("t"+query1);
 			fetch_customer_data(place,city_input,category);
 		});
 	});
